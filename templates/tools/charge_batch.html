@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Batch-add Charges{% endblock %}
+
+{% block content %}
+
+<h3>Batch-add Hourly Regular Daycare Charges</h3>
+
+<p>This tool is for adding <strong>HOURLY REGULAR DAYCARE</strong> charges in batches. <br />
+    All charges will be added for the date at the top of the form.<br />
+    Enter the number of <strong>HOURS</strong> in the "Amount" field.<br />
+    
+    To add or edit other types of charges, see the Tools menu above. </p>
+<form action="" method="post" accept-charset="utf-8">
+	{% csrf_token %}
+    {{ formset.management_form }}
+    
+	<table>
+	    <tr>
+	        <th>
+	            <label for="the_date">Date:</label>
+	        </th>
+	        <td>
+	            <input type="text" name="the_date" value="{% now "Y-m-j" %}" id="the_date">
+	        </td>
+	    </tr>
+		<tr>
+		  <td colspan="2">&nbsp;  </td>
+		</tr>	    
+        {% for form in formset.forms  %}
+            {{ form }}
+    		<tr>
+    		  <td colspan="2">&nbsp;  </td>
+    		</tr>
+        {% endfor %}
+	</table>
+
+<p><input type="submit" value="Submit"></p>
+</form>
+
+
+{% endblock content %}

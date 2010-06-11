@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+{% include "roster_subnav.html" %}
+
+{% ifequal type "families" %}
+<h3>Family Roster {{ cur_year }}</h3>
+{% endifequal %}
+
+{% ifequal type "parents" %}
+<h3>Parent Roster {{ cur_year }}</h3>
+{% endifequal %}
+
+{% ifequal type "students" %}
+<h3>Student Roster {{ cur_year }}</h3>
+{% endifequal %}
+
+{% ifequal type "kinder" %}
+<h3>Kindergarten Roster {{ cur_year }}</h3>
+{% endifequal %}
+
+{% ifequal type "1st" %}
+<h3>1st Grade Roster {{ cur_year }}</h3>
+{% endifequal %}
+
+{% ifequal type "2nd" %}
+<h3>2nd Grade Roster {{ cur_year }}</h3>
+{% endifequal %}
+
+{% ifequal type "3rd" %}
+<h3>3rd Grade Roster {{ cur_year }}</h3>
+{% endifequal %}
+
+{% ifequal type "4th" %}
+<h3>4th Grade Roster {{ cur_year }}</h3>
+{% endifequal %}
+
+{% ifequal type "5th" %}
+<h3>5th Grade Roster {{ cur_year }}</h3>
+{% endifequal %}
+
+{% ifequal type "staff" %}
+<h3>Staff Roster {{ cur_year }}</h3>
+{% endifequal %}
+
+
+<table>
+{% for item in roster %}
+    <tr class="{% cycle 'row1' 'row2' %}">
+        <td>
+        {% ifequal type "parents" %}    
+        <a href="{% url profiles_profile_detail item.user %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
+
+        {% ifequal type "families" %}    
+        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
+        
+        {% ifequal type "students" %}    
+        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}        
+        
+        {% ifequal type "kinder" %}    
+        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
+                
+        {% ifequal type "1st" %}    
+        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
+        
+        {% ifequal type "2nd" %}    
+        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
+        
+        {% ifequal type "3rd" %}    
+        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}                        
+
+        {% ifequal type "4th" %}    
+        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}                        
+
+        {% ifequal type "5th" %}    
+        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}                        
+
+        </td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock content %}

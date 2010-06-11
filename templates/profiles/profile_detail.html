@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+
+{% block title %}Contact info for {{ user.first_name }} {{ user.last_name }}{% endblock %}
+
+{% block content %}
+
+{% ifequal user profile.user  %}
+    <p><a href="{% url profiles_edit_profile %}">&#x2192; Edit my profile</a></p>
+    <p><a href="/accounts/password/change/">&#x2192; Change my password</a></p>
+
+    {# For staff/faculty - downloadable PDF timesheet (uploaded via FTP) #}
+    {# Only show link if a person is looking at their own profile. #}
+    {% if profile.has_timesheet %}
+        <p><a href="/media/uploads/timesheets/timesheet_{{user}}.pdf"> &#x2192; Download timesheet as PDF</a></p>
+    {% endif %}
+
+{% endifequal %}
+
+
+<h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
+
+
+
+{% if profile.family %}
+    <p>In family: <a href="{% url family_contact profile.family.id %}">{{ profile.family }}</a></p>
+{% endif %}
+
+<p><strong>About:</strong><br>
+{% if not profile.about %}
+    No profile information available.
+{% endif %}
+
+
+
+{# {{ profile.image }} #}
+{# {% if profile.image %} #}
+{#     <img src="{{ profile.image }}" width="300" /> #}
+{# {% endif %} #}
+
+{% if profile.about %}
+    {{ profile.about|linebreaks }}
+{% endif %}
+</p>
+
+<p><strong>Primary email:</strong><br>
+{{ profile.user.email }}
+</p>
+
+{% if profile.email_2 %}
+<p><strong>Secondary email:</strong><br>
+{{ profile.email_2 }}
+</p>
+{% endif %}
+
+<p><strong>Address:</strong><br>
+{% if profile.address1  %}
+{{ profile.address1 }}<br /> 
+{% endif %}
+
+{% if profile.address2  %}
+{{ profile.address2 }}<br />
+{% endif %}
+
+{% if profile.city  %}
+{{ profile.city }}, {{ profile.state }} {{ profile.zip }}
+{% endif %}
+
+
+<p><strong>Home phone:</strong><br>
+{{ profile.phone_home }}
+</p>
+<p><strong>Work phone:</strong><br>
+{{ profile.phone_work }}
+</p>
+<p><strong>Mobile phone:</strong><br>
+{{ profile.phone_mobile }}
+</p>
+<p><strong>Twitter:</strong><br>
+{% if not profile.twitter %}
+    Not available
+{% endif %}
+
+{% if profile.twitter %}
+    <a href="http://twitter.com/{{ profile.twitter }}">{{ profile.twitter }}</a>
+{% endif %}
+</p>
+
+<p><strong>Facebook:</strong><br>
+{% if not profile.facebook %}
+    Not available
+{% endif %}
+
+{% if profile.facebook %}
+    <a href="http://facebook.com/{{ profile.facebook }}">{{ profile.facebook }}</a>
+{% endif %}
+</p>
+{% if profile.fax %}
+<p><strong>Fax:</strong><br>
+{{ profile.fax }}
+</p>
+{% endif %}
+
+{% endblock content %}
+

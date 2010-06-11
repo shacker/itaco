@@ -1,0 +1,123 @@
+TODO
+
+ALTER TABLE `itaco_parent` ADD COLUMN `has_timesheet` TINYINT(1) NULL DEFAULT 0  AFTER `primary_contact`;
+
+
+ALTER TABLE `ourcrestmont`.`itaco_student` ADD COLUMN `birthdate` DATE NULL DEFAULT NULL  AFTER `family_id`;
+
+
+
+=============================
+IN PRODUCTION
+
+ALTER TABLE `ourcrestmont`.`itaco_parent` ADD COLUMN `title` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `family_id`;
+
+
+ALTER TABLE `ourcrestmont`.`itaco_parent` CHANGE COLUMN `family_id` `family_id` INT(11) NULL DEFAULT 0  COMMENT ''  AFTER `user_id`;
+
+
+ALTER TABLE `ourcrestmont`.`itaco_parent` ADD COLUMN `no_lists` TINYINT(1) NOT NULL DEFAULT 0  AFTER `email_2`;
+
+
+ALTER TABLE `itaco_parent` ADD COLUMN `participating_parent` TINYINT(1) NOT NULL DEFAULT 0  AFTER `phone_mobile`;
+
+ALTER TABLE `ourcrestmont`.`itaco_parent` CHANGE COLUMN `user_ptr_id` `id` INT(11) NOT NULL DEFAULT 0  COMMENT ''  FIRST;
+
+ALTER TABLE `ourcrestmont`.`itaco_student` DROP COLUMN `user_ptr_id` ;
+
+ALTER TABLE `ourcrestmont`.`itaco_parent` ADD COLUMN `user_id` INT(11) NOT NULL DEFAULT 0  AFTER `user_ptr_id`;
+
+ALTER TABLE `ourcrestmont`.`itaco_student` ADD COLUMN `id` INT(11) NOT NULL DEFAULT 0  FIRST;
+ALTER TABLE `ourcrestmont`.`itaco_student` ADD COLUMN `first_name` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''  AFTER `id`;
+
+ALTER TABLE `ourcrestmont`.`itaco_student` ADD COLUMN `last_name` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''  AFTER `first_name`;
+
+
+
+
+DROP TABLE itaco_chargeother
+
+
+ALTER TABLE `crest_ourdjang`.`itaco_chargedaycare` ADD COLUMN `charged_amount` FLOAT NULL DEFAULT 0  AFTER `amount`;
+ALTER TABLE `crest_ourdjang`.`itaco_charge` CHANGE COLUMN `hours` `amount` DOUBLE NOT NULL DEFAULT 0  COMMENT ''  AFTER `date`;
+ALTER TABLE `ourcrest-django`.`itaco_charge` CHANGE COLUMN `hours` `amount` DOUBLE NOT NULL DEFAULT 0  COMMENT ''  AFTER `date`;
+ALTER TABLE `ourcrest-django`.`itaco_chargedaycare` ADD COLUMN `charged_amount` FLOAT NULL DEFAULT 0  AFTER `amount`;
+=======
+ALTER TABLE `ourcrest-django`.`itaco_credit` ADD COLUMN `charged_amount` FLOAT NULL DEFAULT NULL  AFTER `date`;
+ALTER TABLE `ourcrest-django`.`itaco_credit` DROP COLUMN `units` ;
+
+ALTER TABLE `crest_ourdjang`.`itaco_credit` ADD COLUMN `charged_amount` FLOAT NULL DEFAULT NULL  AFTER `date`;
+ALTER TABLE `crest_ourdjang`.`itaco_credit` DROP COLUMN `units` ;
+
+
+Apply only if nec:
+ALTER TABLE `crest_ourdjang`.`itaco_charge` ADD COLUMN `units` VARCHAR(8) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `charged_amount`;
+ALTER TABLE `ourcrest-django`.`itaco_charge` ADD COLUMN `units` VARCHAR(8) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `charged_amount`;
+
+rename itaco_chargedaycare to itaco_charge
+
+
+
+ALTER TABLE `ourcrestmont`.`itaco_credit` ADD COLUMN `note` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `units`;
+ALTER TABLE `ourcrest-django`.`itaco_obligation` ADD COLUMN `note` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `units`;
+ALTER TABLE `ourcrest-django`.`itaco_chargedaycare` ADD COLUMN `note` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `units`;
+ALTER TABLE `ourcrest-django`.`itaco_chargeother` ADD COLUMN `note` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `units`;
+
+
+
+ALTER TABLE `ourcrestmont`.`itaco_student` ADD COLUMN `enrolled` TINYINT(1) NOT NULL DEFAULT '1'  AFTER `family_id`;
+
+CREATE TABLE `itaco_parent_comm_job` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `parent_id` integer NOT NULL,
+    `committeejob_id` integer NOT NULL,
+    UNIQUE (`parent_id`, `committeejob_id`)
+)
+;
+
+
+Drop itaco_boardposition_person
+
+CREATE TABLE `itaco_parent_board_pos` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `parent_id` integer NOT NULL,
+    `boardposition_id` integer NOT NULL,
+    UNIQUE (`parent_id`, `boardposition_id`)
+)
+;
+
+
+ALTER TABLE `itaco_parent_board_pos` ADD CONSTRAINT `parent_id_refs_user_ptr_id_1049acb1` FOREIGN KEY (`parent_id`) REFERENCES `itaco_parent` (`user_ptr_id`);
+ALTER TABLE `itaco_parent_board_pos` ADD CONSTRAINT `boardposition_id_refs_id_1f54aab` FOREIGN KEY (`boardposition_id`) REFERENCES `itaco_boardposition` (`id`);
+
+
+
+
+Drop permissions table and syncdb
+
+ALTER TABLE `ourcrestmont`.`itaco_schoolyear` ADD COLUMN `grad_class` VARCHAR(6) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''  AFTER `end`;
+
+# Change student grad year lookup type
+ALTER TABLE `ourcrestmont`.`itaco_student` DROP COLUMN `expected_grad_yr` ;
+ALTER TABLE `ourcrestmont`.`itaco_student` ADD COLUMN `expected_grad_yr_id` INT(128) NOT NULL DEFAULT '0'  AFTER `family_id`;
+
+# Add "current" flag for school years
+ALTER TABLE `ourcrestmont`.`itaco_schoolyear` ADD COLUMN `current` bool  UNIQUE  AFTER `grad_class`;
+
+
+
+alter table itaco_family add `fa_factor` double precision NOT NULL;
+update itaco_family set `fa_factor` = 1 
+
+RENAME TABLE
+itaco_charge -> itaco_chargeother
+
+CREATE TABLE `itaco_chargedaycare` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `family_id` integer NOT NULL,
+    `type` varchar(8) NOT NULL,
+    `date` date NOT NULL,
+    `amount` double precision NOT NULL,
+    `units` varchar(8) NOT NULL
+)
+;

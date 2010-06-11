@@ -1,0 +1,32 @@
+[
+    {
+        "pk": 5, 
+        "model": "itaco.student", 
+        "fields": {
+            "user_permissions": [], 
+            "expected_grad_yr": 6, 
+            "groups": [], 
+            "family": 37
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "itaco.student", 
+        "fields": {
+            "user_permissions": [], 
+            "expected_grad_yr": 4, 
+            "groups": [], 
+            "family": 41
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "itaco.student", 
+        "fields": {
+            "user_permissions": [], 
+            "expected_grad_yr": 3, 
+            "groups": [], 
+            "family": 37
+        }
+    }
+]

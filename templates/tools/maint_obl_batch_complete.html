@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Batch-add Maintenance Hours{% endblock %}
+
+{% block content %}
+
+
+<h3>Batch-add Maintenance Hours</h3>
+
+{% if messages %}
+<br />
+
+<ul class="messages">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<p><a href="{% url batch_maintenance_obl %}">Add more maintenance hours</a></p>
+
+{% endblock content %}

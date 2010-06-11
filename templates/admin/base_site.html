@@ -1,0 +1,28 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'iTaco site admin' %}{% endblock %}
+
+{% block branding %}
+
+<style type="text/css" media="screen">
+    #header {
+        background: #496D56;
+        color: #ffc;
+        overflow: hidden;
+    }
+    
+    #branding h1 {
+        padding: 0 10px;
+        font-size: 18px;
+        margin: 8px 0;
+        font-weight: normal;
+        color: #D6DFB5;
+    }    
+</style>
+
+<h1 id="site-name">{% trans 'iTaco administration' %}</h1>
+<p style="text-align:right; margin-right:10px;"> <a href="/">Back to site</a></p>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

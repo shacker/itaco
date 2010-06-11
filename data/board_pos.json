@@ -1,0 +1,50 @@
+[
+    {
+        "pk": 4, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "person": [
+                9
+            ], 
+            "title": "Fundraising"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 250, 
+            "notes": "", 
+            "person": [
+                14
+            ], 
+            "title": "President"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "person": [
+                8
+            ], 
+            "title": "Purchasing"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "person": [
+                10
+            ], 
+            "title": "Vice president"
+        }
+    }
+]

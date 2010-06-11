@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+<h2>Crestmont Mailing Lists</h2>
+
+<p>This tool lets you see who is subscribed to which of the school mailing lists. All list membership is derived from queries against the iTaco database. This is <strong>not</strong> a tool for changing list membership. To change the address you're subscribed to a list with, <a href="{% url profiles_profile_detail user %}">edit your profile</a>. Your membership address will be updated on the lists within 24 hours.
+</p>
+
+
+<h3>kindergarten@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.kindergarten  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.kindergarten %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.kindergarten  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+<h3>first@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.first  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.first %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.first  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+<h3>second@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.second  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.second %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.second  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+
+<h3>third@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.third  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.third %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.third  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+<h3>twothree@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.twothree  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.twothree %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.twothree  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+<h3>fourth@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.fourth  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.fourth %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.fourth  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+<h3>fifth@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.fifth  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.fifth %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.fifth  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+<h3>fourfive@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.fourfive  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.fourfive %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.fourfive  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+<h3>teachers@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.teachers  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.teachers %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.teachers  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+<h3>board@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.board  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.board %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.board  %}{{ e }}{% endfor %}    
+{% endif %}
+
+</textarea>
+
+<h3>executivecom@crestmontschool.org </h3>
+{# The executivecom list reference is stored in the List Extras section, not via query. #}
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.executivecom  %}{{ e }}{% endfor %}
+</textarea>
+
+<h3>participation@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.participation  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.participation %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.participation  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+<h3>alumni@crestmontschool.org </h3>
+{# The alumni list reference is stored in the List Extras section, not via query. #}
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.alumni  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.alumni %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.alumni  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+
+
+<h3>everyone@crestmontschool.org </h3>
+<textarea name="Name" rows="8" cols="40">
+{% for e in mldict.everyone  %}{{ e }}{% endfor %}
+
+{% if nomailmldict.everyone %}
+### Following can send to list but not receive:
+{% for e in nomailmldict.everyone  %}{{ e }}{% endfor %}    
+{% endif %}
+</textarea>
+
+
+{% endblock content %}

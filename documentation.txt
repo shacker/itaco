@@ -1,0 +1,222 @@
+Test
+<h1>
+    iTaco Documentation
+</h1>
+<ul>
+    <li>
+        <a href="#overview">Overview</a>
+    </li>
+    <li>
+        <a href="#parents">Notes for Parents</a>
+    </li>
+    <li>
+        <a href="#trackers">Notes for Trackers</a>
+    </li>
+    <li>
+        <a href="#admins">Notes for Administrators</a>
+    </li>
+    <li>
+        <a href="#programmers">Notes for Programmers</a>
+    </li>
+</ul>
+<p>
+    <a name="overview" id="overview"></a>
+</p>
+<h2>
+    Overview
+</h2>
+<p>
+    iTaco is a secure web-based system for tracking charges, credits, and obligations accumulated by Crestmont families. The system also serves as a contact database and as an access point for archives of school mailing lists and calendars.
+</p>
+<p>
+    This version of the iTaco system is a ground-up rewrite of the old iTaco system, which was built and maintained by John Glosson (thanks John!), whose children have graduated. This version of iTaco was built by Scot Hacker with 100% open-source tools, using a Python-based web application framework called <a href="http://www.djangoproject.com/" title="Django | The Web framework for perfectionists with deadlines">Django</a>. This version of the system is designed to be as user-friendly as possible for parents and trackers, and improves on the old system in several ways:
+</p>
+<ol>
+    <li>Each parent has their own login - no more shared logins.
+    </li>
+    <li>Each family has a "contact info" page with contact details for each family member. Contact pages are visible to all school members. Each parent can edit their own contact info.
+    </li>
+    <li>Each family has a financial details page that is visible only to them and to iTaco administrators. This page provides a "snapshot" of all charges, credits, and obligations accrued in a given time period.
+    </li>
+    <li>Rosters are available for every slice of the school: All families, all parents, all board members, family job holders, all students, and separate lists for children by grade.
+    </li>
+    <li>New "batch" tools are available to simplify life for trackers, who can now add charges and credits 10 at a time.
+    </li>
+</ol>
+<p>
+    <strong>Please note that the entirety of the iTaco system is password protected.<br />
+    No member of the general public can access any information in this system.</strong>
+</p>
+<p>
+    <a name="parents" id="parents"></a>
+</p>
+<h2>
+    Notes for Parents
+</h2>
+<p>
+    Unlike the old system which had a shared username/password for each user, each parent in this version of the system has their own login. Usernames are created using the convention first initial, last name, e.g. jsmith.
+</p>
+<p>
+    Please check the contact info listed on your family page carefully to make sure everything is correct (click the Families link, then your family name). A "family" consists of one or more *currently enrolled* students in connection with one or more parents. Please check your own personal contact information for accuracy. If you find errors, click the Edit link that appears beneath your name on the Family contact page. If you need to change your primary email address, please <a href="mailto:webmaster@crestmontschool.org">contact the webmaster</a>.
+</p>
+<p>
+    The main iTaco link will take you to a financial summary for your family for the current school year. Families cannot view financial information for any other family. System administrators and school accountants can view all family financial details. Parents designated as "trackers" have limited access to financial details.
+</p>
+<p>
+    The default data slice shown on your iTaco page shows the current school year. You can limit the view to a specific billing period or another school year by selecting a period from the picklists at the top of the page.
+</p>
+<p>
+    Some charges at Crestmont are discounted for families entitled to financial aid. Each family has a "financial aid factor" in the iTaco system. For most families, this defaults to 1.0. If your family's FA factor is different from 1.0, that will be reported at the top of the page, and that factor will automatically be applied when certain charges are added to the system.
+</p>
+<p>
+    Trackers may add notes to specific charges, credits, and obligations as they're adding them to the system. If a charge, credit, or obligation has an attached note, a small cloverleaf icon will appear next to it. Roll your mouse over the cloverleaf icon to see it.
+</p>
+<p>
+    All data for the billing period currently being viewed can be downloaded in Excel spreadsheet format (sorry, no .csv for now) by clicking the large Excel icon halfway down the page.
+</p>
+<p>
+    The remainder of the page shows your family's standing on annual obligations, such as maintenance hours, housekeeping, and membership meetings. <strong>NOTE:</strong> The graphs on the lower portion of the page apply to the current school year regardless what timeslice is currently being viewed for charges and credits in the top portion of the page.
+</p>
+<p>
+    <a name="trackers" id="trackers"></a>
+</p>
+<h2>
+    Notes for Trackers
+</h2>
+<p>
+    If you are logged into the system as a user with Tracker status, a new "iTaco Tools" menu item will become available, including options to Batch-Add Daycare Charges and Batch-Add Participation Credits. These tools will let you add CERTAIN TYPES of charges and credits 10 at a time (let us know if you need to add more at a time, or if you need other batch tools). We can add more Batch tools as necessary - let us know what you need.
+</p>
+<p>
+    To add other types of charges, credits, and obligations, use the corresponding menu options. The back-end interface will change somewhat when using non-batch tools -- you'll be looking at a feature of Django called "the admin" - you're looking at a limited slice of the "master back-end" for administrators.
+</p>
+<p>
+    When adding charges, credits, and obligations, please follow the on-screen notes and instructions carefully.
+</p>
+<p>
+    Note that when using the Admin interface, any Family picklists will show ALL families in the database, not just families with currently enrolled students. This is normal.
+</p>
+<p>
+    <a name="admins" id="admins"></a>
+</p>
+<h2>
+    Notes for Administrators
+</h2>
+<h3>
+    Between school years
+</h3>
+<p>
+    Quick summary of tasks to perform before each new school year:
+</p>
+<ul>
+    <li>Remove the old board and committee jobs from users who hold them.
+    </li>
+    <li>Add a new Year to the system and set its graduating class.
+    </li>
+    <li>Change the associated graduating class for each year in the system.
+    </li>
+    <li>Correctly set the "Current" flag for the current school year (after unsetting the old one).
+    </li>
+    <li>Add new Families, Parents, and Students as described below.
+    </li>
+    <li>Invite the new families to use the system, as described below.
+    </li>
+</ul>
+<h3>
+    Adding New Families, Parents, and Students
+</h3>
+<ol>
+    <li>Click Add Family, giving them a name in the format: <code>Jones, Sue and Bob</code>. While creating the family, note that the financial aid factor defaults to 1.0 Optionally change this to some decimal value less than 1, such as 0.7. In almost no case is it necessary or desirable to give a family any particular permissions.
+    </li>
+    <li>Go to the Users section and create a new User for each parent, with a correct first and last name, and email address. You can enter something random for the password - they'll be required to change it when accessing the site for the first time. Let the user be Active, but do not give them Staff status even if they're on the Crestmont "staff" in some way - the notion of "staff" in Django refers to something different. Even though you'll see a list of families under the Groups section on this page, do not add them to a family/group just now. Save the new user.
+    </li>
+    <li>Go to the Parents section and add a new Parent, attached to the User you just created. Also attach the new parent to the family you added in step #1. Enter the parent's correct contact info. If this user is to hold any Board Position or Committee Job, select those now. The parent can occupy multiples of these - just hold down the Ctrl key (Windows) or Cmd key (Mac) and click to select multiple.
+    </li>
+    <li>When adding new Students, do NOT create a User in the system first. Students can never log into this system, and thus do not have their own accounts. Just enter their first/last name, associate them with a family, select their expected graduation year, and select whether they're morning or afternoon readers. Rather than changing the "class" for each student each year, we control this more centrally by associating a student with an expected graduation year (e.g. Class of 2012).
+    </li>
+</ol>
+<h3>
+    Inviting new families to use the system
+</h3>
+<p>
+    Experience shows that many users will never change assigned initial/temporary passwords, which leads either to forgetting passwords or to poor security. Instead, we set them up with random passwords to begin with and get them started by sending them email inviting them to visit the password reset page:
+</p>
+<p>
+    <code>http://ourcrestmont.org/accounts/password/reset/</code>
+</p>
+<p>
+    So we send all new parents a welcome email describing the system, with their initial username and the link above.
+</p>
+<h3>
+    Misc
+</h3>
+<p>
+    Use the <strong>Billing Periods</strong> section of the Admin to create new billing periods as they come up. Numbering for billing periods is 1-12. Billing Periods should last exactly one month, and yes, we need them for the summer as well. Do NOT delete historical billing periods - just keep creating new ones.
+</p>
+<p>
+    Parents holding <strong>Board Positions</strong> receive monthly credits against their tuition. There is a batch tool for adding board credits to families that have parents on the board (accessible from the iTaco Tools menu), which should be run once per month. The Board Positions section of the Django admin will rarely be touched.
+</p>
+<p>
+    <strong>Committee Jobs</strong> are pretty much self-explanatory. Note that each job "reports to" a Board Member. You'll rarely need to touch this. Individual Parent objects can be associated with Board Positions or Committee Jobs.
+</p>
+<p>
+    <strong>Note:</strong> All families are seen in family picklists when in the Admin - we keep family records forever. But in all "normal" (hand-built) views, only families that currently have enrolled students are shown.
+</p>
+<p>
+    <strong>Note on Charges, Credits, Obligations:</strong> Though we enter some things as hours, some things as dollars, and other things as "units," everything is ultimately converted to dollars - it all comes down to money :(). The system is built to do most of these transformations automatically as data is being entered.
+</p>
+<p>
+    <strong>Note on User profiles:</strong> The profile editing form does not let users change their primary email address or first/last names. If someone needs to do this, they can send an email and an administrator can do it through the Users section of Admin (not the Parent Profiles).
+</p>
+
+<p>
+    <strong>Granting Tracker status:</strong> To give a parent "Tracker" status so they can add charges, credits, and obligations, access their username from the Users section (NOT from Parents) and find the Groups section at the bottom of the page. This list will contain all families, but also includes a group called Trackers. Add the user to this group in addition to their regular family and the iTaco Tools menu will automagically appear for them.
+</p>
+<h3>
+    Uploading files to the static docs area:
+</h3>
+<ol>
+    <li>Click FileBrowser in the Django admin.
+    </li>
+    <li>Click into the folder that makes sense, or create a new folder if necessary.
+    </li>
+    <li>Click Upload and select your file or files.
+    </li>
+    <li>After uploading, right-click the file you want to link to and select Copy URL
+    </li>
+    <li>Navigate to Flat Pages and edit the page you want. Create a link to the URL on your clipboard.
+    </li>
+    <li>Yes I know this is very manual - it could be much better but I'm not sure it's worth the effort. This system could be improved if necessary by adding a rich text editor, but the documents are rarely edited so probably not a big deal.
+    </li>
+</ol>
+<p>
+    <a name="programmers" id="programmers"></a>
+</p>
+<h2>
+    Notes for Programmers
+</h2>
+<p>
+    The codebase is carefully documented, and should be for the most part clear to anyone with a Python background and some Django experience. The system should run on any MySQL host that supports Python through a WSGI interface. If the current host is no longer an option, look into Django-specific hosts such as <a href="http://djangofriendly.com/hosts/" title="Hosts : Djangofriendly">these</a>.
+</p>
+
+
+<p>
+    iTaco lives in a subversion repository. You should be comfortable with checking code in/out of svn before attempting to work on the system.
+</p>
+
+
+<p>On the current server, the main codebase lives at <code>/home/crest/sites/projects/ourcrest</code>. <br />
+Shared apps (and Django itself) live at <code>/home/crest/sites/lib</code>
+</p>
+
+<p>To go live with new changes from your svn checkout, ssh into the server and run the command <code>upcrest</code>, which is an alias for:
+</p>
+<p><code>upcrest='cd /home/crest/sites/projects/ourcrestmont; svn up; cd /home/crest/our; touch ourcrestmont.wsgi'</code></p>
+
+<p>Touching ourcrestmont.wsgi will cause all new code to be reloaded into the memory of the Apache wsgi process. </p>
+
+<p>
+    <strong>iTaco dependencies:</strong>
+</p>
+
+<ul>    <li><a href="http://code.google.com/p/django-filebrowser/" title="django-filebrowser - Google Code">django-filebrowser</a></li>
+    <li><a href="http://bitbucket.org/ubernostrum/django-profiles/wiki/Home" title="ubernostrum / django-profiles / wiki / Home — bitbucket.org">django-profiles</a></li></ul>

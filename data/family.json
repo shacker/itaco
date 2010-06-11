@@ -1,0 +1,569 @@
+[
+    {
+        "pk": 4, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 0.69999999999999996, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "Left umbrella.", 
+            "fa_factor": 0.69999999999999996, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 46, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 47, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 48, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 49, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 50, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 51, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 52, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 53, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 54, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 55, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 56, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 57, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 58, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 59, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 60, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 61, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 62, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 63, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 64, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 65, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 66, 
+        "model": "itaco.family", 
+        "fields": {
+            "notes": "", 
+            "fa_factor": 1.0, 
+            "permissions": []
+        }
+    }
+]

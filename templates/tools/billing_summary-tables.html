@@ -1,0 +1,77 @@
+
+
+<h3>Billing Summary (all charges and credits) for period {{ billing_period.start }} -- {{ billing_period.end }}</h3>
+
+
+<h3>Charge Summaries by Family</h3>
+<table cellspacing="5" cellpadding="5">
+
+   
+    {% for family_sum in charges_by_family  %}
+    <tr class="{% cycle 'row1' 'row2' %}">
+        <td> {{ family_sum.family__name }} </td>               
+        <td  align="right"> ${{ family_sum.charged_amount__sum|floatformat:2 }} </td>   
+    </tr>
+    {% endfor %}
+    <tr class="row3">
+        <td><strong>Total charges:</strong></td> 
+        <td align="right"><strong>${{ total_charges|floatformat:2 }}</strong></td>
+    </tr>    
+</table>
+
+
+<h3>Charge Summaries by Type</h3>
+<table cellspacing="5" cellpadding="5">
+
+    {% for charge_type, charge_total in charge_type_totals.items %}
+    <tr class="{% cycle 'row1' 'row2' %}">
+        <td>{{ charge_type }}</td>               
+        <td align="right"> ${{ charge_total|floatformat:2 }} </td>   
+    </tr>    
+    {% endfor %}
+
+    <tr class="row3">
+        <td><strong>Total charges:</strong></td> 
+        <td align="right"><strong>${{ total_charges|floatformat:2 }}</strong></td>
+    </tr>
+</table>
+
+
+
+
+<h3>Credit Summaries by Family</h3>
+<table cellspacing="5" cellpadding="5">
+
+   
+    {% for family_sum in credits_by_family  %}
+    <tr class="{% cycle 'row1' 'row2' %}">
+        <td> {{ family_sum.family__name }} </td>               
+        <td  align="right"> ${{ family_sum.charged_amount__sum|floatformat:2 }} </td>   
+    </tr>
+    {% endfor %}
+    <tr class="row3">
+        <td><strong>Total charges:</strong></td> 
+        <td align="right"><strong>${{ total_credits|floatformat:2 }}</strong></td>
+    </tr>    
+</table>
+
+
+<h3>Credit Summaries by Type</h3>
+<table cellspacing="5" cellpadding="5">
+
+    {% for credit_type, credit_total in credit_type_totals.items %}
+    <tr class="{% cycle 'row1' 'row2' %}">
+        <td>{{ credit_type }}</td>               
+        <td align="right"> ${{ credit_total|floatformat:2 }} </td>   
+    </tr>    
+    {% endfor %}
+
+    <tr class="row3">
+        <td><strong>Total credits:</strong></td> 
+        <td align="right"><strong>${{ total_credits|floatformat:2 }}</strong></td>
+    </tr>
+</table>
+
+
+
+

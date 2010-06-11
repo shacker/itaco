@@ -1,0 +1,137 @@
+[
+    {
+        "pk": 9, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "title": "Diversity"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "title": "Fundraising"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "title": "Health & Safety"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "title": "Liaison"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 150, 
+            "notes": "", 
+            "title": "Maintenance"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "title": "Membership"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "title": "Participation"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 150, 
+            "notes": "", 
+            "title": "Personnel"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 250, 
+            "notes": "", 
+            "title": "President"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "title": "Purchasing"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "title": "Secretary"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 0, 
+            "notes": "This is not a real board position, but is required here for the sake of committee jobs, all of which report to a board member. However, the Room Parents report to Teachers, so it would not be possible to enter Room Parents as Committee Members unless Teachers is present here as a \"board position.\"", 
+            "title": "Teachers"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "title": "Treasurer"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "title": "Treasurer 2"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "itaco.boardposition", 
+        "fields": {
+            "credit": 100, 
+            "notes": "", 
+            "title": "Vice president"
+        }
+    }
+]

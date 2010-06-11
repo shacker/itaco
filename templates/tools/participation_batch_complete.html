@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Batch-add Participation Credits{% endblock %}
+
+{% block content %}
+
+
+<h3>Batch-add Participation Credits</h3>
+
+{% if messages %}
+<br />
+<ul class="messages">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<p><a href="{% url batch_participation_credits %}">Add more participation credits</a></p>
+
+{% endblock content %}

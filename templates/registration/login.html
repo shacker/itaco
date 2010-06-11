@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Log In / Log Out{% endblock %}
+
+{% block content %}
+
+
+{% if user.is_authenticated %}
+
+	<h3>Logged in</h3>
+
+	<p>You are logged in as {{ user.username }}</p>
+
+	<a href="/accounts/logout/">Log out?</a> 
+
+{% else %}
+
+	<h3>Please Log in</h3>
+
+	{% if form.errors %}
+		<p class="error">Please correct the errors below:</p>
+	{% endif %}
+
+	<form method="post" action="?next={{ next|default:"/" }}">
+	{% csrf_token %}
+	<dl>
+	<dt><label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
+	<dd>{{ form.username }}</dd>
+	<dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
+	<dd>{{ form.password }}</dd>
+	<dt style="margin-top:10px;"><input type="submit" value="Log in" /></dt>
+	</dl>
+	</form>
+
+    <h3>Password Help</h3>
+	<p>I'm a new user or I've forgotten my password - <a href="/accounts/password/reset/">please re-send it</a>.</p>
+	
+
+{% endif %}
+
+
+{% endblock %}
+
+

@@ -1,0 +1,348 @@
+[
+    {
+        "pk": 7, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "admin", 
+            "first_name": "Admin", 
+            "last_name": "Admin", 
+            "is_active": 1, 
+            "is_superuser": 1, 
+            "is_staff": 1, 
+            "last_login": "2009-03-17 00:28:12", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$a98c7$164f216e09dcba788c904135c01b33da5ea86da5", 
+            "email": "shacker@mac.com", 
+            "date_joined": "2009-01-02 13:22:15"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "shacker", 
+            "first_name": "Scot", 
+            "last_name": "Hacker", 
+            "is_active": 1, 
+            "is_superuser": 1, 
+            "is_staff": 1, 
+            "last_login": "2009-03-15 00:41:31", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$c644f$90179b87048ed32c6baf4680603d66da0a059628", 
+            "email": "shacker@birdhouse.org", 
+            "date_joined": "2009-01-02 13:34:44"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "mhacker", 
+            "first_name": "Miles", 
+            "last_name": "Hacker", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-01-02 13:04:39", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "zzz", 
+            "email": "miles@birdhouse.org", 
+            "date_joined": "2009-01-02 13:04:39"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "akubes", 
+            "first_name": "Amy", 
+            "last_name": "Kubes", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 1, 
+            "last_login": "2009-02-26 23:33:06", 
+            "groups": [
+                68
+            ], 
+            "user_permissions": [], 
+            "password": "sha1$1f4e8$d018b05d9501e3cc7729cbeabd4f7fef7bf7a608", 
+            "email": "kubes@birdhouse.org", 
+            "date_joined": "2009-01-02 13:33:38"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "eadams", 
+            "first_name": "Esther", 
+            "last_name": "Adams", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-01-02 14:22:59", 
+            "groups": [
+                4
+            ], 
+            "user_permissions": [], 
+            "password": "lskdjf", 
+            "email": "esther.home@sbcglobal.net", 
+            "date_joined": "2009-01-02 14:22:59"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "akniess", 
+            "first_name": "Adeline", 
+            "last_name": "Kniess", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-01-03 01:22:24", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "soidfj", 
+            "email": "", 
+            "date_joined": "2009-01-03 01:22:24"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "billy", 
+            "first_name": "Billy", 
+            "last_name": "Kubes", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-01-03 12:40:37", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sdkjf", 
+            "email": "", 
+            "date_joined": "2009-01-03 12:40:37"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "vchapman", 
+            "first_name": "Vickie", 
+            "last_name": "Chapman", 
+            "is_active": 1, 
+            "is_superuser": 1, 
+            "is_staff": 1, 
+            "last_login": "2009-01-06 00:00:35", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": ";lksdjfl", 
+            "email": "vk_chapman@yahoo.com", 
+            "date_joined": "2009-01-06 00:00:35"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "sgelfand", 
+            "first_name": "Scott", 
+            "last_name": "Gelfand", 
+            "is_active": 1, 
+            "is_superuser": 1, 
+            "is_staff": 1, 
+            "last_login": "2009-02-26 23:55:08", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$eb463$b5eac3e362e73bae57e3d33f285afd2c125436a8", 
+            "email": "sgelfand@comcast.net", 
+            "date_joined": "2009-01-06 00:01:40"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "jblair", 
+            "first_name": "John", 
+            "last_name": "Blair", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-03-15 22:47:49", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "kdfjksdf", 
+            "email": "john@blair.com", 
+            "date_joined": "2009-03-15 22:47:49"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "pmoore", 
+            "first_name": "Patrick", 
+            "last_name": "Moore", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-03-15 22:48:49", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": ";lskdfjlskdfj", 
+            "email": "patrick@moore.com", 
+            "date_joined": "2009-03-15 22:48:49"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "mbutler", 
+            "first_name": "Mark", 
+            "last_name": "Butler", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-03-15 22:49:29", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "lksjfdlksdjf", 
+            "email": "mark@butler.com", 
+            "date_joined": "2009-03-15 22:49:29"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "schin", 
+            "first_name": "Steven", 
+            "last_name": "Chin", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-03-15 22:50:11", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "lskdjlksjdf", 
+            "email": "steven@chin.com", 
+            "date_joined": "2009-03-15 22:50:11"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "lsalaam", 
+            "first_name": "Laila", 
+            "last_name": "Salaam", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-03-15 22:50:46", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "lkjlksjdf", 
+            "email": "laila@sallam.com", 
+            "date_joined": "2009-03-15 22:50:46"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "bbarber", 
+            "first_name": "Branden", 
+            "last_name": "Barber", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-03-15 22:55:58", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sfdsdf", 
+            "email": "branden@ran.org", 
+            "date_joined": "2009-03-15 22:55:58"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "mcalavita", 
+            "first_name": "Michael", 
+            "last_name": "Calavita", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-03-15 22:56:56", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "lskdfjsdf", 
+            "email": "michael@calavita.com", 
+            "date_joined": "2009-03-15 22:56:56"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "jbanks", 
+            "first_name": "Jason", 
+            "last_name": "Banks", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-03-15 22:58:06", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "l;ksjflksjdf", 
+            "email": "jason@banks.com", 
+            "date_joined": "2009-03-15 22:58:06"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "tbrewer", 
+            "first_name": "Thompson", 
+            "last_name": "Brewer", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-03-15 22:59:05", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "lkjlsdfm", 
+            "email": "t@brewer.com", 
+            "date_joined": "2009-03-15 22:59:05"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "rcoto", 
+            "first_name": "Rafael", 
+            "last_name": "Coto", 
+            "is_active": 1, 
+            "is_superuser": 0, 
+            "is_staff": 0, 
+            "last_login": "2009-03-15 23:00:27", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "lksjdf", 
+            "email": "r@coto.com", 
+            "date_joined": "2009-03-15 23:00:27"
+        }
+    }
+]

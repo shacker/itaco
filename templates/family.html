@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% load charts %}
+
+{% block title %}Family Details{% endblock %}
+
+{% block content %}
+
+{% include "roster_subnav.html" %}
+
+<h2>Family: {{ family.name }}</h2>
+
+{% ifequal canview_charges 1 %}
+
+<p>
+    <form name="Links">
+	{% csrf_token %}
+       View another year: &nbsp;&nbsp;
+        <select name="SelectYear" id="select_year" onchange="YearSelect()" >
+            <option value="">------------</option>
+            <option value="/family/{{ family.id }}/all">All Years</option>
+            {% for year in year_list  %}
+                <option value="/family/{{ family.id }}/year/{{ year.id }}">{{ year.title }}</option>
+            {% endfor %}
+        </select>
+
+        &nbsp;&nbsp; OR a specific billing period: &nbsp;&nbsp;
+
+         <select name="SelectPeriod" id="select_bp" onchange="PeriodSelect()" >
+             <option value="">------------</option>
+             {% for bp in bp_list  %}
+                 <option value="/family/{{ family.id }}/period/{{ bp.id }}">{{ bp.start|date:"M d Y" }} - {{ bp.end|date:"M d Y" }}</option>
+             {% endfor %}            
+        </select>
+    </form>
+</p>
+
+    {# family-tables is an include so we can target it directly for csv output, or display tables inline on HTML page #}
+    {% include "family-tables.html" %}
+    <br />
+    <p><a href="{{ thepath }}/csv/"><img src="/site_media/images/excel.png" width="70" height="70" align="left" style="margin-top:-5px;border:none;"/></a>
+	<a href="{{ thepath }}/csv/">Download <br />as Excel <br />spreadsheet</a></p>
+
+    <h3 style="margin-top:50px;">Annual Obligations Visualized</h3>
+
+    <table border="1" cellspacing="5" cellpadding="5">
+        <tr>
+            <td>
+                <p>
+                    {# {{maint_hours_data}} #}
+                <strong>Maintenance hours</strong> <br />
+                Annual obligation: {{ obl_maint_hours_due }} hours<br />
+                Completed: {{ obl_maint_hours_complete }}
+                </p>
+                {% chart %}
+                  {% chart-data maint_hours_data %}
+                  {% chart-size "300x150" %}
+                  {% chart-background "EEEEEE" %}
+                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-type "pie" %}
+                  {% chart-labels "Fulfilled" "Unfulfilled" %}
+                  {% chart-alt "Maintenance hours" %}
+                {% endchart %}
+            </td>
+            
+            <td>
+                <p>
+                    {# {{member_meetings_data}} #}
+                <strong>Membership meetings</strong> <br />
+                Annual obligation: {{ obl_member_meetings_due }} meetings<br />
+                Completed: {{ obl_member_meetings_complete }}
+                </p>
+                {% chart %}
+                  {% chart-data member_meetings_data %}
+                  {% chart-size "300x150" %}
+                  {% chart-background "EEEEEE" %}
+                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-type "pie" %}
+                  {% chart-labels "Fulfilled" "Unfulfilled" %}
+                  {% chart-alt "Membership meetings" %}
+                {% endchart %}        
+            </td>            
+        </tr>
+        
+        <tr>
+            <td>
+                <p>
+                    {# {{fundraising_data}} #}
+                <strong>Fundraising hours</strong> <br />
+                Annual obligation: {{ obl_fundraising_hours_due }} hours<br />
+                Completed: {{ obl_fundraising_hours_complete }}
+                </p>
+                {% chart %}
+                  {% chart-data fundraising_data %}
+                  {% chart-size "300x150" %}
+                  {% chart-background "EEEEEE" %}
+                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-type "pie" %}
+                  {% chart-labels "Fulfilled" "Unfulfilled" %}
+                  {% chart-alt "Fundraising hours" %}
+                {% endchart %}
+            </td>
+            
+            <td>
+                <p>
+                    {# {{housekeeping_data}} #}
+                <strong>Housekeeping sessions</strong> <br />
+                Annual obligation: {{ obl_housekeeping_due }} sessions<br />
+                Completed: {{ obl_housekeeping_complete }}
+                </p>
+                {% chart %}
+                  {% chart-data housekeeping_data %}
+                  {% chart-size "300x150" %}
+                  {% chart-background "EEEEEE" %}
+                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-type "pie" %}
+                  {% chart-labels "Fulfilled" "Unfulfilled" %}
+                  {% chart-alt "Housekeeping sessions" %}
+                {% endchart %}       
+            </td>            
+        </tr>    
+        
+        
+        
+        
+        <tr>
+            <td>
+                <p>
+                    {# {{field_trips_data}} #}
+                <strong>Field trips</strong> <br />
+                Annual obligation: {{ obl_field_trips_due }} trips<br />
+                Completed: {{ obl_field_trips_complete }}
+                </p>
+                {% chart %}
+                  {% chart-data field_trips_data %}
+                  {% chart-size "300x150" %}
+                  {% chart-background "EEEEEE" %}
+                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-type "pie" %}
+                  {% chart-labels "Fulfilled" "Unfulfilled" %}
+                  {% chart-alt "Field trips" %}
+                {% endchart %}
+            </td>
+            
+            <td>
+                <p>
+                    {# {{coop_jobs_data}} #}
+                <strong>Co-op jobs</strong> <br />
+                Annual obligation: {{ obl_coop_jobs_due }} job<br />
+                Completed: {{ obl_coop_jobs_complete }}
+                </p>
+                {% chart %}
+                  {% chart-data coop_jobs_data %}
+                  {% chart-size "300x150" %}
+                  {% chart-background "EEEEEE" %}
+                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-type "pie" %}
+                  {% chart-labels "Fulfilled" "Unfulfilled" %}
+                  {% chart-alt "Co-op jobs" %}
+                {% endchart %}       
+            </td>            
+        </tr>     
+        
+        
+        <tr>
+            <td>
+                <p>
+                    {# {{annual_obligation_data}} #}
+                <strong>Annual obligation/scrip dollars</strong> <br />
+                Annual obligation: ${{ obl_annual_obligation_due }}<br />
+                Completed: ${{ obl_annual_obligation_complete }}
+                </p>
+                {% chart %}
+                  {% chart-data annual_obligation_data %}
+                  {% chart-size "300x150" %}
+                  {% chart-background "EEEEEE" %}
+                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-type "pie" %}
+                  {% chart-labels "Fulfilled" "Unfulfilled" %}
+                  {% chart-alt "Annual obligation dollars" %}
+                {% endchart %}
+            </td>
+            
+            <td>
+                &nbsp;
+            </td>            
+        </tr>               
+        
+
+    </table>
+
+
+    
+    
+{% endifequal %}
+
+
+{% endblock content %}

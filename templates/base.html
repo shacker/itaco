@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head profile="http://gmpg.org/xfn/11">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Our Crestmont - {% block title %}{% endblock title%}</title>
+
+<meta name="generator" content="Django"> <!-- leave this for stats -->
+
+<link rel="stylesheet" href="/site_media/css/style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/site_media/css/nav.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/site_media/css/print.css" type="text/css" media="print">
+
+<script type="text/javascript" src="/site_media/js/jquery.min.js"></script>
+<script type="text/javascript" src="/site_media/js/dropdowns.js"></script>
+<script type="text/javascript" src="/site_media/js/selectobject.js"></script>
+<script type="text/javascript" src="/site_media/js/jquery.tooltip.js"></script>
+
+
+</head>
+<body>
+
+<div id="page" class="clearfloat">
+<div class="clearfloat">
+	
+	
+	<div id="branding" class="left">
+		<a href="/"><img src="/site_media/images/crestmont_tree_logo.jpg" alt="Tree Logo" border="0" height="135" width="168"></a><img src="/site_media/images/home.jpg" alt="Crestmont banner slice" height="135" width="712">
+	</div>
+	<ul id="nav" class="clearfloat">
+
+    {% if user.is_authenticated %}
+
+	<li><a href="/" title="Home">Calendar</a>
+	
+	{% if myfam_id %}
+	<li><a href="{% url family_detail myfam_id %}" title="iTaco">iTaco</a>	    		
+	{% endif %}
+	
+	<li><a href="/roster/families/" title="Roster">Rosters</a></li>
+	<li><a href="/contact/" title="Tuition/Contact">Tuition/Contact</a></li>		
+	<li><a href="#" title="Documents">Documents</a>
+
+        <ul>
+        	<li><a href="/docs/participation/" title="Participation Documents">Participation Documents</a></li>
+        	<li><a href="/docs/membership/" title="Membership Documents">Membership Documents</a></li>     
+        	<li><a href="http://crestmontschool.org/admissions/" title="Board Documents">Financial Aid and Admissions Documents</a></li>
+        	<li><a href="/docs/misc/" title="Miscellaneous Documents">Miscellaneous Documents</a></li>        	        	
+        	<li><a href="/docs/scrip/" title="Scrip Instructions">Scrip Instructions</a></li>        	
+        	<li><a href="/docs/board/" title="Board Documents">Board Documents</a></li>     
+        	<li><a href="/docs/about/" title="iTaco Documentation">iTaco Documentation</a></li>  
+        	{% if user.is_superuser %}
+        	<li><a href="/docs/about/admins/" title="Docs for Admins">Admin Docs</a></li>
+        	{% endif %}        	           	   	
+	        <li><a href="/docs/email-archive/" title="E-Mail Archive">E-Mail Archive</a></li>
+        </ul>
+
+    <li><a href="{% url listgen %}" title="Mailing Lists">Lists</a></li>    	
+	<li><a href="{% url profiles_profile_detail user %}" title="Profile">My Profile</a></li>	
+	<li><a href="http://crestmontschool.org/" title="Public">Public Site</a></li>	
+
+	{% if user.is_staff %}
+	<li><a href="#" title="iTaco Tools">iTaco Tools</a>
+        <ul>
+
+    		<li><a href="{% url batch_daycare_charges %}" title="Batch-Add Charges">Batch Daycare Charges</a></li>
+    		<li><a href="{% url batch_participation_credits %}" title="Batch Participation Credits">Batch Participation Credits</a></li>    
+    		<li><a href="{% url batch_maintenance_obl %}" title="Batch Maintenance Hours">Batch Maintenance Hours</a></li>        		
+    		{% if user.is_superuser %}
+    		<li><a href="{% url batch_board_credit %}" title="Batch-Add Board Credits">Batch Board Credits</a></li>    		  
+    		{% endif %}
+    		    		
+    		<li><a href="/admin/itaco/charge/add/" title="Other Charges">Add Other Charges</a></li>
+    		<li><a href="/admin/itaco/credit/add/" title="Other Credits">Add Other Credits</a></li>
+		    <li><a href="/admin/itaco/obligation/add/" title="Add Obligations">Add Other Obligations</a></li>
+
+    		<li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li> 		   		
+        	{% if user.is_staff %}
+        	<li><a href="/admin/" title="Admin">Admin</a></li>
+        	{% endif %}
+        </ul>
+    </li>	
+	<li><a href="/accounts/logout/" title="Log out">Log out</a></li>
+	
+	{% endif %}
+
+    {% endif %}
+	</ul>
+</div>
+
+	<div id="content">
+		<div class="post" id="post-2">
+			<div class="entry">
+                {% block content %}{% endblock %}
+                <h3>{{ flatpage.title }}</h3>
+                {{ flatpage.content }}
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<div id="footer">
+  &copy; {% now "Y" %} <span class="url fn org">Crestmont School</span> &nbsp; &bull;  &nbsp; Powered by <a href="http://djangoproject.org/" target="_blank">Django</a> &nbsp; &bull;  &nbsp; Logged in as: {{ user }}
+</div>
+
+
+</body>
+</html>

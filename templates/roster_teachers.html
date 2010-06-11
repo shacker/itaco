@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Teachers Roster{% endblock %}
+
+{% block content %}
+
+{% include "roster_subnav.html" %}
+
+<h3>Teachers Roster</h3>
+
+<table border="1">
+{% for teacher in roster %}   
+    <tr class="{% cycle 'row1' 'row2' %}">
+    <td><strong><a href="{% url profiles_profile_detail teacher.user %}">{{ teacher }}</a></strong></td>
+    <td>
+    {{ teacher.title }}
+    </td>
+    </tr>
+
+{% endfor %}
+</table>
+
+
+<h3>Teachers Aides</h3>
+
+<table border="1">
+{% for aid in aides %}   
+    <tr class="{% cycle 'row1' 'row2' %}">
+    <td><strong><a href="{% url profiles_profile_detail aid.user %}">{{ aid }}</a></strong></td>
+    <td>
+    {{ aid.title }}
+    </td>
+    </tr>
+
+{% endfor %}
+</table>
+
+
+{% endblock content %}
+

@@ -1,0 +1,20 @@
+-e svn+http://code.djangoproject.com/svn/django/tags/releases/1.2.1/#egg=Django
+
+-e hg+http://bitbucket.org/ubernostrum/django-profiles/#egg=profiles
+-e hg+http://bitbucket.org/ubernostrum/django-registration/#egg=registration
+
+
+http://django-command-extensions.googlecode.com/files/django-extensions-0.4.1.tar.gz
+
+
+# Docutils for admin documentation.
+docutils
+
+# Python Imaging Library
+#http://effbot.org/downloads/Imaging-1.1.6.tar.gz
+
+
+
+# ====================================================================
+# MANUAL INSTALLS - (packages with no setup.py) -- cd to site-packages, then:
+

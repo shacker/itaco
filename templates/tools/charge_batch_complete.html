@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Batch-add Daycare Charges{% endblock %}
+
+{% block content %}
+
+
+<h3>Batch-add Daycare Charges</h3>
+
+{% if messages %}
+<br />
+
+<ul class="messages">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<p><a href="{% url batch_daycare_charges %}">Add more daycare charges</a></p>
+
+{% endblock content %}

@@ -90,7 +90,8 @@
            {% for student in students %}
            <p>
                <strong>{{ student.first_name }} {{ student.last_name }}</strong><br />
-               {{ student.get_reader_display }}<br />
+               {# {{ student.get_reader_display }}<br /> #}
+			   Born: {{ student.birthdate }}<br />
                
 
                {% if student.email %}

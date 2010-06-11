@@ -31,8 +31,17 @@
         border-collapse: collapse;
     }
 
+	table.innertable {
+		width:400px;
+	}
+	table.innertable tr td {
+		border:none;
+		width:30%;
+
+	}
+
     td {
-        width:50%;
+/*        width:50%;*/
         border:1px solid #C7C7C7;
         border-collapse: collapse;        
 
@@ -48,11 +57,27 @@
         width:33%;
     }
     
+	tr.even {
+		background-color:#F4F4F4;
+	}
+	
+	.famtable tr td {
+		width:50%;
+	}
+
+	.stafftable tr td {
+		width:33%;
+	}
+
     
     .shade, th {
         background-color:#E4E4E4;
         text-align:left;
     }
+
+	.major {
+		font-size:1.2em;
+	}
 
 /*    @media print  
     {
@@ -70,17 +95,19 @@
 
 <h1>Crestmont Roster {{ cur_year }}<br />
 6226 Arlington Blvd., Richmond, CA 94805 </h1>
+<p>Current as of {% now "F jS, Y" %}</p>
 <br />
 
 
 {# Begin staff roster #}
 
-<table border="1" cellspacing="3" cellpadding="3">
-    <tr class="shade"><td colspan="2"><h2>Teachers</h2></td></tr>
+<table border="1" cellspacing="3" cellpadding="3" class="stafftable">
+    <tr class="shade"><td colspan="3"><h2>Teachers</h2></td></tr>
     {% for staffer in roster_teach.roster  %}
-    <tr>
+    <tr class="{% cycle 'odd' 'even' %}">
         <td><strong>{{ staffer.title }}</strong></td>
-        <td><strong>{{ staffer.user.first_name }} {{ staffer.user.last_name }}</strong></td>        
+        <td><strong>{{ staffer.user.first_name }} {{ staffer.user.last_name }}</strong></td>   
+        <td><strong>{{ staffer.phone_home }}</strong></td>        
     </tr>
     {% endfor %}
      
@@ -90,13 +117,14 @@
 <br />
 
 
-<table border="1" cellspacing="3" cellpadding="3">
+<table border="1" cellspacing="3" cellpadding="3" class="stafftable">
 
-    <tr  class="shade"><td colspan="2"><h2>Aides</h2></td></tr>
+    <tr  class="shade"><td colspan="3"><h2>Aides</h2></td></tr>
     {% for staffer in roster_teach.aides  %}
-    <tr>
+    <tr class="{% cycle 'odd' 'even' %}">
         <td><strong>{{ staffer.title }}</strong></td>
         <td><strong>{{ staffer.user.first_name }} {{ staffer.user.last_name }}</strong></td>        
+        <td><strong>{{ staffer.phone_home }}</strong></td>
     </tr>
     {% endfor %}    
     
@@ -115,17 +143,22 @@
 <table border="1" cellspacing="5" cellpadding="5">
     <tr class="shade"><td colspan="2"><h2>Board of Directors</h2></td></tr>
     {% for b in roster_brd.roster  %}
-    <tr>
+    <tr class="{% cycle 'odd' 'even' %}">
         <td valign="top"><strong>{{ b.title }}</strong></td>
-        <td><strong>
+        <td>
+			<table class="innertable">
+
             {% for parent in b.parent_set.all %}
                 {% if parent.user.is_active %}
-                    {{ parent.user.first_name }} {{ parent.user.last_name }}<br />            
+				<tr>
+                    <td><strong>{{ parent.user.first_name }} {{ parent.user.last_name }}</strong></td> <td><strong>{{ parent.phone_home }}</strong></td>
+				</tr>
                 {% endif %}
             {% empty %}
                 Not assigned
             {% endfor %}            
-        </strong></td>        
+			</table>
+        </td>        
     </tr>
     {% endfor %}
  
@@ -149,23 +182,23 @@
 
 {# Begin family jobs #}
 
-<table  cellspacing="5" cellpadding="5">
-    <tr class="shade"><td colspan="2"><h2>Family Jobs</h2></td></tr>
-    {% for j in roster_famjobs.roster  %}
-    <tr>
-        <td valign="top"><strong>{{ j.get_title_display }}</strong></td>
-        <td><strong>
-            {% for parent in j.parent_set.all %}
-                {% if parent.user.is_active %}
-                    {{ parent.user.first_name }} {{ parent.user.last_name }}<br />            
-                {% endif %}
-            {% empty %}
-                Not assigned
-            {% endfor %}            
-        </strong></td>        
-    </tr>
-    {% endfor %}
-</table>
+{# <table  cellspacing="5" cellpadding="5"> #}
+{#     <tr class="shade"><td colspan="2"><h2>Family Jobs</h2></td></tr> #}
+{#     {% for j in roster_famjobs.roster  %} #}
+{#     <tr> #}
+{#         <td valign="top"><strong>{{ j.get_title_display }}</strong></td> #}
+{#         <td><strong> #}
+{#             {% for parent in j.parent_set.all %} #}
+{#                 {% if parent.user.is_active %} #}
+{#                     {{ parent.user.first_name }} {{ parent.user.last_name }}<br />             #}
+{#                 {% endif %} #}
+{#             {% empty %} #}
+{#                 Not assigned #}
+{#             {% endfor %}             #}
+{#         </strong></td>         #}
+{#     </tr> #}
+{#     {% endfor %} #}
+{# </table> #}
 
 {# End family jobs #}
 
@@ -247,7 +280,7 @@
 {% for fam in roster_fam.roster  %}
 <br />
 
-<table border="0" cellspacing="3" cellpadding="5" >
+<table border="0" cellspacing="3" cellpadding="5" class="famtable" >
    <tr><th colspan="2">{{ fam }}</th></tr>
    <tr>
        <td valign="top" >
@@ -256,9 +289,6 @@
            {% for parent in fam.parent_set.all %}
            <p>
                <strong>{{ parent.user.first_name }} {{ parent.user.last_name }}
-                   {% ifequal parent.primary_contact 1 %}
-                   <strong> - Primary Contact</strong>
-                   {% endifequal %}  
                    <br />
 
                    {% for pos in parent.board_pos.all %}
@@ -329,9 +359,9 @@
 
            {% for student in fam.student_set.all %}
            <p>
-               <strong>{{ student.first_name }} {{ student.last_name }}</strong><br />
+               <strong><span class="major">{{ student.first_name }} {{ student.last_name }}</span></strong><br />
                {{ student.expected_grad_yr.get_grad_class_display }}<br />
-               {{ student.get_reader_display }}<br />
+
                {% if student.birthdate %}
                Born: {{ student.birthdate|date:"M d, Y" }}
                {% endif %}

@@ -93,6 +93,6 @@ urlpatterns = patterns('',
     ('^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
     (r'^profiles/', include('profiles.urls')),
 
-
+    (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/media/images/flower.gif'}),
 )
 

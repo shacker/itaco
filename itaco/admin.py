@@ -1,6 +1,16 @@
 from ourcrestmont.itaco.models import *
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin 
+from django.contrib import messages
+
+# Admin Action to batch-set students to alumni
+def make_alumni(modeladmin, request, queryset):
+    for obj in queryset:
+        obj.alumni = True
+        obj.save()
+        messages.success(request, "Selected students set to Alumni")
+make_alumni.short_description = "Make selected students into alumni"
+
 
 class StudentAdmin(admin.ModelAdmin):
     # search_fields = ['last_name','first_name']
@@ -8,6 +18,7 @@ class StudentAdmin(admin.ModelAdmin):
     # exclude = ('groups',) 
     search_fields = ['first_name','last_name']
     list_display = ('last_name','first_name','family','expected_grad_yr','alumni',)
+    actions = [make_alumni,]
     
 
 class ParentAdmin(admin.ModelAdmin):

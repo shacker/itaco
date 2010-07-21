@@ -1,14 +1,18 @@
 TODO
 
+ALTER TABLE `crest_ourdjang`.`itaco_student` ADD COLUMN `alumni` TINYINT(1) NOT NULL DEFAULT 0  AFTER `enrolled`;
+
+
+
+=============================
+IN PRODUCTION
+
 ALTER TABLE `itaco_parent` ADD COLUMN `has_timesheet` TINYINT(1) NULL DEFAULT 0  AFTER `primary_contact`;
 
 
 ALTER TABLE `ourcrestmont`.`itaco_student` ADD COLUMN `birthdate` DATE NULL DEFAULT NULL  AFTER `family_id`;
 
 
-
-=============================
-IN PRODUCTION
 
 ALTER TABLE `ourcrestmont`.`itaco_parent` ADD COLUMN `title` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `family_id`;
 

@@ -7,7 +7,7 @@ class StudentAdmin(admin.ModelAdmin):
     # list_display = ('last_name','first_name','expected_grad_yr','reader','enrolled',)
     # exclude = ('groups',) 
     search_fields = ['first_name','last_name']
-    list_display = ('last_name','first_name','family','expected_grad_yr',)
+    list_display = ('last_name','first_name','family','expected_grad_yr','alumni',)
     
 
 class ParentAdmin(admin.ModelAdmin):

@@ -163,6 +163,7 @@ class Student(models.Model):
     family = models.ForeignKey(Family)
     birthdate = models.DateField(null=True,blank=True)
     enrolled = models.BooleanField(default=True)
+    alumni = models.BooleanField(default=False)    
     reader = models.CharField(max_length=4, choices=constants.READER_TYPE_CHOICES)    
     
     # class Meta:

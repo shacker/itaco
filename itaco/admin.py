@@ -13,17 +13,12 @@ make_alumni.short_description = "Make selected students into alumni"
 
 
 class StudentAdmin(admin.ModelAdmin):
-    # search_fields = ['last_name','first_name']
-    # list_display = ('last_name','first_name','expected_grad_yr','reader','enrolled',)
-    # exclude = ('groups',) 
     search_fields = ['first_name','last_name']
     list_display = ('last_name','first_name','family','expected_grad_yr','alumni',)
     actions = [make_alumni,]
     
 
 class ParentAdmin(admin.ModelAdmin):
-    # list_display = ('get_user_display','family','address1',)
-    # exclude = ('groups',) 
     search_fields = ['user__last_name','user__first_name']
     raw_id_fields = ('user', )
     list_display = ('parent_name','title','participating_parent','no_lists',)

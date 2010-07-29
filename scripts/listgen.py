@@ -8,8 +8,13 @@ listgen.sh will call this script and do the subsequent mailman subscription magi
 #################### Set up Django environment
 import sys,os
 
-sys.path.append('/home/crest/sites/lib')
-sys.path.append('/home/crest/sites/projects')
+# Toggle/comment these depending on whether you're testing in dev or running in production.
+sys.path.append('/home/crest/sites/crest')
+sys.path.append('/home/crest/sites/crest/ourcrestmont')
+# sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org')
+# sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org/ourcrestmont')
+
+
 
 os.environ['DJANGO_SETTINGS_MODULE'] ='ourcrestmont.settings'
 
@@ -117,8 +122,11 @@ for group in groupset :
         peeps = Parent.objects.filter(user__groups__in=(87,),user__is_active=True)
         
     if group == 'alumni' :
-        # For alumni we need the group iterator, but no query - we'll just use extralist for them
-        peeps = None 
+        # For alumni we need both a query - to get all parents of alumni, AND the extralist - to deal with the legacy alumni who were never in itaco.
+        # Note that parents go on the alumni list as soon as they have one student who has graduated, even if another is still enrolled.
+        # peeps = None 
+        peeps = Parent.objects.filter(family__student__alumni=True,)
+        
         
     if group == 'executivecom' :
         # For executivecom we need the group iterator, but no query - we'll just use extralist for them

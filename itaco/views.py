@@ -919,8 +919,13 @@ def batch_board_credit(request,apply=False,period=''):
     if period :
         billing_period = BillingPeriod.objects.get(pk=period)
     else :
-        billing_period = BillingPeriod.current.get()
-    apply_date = billing_period.end
+        try: # Period not specified - try to get one that matches the current date
+            billing_period = BillingPeriod.current.get()
+        except BillingPeriod.DoesNotExist: # That BillingPeriod was never set up. Set it to None and we'll specify an error in the template.
+            billing_period = None
+            
+    if billing_period:
+        apply_date = billing_period.end
         
     # Get list of all parents who occupy board positions
     board_list = BoardPosition.objects.all()

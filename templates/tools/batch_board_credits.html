@@ -4,6 +4,9 @@
 
 {% block content %}
 
+{# Admin might not have set up a billing period for current date span. Error gracefully. #}
+{% if billing_period %}
+
 <h3>{{ title }} for {{ billing_period }} :: {{ billing_period.start }} - {{ billing_period.end }}</h3>
     
 {% if apply %}
@@ -44,6 +47,12 @@
 	 <p class="bigbutton"><a href="{% url batch_board_credit_apply billing_period.id %}">Apply Board Credits</a></p>
 
     <p>If all of these calculations are correct, click Apply. Otherwise, <a href="/admin/itaco/parent/">make corrections</a> to occupied positions, then return here.</p>
+
+{% endif %}
+
+{% else %}
+
+<p><strong>No Billing Period matching the current date has been set up in the Admin. Please create one, then return here.</strong></p> 
 
 {% endif %}
 

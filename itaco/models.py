@@ -162,7 +162,10 @@ class Student(models.Model):
     expected_grad_yr = models.ForeignKey(SchoolYear)
     family = models.ForeignKey(Family)
     birthdate = models.DateField(null=True,blank=True)
-    enrolled = models.BooleanField(default=True)
+    # We have both enrolled and alumni fields. These might seem redundant, but we have both because not 
+    # all students who enroll end up graduating. This way we can keep track of them separately.
+    # The alumni field is currently used mostly for mailing list membership.
+    enrolled = models.BooleanField(default=True,help_text="Enrolled and Alumni are separate b/c not all students who enroll end up graduating. This way we can keep track of them separately.")
     alumni = models.BooleanField(default=False)    
     reader = models.CharField(max_length=4, choices=constants.READER_TYPE_CHOICES)    
     

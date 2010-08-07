@@ -6,7 +6,10 @@ listgen.sh will call this script and do the subsequent mailman subscription magi
 """
 
 #################### Set up Django environment
-import sys,os
+
+import os, sys, site
+
+site.addsitedir('/home/crest/sites/crest/lib/python2.5/site-packages')
 
 # Toggle/comment these depending on whether you're testing in dev or running in production.
 sys.path.append('/home/crest/sites/crest')
@@ -35,6 +38,8 @@ from django.db.models import Q
 
 #################### Start work
 
+print "output path is:"
+print settings.LISTGENPATH
 
 def write_file(group,peeps=None,extra=None,extranomail=None):
     # Re-usable function to write text files. 

@@ -65,6 +65,7 @@ class FamilyManager(models.Manager):
 class Family(Group):
     notes = models.TextField(blank=True)
     fa_factor = models.FloatField('Financial Aid Factor',default=1)
+    multiple_residence = models.BooleanField(default=False,help_text='Are parents living in separate houses? Check to enable multiple addresses to appear on roster.')
     
     # Two managers for this model - the first is default (so all families appear in the admin).
     # The second is only invoked when we call Family.has_students.all()  e.g. on Family Roster page.

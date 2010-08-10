@@ -285,6 +285,9 @@
    <tr>
        <td valign="top" >
             
+		{% if fam.multiple_residence %}
+		<p><strong>* Multiple-residence family *</strong></p>
+		{% endif %}
 
            {% for parent in fam.parent_set.all %}
            <p>
@@ -321,33 +324,62 @@
                Fax: {{ parent.phone_fax }}<br />
                {% endif %}   
 
+				{# To avoid duplication of street addresses for most families, just print street address once. #}
+				{# UNLESS the multiple_residence checkbox is enabled for the family #}
+				{% if fam.multiple_residence %}
+		            {% if parent.address1 %}
+		            {{ parent.address1 }},
+		            {% endif %}
+
+		            {% if parent.address2 %}
+		            {{ parent.address2 }},
+		            {% endif %}
+
+		            {% if parent.city %}
+		            {{ parent.city }},
+		            {% endif %}
+
+		            {% if parent.state %}
+		            {{ parent.state }},
+		            {% endif %}
+
+		            {% if parent.zip %}
+		            {{ parent.zip }}<br />
+		            {% endif %}					
+				{% endif %}
+
            </p>
-           
-           {% if forloop.last %}
-            <p>
-            <strong>Street Address</strong><br />
+
+			{# To avoid duplication of street addresses for most families, just print street address once. #}
+			{# UNLESS the multiple_residence checkbox is enabled for the family #}
+			{% if not fam.multiple_residence %}			           
+	           {% if forloop.last %}
+	            <p>
+	            <strong>Street Address</strong><br />
             
-            {% if parent.address1 %}
-            {{ parent.address1 }}<br />
-            {% endif %}
+	            {% if parent.address1 %}
+	            {{ parent.address1 }}<br />
+	            {% endif %}
 
-            {% if parent.address2 %}
-            {{ parent.address2 }}<br />
-            {% endif %}
+	            {% if parent.address2 %}
+	            {{ parent.address2 }}<br />
+	            {% endif %}
 
-            {% if parent.city %}
-            {{ parent.city }},
-            {% endif %}
+	            {% if parent.city %}
+	            {{ parent.city }},
+	            {% endif %}
 
-            {% if parent.state %}
-            {{ parent.state }},
-            {% endif %}
+	            {% if parent.state %}
+	            {{ parent.state }},
+	            {% endif %}
 
-            {% if parent.zip %}
-            {{ parent.zip }}<br />
-            {% endif %}
-            </p>
-           {% endif %}
+	            {% if parent.zip %}
+	            {{ parent.zip }}<br />
+	            {% endif %}
+	            </p>
+	           {% endif %}
+			{% endif %}
+
            
            
            {% endfor %}

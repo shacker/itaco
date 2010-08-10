@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect
 from django.db.models import Sum
 from django.contrib.auth.decorators import user_passes_test
 
-# For reading files from listen output
+# For reading files from listgen output
 import sys,os
 
 # Create dicts separately for each roster, so we can re-use them in the print view.

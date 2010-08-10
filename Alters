@@ -1,11 +1,17 @@
 TODO
 
-ALTER TABLE `crest_ourdjang`.`itaco_student` ADD COLUMN `alumni` TINYINT(1) NOT NULL DEFAULT 0  AFTER `enrolled`;
+ALTER TABLE `crest_ourdjang`.`itaco_family` ADD COLUMN `multiple_residence` TINYINT(1) NOT NULL DEFAULT 0  AFTER `fa_factor`;
+
+
 
 
 
 =============================
 IN PRODUCTION
+
+
+ALTER TABLE `crest_ourdjang`.`itaco_student` ADD COLUMN `alumni` TINYINT(1) NOT NULL DEFAULT 0  AFTER `enrolled`;
+
 
 ALTER TABLE `itaco_parent` ADD COLUMN `has_timesheet` TINYINT(1) NULL DEFAULT 0  AFTER `primary_contact`;
 

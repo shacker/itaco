@@ -142,7 +142,7 @@ for group in groupset :
                         
     if group == 'everyone' :
         # peeps = User.objects.filter(is_active=True)
-        peeps = Parent.objects.filter(user__is_active=True)
+        peeps = Parent.objects.filter(user__is_active=True,family__student__enrolled=True)
         
     # Combined queries for the mixed lists via Q objects:
     # http://docs.djangoproject.com/en/dev/topics/db/queries/#complex-lookups-with-q-objects

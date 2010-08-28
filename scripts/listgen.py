@@ -142,7 +142,15 @@ for group in groupset :
                         
     if group == 'everyone' :
         # peeps = User.objects.filter(is_active=True)
-        peeps = Parent.objects.filter(user__is_active=True,family__student__enrolled=True)
+        # peeps = Parent.objects.filter(user__is_active=True,family__student__enrolled=True)
+        # Everyone list consists of all active users minus alumni or anyone whose student is not enrolled
+        # peeps = Parent.objects.filter(user__is_active=True).exclude(family__student__enrolled=False).exclude(family__student__alumni=True)
+        
+        # Everyone is defined as all parents in families that have one or more students enrolled, plus all teachers. Anyone else?
+        peeps = Parent.objects.filter(
+            Q(family__student__enrolled=True,user__is_active=True) | 
+            Q(user__groups__in=(87,),user__is_active=True)
+        )        
         
     # Combined queries for the mixed lists via Q objects:
     # http://docs.djangoproject.com/en/dev/topics/db/queries/#complex-lookups-with-q-objects

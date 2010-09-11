@@ -14,14 +14,14 @@ See the <a href="{% url roster_board %}">Board Roster</a> to see who currently o
 <table border="1">
     <tr class="row3">
         <td><strong>JOB</strong></td>
-        <td><strong>REPORTS TO</strong></td>
         <td><strong>ASSIGNED TO</strong></td>
+        <td><strong>REPORTS TO</strong></td>
     </tr>
     
 {% for pos in roster %}   
     <tr class="{% cycle 'row1' 'row2' %}">
     <td><strong>{{ pos }}</strong></td>
-    <td><strong>{{ pos.reports_to }}</strong></td>    
+  
     <td>
     {% for parent in pos.parent_set.all %}
     {% if parent.user.is_active %}
@@ -31,6 +31,8 @@ See the <a href="{% url roster_board %}">Board Roster</a> to see who currently o
         Not assigned
     {% endfor %}
     </td>
+
+    <td><strong>{{ pos.reports_to }}</strong></td>  
     </tr>
 
 {% endfor %}

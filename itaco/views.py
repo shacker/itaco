@@ -7,7 +7,7 @@ from ourcrestmont.itaco.forms import ChargeForm, PartCredForm, MaintOblForm, Stu
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.core.urlresolvers import reverse
@@ -238,12 +238,16 @@ def roster_board(request,printable=False):
 
 
 def roster_jobs(request,printable=False):
-    roster = CommitteeJob.objects.all().order_by('title')
-    cur_year = SchoolYear.objects.get(current=True)    
+    # roster = CommitteeJob.objects.all().order_by('title')
+    
+    # Only show jobs that have one or more occupying parents
+    roster = CommitteeJob.objects.annotate(num_parents=Count('parent')).filter(num_parents__gte=1).order_by('title')
+    
+    # for pos in roster2:
+    #     print pos.parent_set.all().count()
     
     dict_jobs = {
         'roster': roster,
-        'cur_year': cur_year,            
         'type': "jobs",      
         'title': "Committee Jobs (Family Jobs)"                                       
     }

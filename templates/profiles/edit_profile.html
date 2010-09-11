@@ -10,7 +10,7 @@
 {# Reusable avatar code #}
 {% include 'profiles/avatar.html' %}
 
-<form enctype="multipart/form-data" method="post" action="" >	
+<form enctype="multipart/form-data" method="post" action="" class="profile">	
 	{% csrf_token %}
 
 <h3>Account name: {{ user }}</h3>

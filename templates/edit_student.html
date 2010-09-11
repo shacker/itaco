@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block title %}Editing: {{item.list.profile.user}} - {{item.title}}{% endblock %}
+
+{% block content %}
+
+<h2>Edit Student</h2>
+
+<p>Only some details about students can be edited by parents.</p>
+
+<form action="" method="post" accept-charset="utf-8" id="ItemAddEdit">
+	{% csrf_token %}
+
+
+	<h3><strong>Please enter birthdate as YYYY-MM-DD, e.g. 2002-03-25</strong></h3>
+	{{form.as_p}}
+
+	<input  type="submit" value="Submit" style="margin-top:10px;" />
+
+</form>
+
+{% endblock content %}

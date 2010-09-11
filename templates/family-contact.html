@@ -92,7 +92,6 @@
                <strong>{{ student.first_name }} {{ student.last_name }}</strong><br />
                {# {{ student.get_reader_display }}<br /> #}
 			   Born: {{ student.birthdate }}<br />
-               
 
                {% if student.email %}
                <a href="mailto:{{ student.email }}">{{ student.email }}</a><br />
@@ -103,6 +102,12 @@
                {% endif %}
                
               Class of {{ student.expected_grad_yr.end|date:"Y" }}<br />
+
+			{# Only staff or parents of this student can edit the student details #}
+			{% if user.get_profile.family == student.family or user.is_staff %}
+			<a href="{% url edit_student student.id %}">Edit student<br />	
+			{% endif %}
+			   
 
            </p>
            {% endfor %}

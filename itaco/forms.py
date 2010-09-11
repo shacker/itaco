@@ -37,6 +37,12 @@ class CreditForm(ModelForm):
     class Meta:
         model = Credit
         
+class StudentForm(ModelForm):
+    
+    class Meta:
+        model = Student
+        fields = ('birthdate',)
+        
 
 class ProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):

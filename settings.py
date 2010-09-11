@@ -59,7 +59,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+	'django.contrib.messages.middleware.MessageMiddleware',    
     'ourcrestmont.middleware.login_req.LoginRequiredMiddleware',
+    
 )
 
 LOGIN_URL = '/accounts/login/'
@@ -81,6 +83,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.flatpages',
     'django.contrib.databrowse',
+    'django.contrib.messages',    
     'ourcrestmont.itaco',
     # 'filebrowser',
     'profiles',

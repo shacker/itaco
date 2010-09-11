@@ -82,8 +82,6 @@ urlpatterns = patterns('',
       
 
     # Admin, databrowse, filebrowser
-    # (r'^admin/filebrowser/', include('filebrowser.urls')),
-    # (r'^admin/(.*)', admin.site.root),
     (r'^admin/', include(admin.site.urls)),
     #(r'^databrowse/(.*)', databrowse.site.root),
     
@@ -92,6 +90,7 @@ urlpatterns = patterns('',
     # First match /profiles/edit before django-profiles gets it and loads the defaults, so we can pass in our custom form object.
     ('^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
     (r'^profiles/', include('profiles.urls')),
+    url(r'^student/(?P<student_id>\d+)/edit/?$', 'ourcrestmont.itaco.views.edit_student', name='edit_student'),      
 
     (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/media/images/flower.gif'}),
 )

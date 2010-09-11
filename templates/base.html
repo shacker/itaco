@@ -91,6 +91,15 @@
 	<div id="content">
 		<div class="post" id="post-2">
 			<div class="entry">
+
+				{% if messages %}
+				    <ul id="messagelist">
+				        {% for message in messages %}
+				            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+				        {% endfor %}
+				    </ul>
+				{% endif %}
+				
                 {% block content %}{% endblock %}
                 <h3>{{ flatpage.title }}</h3>
                 {{ flatpage.content }}

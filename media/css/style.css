@@ -536,10 +536,33 @@ td {
 }
 
 
-/* Messages that report success failure of various actions (Django's messaging system) */
-.messages {
-    color:#60825F;
-    font-weight:bold;
+/* MESSAGES & ERRORS */
+
+ul#messagelist  {
+    width:600px;
+    margin-top:0px;
+}
+
+ul#messagelist li {
+    list-style-type: none;
+    background: #ffc;
+    height:20px;
+    margin: 10px 0px;
+    padding: 5px 6px 3px 28px;
+    border: 1px solid #CECECE;
+}
+
+ul#messagelist li.success {
+    background: #ffc url(/site_media/images/icon_success.gif) 5px .3em no-repeat;
+}
+
+
+ul#messagelist li.error {
+    background: #ffc url(/site_media/images/icon_error.gif) 5px .3em no-repeat;
+}
+
+ul#messagelist li.info {
+    background: #ffc url(/site_media/images/icon_alert.gif) 5px .3em no-repeat;
 }
 
 /* Make inputs on batch-add tool narrower */

@@ -3,12 +3,14 @@ from django import forms
 from django.forms.formsets import formset_factory
 from ourcrestmont.itaco.models import *
 from ourcrestmont.itaco.constants import *
-from ourcrestmont.itaco.forms import ChargeForm, PartCredForm, MaintOblForm
+from ourcrestmont.itaco.forms import ChargeForm, PartCredForm, MaintOblForm, StudentForm
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.db.models import Sum
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 # For reading files from listgen output
 import sys,os
@@ -747,10 +749,10 @@ def batch_daycare_charges(request):
                     charge.note = form['note']
                     charge.save()
                 
-                    request.user.message_set.create(message="%s daycare hours added for %s" % (form['amount'], form['family']))
+                    messages.success(request, "%s daycare hours added for %s" % (form['amount'], form['family']))            
         
         else:
-            request.user.message_set.create(message="Something went wrong. No charges have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")
+            messages.error(request, "Something went wrong. No charges have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")                        
         
         # Redirect to a new page to avoid possibility of a browser reload re-adding charges.
         return HttpResponseRedirect("complete")
@@ -806,10 +808,12 @@ def batch_maintenance_obl(request):
                     # obl.units = 'hours'                    
                     obl.save()
 
-                    request.user.message_set.create(message="%s maintenance hours added for %s" % (form['amount'], form['family']))
+                    # request.user.message_set.create(message="%s maintenance hours added for %s" % (form['amount'], form['family']))
+                    messages.success(request, "%s maintenance hours added for %s" % (form['amount'], form['family']))            
 
         else:
-            request.user.message_set.create(message="Something went wrong. No obligation hours have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")
+            # request.user.message_set.create(message="Something went wrong. No obligation hours have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")                messages.success(request, "%s maintenance hours added for %s" % (form['amount'], form['family']))                        
+            messages.error(request, "Something went wrong. No obligation hours have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")         
 
         # Redirect to a new page to avoid possibility of a browser reload re-adding charges.
         return HttpResponseRedirect("complete")
@@ -863,10 +867,11 @@ def batch_participation_credits(request):
                     credit.note = form['note']                    
                     credit.save()
 
-                    request.user.message_set.create(message="%s participation hour credits added for %s" % (form['amount'], form['family']))
-
+                    # request.user.message_set.create(message="%s participation hour credits added for %s" % (form['amount'], form['family']))
+                    messages.success(request, "%s participation hour credits added for %s" % (form['amount'], form['family']))            
         else:
-            request.user.message_set.create(message="Something went wrong. No credits have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")
+            # request.user.message_set.create(message="Something went wrong. No credits have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")
+            messages.error(request, "Something went wrong. No credits have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")            
 
         # Redirect to a new page to avoid possibility of a browser reload re-adding credits.
         return HttpResponseRedirect("complete")
@@ -954,13 +959,16 @@ def batch_board_credit(request,apply=False,period=''):
                 board_string += "This position is not shared. Credit: <strong>$%d</strong></li>\n" % (b.credit)
                 board_credit += b.credit
             
-            # Report success via built-in messages system
-            request.user.message_set.create(message="$%d board credit added for %s" % (board_credit, p.family))
             
             # Create new Credit object in the db
             if apply :
                 new_credit = Credit(family=p.family,type='board',date=apply_date,amount=board_credit)
                 new_credit.save()
+
+                # Report success
+                # request.user.message_set.create(message="$%d board credit added for %s" % (board_credit, p.family))
+                messages.success(request, "$%d board credit added for %s" % (board_credit, p.family))            
+                
                 
 
     board_string += "</ul>\n"    
@@ -1061,3 +1069,38 @@ def summary_to_csv(request,billing_summary_dict):
     response['Content-Disposition'] = 'attachment; filename='+filename
     response['Content-Type'] = 'application/vnd.ms-excel; charset=utf-8'
     return response  
+    
+    
+    
+def edit_student(request,student_id=None):
+    """
+    Allow families to edit minimal details about a student.
+    Make sure only a parent of this student, or a staffer, can edit.
+    """
+    student = get_object_or_404(Student,pk=student_id) 
+
+    if request.user.get_profile().family == student.family or request.user.is_staff:
+
+        if request.POST:
+            form = StudentForm(request.POST, instance=student)
+
+            if form.is_valid():
+                student.save()
+
+                messages.success(request, "Student record updated.")                         
+                return HttpResponseRedirect(reverse('family_contact',args=[student.family.id]))
+
+        else:
+            form = StudentForm(instance=student)
+        
+        return render_to_response('edit_student.html', locals(), context_instance=RequestContext(request))    
+    else:
+        messages.error(request, "Student not changed (insufficient permission)")                         
+        return HttpResponseRedirect(reverse('family_contact',args=[student.family.id]))      
+        
+         
+    return render_to_response(
+        'edit_student.html', 
+        context_instance = RequestContext(request),
+        )
+    

@@ -1,12 +1,16 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block title %}Edit Profile{% endblock %}
 
 {% block content %}
 
-<h2>Edit contact info for {{ user.first_name }} {{ user.last_name }}</h2>
+<h2>Edit profile for {{ user.first_name }} {{ user.last_name }}</h2>
 
-<form method="POST" action="">
+{# Reusable avatar code #}
+{% include 'profiles/avatar.html' %}
+
+<form enctype="multipart/form-data" method="post" action="" >	
 	{% csrf_token %}
 
 <h3>Account name: {{ user }}</h3>

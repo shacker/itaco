@@ -1,29 +1,34 @@
 {% extends "base.html" %}
 
 
-{% block title %}Contact info for {{ user.first_name }} {{ user.last_name }}{% endblock %}
+{% block title %}Profile for {{ user.first_name }} {{ user.last_name }}{% endblock %}
 
 {% block content %}
 
 {% ifequal user profile.user  %}
-    <p><a href="{% url profiles_edit_profile %}">&#x2192; Edit my profile</a></p>
-    <p><a href="/accounts/password/change/">&#x2192; Change my password</a></p>
+	<ul id="navlist2">
+	    <li><a href="{% url profiles_edit_profile %}">Edit my profile</a></li>
+	    <li><a href="/accounts/password/change/">Change my password</a></li>
+	    {# For staff/faculty - downloadable PDF timesheet (uploaded via FTP) #}
+	    {# Only show link if a person is looking at their own profile. #}
+	    {% if profile.has_timesheet %}
+	        <li><a href="/media/uploads/timesheets/timesheet_{{user}}.pdf">  Download timesheet as PDF</a></li>
+	    {% endif %}
 
-    {# For staff/faculty - downloadable PDF timesheet (uploaded via FTP) #}
-    {# Only show link if a person is looking at their own profile. #}
-    {% if profile.has_timesheet %}
-        <p><a href="/media/uploads/timesheets/timesheet_{{user}}.pdf"> &#x2192; Download timesheet as PDF</a></p>
-    {% endif %}
+	</ul>
+
 
 {% endifequal %}
 
 
 <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
 
+{# Reusable avatar code #}
+{% include 'profiles/avatar.html' %}
 
 
 {% if profile.family %}
-    <p>In family: <a href="{% url family_contact profile.family.id %}">{{ profile.family }}</a></p>
+    <h3>In family: <a href="{% url family_contact profile.family.id %}">{{ profile.family }}</a></h3>
 {% endif %}
 
 <p><strong>About:</strong><br>
@@ -32,24 +37,18 @@
 {% endif %}
 
 
-
-{# {{ profile.image }} #}
-{# {% if profile.image %} #}
-{#     <img src="{{ profile.image }}" width="300" /> #}
-{# {% endif %} #}
-
 {% if profile.about %}
     {{ profile.about|linebreaks }}
 {% endif %}
 </p>
 
 <p><strong>Primary email:</strong><br>
-{{ profile.user.email }}
+<a href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a>
 </p>
 
 {% if profile.email_2 %}
 <p><strong>Secondary email:</strong><br>
-{{ profile.email_2 }}
+<a href="mailto:{{ profile.email_2 }}">{{ profile.email_2 }}</a>
 </p>
 {% endif %}
 
@@ -94,6 +93,15 @@
 {% if profile.facebook %}
     <a href="http://facebook.com/{{ profile.facebook }}">{{ profile.facebook }}</a>
 {% endif %}
+</p>
+
+<p><strong>Personal or business URL:</strong><br>
+{% if profile.url %}
+    <a href="{{ profile.url }}">{{ profile.url_title }}</a>
+{% else %}
+	Not available
+{% endif %}
+
 </p>
 {% if profile.fax %}
 <p><strong>Fax:</strong><br>

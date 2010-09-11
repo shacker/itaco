@@ -5,8 +5,23 @@ import datetime, time
 from django.db.models import signals
 from signals import update_profile
 import constants
+from sorl.thumbnail.fields import ThumbnailField
+from django.template.defaultfilters import slugify
 
 
+def get_avatar_path(instance, filename):
+    """
+    Clean the filename and determine the foldername to upload avatars to.
+    Must be defined before the Profile class.
+    """
+    
+    # To keep filenames clean, take the first part of the filename and run it
+    # through django's slugify function (if you run the whole thing through,
+    # you lose the "." separator in the filename.)
+    parts = str(filename).split(".")
+    return 'uploads/avatars/' + instance.user.username + '/' + slugify(parts[0]) + '.' + parts[1]
+    
+    
 class SchoolYear(models.Model):
     """System tracks school years individually."""    
     title = models.CharField(max_length=100)
@@ -109,8 +124,8 @@ class Parent(models.Model):
     """
     user = models.ForeignKey(User,related_name="parentuser")
     family = models.ForeignKey(Family,blank=True,null=True)
-    # image = models.ImageField(upload_to=settings.MEDIA_ROOT + "/uploads/profiles",  blank=True, null=True,
-    #     help_text='Upload an image of yourself! <br />Please resize to no larger than 300x300 px before uploading.')
+    avatar = ThumbnailField(upload_to=get_avatar_path, size=(300, 300),blank=True,null=True,
+        help_text='Upload an image of yourself! Please make sure your avatar image is mostly square, not rectangular.')
     title = models.CharField(blank=True, max_length=100,help_text='e.g. Third Grade Teacher. Right now this is only used for teachers, but could be used for anyone in the future.')
     about = models.TextField(blank=True,help_text="Tell us a bit about yourself - interests, work, favorite bands... <br />This field will be displayed on your Profile page.")
     email_2 = models.EmailField('Secondary email',blank=True)
@@ -127,6 +142,8 @@ class Parent(models.Model):
     no_lists = models.BooleanField(default=False,help_text="When checked, this parent will NOT be subscribed to the mailing lists they normally would be.")    
     twitter = models.CharField(blank=True, max_length=100, help_text='Your username on Twitter, e.g. &quot;joebob&quot;.')
     facebook = models.CharField(blank=True, max_length=100, help_text='Your username on FaceBook, e.g. &quot;janedoe&quot;. <br />Get a FaceBook username <a href=http://www.facebook.com/username/>here</a>.')    
+    url_title = models.CharField('URL Title',blank=True, max_length=120, help_text='Title of your business or personal URL.')    
+    url = models.URLField('URL',blank=True, verify_exists=True,help_text='Business or personal URL.')
     primary_contact = models.BooleanField('Primary contact for this family?')
     board_pos = models.ManyToManyField(BoardPosition,help_text="Select the BOARD position(s) this person currently holds.",verbose_name='Board Position',blank=True)
     comm_job = models.ManyToManyField(CommitteeJob,help_text="Select the COMMITTEE JOB(s) (family job) this person currently holds.",verbose_name='Committee Job',blank=True)    

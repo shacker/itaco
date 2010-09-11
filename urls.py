@@ -22,7 +22,9 @@ urlpatterns = patterns('',
     
     # Media handling
     url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.STATIC_DOC_ROOT}),    
+            {'document_root': settings.STATIC_DOC_ROOT}),   
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.STATIC_DOC_ROOT}),                
     
     # For django-registration (password resets, etc)
     # (r'^accounts/', include('registration.urls')),

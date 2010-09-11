@@ -1,5 +1,18 @@
 TODO
 
+
+
+=============================
+IN PRODUCTION
+
+
+ALTER TABLE `crest_ourdjang`.`itaco_parent` ADD COLUMN `avatar` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `family_id`;
+
+ALTER TABLE `crest_ourdjang`.`itaco_parent` ADD COLUMN `url_title` VARCHAR(120) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `facebook`;
+
+ALTER TABLE `crest_ourdjang`.`itaco_parent` ADD COLUMN `url` VARCHAR(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `url_title`;
+
+
 ALTER TABLE `crest_ourdjang`.`itaco_committeejob` CHANGE COLUMN `title` `title` VARCHAR(24) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''  COMMENT ''  AFTER `id`;
 
 ALTER TABLE `crest_ourdjang`.`itaco_committeejob` CHANGE COLUMN `title` `slug` VARCHAR(24) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''  COMMENT ''  AFTER `id`;
@@ -7,13 +20,6 @@ ALTER TABLE `crest_ourdjang`.`itaco_committeejob` CHANGE COLUMN `title` `slug` V
 ALTER TABLE `crest_ourdjang`.`itaco_committeejob` ADD COLUMN `title` VARCHAR(24) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''   AFTER `slug`;
 
 ALTER TABLE `crest_ourdjang`.`itaco_committeejob` CHANGE COLUMN `title` `title` VARCHAR(64) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''  COMMENT ''  AFTER `slug`;
-
-
-
-
-
-=============================
-IN PRODUCTION
 
 
 ALTER TABLE `crest_ourdjang`.`itaco_family` ADD COLUMN `multiple_residence` TINYINT(1) NOT NULL DEFAULT 0  AFTER `fa_factor`;

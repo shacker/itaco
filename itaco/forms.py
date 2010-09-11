@@ -59,6 +59,7 @@ class ProfileForm(ModelForm):
       exclude = ('family','user','board_pos','comm_job',)
       fields = (
                'about',
+               'avatar',
                'email',
                'email_2',
                'address1',
@@ -70,7 +71,9 @@ class ProfileForm(ModelForm):
                'phone_work',
                'phone_mobile',
                'twitter',
-               'facebook',               
+               'facebook',   
+               'url_title',
+               'url',            
                'fax',
                'primary_contact',
                )

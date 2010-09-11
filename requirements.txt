@@ -2,7 +2,7 @@
 
 -e hg+http://bitbucket.org/ubernostrum/django-profiles/#egg=profiles
 -e hg+http://bitbucket.org/ubernostrum/django-registration/#egg=registration
-
+-e hg+https://sorl-thumbnail.googlecode.com/hg/#egg=sorl-thumbnail
 
 http://django-command-extensions.googlecode.com/files/django-extensions-0.4.1.tar.gz
 

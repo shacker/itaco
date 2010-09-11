@@ -1,5 +1,13 @@
 TODO
 
+ALTER TABLE `crest_ourdjang`.`itaco_committeejob` CHANGE COLUMN `title` `title` VARCHAR(24) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''  COMMENT ''  AFTER `id`;
+
+ALTER TABLE `crest_ourdjang`.`itaco_committeejob` CHANGE COLUMN `title` `slug` VARCHAR(24) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''  COMMENT ''  AFTER `id`;
+
+ALTER TABLE `crest_ourdjang`.`itaco_committeejob` ADD COLUMN `title` VARCHAR(24) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''   AFTER `slug`;
+
+ALTER TABLE `crest_ourdjang`.`itaco_committeejob` CHANGE COLUMN `title` `title` VARCHAR(64) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''  COMMENT ''  AFTER `slug`;
+
 
 
 

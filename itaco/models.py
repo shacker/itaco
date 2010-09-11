@@ -37,7 +37,8 @@ class BoardPosition(models.Model):
 
 
 class CommitteeJob(models.Model):
-    title = models.CharField(choices=constants.COMMITTEE_JOBS_CHOICES,max_length=12)
+    # slug = models.CharField(max_length=24)
+    title = models.CharField(max_length=64)
     reports_to = models.ForeignKey(BoardPosition)
 
     class Meta:
@@ -45,7 +46,8 @@ class CommitteeJob(models.Model):
         ordering = ['title']
 
     def __unicode__(self):
-        return u'%s' % (self.get_title_display())
+        # return u'%s' % (self.get_title_display())
+        return self.title
         
         
                 

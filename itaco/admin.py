@@ -60,9 +60,12 @@ class SchoolYearAdmin(admin.ModelAdmin):
 class BillingPeriodAdmin(admin.ModelAdmin):
     list_display = ('title','school_year','start','end')  
     
+class CommitteeJobAdmin(admin.ModelAdmin):
+    list_display = ('title',)      
+    
       
     
-admin.site.register(CommitteeJob) 
+admin.site.register(CommitteeJob, CommitteeJobAdmin) 
 admin.site.register(ListExtra,ListExtraAdmin) 
 admin.site.register(Family,FamilyAdmin)    
 admin.site.register(Parent,ParentAdmin)

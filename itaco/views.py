@@ -206,6 +206,14 @@ def roster_teachers(request,printable=False):
     )  
     
     
+def roster_participators(request,printable=False):
+    roster = Parent.objects.filter(participating_parent=True,user__is_active=True).order_by('user__last_name')
+
+    return render_to_response('roster_participators.html', locals(),
+    context_instance = RequestContext(request),
+    )      
+    
+    
 def roster_board(request,printable=False):
     # We include Teachers as a board position because committee jobs report to them so it makes
     # sense in the data model, but it's confusing to users and not "real" so we exclude it here.

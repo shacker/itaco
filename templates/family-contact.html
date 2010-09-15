@@ -105,7 +105,7 @@
 
 			{# Only staff or parents of this student can edit the student details #}
 			{% if user.get_profile.family == student.family or user.is_staff %}
-			<a href="{% url edit_student student.id %}">Edit student<br />	
+			<a href="{% url edit_student student.id %}">Edit student</a><br />	
 			{% endif %}
 			   
 

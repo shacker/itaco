@@ -17,17 +17,24 @@ class StudentAdmin(admin.ModelAdmin):
     list_display = ('last_name','first_name','family','expected_grad_yr','alumni',)
     actions = [make_alumni,]
     
+class StudentInline(admin.TabularInline):
+    model = Student
+    extra = 1
 
 class ParentAdmin(admin.ModelAdmin):
     search_fields = ['user__last_name','user__first_name']
     raw_id_fields = ('user', )
     list_display = ('parent_name','title','participating_parent','no_lists',)
     list_editable = ('participating_parent',)
-    
+
+class ParentInline(admin.TabularInline):
+    model = Parent
+    extra = 0
     
 class FamilyAdmin(admin.ModelAdmin):
     list_display = ('family','fa_factor',)
     search_fields = ['name']
+    inlines = [StudentInline,ParentInline]
     
 class CreditAdmin(admin.ModelAdmin):
     list_display = ('family','date','type','amount',)

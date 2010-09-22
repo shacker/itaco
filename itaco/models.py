@@ -161,8 +161,6 @@ class Parent(models.Model):
     # Looks redundant with above, but needed for the list_display on this model
     def parent_name(self):
             return u'%s, %s' % (self.user.last_name, self.user.first_name)
-            
-        
     
     def get_absolute_url(self):
         return ('profiles_profile_detail', (), { 'username': self.user.username })
@@ -187,7 +185,7 @@ class Student(models.Model):
     # The alumni field is currently used mostly for mailing list membership.
     enrolled = models.BooleanField(default=True,help_text="Enrolled and Alumni are separate b/c not all students who enroll end up graduating. This way we can keep track of them separately.")
     alumni = models.BooleanField(default=False)    
-    reader = models.CharField(max_length=4, choices=constants.READER_TYPE_CHOICES)    
+    reader = models.CharField(max_length=4, choices=constants.READER_TYPE_CHOICES,blank=True,null=True)    
     
     # class Meta:
     #     ordering = ['last_name']

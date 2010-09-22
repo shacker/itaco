@@ -1,5 +1,7 @@
 TODO
 
+ALTER TABLE `crest_ourdjang`.`itaco_student` CHANGE COLUMN `reader` `reader` VARCHAR(4) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT ''  COMMENT ''  AFTER `alumni`;
+
 
 
 =============================

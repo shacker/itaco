@@ -61,7 +61,11 @@
 
     <li><a href="{% url listgen %}" title="Mailing Lists">Lists</a></li>    	
 	<li><a href="{% url profiles_profile_detail user %}" title="Profile">My Profile</a></li>	
-	<li><a href="http://crestmontschool.org/" title="Public">Public Site</a></li>	
+	<li><a href="http://crestmontschool.org/" title="Public">Public Site</a>
+        <ul>
+        	<li><a href="http://www.zazzle.com/crestmontschool" title="Merch">Crestmont Merchandise</a></li>
+        </ul>		
+	</li>	
 
 	{% if user.is_staff %}
 	<li><a href="#" title="iTaco Tools">iTaco Tools</a>

@@ -1,11 +1,14 @@
 TODO
 
-ALTER TABLE `crest_ourdjang`.`itaco_student` CHANGE COLUMN `reader` `reader` VARCHAR(4) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT ''  COMMENT ''  AFTER `alumni`;
 
 
 
 =============================
 IN PRODUCTION
+
+ALTER TABLE `crest_ourdjang`.`itaco_student` CHANGE COLUMN `expected_grad_yr_id` `expected_grad_yr_id` INT(11) NULL DEFAULT 0  COMMENT ''  AFTER `last_name`;
+
+ALTER TABLE `crest_ourdjang`.`itaco_student` CHANGE COLUMN `reader` `reader` VARCHAR(4) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT ''  COMMENT ''  AFTER `alumni`;
 
 
 ALTER TABLE `crest_ourdjang`.`itaco_parent` ADD COLUMN `avatar` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `family_id`;

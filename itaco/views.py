@@ -330,7 +330,8 @@ def family_contact(request,fam_id):
     """
     f = get_object_or_404(Family,pk=fam_id)
     p = Parent.objects.filter(family=fam_id)
-    s = Student.objects.filter(family=fam_id)
+    s = Student.objects.filter(family=fam_id,enrolled=True)
+    siblings = Student.objects.filter(family=fam_id,enrolled=False)    
     
     # Only superusers and the current family can view their own finance details.
     if request.user.is_superuser:
@@ -343,6 +344,7 @@ def family_contact(request,fam_id):
             'family': f,
             'parents': p,            
             'students': s, 
+            'siblings': siblings,             
             'canview_charges': canview_charges,
         },
         context_instance = RequestContext(request),

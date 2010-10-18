@@ -111,6 +111,35 @@
 
            </p>
            {% endfor %}
+
+			{% if siblings.count > 0 %}
+				
+
+           <h3>Siblings</h3>
+           
+           {% for sibling in siblings %}
+           <p>
+               <strong>{{ sibling.first_name }} {{ sibling.last_name }}</strong><br />
+               {# {{ sibling.get_reader_display }}<br /> #}
+			   Born: {{ sibling.birthdate }}<br />
+
+               {% if sibling.email %}
+               <a href="mailto:{{ sibling.email }}">{{ sibling.email }}</a><br />
+               {% endif %}  
+
+               {% if sibling.email_2 %}
+               <a href="mailto:{{ sibling.email_2 }}">{{ parent.email_2 }}</a> (alternate)<br />
+               {% endif %}
+               
+			{# Only staff or parents of this sibling can edit the sibling details #}
+			{% if user.get_profile.family == sibling.family or user.is_staff %}
+			<a href="{% url edit_student sibling.id %}">Edit sibling</a><br />	
+			{% endif %}
+			   
+
+           </p>
+           {% endfor %}
+		{% endif %}
        </td>
     </tr>    
 

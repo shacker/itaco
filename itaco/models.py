@@ -177,7 +177,7 @@ class Student(models.Model):
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)    
-    expected_grad_yr = models.ForeignKey(SchoolYear)
+    expected_grad_yr = models.ForeignKey(SchoolYear,blank=True,null=True,help_text="This is an optional field because you may be entering a non-enrolled sibling, who has no grad year. Be sure to select a grad year for enrolled students.")
     family = models.ForeignKey(Family)
     birthdate = models.DateField(null=True,blank=True)
     # We have both enrolled and alumni fields. These might seem redundant, but we have both because not 
@@ -187,8 +187,9 @@ class Student(models.Model):
     alumni = models.BooleanField(default=False)    
     reader = models.CharField(max_length=4, choices=constants.READER_TYPE_CHOICES,blank=True,null=True)    
     
-    # class Meta:
-    #     ordering = ['last_name']
+    class Meta:
+        verbose_name = "Student/Sibling"
+        verbose_name_plural = "Students/Siblings"        
 
     def get_absolute_url(self):
         return "/person/%s/" % (self.id)

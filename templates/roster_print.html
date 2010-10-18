@@ -107,7 +107,14 @@
     <tr class="{% cycle 'odd' 'even' %}">
         <td><strong>{{ staffer.title }}</strong></td>
         <td><strong>{{ staffer.user.first_name }} {{ staffer.user.last_name }}</strong></td>   
-        <td><strong>{{ staffer.phone_home }}</strong></td>        
+        <td><strong>
+		{% if staffer.phone_mobile %}
+			{{ staffer.phone_mobile }}
+		{% else %}
+			{{ staffer.phone_home }}		
+		{% endif %}
+
+		</strong></td>        
     </tr>
     {% endfor %}
      

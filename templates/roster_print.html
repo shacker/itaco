@@ -113,7 +113,6 @@
 		{% else %}
 			{{ staffer.phone_home }}		
 		{% endif %}
-
 		</strong></td>        
     </tr>
     {% endfor %}
@@ -158,7 +157,14 @@
             {% for parent in b.parent_set.all %}
                 {% if parent.user.is_active %}
 				<tr>
-                    <td><strong>{{ parent.user.first_name }} {{ parent.user.last_name }}</strong></td> <td><strong>{{ parent.phone_home }}</strong></td>
+                    <td><strong>{{ parent.user.first_name }} {{ parent.user.last_name }}</strong></td> 
+					<td><strong>
+						{% if parent.phone_mobile %}
+							{{ parent.phone_mobile }}
+						{% else %}
+							{{ parent.phone_home }}		
+						{% endif %}
+					</strong></td>
 				</tr>
                 {% endif %}
             {% empty %}

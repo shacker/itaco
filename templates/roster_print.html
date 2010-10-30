@@ -188,32 +188,8 @@
 
 {# End board roster #}
 
-<br />
-<br />
-<div style="page-break-after:always"></div>
 
 
-{# Begin family jobs #}
-
-{# <table  cellspacing="5" cellpadding="5"> #}
-{#     <tr class="shade"><td colspan="2"><h2>Family Jobs</h2></td></tr> #}
-{#     {% for j in roster_famjobs.roster  %} #}
-{#     <tr> #}
-{#         <td valign="top"><strong>{{ j.get_title_display }}</strong></td> #}
-{#         <td><strong> #}
-{#             {% for parent in j.parent_set.all %} #}
-{#                 {% if parent.user.is_active %} #}
-{#                     {{ parent.user.first_name }} {{ parent.user.last_name }}<br />             #}
-{#                 {% endif %} #}
-{#             {% empty %} #}
-{#                 Not assigned #}
-{#             {% endfor %}             #}
-{#         </strong></td>         #}
-{#     </tr> #}
-{#     {% endfor %} #}
-{# </table> #}
-
-{# End family jobs #}
 
 <br />
 <br />
@@ -283,6 +259,7 @@
 <br />
 <br />
 
+<div style="page-break-before:always"></div>
 
 {# Begin family roster #}
 
@@ -291,6 +268,8 @@
 </table>
 
 {% for fam in roster_fam.roster  %}
+
+
 <br />
 
 <table border="0" cellspacing="3" cellpadding="5" class="famtable" >
@@ -392,9 +371,6 @@
 	            </p>
 	           {% endif %}
 			{% endif %}
-
-           
-           
            {% endfor %}
            
        </td>
@@ -420,6 +396,12 @@
        </td>
     </tr>   
     </table>
+
+	{# Page break after every 3 families, to keep them from breaking across pages #}
+	{% if forloop.counter|divisibleby:3 %}
+
+		<div style="page-break-after:always"></div>
+	{% endif %}
 
     {% endfor %}
 

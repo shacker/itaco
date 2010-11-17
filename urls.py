@@ -64,15 +64,10 @@ urlpatterns = patterns('',
 
     # Misc administrative tools, such as batch daycare charge entry and billing summary
     url(r'^tools/charges/daycare/$', 'ourcrestmont.itaco.views.batch_daycare_charges', name='batch_daycare_charges'),
-    url(r'^tools/charges/daycare/complete/$', 'ourcrestmont.itaco.views.batch_daycare_charges_complete', name='batch_daycare_charges_complete'),    
-    
     url(r'^tools/charges/participation/$', 'ourcrestmont.itaco.views.batch_participation_credits', name='batch_participation_credits'),    
-    url(r'^tools/charges/participation/complete/$', 'ourcrestmont.itaco.views.batch_participation_credits_complete', name='batch_daycare_charges_complete'),
-    
-    url(r'^tools/obligations/maintenance/$', 'ourcrestmont.itaco.views.batch_maintenance_obl', name='batch_maintenance_obl'),    
-    url(r'^tools/obligations/maintenance/complete/$', 'ourcrestmont.itaco.views.batch_maint_obl_complete', name='batch_maint_obl_complete'),        
-
+    url(r'^tools/obligations/$', 'ourcrestmont.itaco.views.batch_obl', name='batch_obl'),    
     url(r'^tools/credits/board/$', 'ourcrestmont.itaco.views.batch_board_credit', name='batch_board_credit'),
+    
     url(r'^tools/credits/board/period/(?P<period>\d+)/$', 'ourcrestmont.itaco.views.batch_board_credit', name='batch_board_credit_period'),    
     url(r'^tools/credits/board/period/(?P<period>\d+)/apply/?$', 'ourcrestmont.itaco.views.batch_board_credit', {'apply':True}, name='batch_board_credit_apply'),  
 

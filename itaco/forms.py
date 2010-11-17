@@ -12,13 +12,21 @@ class ChargeForm(ModelForm):
         exclude = ('units','type','date','charged_amount',)
 
         
-class MaintOblForm(ModelForm):
+# class MaintOblForm(ModelForm):
+#     family = forms.ModelChoiceField(queryset=Family.has_students.all())
+#     amount = forms.FloatField(help_text='')
+# 
+#     class Meta:
+#         model = Obligation
+#         exclude = ('units','type','date','charged_amount',)  
+
+class OblForm(ModelForm):
     family = forms.ModelChoiceField(queryset=Family.has_students.all())
     amount = forms.FloatField(help_text='')
 
     class Meta:
         model = Obligation
-        exclude = ('units','type','date','charged_amount',)        
+        exclude = ('units','type','date','charged_amount',)      
 
         
 class PartCredForm(ModelForm):

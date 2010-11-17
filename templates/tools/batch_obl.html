@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Batch-add Maintenance Obligations{% endblock %}
+
+{% block content %}
+
+<h3>Batch-add Obligation Hours</h3>
+
+<p>This tool is for adding <strong>OBLIGATIONS</strong> in batches. <br />
+    All obligation hours will be added for the DATE and TYPE at the top of the form.<br />
+  </p>
+
+<form action="" method="post" accept-charset="utf-8">
+	{% csrf_token %}
+    {{ formset.management_form }}
+
+
+    
+	<table>
+	    <tr>
+	        <th>
+	            <label for="the_date">Date:</label>
+	        </th>
+	        <th>
+	            <input type="text" name="the_date" value="{% now "Y-m-j" %}" id="the_date">
+	        </th>
+	    </tr>
+	
+	    <tr>
+	        <th>
+	            <label for="type">Type:</label>
+	        </th>
+	        <th>
+	            <select name="type" id="type"  size="1">
+	            	<option value="">---------</option>
+	            	<option value="maint">Maintenance hours</option>
+	            	<option value="fldtrp">Fieldtrips</option>
+	            	
+	            </select>
+	        </th>
+	    </tr>	
+	  </table>
+	
+<p>    <strong>Maintenance</strong>: Enter the number of <strong>HOURS</strong> in the "Amount" field.<br />
+    <strong>Field trips</strong>: Enter "1" for one field trip in the "Amount" field.<br />
+</p>	
+	
+	<hr style="background-color:#C4CDC8;margin:20px;"/>
+	
+	  <table>
+        {% for form in formset.forms  %}
+            {{ form }}
+    		<tr>
+    		  <td colspan="2">&nbsp;  </td>
+    		</tr>
+        {% endfor %}
+	</table>
+
+<p><input type="submit" value="Submit"></p>
+</form>
+
+
+{% endblock content %}

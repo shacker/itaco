@@ -3,7 +3,7 @@ from django import forms
 from django.forms.formsets import formset_factory
 from ourcrestmont.itaco.models import *
 from ourcrestmont.itaco.constants import *
-from ourcrestmont.itaco.forms import ChargeForm, PartCredForm, MaintOblForm, StudentForm
+from ourcrestmont.itaco.forms import ChargeForm, PartCredForm, OblForm, StudentForm
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -769,7 +769,8 @@ def batch_daycare_charges(request):
             messages.error(request, "Something went wrong. No charges have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")                        
         
         # Redirect to a new page to avoid possibility of a browser reload re-adding charges.
-        return HttpResponseRedirect("complete")
+        # return HttpResponseRedirect("complete")
+        return HttpResponseRedirect(reverse('batch_daycare_charges'))            
     else:
         formset = DaycareChargeFormSet()
 
@@ -780,29 +781,72 @@ def batch_daycare_charges(request):
         )
     
 
-def batch_daycare_charges_complete(request):
-    """
-    Page to display after batch daycare charges have been added.
-    """
-    return render_to_response(
-        'tools/charge_batch_complete.html', 
-        context_instance = RequestContext(request),
-        )
 
 
+
+
+# 
+# # View restricted to users with is_staff permissions    
+# @user_passes_test(lambda u: u.is_staff, login_url='/')
+# def batch_maintenance_obl(request):
+#     """
+#     Provides ability to add multiple maintenance obligations at once. 
+#     For privileged users (Trackers) only.
+#     """
+# 
+#     MaintOblFormSet = formset_factory(MaintOblForm, extra=20)
+#     if request.method == 'POST':
+#         formset = MaintOblFormSet(request.POST, request.FILES)
+# 
+#         if formset.is_valid():
+#             for form in formset.cleaned_data:
+#                 """
+#                 This shouldn't be necessary - cleaned_data should not pass in empty dictionaries.
+#                 But we're getting them anyway if no data is entered into one of the forms. 
+#                 So we manually skip processing of empty dicts with "if form: "
+#                 """
+# 
+#                 if form:
+#                     obl = Obligation()
+#                     obl.family = form['family']
+#                     obl.type = 'maint'
+#                     obl.date = request.POST['the_date']          
+#                     obl.amount = form['amount']
+#                     obl.note = form['note']
+#                     # obl.units = 'hours'                    
+#                     obl.save()
+# 
+#                     # request.user.message_set.create(message="%s maintenance hours added for %s" % (form['amount'], form['family']))
+#                     messages.success(request, "%s maintenance hours added for %s" % (form['amount'], form['family']))            
+# 
+#         else:
+#             # request.user.message_set.create(message="Something went wrong. No obligation hours have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")                messages.success(request, "%s maintenance hours added for %s" % (form['amount'], form['family']))                        
+#             messages.error(request, "Something went wrong. No obligation hours have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")         
+# 
+#         # Redirect to a new page to avoid possibility of a browser reload re-adding charges.
+#         # return HttpResponseRedirect("complete")
+#         return HttpResponseRedirect(reverse('batch_maintenance_obl'))                    
+#     else:
+#         formset = MaintOblFormSet()
+# 
+#     return render_to_response(
+#         'tools/maint_obl_batch.html', 
+#         {'formset': formset},
+#         context_instance = RequestContext(request),
+#         )
 
 
 # View restricted to users with is_staff permissions    
 @user_passes_test(lambda u: u.is_staff, login_url='/')
-def batch_maintenance_obl(request):
+def batch_obl(request):
     """
-    Provides ability to add multiple maintenance obligations at once. 
+    Provides ability to add multiple obligations of a given type at once. 
     For privileged users (Trackers) only.
     """
 
-    MaintOblFormSet = formset_factory(MaintOblForm, extra=20)
+    OblFormSet = formset_factory(OblForm, extra=20)
     if request.method == 'POST':
-        formset = MaintOblFormSet(request.POST, request.FILES)
+        formset = OblFormSet(request.POST, request.FILES)
 
         if formset.is_valid():
             for form in formset.cleaned_data:
@@ -815,40 +859,30 @@ def batch_maintenance_obl(request):
                 if form:
                     obl = Obligation()
                     obl.family = form['family']
-                    obl.type = 'maint'
+                    # obl.type = 'maint'
+                    obl.type = request.POST['type']  
                     obl.date = request.POST['the_date']          
                     obl.amount = form['amount']
                     obl.note = form['note']
-                    # obl.units = 'hours'                    
                     obl.save()
 
-                    # request.user.message_set.create(message="%s maintenance hours added for %s" % (form['amount'], form['family']))
                     messages.success(request, "%s maintenance hours added for %s" % (form['amount'], form['family']))            
 
         else:
-            # request.user.message_set.create(message="Something went wrong. No obligation hours have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")                messages.success(request, "%s maintenance hours added for %s" % (form['amount'], form['family']))                        
             messages.error(request, "Something went wrong. No obligation hours have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")         
 
         # Redirect to a new page to avoid possibility of a browser reload re-adding charges.
-        return HttpResponseRedirect("complete")
+        return HttpResponseRedirect(reverse('batch_obl'))                    
     else:
-        formset = MaintOblFormSet()
+        formset = OblFormSet()
 
     return render_to_response(
-        'tools/maint_obl_batch.html', 
+        'tools/batch_obl.html', 
         {'formset': formset},
         context_instance = RequestContext(request),
         )
 
 
-def batch_maint_obl_complete(request):
-    """
-    Page to display after batch maintenance obligations have been added.
-    """
-    return render_to_response(
-        'tools/maint_obl_batch_complete.html', 
-        context_instance = RequestContext(request),
-        )
 
 
 
@@ -881,14 +915,12 @@ def batch_participation_credits(request):
                     credit.note = form['note']                    
                     credit.save()
 
-                    # request.user.message_set.create(message="%s participation hour credits added for %s" % (form['amount'], form['family']))
                     messages.success(request, "%s participation hour credits added for %s" % (form['amount'], form['family']))            
         else:
-            # request.user.message_set.create(message="Something went wrong. No credits have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")
             messages.error(request, "Something went wrong. No credits have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")            
 
         # Redirect to a new page to avoid possibility of a browser reload re-adding credits.
-        return HttpResponseRedirect("complete")
+        return HttpResponseRedirect(reverse('batch_participation_credits'))        
     else:
         formset = PartCredFormSet()
 
@@ -899,14 +931,7 @@ def batch_participation_credits(request):
         )
 
 
-def batch_participation_credits_complete(request):
-    """
-    Page to display after batch participation credits have been added.
-    """
-    return render_to_response(
-        'tools/participation_batch_complete.html', 
-        context_instance = RequestContext(request),
-        )
+
 
 # View restricted to superusers
 @user_passes_test(lambda u: u.is_superuser, login_url='/')
@@ -982,8 +1007,6 @@ def batch_board_credit(request,apply=False,period=''):
                 # Report success
                 # request.user.message_set.create(message="$%d board credit added for %s" % (board_credit, p.family))
                 messages.success(request, "$%d board credit added for %s" % (board_credit, p.family))            
-                
-                
 
     board_string += "</ul>\n"    
 

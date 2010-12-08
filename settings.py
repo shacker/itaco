@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     'django.contrib.databrowse',
     'django.contrib.messages',    
     'ourcrestmont.itaco',
+    'ourcrestmont.roster',    
     # 'filebrowser',
     'sorl.thumbnail',
     'profiles',

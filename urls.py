@@ -27,24 +27,10 @@ urlpatterns = patterns('',
             {'document_root': settings.STATIC_DOC_ROOT}),                
     
     # For django-registration (password resets, etc)
-    # (r'^accounts/', include('registration.urls')),
     (r'^accounts/', include('registration.backends.default.urls')),    
     
     # Rosters - family and student listings
-    url(r'^roster/families/?$', 'ourcrestmont.itaco.views.roster_families', name='roster_families'),
-    url(r'^roster/parents/?$', 'ourcrestmont.itaco.views.roster_parents', name='roster_parents'),    
-    url(r'^roster/students/k/?$', 'ourcrestmont.itaco.views.roster_students_kinder', name='roster_students_kinder'),
-    url(r'^roster/students/1/?$', 'ourcrestmont.itaco.views.roster_students_1st', name='roster_students_1st'),    
-    url(r'^roster/students/2/?$', 'ourcrestmont.itaco.views.roster_students_2nd', name='roster_students_2nd'),    
-    url(r'^roster/students/3/?$', 'ourcrestmont.itaco.views.roster_students_3rd', name='roster_students_3rd'),    
-    url(r'^roster/students/4/?$', 'ourcrestmont.itaco.views.roster_students_4th', name='roster_students_4th'),    
-    url(r'^roster/students/5/?$', 'ourcrestmont.itaco.views.roster_students_5th', name='roster_students_5th'),                        
-    url(r'^roster/students/?$', 'ourcrestmont.itaco.views.roster_students', name='roster_students'),
-    url(r'^roster/teachers/?$', 'ourcrestmont.itaco.views.roster_teachers', name='roster_teachers'),
-    url(r'^roster/participators/?$', 'ourcrestmont.itaco.views.roster_participators', name='roster_participators'),      
-    url(r'^roster/board/?$', 'ourcrestmont.itaco.views.roster_board', name='roster_board'),     
-    url(r'^roster/jobs/?$', 'ourcrestmont.itaco.views.roster_jobs', name='roster_jobs'),   
-    url(r'^roster/print/?$', 'ourcrestmont.itaco.views.roster_print', name='roster_print'),                
+    (r'^roster/', include('roster.urls')),                 
 
     # These  URLs route to the same view. The family_detail view will then connect to render_to_csv if /csv/ is present.
     # To get data slices we optionally pass in a named year or a named period or the static var "all" (to view all billing periods)

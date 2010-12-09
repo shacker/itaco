@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 from roster.views import *
 
+
 urlpatterns = patterns('roster.views',
 
     url(r'^families/?$', 'roster_families', name='roster_families'),
@@ -17,5 +18,13 @@ urlpatterns = patterns('roster.views',
     url(r'^board/?$', 'roster_board', name='roster_board'),     
     url(r'^jobs/?$', 'roster_jobs', name='roster_jobs'),   
     url(r'^print/?$', 'roster_print', name='roster_print'),
+    url(r'^export/?$', 'roster_export', name='roster_export'),        
+    url(r'^vcard/multi/?$', 'vcard_multi', name='vcard_multi'),    
+    url(r'^vcard/(?P<username>\w+)/?$', 'vcard_single', name='vcard_single'),    
     
 )
+
+
+
+
+

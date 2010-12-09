@@ -1,0 +1,14 @@
+BEGIN:VCARD
+VERSION:3.0
+ORG:Crestmont;
+{% if p.title %}TITLE:{{p.title}}{% endif %}
+EMAIL;type=INTERNET;type=HOME;type=pref:{{p.user.email}}
+FN:{{p.user.first_name}} {{p.user.last_name}}
+N:{{p.user.last_name}};{{p.user.first_name}};;;
+TEL;TYPE=HOME:{{p.phone_home}}
+TEL;TYPE=WORK:{{p.phone_work}}
+TEL;TYPE=MOBILE:{{p.phone_mobile}}
+item1.ADR;type=HOME;type=pref:;;{{p.address1}};{{p.city}};{{p.state}};{{p.zip}};
+{% if p.url %}URL:{{p.url}}{% endif %}
+{% if p.family.student_set.all.count > 0 %}NOTE:Parent of\:\n{% for s in p.family.student_set.all  %}{{s.first_name}} {{s.last_name}}{% if not forloop.last %}\n{% endif %}{% endfor %}{% endif %}
+END:VCARD

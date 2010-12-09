@@ -1,7 +1,9 @@
 from ourcrestmont.itaco.models import Family, Parent, Student, SchoolYear, CommitteeJob, BoardPosition
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
+from django.http import HttpResponse
 from django.db.models import Sum, Count
+import vobject
 
 
 # Create dicts separately for each roster, so we can re-use them in the print view.
@@ -284,3 +286,39 @@ def roster_print(request):
         },
         context_instance = RequestContext(request),
     )
+
+
+def roster_export(request):
+    ''' Provide various export options (print, vcard)'''
+    
+    return render_to_response('roster/export.html', locals(),
+        context_instance = RequestContext(request),
+    )  
+    
+def vcard_single(request, username):
+    """
+    View function for returning one vcard
+    """
+
+    person = Parent.objects.get(user__username=username)
+
+    response = render_to_response("roster/vcard.txt", {'p':person},)    
+    filename = "%s%s.vcf" % (person.user.first_name, person.user.last_name)
+    response['Content-Disposition'] = 'attachment; filename='+filename
+    response['Content-Type'] = 'text/x-vCard; charset=utf-8'    
+    return response
+    
+    
+def vcard_multi(request):
+    """
+    View function for returning multiple vcards
+    """
+
+    people = Parent.objects.all()
+
+    response = render_to_response("roster/vcard_multi.txt", {'people':people},)    
+    filename = "crestmont_multi.vcf"
+    response['Content-Disposition'] = 'attachment; filename='+filename
+    response['Content-Type'] = 'text/x-vCard; charset=utf-8'    
+    return response    
+        

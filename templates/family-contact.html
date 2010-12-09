@@ -5,7 +5,7 @@
 
 {% block content %}
 
-{% include "roster_subnav.html" %}
+{% include "roster/roster_subnav.html" %}
 
 <h2>Family: {{ family.name }}</h2>
 {% ifequal canview_charges 1 %}
@@ -20,7 +20,7 @@
            
            {% for parent in parents %}
            <p>
-               <strong><a href="{% url profiles_profile_detail parent.user %}">{{ parent.user.first_name }} {{ parent.user.last_name }}</a>
+               <strong><a href="{% url profiles_profile_detail parent.user %}">{{ parent.user.first_name }} {{ parent.user.last_name }}</a> 
                    {% ifequal parent.primary_contact 1 %}
                    <strong> - Primary Contact</strong>
                    {% endifequal %}  
@@ -77,8 +77,10 @@
                {% endif %}   
 
 				{% ifequal parent.user.id user.id  %}
-				<a href="{% url profiles_edit_profile %}">Edit contact info</a>
+				<a href="{% url profiles_edit_profile %}">Edit contact info</a><br />
 				{% endifequal %}
+
+				<a href="{% url vcard_single parent.user.username %}"><img src="/site_media/images/vcard.png" width="30" height="30" alt="Vcard"></a>
 
            </p>
            {% endfor %}    

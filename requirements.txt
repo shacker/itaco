@@ -10,3 +10,7 @@ http://django-command-extensions.googlecode.com/files/django-extensions-0.4.1.ta
 # Docutils for admin documentation.
 docutils
 
+# VObject for vcards
+vobject
+
+

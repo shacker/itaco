@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Export roster{% endblock %}
+
+{% block content %}
+
+{% include "roster/roster_subnav.html" %}
+
+<style type="text/css" media="screen">
+	table {
+		margin-top:20px;
+	}
+	
+</style>
+<h3>Roster export options</h3>
+
+<table>
+	<tr>
+		<td><a href="{% url roster_print %}"><img src="/site_media/images/roster_icon.jpg" height="64" alt="Roster Icon"></a></td>
+		
+		<td>
+			<a href="{% url vcard_multi %}"><img src="/site_media/images/vcard.png" width="64" height="64" alt="Vcard">
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<strong><a href="{% url roster_print %}">Printable master roster</a></strong>	
+		</td>
+		
+		<td>
+			
+			<strong><a href="{% url vcard_multi %}">Download group vCard*</a></strong>	
+		</td>
+	</tr>
+</table>
+
+<p>* vCard format can be downloaded and imported into most address books (GMail Contacts, Apple Address Book, Entourage, etc.)
+</p>
+
+
+
+
+{% endblock content %}

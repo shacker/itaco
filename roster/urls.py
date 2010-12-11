@@ -21,7 +21,7 @@ urlpatterns = patterns('roster.views',
     url(r'^export/?$', 'roster_export', name='roster_export'),        
     url(r'^vcard/multi/?$', 'vcard_multi', name='vcard_multi'),    
     url(r'^vcard/(?P<username>\w+)/?$', 'vcard_single', name='vcard_single'),    
-    
+    url(r'^signin/?$', 'signin_print', name='signin_print'),        
 )
 
 

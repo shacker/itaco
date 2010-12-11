@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>Sign-in roster</title>
+	
+</head>
+
+<body>
+
+<style type="text/css" media="screen">
+	table, th, tr, td {
+		border: 1px solid #999;
+		border-collapse:collapse;
+		padding:5px;
+		font-family:Verdana;
+	}
+	
+	th {
+		background-color:#E2E2E2;
+	}
+</style>
+
+<h3>Crestmont sign-in sheet</h3>
+
+<p>Please circle the best contact phone number for today.</p>
+
+<table>
+	<th>
+		Child
+	</th>
+
+	<th>
+		Mobile 1
+	</th>
+
+	<th>
+		Mobile 2
+	</th>
+
+	<th>
+		Home
+	</th>
+
+	<th>
+		Work 1
+	</th>
+
+	<th>
+		Work 2
+	</th>
+	
+	<th>
+		Arrive (time)
+	</th>	
+
+	<th>
+		Leave (time)
+	</th>	
+
+
+	{% for s in students %}
+	<tr>
+		<td>
+			{{s.student}}
+		</td>
+
+		<td>
+			{% if s.primary %}
+			{{s.primary.phone_mobile}}	
+			{% endif %}
+		</td>
+
+		<td>
+			{% if s.secondary %}
+			{{s.secondary.phone_mobile}}	
+			{% endif %}
+		</td>
+
+		<td>
+			Home
+		</td>
+
+		<td>
+			Work 1
+		</td>
+
+		<td>
+			Work 2
+		</td>
+
+		<td>
+			Arrive (time)
+		</td>	
+
+		<td>
+			Leave (time)
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+
+</body>
+</html>

@@ -336,7 +336,7 @@ def signin_print(request):
             # This will be true when the student has exactly one parent marked as primary contact
             primary = Parent.objects.get(family=s.family,primary_contact=True)
             # The secondary contact will be the 2nd in the query not marked primary
-            secondary = Parent.objects.filter(family=s.family,primary_contact != True)[:1]
+            secondary = Parent.objects.filter(family=s.family)[:1]
             
         except:
             # Otherwise we'll pick the first parent in the query

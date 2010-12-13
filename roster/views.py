@@ -347,8 +347,6 @@ def signin_print(request):
         # Append this info the students list
         students.append({'student':s,'primary':primary,'secondary':secondary})
 
-        print students
-    
 
     return render_to_response('roster/signin_print.html', 
         locals(),

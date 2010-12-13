@@ -321,3 +321,37 @@ def vcard_multi(request):
     response['Content-Type'] = 'text/x-vCard; charset=utf-8'    
     return response    
         
+        
+def signin_print(request):
+    '''
+    Printable sign-in / sign-out sheet
+    '''
+    
+    # We don't necessarily have a primary contact for each family, 
+    # so we'll need a custom list with lots of logic, not a simple queryset.
+
+    students = []
+    for s in Student.objects.filter(enrolled=True).order_by('last_name'):
+        try:
+            # This will be true when the student has exactly one parent marked as primary contact
+            primary = Parent.objects.select_related().get(family=s.family,primary_contact=True)
+            
+        except:
+            # Otherwise we'll pick the first parent in the query
+            primary = Parent.objects.select_related().filter(family=s.family)[:0]
+
+        # The secondary contact will be the 2nd in the query not marked primary
+        secondary = Parent.objects.select_related().filter(family=s.family,primary_contact=False)
+        
+    
+        # Append this info the students list
+        students.append({'student':s,'primary':primary,'secondary':secondary})
+
+        print students
+    
+
+    return render_to_response('roster/signin_print.html', 
+        locals(),
+        context_instance = RequestContext(request),
+    )        
+        

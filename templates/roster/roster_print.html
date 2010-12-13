@@ -79,12 +79,33 @@
 		font-size:1.2em;
 	}
 
-/*    @media print  
-    {
-        table{
-            page-break-inside: avoid;
-        }
-    }*/
+
+
+	#container {
+		width:900px;
+	}
+	
+	.famdiv {
+		border:1px solid gray;
+		width:370px;
+		float:left;
+		margin-right:50px;
+		margin-bottom:15px;
+	}
+	
+	.famtitle {
+		background-color:#D3D3D3;
+		margin:0px;
+		padding:3px;
+		font-weight:bold;
+		font-size:1.1em;
+	}
+	
+	.leftpad {
+		padding-left:5px;
+	}
+	
+
 	</style>
 	
 </head>
@@ -263,92 +284,82 @@
 
 {# Begin family roster #}
 
-<table  cellspacing="3" cellpadding="3">
-<tr class="shade"><td colspan="2"><h2>Families</h2></td></tr>
+<table  cellspacing="3" cellpadding="3" style="margin-bottom:15px;">
+	<tr class="shade"><td colspan="2"><h2>Families</h2></td></tr>
 </table>
 
-{% for fam in roster_fam.roster  %}
+<div id="container">
+{% for fam in roster_fam.roster %}
 
+		<div class="famdiv">		
+		<div class="famtitle">{{fam}}</div>
+		
+		{% for parent in fam.parent_set.all %}
+			
+         <p class="leftpad">
+             <strong>{{ parent.user.first_name }} {{ parent.user.last_name }}<br />
+             {% for pos in parent.board_pos.all %}
+                Board position: {{ pos.title }}<br />
+             {% endfor %}
+             </strong>
 
-<br />
+             {% if parent.user.email %}
+             {{ parent.user.email }}<br />
+             {% endif %}  
 
-<table border="0" cellspacing="3" cellpadding="5" class="famtable" >
-   <tr><th colspan="2">{{ fam }}</th></tr>
-   <tr>
-       <td valign="top" >
-            
-		{% if fam.multiple_residence %}
-		<p><strong>* Multiple-residence family *</strong></p>
-		{% endif %}
+             {% if parent.email_2 %}
+             {{ parent.email_2 }} (alt.)<br />
+             {% endif %}      
 
-           {% for parent in fam.parent_set.all %}
-           <p>
-               <strong>{{ parent.user.first_name }} {{ parent.user.last_name }}
-                   <br />
+             {% if parent.phone_home %}
+             Home: {{ parent.phone_home }}<br />
+             {% endif %} 
 
-                   {% for pos in parent.board_pos.all %}
-                      Board position: {{ pos.title }}<br />
-                   {% endfor %}
+             {% if parent.phone_work %}
+             Work: {{ parent.phone_work }}<br />
+             {% endif %}
 
-               </strong>
+             {% if parent.phone_mobile %}
+             Mobile: {{ parent.phone_mobile }}<br />
+             {% endif %} 
 
-               {% if parent.user.email %}
-              {{ parent.user.email }}<br />
-               {% endif %}  
+             {% if parent.phone_fax %}
+             Fax: {{ parent.phone_fax }}<br />
+             {% endif %}   
 
-               {% if parent.email_2 %}
-               {{ parent.email_2 }} (alternate)<br />
-               {% endif %}      
+			{# To avoid duplication of street addresses for most families, just print street address once. #}
+			{# UNLESS the multiple_residence checkbox is enabled for the family #}
+			{% if fam.multiple_residence %}
+	            {% if parent.address1 %}
+	            {{ parent.address1 }},
+	            {% endif %}
 
-               {% if parent.phone_home %}
-               Home: {{ parent.phone_home }}<br />
-               {% endif %} 
+	            {% if parent.address2 %}
+	            {{ parent.address2 }},
+	            {% endif %}
 
-               {% if parent.phone_work %}
-               Work: {{ parent.phone_work }}<br />
-               {% endif %}
+	            {% if parent.city %}
+	            {{ parent.city }},
+	            {% endif %}
 
-               {% if parent.phone_mobile %}
-               Mobile: {{ parent.phone_mobile }}<br />
-               {% endif %} 
+	            {% if parent.state %}
+	            {{ parent.state }},
+	            {% endif %}
 
-               {% if parent.phone_fax %}
-               Fax: {{ parent.phone_fax }}<br />
-               {% endif %}   
+	            {% if parent.zip %}
+	            {{ parent.zip }}<br />
+	            {% endif %}					
+			{% endif %}
 
-				{# To avoid duplication of street addresses for most families, just print street address once. #}
-				{# UNLESS the multiple_residence checkbox is enabled for the family #}
-				{% if fam.multiple_residence %}
-		            {% if parent.address1 %}
-		            {{ parent.address1 }},
-		            {% endif %}
-
-		            {% if parent.address2 %}
-		            {{ parent.address2 }},
-		            {% endif %}
-
-		            {% if parent.city %}
-		            {{ parent.city }},
-		            {% endif %}
-
-		            {% if parent.state %}
-		            {{ parent.state }},
-		            {% endif %}
-
-		            {% if parent.zip %}
-		            {{ parent.zip }}<br />
-		            {% endif %}					
-				{% endif %}
-
-           </p>
+         </p>
 
 			{# To avoid duplication of street addresses for most families, just print street address once. #}
 			{# UNLESS the multiple_residence checkbox is enabled for the family #}
 			{% if not fam.multiple_residence %}			           
 	           {% if forloop.last %}
-	            <p>
+	            <p class="leftpad">
 	            <strong>Street Address</strong><br />
-            
+          
 	            {% if parent.address1 %}
 	            {{ parent.address1 }}<br />
 	            {% endif %}
@@ -370,43 +381,33 @@
 	            {% endif %}
 	            </p>
 	           {% endif %}
+
 			{% endif %}
-           {% endfor %}
-           
-       </td>
 
-       <td valign="top" >
-           
+         {% endfor %}
 
-           {% for student in fam.student_set.all %}
-           <p>
-               <strong><span class="major">{{ student.first_name }} {{ student.last_name }}</span></strong><br />
-               {{ student.expected_grad_yr.get_grad_class_display }}<br />
+         {% for student in fam.student_set.all %}
+         <p class="leftpad">
+             <strong>{{ student.first_name }} {{ student.last_name }}</strong><br />
+             {{ student.expected_grad_yr.get_grad_class_display }}<br />
 
-               {% if student.birthdate %}
-               Born: {{ student.birthdate|date:"M d, Y" }}
-               {% endif %}
-               {% if student.email %}
-               {{ student.email }}<br />
-               {% endif %}  
-               
+             {% if student.birthdate %}
+             Born: {{ student.birthdate|date:"M d, Y" }}
+             {% endif %}
+             {% if student.email %}
+             {{ student.email }}<br />
+             {% endif %}  
+         </p>
+         {% endfor %}
+		</div>
 
-           </p>
-           {% endfor %}
-       </td>
-    </tr>   
-    </table>
-
-	{# Page break after every 3 families, to keep them from breaking across pages #}
-	{% if forloop.counter|divisibleby:3 %}
-
-		<div style="page-break-after:always"></div>
-	{% endif %}
-
-    {% endfor %}
+		{% if forloop.counter|divisibleby:2  %} 
+			<div style="clear:both;"></div>
+		{% endif %}
 
 
-
+{% endfor %}
+</div>
 {# End family roster #}
 
 

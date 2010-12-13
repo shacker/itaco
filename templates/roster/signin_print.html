@@ -11,12 +11,13 @@
 
 <body>
 
-<style type="text/css" media="screen">
+<style type="text/css" media="screen,print">
 	table, th, tr, td {
 		border: 1px solid #999;
 		border-collapse:collapse;
-		padding:5px;
+		padding:3px;
 		font-family:Verdana;
+		font-size:0.8em;
 	}
 	
 	th {
@@ -76,28 +77,28 @@
 
 		<td>
 			{% if s.secondary %}
-			{{s.secondary.phone_mobile}}	
+			{{s.secondary.0.phone_mobile}}	
 			{% endif %}
 		</td>
 
 		<td>
-			Home
+			{{s.primary.phone_home}}	
 		</td>
 
 		<td>
-			Work 1
+			{{s.primary.phone_work}}	
 		</td>
 
 		<td>
-			Work 2
+			{{s.secondary.0.phone_work}}	
 		</td>
 
 		<td>
-			Arrive (time)
+			&nbsp;
 		</td>	
 
 		<td>
-			Leave (time)
+			&nbsp;
 		</td>
 	</tr>
 	{% endfor %}

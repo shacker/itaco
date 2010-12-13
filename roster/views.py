@@ -329,19 +329,19 @@ def signin_print(request):
     
     # We don't necessarily have a primary contact for each family, 
     # so we'll need a custom list with lots of logic, not a simple queryset.
-    students_all = Student.objects.filter(enrolled=True).order_by('last_name')
+
     students = []
-    for s in students_all:
+    for s in Student.objects.filter(enrolled=True).order_by('last_name'):
         try:
             # This will be true when the student has exactly one parent marked as primary contact
-            primary = Parent.objects.get(family=s.family,primary_contact=True)
-            # The secondary contact will be the 2nd in the query not marked primary
-            secondary = Parent.objects.filter(family=s.family)[:1]
+            primary = Parent.objects.select_related().get(family=s.family,primary_contact=True)
             
         except:
             # Otherwise we'll pick the first parent in the query
-            primary = Parent.objects.filter(family=s.family)[:0]
-            secondary = None
+            primary = Parent.objects.select_related().filter(family=s.family)[:0]
+
+        # The secondary contact will be the 2nd in the query not marked primary
+        secondary = Parent.objects.select_related().filter(family=s.family,primary_contact=False)
         
     
         # Append this info the students list

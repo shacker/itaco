@@ -21,20 +21,20 @@ class StudentInline(admin.TabularInline):
     model = Student
     extra = 1
 
-class ParentAdmin(admin.ModelAdmin):
+class ProfileAdmin(admin.ModelAdmin):
     search_fields = ['user__last_name','user__first_name']
     raw_id_fields = ('user', )
-    list_display = ('parent_name','title','participating_parent','no_lists',)
+    list_display = ('profile_name','title','participating_parent','no_lists',)
     list_editable = ('participating_parent',)
 
-class ParentInline(admin.TabularInline):
-    model = Parent
+class ProfileInline(admin.TabularInline):
+    model = Profile
     extra = 0
     
 class FamilyAdmin(admin.ModelAdmin):
     list_display = ('family','fa_factor',)
     search_fields = ['name']
-    inlines = [StudentInline,ParentInline]
+    inlines = [StudentInline,ProfileInline]
     
 class CreditAdmin(admin.ModelAdmin):
     list_display = ('family','date','type','amount',)
@@ -75,7 +75,7 @@ class CommitteeJobAdmin(admin.ModelAdmin):
 admin.site.register(CommitteeJob, CommitteeJobAdmin) 
 admin.site.register(ListExtra,ListExtraAdmin) 
 admin.site.register(Family,FamilyAdmin)    
-admin.site.register(Parent,ParentAdmin)
+admin.site.register(Profile,ProfileAdmin)
 admin.site.register(Student,StudentAdmin)
 admin.site.register(Credit,CreditAdmin)
 admin.site.register(Obligation,ObligationAdmin)

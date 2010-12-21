@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group, User
-from ourcrestmont.itaco.models import Parent, Family
+from ourcrestmont.itaco.models import Profile, Family
 
 
 def family_id(request):
@@ -9,7 +9,7 @@ def family_id(request):
     # We always need to know which family the current user belongs to.
     # If user is not logged in or user does not have a family, send none
     try:
-        p=Parent.objects.get(user=request.user.id)
+        p=Profile.objects.get(user=request.user.id)
         myfam_id=p.family.id
     except:
         myfam_id=None

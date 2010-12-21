@@ -102,8 +102,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 
-# Our custom Django profiles are held in the Parent model, which inherits from User
-AUTH_PROFILE_MODULE = 'itaco.Parent'
+# Our custom Django profiles are held in the Profile model, which inherits from User
+AUTH_PROFILE_MODULE = 'itaco.Profile'
 
 
 # Annual obligations (in units per family) as specified in Crestmont Contract

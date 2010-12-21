@@ -1,7 +1,12 @@
 TODO
 
+rename itaco_parent to itaco_profile
+rename to itaco_profile_comm_job
+rename to itaco_profile_board_pos
 
+ALTER TABLE `crest_ourdjang`.`itaco_profile_board_pos` CHANGE COLUMN `parent_id` `profile_id` INT(11) NOT NULL DEFAULT 0  COMMENT ''  AFTER `id`;
 
+ALTER TABLE `crest_ourdjang`.`itaco_profile_comm_job` CHANGE COLUMN `parent_id` `profile_id` INT(11) NOT NULL DEFAULT 0  COMMENT ''  AFTER `id`;
 
 =============================
 IN PRODUCTION

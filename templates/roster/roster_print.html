@@ -175,7 +175,7 @@
         <td>
 			<table class="innertable">
 
-            {% for parent in b.parent_set.all %}
+            {% for parent in b.profile_set.all %}
                 {% if parent.user.is_active %}
 				<tr>
                     <td><strong>{{ parent.user.first_name }} {{ parent.user.last_name }}</strong></td> 
@@ -294,7 +294,7 @@
 		<div class="famdiv">		
 		<div class="famtitle">{{fam}}</div>
 		
-		{% for parent in fam.parent_set.all %}
+		{% for parent in fam.profile_set.all %}
 			
          <p class="leftpad">
              <strong>{{ parent.user.first_name }} {{ parent.user.last_name }}<br />

@@ -105,24 +105,23 @@ class Family(Group):
         return u'%s' % (self.name)
         
 
-class ParentManager(models.Manager):
+class ProfileManager(models.Manager):
     """
-    Custom manager for Parent model - gives us the ability to easily return a list
+    Custom manager for Profile model - gives us the ability to easily return a list
     of all parents that have one or more students enrolled via
-        Parent.has_students.all() 
+        Profile.has_students.all() 
     thus excluding parents in the system that do not have enrolled students.
     """
     def get_query_set(self):
-        return super(ParentManager, self).get_query_set().filter(family__student__enrolled=True).order_by('user__last_name').distinct()
+        return super(ProfileManager, self).get_query_set().filter(family__student__enrolled=True).order_by('user__last_name').distinct()
                         
         
 
-class Parent(models.Model):    
+class Profile(models.Model):    
     """
-    A parent object is a foreignkey to User - you must create a user before creating a Parent.
-    Parent is also the main Profile model in settings.py.
+    A Profile object is a foreignkey to User - you must create a user before creating a Profile.
     """
-    user = models.ForeignKey(User,related_name="parentuser")
+    user = models.ForeignKey(User,related_name="profileuser")
     family = models.ForeignKey(Family,blank=True,null=True)
     avatar = ThumbnailField(upload_to=get_avatar_path, size=(300, 300),blank=True,null=True,
         help_text='Upload an image of yourself! Please make sure your avatar image is mostly square, not rectangular.')
@@ -150,23 +149,23 @@ class Parent(models.Model):
     has_timesheet = models.BooleanField(default=False,help_text="Enable for staff/faculty who use hourly timesheets (Treasurer will upload via FTP; will become available from members Profile page.)")
 
     # Two managers for this model - the first is default (so all parents appear in the admin).
-    # The second is only invoked when we call Parent.has_students.all()  e.g. on Parents Roster page.
+    # The second is only invoked when we call Profile.has_students.all()  e.g. on Parents Roster page.
     objects = models.Manager()
-    has_students = ParentManager()
+    has_students = ProfileManager()
     
           
     def __unicode__(self):
         return u'%s, %s' % (self.user.last_name, self.user.first_name)
 
     # Looks redundant with above, but needed for the list_display on this model
-    def parent_name(self):
+    def profile_name(self):
             return u'%s, %s' % (self.user.last_name, self.user.first_name)
     
     def get_absolute_url(self):
         return ('profiles_profile_detail', (), { 'username': self.user.username })
     get_absolute_url = models.permalink(get_absolute_url)
 
-signals.post_save.connect(update_profile, sender=Parent)
+signals.post_save.connect(update_profile, sender=Profile)
     
 
 class Student(models.Model):    

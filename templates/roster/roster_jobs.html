@@ -23,7 +23,7 @@ See the <a href="{% url roster_board %}">Board Roster</a> to see who currently o
     <td><strong>{{ pos }}</strong></td>
   
     <td>
-    {% for parent in pos.parent_set.all %}
+    {% for parent in pos.profile_set.all %}
     {% if parent.user.is_active %}
         <a href="{% url profiles_profile_detail parent.user %}">{{ parent.user.first_name }} {{ parent.user.last_name }}</a><br />
     {% endif %}

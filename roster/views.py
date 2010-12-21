@@ -1,4 +1,4 @@
-from ourcrestmont.itaco.models import Family, Parent, Student, SchoolYear, CommitteeJob, BoardPosition
+from ourcrestmont.itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse
@@ -29,7 +29,7 @@ def roster_families(request,printable=False):
 
 
 def roster_parents(request):
-    roster = Parent.has_students.all() # Alpha ordering happens in the ParentManager model, not here.
+    roster = Profile.has_students.all() # Alpha ordering happens in the ProfileManager model, not here.
     cur_year = SchoolYear.objects.get(current=True)
     return render_to_response('roster/roster.html', 
         {
@@ -178,8 +178,8 @@ def roster_students_5th(request,printable=False):
         )
             
 def roster_teachers(request,printable=False):
-    roster = Parent.objects.filter(user__groups__in=(87,),user__is_active=True).order_by('user__last_name')
-    aides = Parent.objects.filter(user__groups__in=(89,),user__is_active=True).order_by('user__last_name')    
+    roster = Profile.objects.filter(user__groups__in=(87,),user__is_active=True).order_by('user__last_name')
+    aides = Profile.objects.filter(user__groups__in=(89,),user__is_active=True).order_by('user__last_name')    
     
     dict_teachers = {
         'roster': roster,
@@ -197,7 +197,7 @@ def roster_teachers(request,printable=False):
     
     
 def roster_participators(request,printable=False):
-    roster = Parent.objects.filter(participating_parent=True,user__is_active=True).order_by('user__last_name')
+    roster = Profile.objects.filter(participating_parent=True,user__is_active=True).order_by('user__last_name')
 
     return render_to_response('roster/roster_participators.html', locals(),
     context_instance = RequestContext(request),
@@ -231,10 +231,10 @@ def roster_jobs(request,printable=False):
     # roster = CommitteeJob.objects.all().order_by('title')
     
     # Only show jobs that have one or more occupying parents
-    roster = CommitteeJob.objects.annotate(num_parents=Count('parent')).filter(num_parents__gte=1).order_by('title')
+    roster = CommitteeJob.objects.annotate(num_parents=Count('profile')).filter(num_parents__gte=1).order_by('title')
     
     # for pos in roster2:
-    #     print pos.parent_set.all().count()
+    #     print pos.profile_set.all().count()
     
     dict_jobs = {
         'roster': roster,
@@ -299,7 +299,7 @@ def vcard_single(request, username):
     View function for returning one vcard
     """
 
-    person = Parent.objects.get(user__username=username)
+    person = Profile.objects.get(user__username=username)
 
     response = render_to_response("roster/vcard.txt", {'p':person},)    
     filename = "%s%s.vcf" % (person.user.first_name, person.user.last_name)
@@ -313,7 +313,7 @@ def vcard_multi(request):
     View function for returning multiple vcards
     """
 
-    people = Parent.objects.all()
+    people = Profile.objects.all()
 
     response = render_to_response("roster/vcard_multi.txt", {'people':people},)    
     filename = "crestmont_multi.vcf"
@@ -334,14 +334,14 @@ def signin_print(request):
     for s in Student.objects.filter(enrolled=True).order_by('last_name'):
         try:
             # This will be true when the student has exactly one parent marked as primary contact
-            primary = Parent.objects.select_related().get(family=s.family,primary_contact=True)
+            primary = Profile.objects.select_related().get(family=s.family,primary_contact=True)
             
         except:
             # Otherwise we'll pick the first parent in the query
-            primary = Parent.objects.select_related().filter(family=s.family)[:0]
+            primary = Profile.objects.select_related().filter(family=s.family)[:0]
 
         # The secondary contact will be the 2nd in the query not marked primary
-        secondary = Parent.objects.select_related().filter(family=s.family,primary_contact=False)
+        secondary = Profile.objects.select_related().filter(family=s.family,primary_contact=False)
         
     
         # Append this info the students list

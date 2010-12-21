@@ -63,7 +63,7 @@ class ProfileForm(ModelForm):
     email = forms.EmailField(label="Primary email", help_text="Used for school mailing lists. <br />Changes may not be reflected on lists immediately.")
   
     class Meta:
-      model = Parent
+      model = Profile
       exclude = ('family','user','board_pos','comm_job',)
       fields = (
                'about',

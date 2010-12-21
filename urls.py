@@ -6,13 +6,6 @@ from django.conf import settings
 from ourcrestmont.itaco.models import *
 from ourcrestmont.itaco.forms import ProfileForm
 
-#databrowse.site.register(Family)
-#databrowse.site.register(Parent)
-#databrowse.site.register(Student)
-#databrowse.site.register(Charge)
-#databrowse.site.register(Credit)
-#databrowse.site.register(Obligation)
-
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin

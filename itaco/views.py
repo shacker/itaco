@@ -49,7 +49,7 @@ def family_contact(request,fam_id):
     Get base objects for family, and for parents and students in this family.
     """
     f = get_object_or_404(Family,pk=fam_id)
-    p = Parent.objects.filter(family=fam_id)
+    p = Profile.objects.filter(family=fam_id)
     s = Student.objects.filter(family=fam_id,enrolled=True)
     siblings = Student.objects.filter(family=fam_id,enrolled=False)    
     
@@ -151,7 +151,7 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
     Get base objects for family, and for parents and students in this family.
     """
     f = get_object_or_404(Family,pk=fam_id)
-    p = Parent.objects.filter(family=fam_id)
+    p = Profile.objects.filter(family=fam_id)
     s = Student.objects.filter(family=fam_id)
 
     """
@@ -182,12 +182,12 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
     Also adjust the number of maintenance obligation hours depending on whether a
     board position is occupied, and whether that board position is shared.
     """
-    board_positions = BoardPosition.objects.filter(parent__in=p)
+    board_positions = BoardPosition.objects.filter(profile__in=p)
     board_string = ""
     board_credit = 0
     for b in board_positions:
         # Does anyone else occupy this position? Get number of people who have same pos.
-        num_other_occupied = len(Parent.objects.filter(board_pos=b.id))
+        num_other_occupied = len(Profile.objects.filter(board_pos=b.id))
         board_string += "%s ($%d)<br />" % (b, b.credit)
         
         if num_other_occupied > 1 :
@@ -256,7 +256,7 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
     
     # First obtain the current user's family ID
     try:
-        p=Parent.objects.get(user=request.user.id)
+        p=Profile.objects.get(user=request.user.id)
         myfam_id=p.family.id
     except:
         myfam_id=None
@@ -693,19 +693,19 @@ def batch_board_credit(request,apply=False,period=''):
         
     # Get list of all parents who occupy board positions
     board_list = BoardPosition.objects.all()
-    parent_list = Parent.has_students.filter(board_pos__in=board_list,user__is_active=True)
+    parent_list = Profile.has_students.filter(board_pos__in=board_list,user__is_active=True)
     board_string = ''
     
     for p in parent_list:
         board_string += "\n\n<p><strong>%s</strong> </p>\n" % p
-        board_positions = board_list.filter(parent__exact=p)
+        board_positions = board_list.filter(profile__exact=p)
         board_string += "<ul>\n"
 
         for b in board_positions:
             
             # Does anyone else occupy this position? Get number of people who have same position.
             board_credit = 0
-            num_other_occupied = len(Parent.has_students.filter(board_pos=b.id))
+            num_other_occupied = len(Profile.has_students.filter(board_pos=b.id))
             board_string += "<li> %s ($%d)\n" % (b, b.credit)
         
             if num_other_occupied > 1 :

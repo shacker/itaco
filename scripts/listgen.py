@@ -2,7 +2,7 @@
 Python replacement for old listgen.sh script (or at least half of it). 
 Extract lists of email addresses per Group and write them to text files.
 listgen.sh will call this script and do the subsequent mailman subscription magic.
-
+ 
 """
 
 #################### Set up Django environment

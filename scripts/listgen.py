@@ -121,7 +121,9 @@ for group in groupset :
         peeps = Profile.objects.filter(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='5th',user__is_active=True)  
         
     if group == 'board' :
-        peeps = Profile.objects.filter(board_pos__in=BoardPosition.objects.all())
+        # Be sure to exclude teachers from the board list - they show up there because iTaco 
+        # makes teachers into board members for reporting-to purposes, but that's not acceptable here.
+        peeps = Profile.objects.filter(board_pos__in=BoardPosition.objects.all()).exclude(user__groups__in=(87,))
             
     if group == 'teachers' :
         peeps = Profile.objects.filter(user__groups__in=(87,),user__is_active=True)

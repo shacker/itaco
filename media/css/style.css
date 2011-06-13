@@ -34,6 +34,11 @@ a:hover, a:active {
 	color:#333;
 	text-decoration:underline;
 	}
+	
+a:link img, a:visited img {
+    text-decoration:none;
+    border:none;
+}
 
 hr {
 	display: block;

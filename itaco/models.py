@@ -5,7 +5,8 @@ import datetime, time
 from django.db.models import signals
 from signals import update_profile
 import constants
-from sorl.thumbnail.fields import ThumbnailField
+# from sorl.thumbnail.fields import ThumbnailField
+from sorl.thumbnail import ImageField
 from django.template.defaultfilters import slugify
 
 
@@ -123,8 +124,9 @@ class Profile(models.Model):
     """
     user = models.ForeignKey(User,related_name="profileuser")
     family = models.ForeignKey(Family,blank=True,null=True)
-    avatar = ThumbnailField(upload_to=get_avatar_path, size=(300, 300),blank=True,null=True,
+    avatar = ImageField(upload_to=get_avatar_path, blank=True,null=True,
         help_text='Upload an image of yourself! Please make sure your avatar image is mostly square, not rectangular.')
+        
     title = models.CharField(blank=True, max_length=100,help_text='e.g. Third Grade Teacher. Right now this is only used for teachers, but could be used for anyone in the future.')
     about = models.TextField(blank=True,help_text="Tell us a bit about yourself - interests, work, favorite bands... <br />This field will be displayed on your Profile page.")
     email_2 = models.EmailField('Secondary email',blank=True)

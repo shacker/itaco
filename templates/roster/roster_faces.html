@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load thumbnail %}
+
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -6,60 +8,36 @@
 
 {% include "roster/roster_subnav.html" %}
 
-{% ifequal type "families" %}
-<h3>Family Roster {{ cur_year }}</h3>
-{% endifequal %}
+<h3>Parents {{ cur_year }}</h3>
 
-{% ifequal type "parents" %}
-<h3>Parent Roster {{ cur_year }}</h3>
-{% endifequal %}
+<style type="text/css" media="screen">
+	td {
+		width:25%;
+		text-align:center;
+		padding-bottom:30px;
+	}
 
-{% ifequal type "students" %}
-<h3>Student Roster {{ cur_year }}</h3>
-{% endifequal %}
-
-{% ifequal type "kinder" %}
-<h3>Kindergarten Roster {{ cur_year }}</h3>
-{% endifequal %}
-
-{% ifequal type "1st" %}
-<h3>1st Grade Roster {{ cur_year }}</h3>
-{% endifequal %}
-
-{% ifequal type "2nd" %}
-<h3>2nd Grade Roster {{ cur_year }}</h3>
-{% endifequal %}
-
-{% ifequal type "3rd" %}
-<h3>3rd Grade Roster {{ cur_year }}</h3>
-{% endifequal %}
-
-{% ifequal type "4th" %}
-<h3>4th Grade Roster {{ cur_year }}</h3>
-{% endifequal %}
-
-{% ifequal type "5th" %}
-<h3>5th Grade Roster {{ cur_year }}</h3>
-{% endifequal %}
-
-{% ifequal type "staff" %}
-<h3>Staff Roster {{ cur_year }}</h3>
-{% endifequal %}
-
+</style>
 
 <table>
+<tr>
 {% for person in roster %}
-    <tr class="{% cycle 'row1' 'row2' %}">
+
         <td>
-        {% ifequal type "parents" %} 
-   		<img src="/site_media/{{person.avatar}}" width="75" />
-        <a href="{% url profiles_profile_detail person.user %}" title="{{ person }}">{{ person }}</a>
-        {% endifequal %}
-                     
+	    {% if person.avatar %}
+			{% thumbnail person.avatar "75x75" crop="center" as im %}
+				<a href="{% url profiles_profile_detail person.user %}" title="{{ person }}"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{person}}'s avatar image" /> <br />{{person}}</a>
+			{% endthumbnail %}
+
+	    {% else %}
+			<a href="{% url profiles_profile_detail person.user %}"><img src="/site_media/images/osa_user_blue.png" width="75" height="75" alt="{{person}}'s avatar image" /> <br />{{person}}</a><br />
+	    {% endif %}
 
         </td>
-    </tr>
+	{% if forloop.counter|divisibleby:4 and not forloop.last %}</tr><tr>{% endif %}
+
 {% endfor %}
+</tr>
 </table>
 
 {% endblock content %}

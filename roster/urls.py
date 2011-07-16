@@ -4,8 +4,10 @@ from roster.views import *
 
 urlpatterns = patterns('roster.views',
 
+
     url(r'^families/?$', 'roster_families', name='roster_families'),
     url(r'^parents/?$', 'roster_parents', name='roster_parents'),    
+    url(r'^parents/faces/?$', 'roster_parents', {'faces':True}, name='roster_faces'),        
     url(r'^students/k/?$', 'roster_students_kinder', name='roster_students_kinder'),
     url(r'^students/1/?$', 'roster_students_1st', name='roster_students_1st'),    
     url(r'^students/2/?$', 'roster_students_2nd', name='roster_students_2nd'),    

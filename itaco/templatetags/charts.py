@@ -10,10 +10,6 @@ from django.utils.safestring import mark_safe, SafeData
 
 register = template.Library()
 
-#
-# {% chart %}
-#
-
 @register.tag
 def chart(parser, token):
     bits = iter(token.split_contents())

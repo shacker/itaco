@@ -28,15 +28,20 @@ def roster_families(request,printable=False):
         )
 
 
-def roster_parents(request):
+def roster_parents(request,faces=None):
     roster = Profile.has_students.all() # Alpha ordering happens in the ProfileManager model, not here.
     cur_year = SchoolYear.objects.get(current=True)
-    return render_to_response('roster/roster.html', 
+    if faces:
+        template = 'roster/roster_faces.html'
+    else:
+        template = 'roster/roster.html'
+    return render_to_response(template, 
         {
             'roster': roster,
             'cur_year': cur_year,            
             'type': "parents",
-            'title': "Parent Roster"
+            'title': "Parent Roster",
+            'faces': faces
         },
         context_instance = RequestContext(request),
     )

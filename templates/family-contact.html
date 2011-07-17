@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load charts %}
+{% load thumbnail %}
 
 {% block title %}Family Details{% endblock %}
 
@@ -8,6 +9,7 @@
 {% include "roster/roster_subnav.html" %}
 
 <h2>Family: {{ family.name }}</h2>
+
 {% ifequal canview_charges 1 %}
 <a href="{% url family_detail family.id %}">View charges and credits</a>
 {% endifequal %}
@@ -19,11 +21,27 @@
             <h3>Parents</h3>
            
            {% for parent in parents %}
-           <p>
+			<div id="parentphoto" style="float:left; margin-right:15px;">
+				{% if parent.avatar %}
+
+					{% thumbnail parent.avatar "140x140" crop="center" as im %}
+					    <a href="{% url profiles_profile_detail parent.user %}"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{parent}}'s avatar image" /></a>
+					{% endthumbnail %}
+
+			    {% else %}
+			       <a href="{% url profiles_profile_detail parent.user %}"><img src="/site_media/images/user_default.jpg" width="140" alt="{{profile}}'s avatar image" /></a><br />
+			    {% endif %}
+			</div>
+			
+			<div style="clear:right;"></div>
+			
+           <div id="parentinfo" style="margin-bottom:30px;margin-left:150px;">
+
                <strong><a href="{% url profiles_profile_detail parent.user %}">{{ parent.user.first_name }} {{ parent.user.last_name }}</a> 
-                   {% ifequal parent.primary_contact 1 %}
-                   <strong> - Primary Contact</strong>
-                   {% endifequal %}  
+	               {% ifequal parent.primary_contact 1 %}
+	               <strong>&#x238B;</strong>
+	               {% endifequal %}  
+	
                    <br />
                    
                    {% for pos in parent.board_pos.all %}
@@ -82,15 +100,19 @@
 
 				<a href="{% url vcard_single parent.user.username %}"><img src="/site_media/images/vcard.png" width="30" height="30" alt="Vcard"></a>
 
-           </p>
+           </div>
            {% endfor %}    
        </td>
-       <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+       
        <td valign="top" >
            <h3>Students</h3>
            
            {% for student in students %}
-           <p>
+			<div id="studentphoto" style="float:left; margin-right:15px;">
+				<img src="/site_media/images/user_default.jpg" width="100"  />
+			</div>
+			<div style="clear:right;"></div>
+           <div id="studentinfo">
                <strong>{{ student.first_name }} {{ student.last_name }}</strong><br />
                {# {{ student.get_reader_display }}<br /> #}
 			   Born: {{ student.birthdate }}<br />
@@ -111,16 +133,21 @@
 			{% endif %}
 			   
 
-           </p>
+           </div>
            {% endfor %}
 
 			{% if siblings.count > 0 %}
 				
 
-           <h3>Siblings</h3>
+           <h3 style="margin-top:50px;">Siblings</h3>
            
            {% for sibling in siblings %}
-           <p>
+			<div id="studentphoto" style="float:left; margin-right:15px;">
+				<img src="/site_media/images/user_default.jpg" width="100"  />
+			</div>
+			<div style="clear:right;"></div>
+			
+           <div id="studentinfo">
                <strong>{{ sibling.first_name }} {{ sibling.last_name }}</strong><br />
                {# {{ sibling.get_reader_display }}<br /> #}
 			   Born: {{ sibling.birthdate }}<br />
@@ -139,14 +166,17 @@
 			{% endif %}
 			   
 
-           </p>
+           </div>
            {% endfor %}
 		{% endif %}
        </td>
     </tr>    
 
 </table>
-
+<p>
+	&#x238B; = Primary contact<br />
+	<img src="/site_media/images/vcard.png" width="30" height="30" alt="Vcard" style="vertical-align:middle;"> = Download vCard for your address book
+</p>
 
 
 {% endblock content %}

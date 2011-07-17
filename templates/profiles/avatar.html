@@ -1,17 +1,13 @@
 {% load thumbnail %}
 
-
 <div class="avatar">
     {% if profile.avatar %}
-
+		
 		{% thumbnail profile.avatar "150x150" crop="center" as im %}
 		    <a href="{% url profiles_profile_detail profile.user %}"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{profile}}'s avatar image" /></a>
 		{% endthumbnail %}
 		
     {% else %}
-       <a href="{% url profiles_profile_detail profile.user %}"><img src="/site_media/images/osa_user_blue.png" width="150" alt="{{profile}}'s avatar image" /></a><br />
-
-
-	
+       <a href="{% url profiles_profile_detail profile.user %}"><img src="/site_media/images/user_default.jpg" width="150" alt="{{profile}}'s avatar image" /></a><br />
     {% endif %}    
 </div>

@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 
-
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
 
 {% include "roster/roster_subnav.html" %}
 
-<h3>Parents {{ cur_year }}</h3>
+
+<h3>Parents {{ cur_year }}</h3> 
+<div id="navswitch">View as <a href="{% url roster_parents_list %}">list</a></div>
+
+
 
 <style type="text/css" media="screen">
 	td {

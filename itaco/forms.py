@@ -85,6 +85,7 @@ class ProfileForm(ModelForm):
                'fax',
                'primary_contact',
                )
+      widgets = {'avatar':forms.FileInput}
       
     def save(self, *args, **kwargs):
       """

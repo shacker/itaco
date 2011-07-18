@@ -12,6 +12,7 @@
 
 {% ifequal type "parents" %}
 <h3>Parent Roster {{ cur_year }}</h3>
+<div id="navswitch">View as <a href="{% url roster_parents_faces %}">faces</a></div>
 {% endifequal %}
 
 {% ifequal type "students" %}

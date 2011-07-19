@@ -1,5 +1,6 @@
 TODO
 
+ALTER TABLE `crest_ourdjang`.`itaco_student` ADD COLUMN `avatar` VARCHAR(128) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `reader`;
 
 
 =============================
@@ -145,7 +146,7 @@ ALTER TABLE `ourcrestmont`.`itaco_schoolyear` ADD COLUMN `current` bool  UNIQUE 
 
 
 alter table itaco_family add `fa_factor` double precision NOT NULL;
-update itaco_family set `fa_factor` = 1 
+update itaco_family set `fa_factor` = 1
 
 RENAME TABLE
 itaco_charge -> itaco_chargeother

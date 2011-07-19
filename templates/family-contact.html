@@ -4,7 +4,19 @@
 
 {% block title %}Family Details{% endblock %}
 
+{% block extrahead %}
+  <script type="text/javascript" src="/site_media/js/lightbox/js/jquery.lightbox-0.5.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/site_media/js/lightbox/css/jquery.lightbox-0.5.css" media="screen" />
+{% endblock extrahead %}
+
 {% block content %}
+
+<script type="text/javascript">
+$(function() {
+  // Use this example, or...
+  $('a.lightbox').lightBox(); // Select all links that contains lightbox in the attribute rel
+});
+</script>
 
 {% include "roster/roster_subnav.html" %}
 
@@ -17,46 +29,46 @@
 <table border="0" cellspacing="0" cellpadding="20">
 
    <tr>
-       <td valign="top">
+       <td valign="top" style="width:500px;">
             <h3>Parents</h3>
-           
+
            {% for parent in parents %}
-			<div id="parentphoto" style="float:left; margin-right:15px;">
-				{% if parent.avatar %}
+          <div id="parentphoto" style="float:left; margin-right:15px;">
+        {% if parent.avatar %}
 
-					{% thumbnail parent.avatar "140x140" crop="center" as im %}
-					    <a href="{% url profiles_profile_detail parent.user %}"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{parent}}'s avatar image" /></a>
-					{% endthumbnail %}
+        {% thumbnail parent.avatar "140x140" crop="center" as im %}
+          <a href="{% url profiles_profile_detail parent.user %}"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{parent}}'s avatar image" /></a>
+        {% endthumbnail %}
 
-			    {% else %}
-			       <a href="{% url profiles_profile_detail parent.user %}"><img src="/site_media/images/user_default.jpg" width="140" alt="{{profile}}'s avatar image" /></a><br />
-			    {% endif %}
-			</div>
-			
-			<div style="clear:right;"></div>
-			
+        {% else %}
+          <a href="{% url profiles_profile_detail parent.user %}"><img src="/site_media/images/user_default.jpg" width="140" alt="{{profile}}'s avatar image" /></a><br />
+        {% endif %}
+      </div>
+
+      <div style="clear:right;"></div>
+
            <div id="parentinfo" style="margin-bottom:30px;margin-left:150px;">
 
-               <strong><a href="{% url profiles_profile_detail parent.user %}">{{ parent.user.first_name }} {{ parent.user.last_name }}</a> 
-	               {% ifequal parent.primary_contact 1 %}
-	               <strong>&#x238B;</strong>
-	               {% endifequal %}  
-	
+               <strong><a href="{% url profiles_profile_detail parent.user %}">{{ parent.user.first_name }} {{ parent.user.last_name }}</a>
+                 {% ifequal parent.primary_contact 1 %}
+                 <strong>&#x238B;</strong>
+                 {% endifequal %}
+
                    <br />
-                   
+
                    {% for pos in parent.board_pos.all %}
                       Board position: {{ pos.title }}<br />
                    {% endfor %}
-                                   
+
                </strong>
 
                {% if parent.user.email %}
                <a href="mailto:{{ parent.user.email }}">{{ parent.user.email }}</a><br />
-               {% endif %}  
+               {% endif %}
 
                {% if parent.email_2 %}
                <a href="mailto:{{ parent.email_2 }}">{{ parent.email_2 }}</a> (alternate)<br />
-               {% endif %}      
+               {% endif %}
 
                {% if parent.address1 %}
                {{ parent.address1 }}<br />
@@ -80,7 +92,7 @@
 
                {% if parent.phone_home %}
                Home: {{ parent.phone_home }}<br />
-               {% endif %} 
+               {% endif %}
 
                {% if parent.phone_work %}
                Work: {{ parent.phone_work }}<br />
@@ -88,94 +100,110 @@
 
                {% if parent.phone_mobile %}
                Mobile: {{ parent.phone_mobile }}<br />
-               {% endif %} 
+               {% endif %}
 
                {% if parent.phone_fax %}
                Fax: {{ parent.phone_fax }}<br />
-               {% endif %}   
+               {% endif %}
 
-				{% ifequal parent.user.id user.id  %}
-				<a href="{% url profiles_edit_profile %}">Edit contact info</a><br />
-				{% endifequal %}
+        {% ifequal parent.user.id user.id  %}
+        <a href="{% url profiles_edit_profile %}">Edit contact info</a><br />
+        {% endifequal %}
 
-				<a href="{% url vcard_single parent.user.username %}"><img src="/site_media/images/vcard.png" width="30" height="30" alt="Vcard"></a>
+        <a href="{% url vcard_single parent.user.username %}"><img src="/site_media/images/vcard.png" width="30" height="30" alt="Vcard"></a>
 
            </div>
-           {% endfor %}    
+           {% endfor %}
        </td>
-       
+
        <td valign="top" >
            <h3>Students</h3>
-           
+
            {% for student in students %}
-			<div id="studentphoto" style="float:left; margin-right:15px;">
-				<img src="/site_media/images/user_default.jpg" width="100"  />
-			</div>
-			<div style="clear:right;"></div>
+      <div id="studentphoto" style="float:left; margin-right:15px;">
+        {% if student.avatar %}
+
+        {% thumbnail student.avatar "100x100" crop="center" as im %}
+          <a href="/site_media/{{student.avatar}}" class="lightbox"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{parent}}'s avatar image" /></a>
+        {% endthumbnail %}
+
+        {% else %}
+          <img src="/site_media/images/user_default.jpg" width="100" alt="{{student}}'s avatar image" /></a><br />
+        {% endif %}
+      </div>
+      <div style="clear:right;"></div>
            <div id="studentinfo">
                <strong>{{ student.first_name }} {{ student.last_name }}</strong><br />
                {# {{ student.get_reader_display }}<br /> #}
-			   Born: {{ student.birthdate }}<br />
+             Born: {{ student.birthdate }}<br />
 
                {% if student.email %}
                <a href="mailto:{{ student.email }}">{{ student.email }}</a><br />
-               {% endif %}  
+               {% endif %}
 
                {% if student.email_2 %}
                <a href="mailto:{{ student.email_2 }}">{{ parent.email_2 }}</a> (alternate)<br />
                {% endif %}
-               
+
               Class of {{ student.expected_grad_yr.end|date:"Y" }}<br />
 
-			{# Only staff or parents of this student can edit the student details #}
-			{% if user.get_profile.family == student.family or user.is_staff %}
-			<a href="{% url edit_student student.id %}">Edit student</a><br />	
-			{% endif %}
-			   
+      {# Only staff or parents of this student can edit the student details #}
+      {% if user.get_profile.family == student.family or user.is_staff %}
+      <a href="{% url edit_student student.id %}">Edit student</a><br />
+      {% endif %}
+
 
            </div>
            {% endfor %}
 
-			{% if siblings.count > 0 %}
-				
+      {% if siblings.count > 0 %}
+
 
            <h3 style="margin-top:50px;">Siblings</h3>
-           
+
            {% for sibling in siblings %}
-			<div id="studentphoto" style="float:left; margin-right:15px;">
-				<img src="/site_media/images/user_default.jpg" width="100"  />
-			</div>
-			<div style="clear:right;"></div>
-			
+      <div id="studentphoto" style="float:left; margin-right:15px;">
+        {% if sibling.avatar %}
+
+        {% thumbnail sibling.avatar "100x100" crop="center" as im %}
+          <a href="/site_media/{{sibling.avatar}}" class="lightbox"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{sibling}}'s avatar image" /></a>
+        {% endthumbnail %}
+
+        {% else %}
+          <img src="/site_media/images/user_default.jpg" width="100" alt="{{sibling}}'s avatar image" /></a><br />
+        {% endif %}
+      </div>
+      <div style="clear:right;"></div>
+
            <div id="studentinfo">
                <strong>{{ sibling.first_name }} {{ sibling.last_name }}</strong><br />
                {# {{ sibling.get_reader_display }}<br /> #}
-			   Born: {{ sibling.birthdate }}<br />
+         Born: {{ sibling.birthdate }}<br />
 
                {% if sibling.email %}
                <a href="mailto:{{ sibling.email }}">{{ sibling.email }}</a><br />
-               {% endif %}  
+               {% endif %}
 
                {% if sibling.email_2 %}
                <a href="mailto:{{ sibling.email_2 }}">{{ parent.email_2 }}</a> (alternate)<br />
                {% endif %}
-               
-			{# Only staff or parents of this sibling can edit the sibling details #}
-			{% if user.get_profile.family == sibling.family or user.is_staff %}
-			<a href="{% url edit_student sibling.id %}">Edit sibling</a><br />	
-			{% endif %}
-			   
+
+      {# Only staff or parents of this sibling can edit the sibling details #}
+      {% if user.get_profile.family == sibling.family or user.is_staff %}
+      <a href="{% url edit_student sibling.id %}">Edit sibling</a><br />
+      {% endif %}
+
 
            </div>
            {% endfor %}
-		{% endif %}
+    {% endif %}
        </td>
-    </tr>    
+    </tr>
 
 </table>
 <p>
-	&#x238B; = Primary contact<br />
-	<img src="/site_media/images/vcard.png" width="30" height="30" alt="Vcard" style="vertical-align:middle;"> = Download vCard for your address book
+  &#x238B; = Primary contact<br />
+  <img src="/site_media/images/vcard.png" width="30" height="30" alt="Vcard" style="vertical-align:middle;"> = Download vCard for your address book
 </p>
 
 

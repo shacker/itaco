@@ -1,22 +1,54 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
-
-{% block title %}Editing: {{item.list.profile.user}} - {{item.title}}{% endblock %}
+{% block title %}Editing: {{student}}{% endblock %}
 
 {% block content %}
 
-<h2>Edit Student</h2>
+{% block extrahead %}
+  <link type="text/css" href="/site_media/js/jquery-ui/css/eggplant/jquery-ui-1.8rc1.custom.css" rel="Stylesheet" />
+  <script type="text/javascript" src="/site_media/js/jquery-ui/js/jquery-ui-1.8rc1.custom.min.js"></script>
+  <script src="/site_media/js/ui.datepicker.js" type="text/javascript"></script>
+
+{% endblock extrahead %}
+
+<script type="text/javascript" charset="utf-8">
+    // thedate.x comes from the item_edit view. If this is a new entry,
+    // thedate won't be present and datepicker will fall back on the default (today).
+    $(document).ready(function(){
+        $('#id_birthdate').datepicker(
+          {changeMonth: true, changeYear: true, yearRange: '1970:2020'},
+          {defaultDate: new Date({{student.birthdate.year}},{{student.birthdate.month}} - 1, {{student.birthdate.day}})}
+      );
+     });
+
+</script>
+
+<h2>Edit Student {{student}}</h2>
+
+
+
+<div class="avatar">
+    {% if student.avatar %}
+
+    {% thumbnail student.avatar "150x150" crop="center" as im %}
+        <img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{student}}'s avatar image" />
+    {% endthumbnail %}
+
+    {% else %}
+       <img src="/site_media/images/user_default.jpg" width="200" alt="{{student}}'s avatar image" />
+    {% endif %}
+</div>
+
 
 <p>Only some details about students can be edited by parents.</p>
 
-<form action="" method="post" accept-charset="utf-8" id="ItemAddEdit">
-	{% csrf_token %}
+<form action="" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="ItemAddEdit">
+  {% csrf_token %}
 
+  {{form.as_p}}
 
-	<h3><strong>Please enter birthdate as YYYY-MM-DD, e.g. 2002-03-25</strong></h3>
-	{{form.as_p}}
-
-	<input  type="submit" value="Submit" style="margin-top:10px;" />
+  <input  type="submit" value="Submit" style="margin-top:10px;" />
 
 </form>
 

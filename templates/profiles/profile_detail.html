@@ -3,19 +3,24 @@
 
 {% block title %}Profile for {{ user.first_name }} {{ user.last_name }}{% endblock %}
 
+{% block extrahead %}
+  <script type="text/javascript" src="/site_media/js/lightbox/js/jquery.lightbox-0.5.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/site_media/js/lightbox/css/jquery.lightbox-0.5.css" media="screen" />
+{% endblock extrahead %}
+
 {% block content %}
 
 {% ifequal user profile.user  %}
-	<ul id="navlist2">
-	    <li><a href="{% url profiles_edit_profile %}">Edit my profile</a></li>
-	    <li><a href="/accounts/password/change/">Change my password</a></li>
-	    {# For staff/faculty - downloadable PDF timesheet (uploaded via FTP) #}
-	    {# Only show link if a person is looking at their own profile. #}
-	    {# {% if profile.has_timesheet %} #}
-	        {# <li><a href="/media/uploads/timesheets/timesheet_{{user}}.pdf">  Download timesheet as PDF</a></li> #}
-	    {# {% endif %} #}
+  <ul id="navlist2">
+      <li><a href="{% url profiles_edit_profile %}">Edit my profile</a></li>
+      <li><a href="/accounts/password/change/">Change my password</a></li>
+      {# For staff/faculty - downloadable PDF timesheet (uploaded via FTP) #}
+      {# Only show link if a person is looking at their own profile. #}
+      {# {% if profile.has_timesheet %} #}
+          {# <li><a href="/media/uploads/timesheets/timesheet_{{user}}.pdf">  Download timesheet as PDF</a></li> #}
+      {# {% endif %} #}
 
-	</ul>
+  </ul>
 
 
 {% endifequal %}
@@ -54,7 +59,7 @@
 
 <p><strong>Address:</strong><br>
 {% if profile.address1  %}
-{{ profile.address1 }}<br /> 
+{{ profile.address1 }}<br />
 {% endif %}
 
 {% if profile.address2  %}
@@ -99,7 +104,7 @@
 {% if profile.url %}
     <a href="{{ profile.url }}">{{ profile.url_title }}</a>
 {% else %}
-	Not available
+  Not available
 {% endif %}
 
 </p>
@@ -110,8 +115,8 @@
 {% endif %}
 
 <p><a href="{% url vcard_single profile.user.username %}"><img src="/site_media/images/vcard.png" width="64" height="64" alt="Vcard"><br />
-	Download vCard
-	</a>
+  Download vCard
+  </a>
 </p>
 {% endblock content %}
 

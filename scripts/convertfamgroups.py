@@ -34,10 +34,11 @@ from django.contrib.auth.models import User, Group
 
 #################### Start work
 
-families = Family.objects.all()
+groups = Group.objects.all()
 
-for f in families:
-    print f.name
-    f.famname = f.name
+for g in groups:
+    print g.name
+    f = Family.objects.get(id=g.id)
+    f.famname = g.name
     f.save()
     

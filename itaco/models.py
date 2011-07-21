@@ -89,7 +89,8 @@ class FamilyManager(models.Manager):
         return super(FamilyManager, self).get_query_set().filter(student__enrolled=True).distinct()
 
 
-class Family(Group):
+class Family(models.Model):
+    famname = models.CharField('Family Name',max_length=128)
     notes = models.TextField(blank=True)
     fa_factor = models.FloatField('Financial Aid Factor',default=1)
     multiple_residence = models.BooleanField(default=False,help_text='Are parents living in separate houses? Check to enable multiple addresses to appear on roster.')
@@ -106,13 +107,13 @@ class Family(Group):
 
     class Meta:
         verbose_name_plural = "Families"
-        ordering = ['name']
+        ordering = ['famname']
 
     def get_absolute_url(self):
         return "/family/%s/" % (self.id)
 
     def __unicode__(self):
-        return u'%s' % (self.name)
+        return u'%s' % (self.famname)
 
 
 class ProfileManager(models.Manager):

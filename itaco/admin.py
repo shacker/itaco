@@ -32,8 +32,8 @@ class ProfileInline(admin.TabularInline):
     extra = 0
     
 class FamilyAdmin(admin.ModelAdmin):
-    list_display = ('family','fa_factor',)
-    search_fields = ['name']
+    list_display = ('famname','fa_factor',)
+    search_fields = ['famname']
     inlines = [StudentInline,ProfileInline]
     
 class CreditAdmin(admin.ModelAdmin):

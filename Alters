@@ -1,5 +1,16 @@
 TODO
 
+1) Add famname field
+2) Run conversion script
+3) Rename ID field in family table
+4) Delete all groups but the three staff groups
+
+ALTER TABLE `crest_ourdjang`.`itaco_family` ADD COLUMN `famname` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT ''  AFTER `group_ptr_id`;
+
+
+
+ALTER TABLE `crest_ourdjang`.`itaco_family` CHANGE COLUMN `group_ptr_id` `id` INT(11) NOT NULL DEFAULT 0  COMMENT ''  FIRST;
+
 
 
 =============================

@@ -38,7 +38,10 @@ groups = Group.objects.all()
 
 for g in groups:
     print g.name
-    f = Family.objects.get(id=g.id)
-    f.famname = g.name
-    f.save()
+    try:
+        f = Family.objects.get(id=g.id)
+        f.famname = g.name
+        f.save()
+    except:
+        pass
     

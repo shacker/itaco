@@ -123,12 +123,12 @@ $(function() {
       <div id="studentphoto" style="float:left; margin-right:15px;">
         {% if student.avatar %}
 
-        {% thumbnail student.avatar "100x100" crop="center" as im %}
+        {% thumbnail student.avatar "140x140" crop="center" as im %}
           <a href="/site_media/{{student.avatar}}" class="lightbox"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{parent}}'s avatar image" /></a>
         {% endthumbnail %}
 
         {% else %}
-          <img src="/site_media/images/user_default.jpg" width="100" alt="{{student}}'s avatar image" /></a><br />
+          <img src="/site_media/images/user_default.jpg" width="140" alt="{{student}}'s avatar image" /></a><br />
         {% endif %}
       </div>
       <div style="clear:right;"></div>
@@ -159,18 +159,18 @@ $(function() {
       {% if siblings.count > 0 %}
 
 
-           <h3 style="margin-top:50px;">Siblings</h3>
+           <h3 style="padding-top:50px;">Siblings</h3>
 
            {% for sibling in siblings %}
       <div id="studentphoto" style="float:left; margin-right:15px;">
         {% if sibling.avatar %}
 
-        {% thumbnail sibling.avatar "100x100" crop="center" as im %}
+        {% thumbnail sibling.avatar "140x140" crop="center" as im %}
           <a href="/site_media/{{sibling.avatar}}" class="lightbox"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{sibling}}'s avatar image" /></a>
         {% endthumbnail %}
 
         {% else %}
-          <img src="/site_media/images/user_default.jpg" width="100" alt="{{sibling}}'s avatar image" /></a><br />
+          <img src="/site_media/images/user_default.jpg" width="140" alt="{{sibling}}'s avatar image" /></a><br />
         {% endif %}
       </div>
       <div style="clear:right;"></div>

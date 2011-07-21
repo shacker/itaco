@@ -1,10 +1,11 @@
 TODO
 
-ALTER TABLE `crest_ourdjang`.`itaco_student` ADD COLUMN `avatar` VARCHAR(128) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `reader`;
 
 
 =============================
 IN PRODUCTION
+
+ALTER TABLE `crest_ourdjang`.`itaco_student` ADD COLUMN `avatar` VARCHAR(128) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `reader`;
 
 rename itaco_parent to itaco_profile
 rename to itaco_profile_comm_job

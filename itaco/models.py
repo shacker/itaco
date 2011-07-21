@@ -197,7 +197,7 @@ class Student(models.Model):
     alumni = models.BooleanField(default=False)
     reader = models.CharField(max_length=4, choices=constants.READER_TYPE_CHOICES,blank=True,null=True)
     avatar = ImageField('Student Photo',upload_to=get_student_avatar_path, blank=True,null=True,
-        help_text='Please upload an image of your child. Crop the photo in advance so that it\'s mostly square, not rectangular.')
+        help_text='Please upload an image of your child. Crop the photo in advance so that it\'s mostly square, not rectangular, and no larger than 600px wide.')
 
     class Meta:
         verbose_name = "Student/Sibling"

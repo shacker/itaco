@@ -38,18 +38,18 @@ class FamilyAdmin(admin.ModelAdmin):
     
 class CreditAdmin(admin.ModelAdmin):
     list_display = ('family','date','type','amount',)
-    search_fields = ['family__name',]
+    search_fields = ['family__famname',]
     list_filter = ('type',)    
     
 class ObligationAdmin(admin.ModelAdmin):
     list_display = ('family','date','type','amount','units',)
-    search_fields = ['family__name',]
+    search_fields = ['family__famname',]
     list_filter = ('type',)    
     
 class ChargeAdmin(admin.ModelAdmin):
     list_display = ('family','date','type','amount','charged_amount',) 
     exclude = ('units',)    
-    search_fields = ['family__name',]
+    search_fields = ['family__famname',]
     list_filter = ('type',)
     
 class ListExtraAdmin(admin.ModelAdmin):

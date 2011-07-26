@@ -1,5 +1,9 @@
 TODO
 
+=============================
+IN PRODUCTION
+
+
 1) Add famname field
 2) Run conversion script
 3) Rename ID field in family table
@@ -10,11 +14,6 @@ ALTER TABLE `crest_ourdjang`.`itaco_family` ADD COLUMN `famname` VARCHAR(128) CH
 
 
 ALTER TABLE `crest_ourdjang`.`itaco_family` CHANGE COLUMN `group_ptr_id` `id` INT(11) NOT NULL DEFAULT 0  COMMENT ''  FIRST;
-
-
-
-=============================
-IN PRODUCTION
 
 ALTER TABLE `crest_ourdjang`.`itaco_student` ADD COLUMN `avatar` VARCHAR(128) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `reader`;
 

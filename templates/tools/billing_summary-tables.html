@@ -1,6 +1,6 @@
 
 
-<h3>Billing Summary (all charges and credits) for period {{ billing_period.start }} -- {{ billing_period.end }}</h3>
+<h3>Billing Summary (charges and credits) for period {{ billing_period.start }} -- {{ billing_period.end }}</h3>
 
 
 <h3>Charge Summaries by Family</h3>
@@ -9,8 +9,8 @@
    
     {% for family_sum in charges_by_family  %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td> {{ family_sum.family__name }} </td>               
-        <td  align="right"> ${{ family_sum.charged_amount__sum|floatformat:2 }} </td>   
+        <td> {{ family_sum.fam }} </td>               
+        <td align="right"> {% if family_sum.famtot.total %}${{ family_sum.famtot.total|floatformat:2 }}{% endif %} </td>   
     </tr>
     {% endfor %}
     <tr class="row3">
@@ -22,11 +22,10 @@
 
 <h3>Charge Summaries by Type</h3>
 <table cellspacing="5" cellpadding="5">
-
-    {% for charge_type, charge_total in charge_type_totals.items %}
+	{% for charge_type in charge_type_totals %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td>{{ charge_type }}</td>               
-        <td align="right"> ${{ charge_total|floatformat:2 }} </td>   
+        <td>{{ charge_type.type.1 }}</td>               
+        <td align="right"> {% if charge_type.total.charged_amount__sum > 0 %}${{ charge_type.total.charged_amount__sum|floatformat:2}}{% endif %}</td>   
     </tr>    
     {% endfor %}
 
@@ -41,12 +40,11 @@
 
 <h3>Credit Summaries by Family</h3>
 <table cellspacing="5" cellpadding="5">
-
    
     {% for family_sum in credits_by_family  %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td> {{ family_sum.family__name }} </td>               
-        <td  align="right"> ${{ family_sum.charged_amount__sum|floatformat:2 }} </td>   
+        <td> {{ family_sum.fam }} </td>               
+		<td align="right"> {% if family_sum.famtot.total %}${{ family_sum.famtot.total|floatformat:2 }}{% endif %} </td>   
     </tr>
     {% endfor %}
     <tr class="row3">
@@ -59,10 +57,10 @@
 <h3>Credit Summaries by Type</h3>
 <table cellspacing="5" cellpadding="5">
 
-    {% for credit_type, credit_total in credit_type_totals.items %}
+	{% for credit_type in credit_type_totals %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td>{{ credit_type }}</td>               
-        <td align="right"> ${{ credit_total|floatformat:2 }} </td>   
+        <td>{{ credit_type.type.1 }}</td>               
+        <td align="right"> {% if credit_type.total > 0 %}${{ credit_type.total|floatformat:2 }}{% endif %} </td>   
     </tr>    
     {% endfor %}
 

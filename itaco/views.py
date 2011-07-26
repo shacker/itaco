@@ -754,52 +754,74 @@ def summary_charges_credits(request,csv = False,period='',):
     if period :
         billing_period = BillingPeriod.objects.get(pk=period)
     else:
-        billing_period = BillingPeriod.current.get()
+        try:
+            billing_period = BillingPeriod.current.get()
+        except:
+            billing_period = None
+
+    # print billing_period
+    # print billing_period.id
+    
+    if billing_period: # Don't crash if no current billing period is available
+        # Need a list of billing periods to send to the template for selector picklists
+        bp_list = BillingPeriod.objects.all().order_by('-start')
+
+        # CHARGES
+        # charges_by_family = Charge.objects.values('family').filter(date__gte=billing_period.start,date__lte=billing_period.end,).annotate(Sum('charged_amount'))
+        # Can't do this adequately with a single queryset, so we'll return these as a list of dictionaries
+        charges_by_family = []
+        families = Family.objects.all()
+        for f in families:
+            famtot = Charge.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,family=f).aggregate(total=Sum('charged_amount'))
+            charges_by_family.append({'fam':f,'famtot':famtot})
+            
+        total_charges = Charge.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end).aggregate(Sum('charged_amount'))['charged_amount__sum']
 
 
-    # Need a list of billing periods to send to the template for selector picklists
-    bp_list = BillingPeriod.objects.all().order_by('-start')
+        # Get aggregate sums for each of the charge types in models.CHARGE_TYPE_CHOICES.
+        # For each, append to a dictionary where the key has the same name and the value is an aggregate summary of all charges with that name.
+        # We'll pass this whole dict to the template.
 
-    # CHARGES
-    charges_by_family = Charge.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,).values('family__name').annotate(Sum('charged_amount'))
-    total_charges = Charge.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end).aggregate(Sum('charged_amount'))['charged_amount__sum']
+        charge_type_totals = []      
+        for c in CHARGE_TYPE_CHOICES :
+            # Append dict to list
+            charge_type_total = Charge.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,type=c[0]).aggregate(Sum('charged_amount'))
+            charge_type_totals.append({'type':c,'total':charge_type_total})
+            
+        credit_type_totals = []
+        for c in CREDIT_TYPE_CHOICES :
+            # Append dict to list
+            # credit_type_totals[str(c)] = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,type=c[0]).aggregate(Sum('charged_amount'))['charged_amount__sum']
+            credit_type_total = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,type=c[0]).aggregate(Sum('charged_amount'))['charged_amount__sum']
+            credit_type_totals.append({'type':c,'total':credit_type_total})
+        # print charge_type_totals
 
+        # credits_by_family = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,).values('family').annotate(Sum('charged_amount'))
+        # Can't do this adequately with a single queryset, so we'll return these as a list of dictionaries
+        credits_by_family = []
+        families = Family.objects.all()
+        for f in families:
+            famtot = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,family=f).aggregate(total=Sum('charged_amount'))
+            credits_by_family.append({'fam':f,'famtot':famtot})
+        
+        total_credits = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end).aggregate(Sum('charged_amount'))['charged_amount__sum']
 
-    # Get aggregate sums for each of the charge types in models.CHARGE_TYPE_CHOICES.
-    # For each, append to a dictionary where the key has the same name and the value is an aggregate summary of all charges with that name.
-    # We'll pass this whole dict to the template.
+        # Make billing_summary_dict a global so we can use it both in this function and in render_to_csv
+        global billing_summary_dict
 
-    charge_type_totals = {}
-    for c in CHARGE_TYPE_CHOICES :
-        # Append key to dict
-        charge_type_totals[str(c)] = Charge.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,type=c[0]).aggregate(Sum('charged_amount'))['charged_amount__sum']
+        billing_summary_dict = {
+            'billing_period': billing_period,
+            'period': billing_period,
+            'bp_list':bp_list,
 
-    credit_type_totals = {}
-    for c in CREDIT_TYPE_CHOICES :
-        # print c[0]
-        # Append key to dict
-        credit_type_totals[str(c)] = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,type=c[0]).aggregate(Sum('charged_amount'))['charged_amount__sum']
+            'charges_by_family': charges_by_family,
+            'charge_type_totals': charge_type_totals,
+            'total_charges':total_charges,
 
-
-    credits_by_family = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,).values('family__name').annotate(Sum('charged_amount'))
-    total_credits = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end).aggregate(Sum('charged_amount'))['charged_amount__sum']
-
-    # Make billing_summary_dict a global so we can use it both in this function and in render_to_csv
-    global billing_summary_dict
-
-    billing_summary_dict = {
-        'billing_period': billing_period,
-        'period': billing_period,
-        'bp_list':bp_list,
-
-        'charges_by_family': charges_by_family,
-        'charge_type_totals': charge_type_totals,
-        'total_charges':total_charges,
-
-        'credits_by_family':credits_by_family,
-        'credit_type_totals':credit_type_totals,
-        'total_credits':total_credits,
-    }
+            'credits_by_family':credits_by_family,
+            'credit_type_totals':credit_type_totals,
+            'total_credits':total_credits,
+        }
 
 
     """
@@ -811,7 +833,7 @@ def summary_charges_credits(request,csv = False,period='',):
     else:
         # Send query result objects to template
         return render_to_response('tools/billing_summary.html',
-            billing_summary_dict,
+            locals(),
             context_instance = RequestContext(request),
             )
 

@@ -4,23 +4,30 @@
 
 {% block content %}
 
-<p>
-    <form name="Links">
-	{% csrf_token %}
-       View another billing period: &nbsp;&nbsp;
+{% if billing_period %}
 
-         <select name="SelectPeriod" id="select_bp" onchange="PeriodSelect()" >
-             <option value="">------------</option>
-             {% for bp in bp_list  %}
-                 <option value="/tools/billing_summary/period/{{ bp.id }}">{{ bp.start|date:"M d Y" }} - {{ bp.end|date:"M d Y" }}</option>
-             {% endfor %}            
-        </select>
-    </form>
-</p>
+	<p>
+	    <form name="Links">
+		{% csrf_token %}
+	       View another billing period: &nbsp;&nbsp;
+
+	         <select name="SelectPeriod" id="select_bp" onchange="PeriodSelect()" >
+	             <option value="">------------</option>
+	             {% for bp in bp_list  %}
+	                 <option value="/tools/billing_summary/period/{{ bp.id }}">{{ bp.start|date:"M d Y" }} - {{ bp.end|date:"M d Y" }}</option>
+	             {% endfor %}            
+	        </select>
+	    </form>
+	</p>
 
 {# billing_summary-tables is an include so we can target it directly for csv output, or display tables inline on HTML page #}
 {% include "tools/billing_summary-tables.html" %}
 
-<p><a href="{% url csv_summary_charges_credits 'csv' period.id %}">Download billing summary as spreadsheet data</a></p>
+<p><a href="{% url csv_summary_charges_credits 'csv' billing_period.id %}">Download billing summary as spreadsheet data</a></p>
+
+
+{% else %}
+	<p class="alert">No billing period is currently set - <a href="/admin/itaco/billingperiod/">create one</a> before viewing this page.</p>
+{% endif %}
 
 {% endblock content %}

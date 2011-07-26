@@ -53,6 +53,9 @@ urlpatterns = patterns('',
     url(r'^tools/billing_summary/period/(?P<period>\d+)/?$', 'ourcrestmont.itaco.views.summary_charges_credits', name='summary_charges_credits'),  
     url(r'^tools/billing_summary/$', 'ourcrestmont.itaco.views.summary_charges_credits', name='summary_charges_credits'),  
     url(r'^tools/billing_summary/(?P<csv>csv)/period/(?P<period>\d+)/$', 'ourcrestmont.itaco.views.summary_charges_credits', name='csv_summary_charges_credits'), 
+
+    # Administrator's view of all obligations owed on one page
+    # url(r'^tools/obligation_summary/$', 'ourcrestmont.itaco.views.obligation_summary', name='obligation_summary'), 
     
     # Generate mailing list members
     url(r'^lists/$', 'ourcrestmont.itaco.views.listgen', name='listgen'),          

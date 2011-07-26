@@ -522,7 +522,7 @@ table {
     background-color:#E8E8E8;
 }
 .row2 {
-    background-color:#EBEBEB;
+    background-color:#D0D0D0;
 }
 
 .row3 {
@@ -625,6 +625,12 @@ form.profile input, form.profile textarea {
     font-family:sans-serif;
 }
 
-.alert {
+/*For on/off under/over things like in obligation_summary*/
+.under {
     color:red;
+}
+
+.over {
+    color:green;
+    font-weight:bold;
 }

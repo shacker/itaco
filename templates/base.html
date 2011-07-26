@@ -7,7 +7,7 @@
 
 <meta name="generator" content="Django"> <!-- leave this for stats -->
 
-<link rel="stylesheet" href="/site_media/css/style.css?rev=1" type="text/css" media="screen">
+<link rel="stylesheet" href="/site_media/css/style.css?rev=2" type="text/css" media="screen">
 <link rel="stylesheet" href="/site_media/css/nav.css" type="text/css" media="screen">
 {# <link rel="stylesheet" href="/site_media/css/print.css" type="text/css" media="print"> #}
 
@@ -86,7 +86,8 @@
         <li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li>
 
           {% if user.is_staff %}
-		<li><a href="{% url obligation_summary %}">Obligations summary</a></li>
+		{# Change default year ID below once per year #}
+		<li><a href="{% url obligation_summary 4 %}">Obligations summary</a></li>
           <li><a href="/admin/" title="Admin">Admin</a></li>
           {% endif %}
         </ul>

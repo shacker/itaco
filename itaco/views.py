@@ -845,21 +845,23 @@ def edit_student(request,student_id=None):
 
 
 @user_passes_test(lambda u: u.is_superuser, login_url='/')
-def obligation_summary(request):
+def obligation_summary(request,year=None):
     """
     A list of families and their numbers towards field trips, meetings, 
     maintenance, housekeeping and fundraising.
     """
     
-    period = SchoolYear.objects.get(current=True)
+    try:
+        period = SchoolYear.objects.get(pk=year)
+    except:
+        period = SchoolYear.objects.get(current=True)
+
     period_start = period.start
     period_end = period.end
-    
-    print period_start
-    print period_end
+
     
     """
-    Obligation constants brought in from settings file
+    Obligation constants brought in from settings
     """
     obl_maint_hours = settings.ANN_MAINTENANCE_HOURS # This gets adjusted later; 7 hours if family has board position; 4 hours if that position is shared.
     obl_member_meetings = settings.ANN_MEMBER_MEETINGS
@@ -872,13 +874,22 @@ def obligation_summary(request):
     fam_oblist = []
     for f in families:
         
-        # Number of field trips completed
-        completed = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='fldtrp').count()
-        
-        # # Number of field trips remaining
-        #   obl_field_trips_due = obl_field_trips - completed
-        
-        fam_oblist.append({'fam':f,'field_trips_completed':completed,})
+        # Calculate all remaining obligations
+        field_trips_completed = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='fldtrp').count()
+        meetings_attended = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='mbsmtg').count()
+        maint_hours = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='maint').count()
+        housekeep_hours = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='housekpg').count()
+        fundraising_hours = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='fundrais').count()
+
+
+        fam_oblist.append({
+            'fam':f,
+            'field_trips_completed':field_trips_completed,
+            'meetings_attended':meetings_attended,
+            'maint_hours':maint_hours,
+            'housekeep_hours':housekeep_hours,
+            'fundraising_hours':fundraising_hours,
+            })
         
     
 

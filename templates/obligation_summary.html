@@ -19,24 +19,57 @@
 		<th>
 			Field trips
 		</th>
+		<th>
+			Meetings
+		</th>
+		<th>
+			Mainten.
+		</th>
+		<th>
+			Housekeep
+		</th>
+		<th>
+			Fundraise
+		</th>								
 	</tr>
 	
 	{% for f in fam_oblist %}
-	<tr>
+	<tr class="{% cycle 'row1' 'row2' %}">
 		<td>
-			{{f.fam}}
+			<a href="{% url family_detail f.fam.id %}">{{f.fam}}</a>
 		</td>
 
 		<td>
-		{% if f.field_trips_completed < obl_field_trips %}
-			<span class="alert">
-		{% endif %}
+			<span class="{% if f.field_trips_completed < obl_field_trips %}under{% else %}over{% endif %}">
 			{{f.field_trips_completed}}/{{obl_field_trips}}
-		{% if f.field_trips_completed < obl_field_trips %}
 			</span>
-		{% endif %}			
-			
 		</td>
+		
+		<td>
+			<span class="{% if f.meetings_attended < obl_member_meetings %}under{% else %}over{% endif %}">
+			{{f.meetings_attended}}/{{obl_member_meetings}}
+			</span>
+		</td>
+		
+		<td>
+			<span class="{% if f.maint_hours < obl_maint_hours %}under{% else %}over{% endif %}">
+			{{f.maint_hours}}/{{obl_maint_hours}}
+			</span>
+		</td>
+		
+		<td>
+			<span class="{% if f.housekeep_hours < obl_housekeeping %}under{% else %}over{% endif %}">
+			{{f.housekeep_hours}}/{{obl_housekeeping}}
+			</span>
+		</td>
+		
+		<td>
+			<span class="{% if f.fundraising_hours < obl_fundraising_hours %}under{% else %}over{% endif %}">
+			{{f.fundraising_hours}}/{{obl_fundraising_hours}}
+			</span>
+		</td>								
+		
+		
 	</tr>	
 	{% endfor %}
 	

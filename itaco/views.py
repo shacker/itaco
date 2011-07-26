@@ -134,10 +134,6 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
         obl_period_start = period_start
         obl_period_end = period_end
 
-    # print period_period
-    # print period_string
-    # print period
-    # print year
 
     """
     Now we can get actual start and stop dates for the current period view.
@@ -221,34 +217,10 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
         date__lte=period_end,
         ).order_by('-date',)
 
-    # In models.py we break out all charge types that are not hourly regular daycare as a tuple of tuples.
-    # Here we need to get those into a list, so loop through, getting the first value (like "msc") append to list.
-    # Then pass that list into the query below.
-    # charge_other_types = []
-    # for c in CHARGE_TYPE_CHOICES :
-    #     print c[0]
-    #     charge_other_types.append(c[0])
-    #
-    # ch_other = Charge.objects.filter(
-    #     family=fam_id,
-    #     date__gte=period_start,
-    #     date__lte=period_end,
-    #     type__in=(charge_other_types), # Filter in the other type charges
-    #     ).order_by('-date',)
-
-
-        # ch_other = Charge.objects.filter(
-        #     family=fam_id,
-        #     date__gte=period_start,
-        #     date__lte=period_end,
-        #     type__in=('mshc','mmh','mfr','adj','edc1','edc2','edc3','dclpu',), # Filter in the other type charges
-        #     ).order_by('-date',)
-
 
     # Need a list of years and a list of billing periods to send to the template for selector picklists
     year_list = SchoolYear.objects.all()
     bp_list = BillingPeriod.objects.all().order_by('-start')
-
 
     # Only staff/superuser and the current family can view their own finance details.
     # Since we only need to block from view part of the data in the family-details template,
@@ -269,28 +241,15 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
     else:
         canview_charges = 0
 
-    # print myfam_id
-    # print fam_id
-    # print f.id
-    # print canview_charges
-
-
 
     """
     Calculate totals. Blank everything out first.
     """
-    # total_chargedaycare_hours = total_chargedaycare_dollars = 0
-    # total_chargedaycare_hours = ch_daycare.aggregate(Sum('amount'))['amount__sum']
-    # total_chargedaycare_dollars = ch_daycare.aggregate(Sum('charged_amount'))['charged_amount__sum']
-    # total_chargeother_dollars = ch_other.aggregate(Sum('charged_amount'))['charged_amount__sum']
 
     total_charge_dollars = ch.aggregate(Sum('charged_amount'))['charged_amount__sum']
 
     if total_charge_dollars == None: # Can't test for None in template, but can compare to zero; convert
         total_charge_dollars = 0
-
-    # if total_chargeother_dollars == None: # Can't test for None in template, but can compare to zero; convert
-    #     total_chargeother_dollars = 0
 
     total_credit_hours = total_credit_dollars = total_credit_units = 0
     total_credits = cr.aggregate(Sum('charged_amount'))['charged_amount__sum']
@@ -385,12 +344,7 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
 
           # Charges
           'charges': ch,
-          # 'charges_daycare': ch_daycare,
           'daycare_hourly_rate': settings.DAYCARE_REGULAR_HOURLY,
-          # 'total_chargedaycare_hours': total_chargedaycare_hours,
-          # 'total_chargedaycare_dollars': total_chargedaycare_dollars,
-          # 'charges_other': ch_other,
-          # 'total_chargeother_dollars': total_chargeother_dollars,
           'total_charge_dollars': total_charge_dollars,
 
           # Credits
@@ -851,6 +805,7 @@ def summary_to_csv(request,billing_summary_dict):
 
 
 
+
 def edit_student(request,student_id=None):
     """
     Allow families to edit minimal details about a student.
@@ -886,3 +841,50 @@ def edit_student(request,student_id=None):
         'edit_student.html', locals(),
         context_instance = RequestContext(request),
         )
+
+
+
+@user_passes_test(lambda u: u.is_superuser, login_url='/')
+def obligation_summary(request):
+    """
+    A list of families and their numbers towards field trips, meetings, 
+    maintenance, housekeeping and fundraising.
+    """
+    
+    period = SchoolYear.objects.get(current=True)
+    period_start = period.start
+    period_end = period.end
+    
+    print period_start
+    print period_end
+    
+    """
+    Obligation constants brought in from settings file
+    """
+    obl_maint_hours = settings.ANN_MAINTENANCE_HOURS # This gets adjusted later; 7 hours if family has board position; 4 hours if that position is shared.
+    obl_member_meetings = settings.ANN_MEMBER_MEETINGS
+    obl_fundraising_hours = settings.ANN_EXTERNAL_FUNDRAISING_HOURS
+    obl_housekeeping = settings.ANN_HOUSEKEEPING_SESSIONS
+    obl_field_trips = settings.ANN_FIELD_TRIPS
+    obl_coop_jobs = settings.ANN_COOP_JOBS
+    
+    families = Family.objects.all()
+    fam_oblist = []
+    for f in families:
+        
+        # Number of field trips completed
+        completed = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='fldtrp').count()
+        
+        # # Number of field trips remaining
+        #   obl_field_trips_due = obl_field_trips - completed
+        
+        fam_oblist.append({'fam':f,'field_trips_completed':completed,})
+        
+    
+
+    return render_to_response('obligation_summary.html',
+        locals(),
+        context_instance = RequestContext(request),
+    )
+    
+    

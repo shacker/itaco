@@ -624,3 +624,7 @@ form.profile input, form.profile textarea {
     margin-bottom:30px;
     font-family:sans-serif;
 }
+
+.alert {
+    color:red;
+}

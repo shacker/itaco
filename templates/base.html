@@ -84,7 +84,9 @@
         <li><a href="/admin/itaco/obligation/add/" title="Add Obligations">Add Other Obligations</a></li>
 
         <li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li>
+
           {% if user.is_staff %}
+		<li><a href="{% url obligation_summary %}">Obligations summary</a></li>
           <li><a href="/admin/" title="Admin">Admin</a></li>
           {% endif %}
         </ul>

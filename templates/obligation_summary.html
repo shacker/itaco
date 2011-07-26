@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load charts %}
+
+{% block title %}Obligation Summaries{% endblock %}
+
+{% block content %}
+
+
+<h2>Obligation Summary for {{period}}</h2>
+
+<p>Covering {{period.start}} - {{period.end}}</p>
+
+<table>
+	<tr>
+		<th>
+			Family
+		</th>
+
+		<th>
+			Field trips
+		</th>
+	</tr>
+	
+	{% for f in fam_oblist %}
+	<tr>
+		<td>
+			{{f.fam}}
+		</td>
+
+		<td>
+		{% if f.field_trips_completed < obl_field_trips %}
+			<span class="alert">
+		{% endif %}
+			{{f.field_trips_completed}}/{{obl_field_trips}}
+		{% if f.field_trips_completed < obl_field_trips %}
+			</span>
+		{% endif %}			
+			
+		</td>
+	</tr>	
+	{% endfor %}
+	
+</table>
+
+{% endblock content %}

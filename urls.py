@@ -7,7 +7,6 @@ from ourcrestmont.itaco.models import *
 from ourcrestmont.itaco.forms import ProfileForm
 
 
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
@@ -24,6 +23,9 @@ urlpatterns = patterns('',
     
     # Rosters - family and student listings
     (r'^roster/', include('roster.urls')),                 
+    
+    # Applications - subclassed version of Family and Student, plus public app URLs
+    (r'^apply/', include('apply.urls')),                 
 
     # These  URLs route to the same view. The family_detail view will then connect to render_to_csv if /csv/ is present.
     # To get data slices we optionally pass in a named year or a named period or the static var "all" (to view all billing periods)

@@ -2,6 +2,9 @@ from django.db import models
 from ourcrestmont.itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
 from ourcrestmont.itaco.constants import CLASS_CHOICES
 from sorl.thumbnail import ImageField
+from django.contrib.localflavor.us.models import *
+from django.template.defaultfilters import slugify
+
 
 
 HEARD_ABOUT_CHOICES = (
@@ -12,6 +15,16 @@ HEARD_ABOUT_CHOICES = (
     ('other','Other (please explain)'),
 )
 
+# 
+# def get_applicant_avatar_path(instance, filename):
+#     """
+#     Create a logical filename for applicant's uploaded photo
+#     """
+# 
+#     parts = str(filename).split(".")
+#     return 'uploads/applicant_avatars/' + str(instance.id) + '/' + slugify(parts[0]) + '.' + parts[1]
+
+
 class Application(models.Model):
     """
     Closely mimics the traditional/PDF application.
@@ -19,9 +32,9 @@ class Application(models.Model):
     child_last = models.CharField('Last Name',blank=False, max_length=100)
     child_first = models.CharField('First Name',blank=False, max_length=100)    
     appdate = models.DateField('Application date',blank=True,)
-    grade = models.CharField('Applying for grade',max_length=6,choices=constants.CLASS_CHOICES,blank=False,)
+    grade = models.CharField('Applying for grade',max_length=6,choices=CLASS_CHOICES,blank=False,)
     rq_start_date = models.DateField('Requested start date',blank=False,)
-    sex = models.CharField(blank=False, max_length=2,choices=['Male','Female'])
+    sex = models.CharField(blank=False, max_length=2,choices=(('m','Male'),('f','Female')))
     birthdate = models.DateField('Birth date',blank=False,)
     langs = models.CharField('Languages spoken',blank=True, max_length=255)
     
@@ -52,7 +65,7 @@ class Application(models.Model):
     
     living = models.TextField('Living arrangement',help_text="What is your child's livig arrangement? Who is the legal guardian?")
     cur_school = models.CharField('Current school',blank=True, max_length=120)
-    cur_grade = models.CharField('Current grade',max_length=6,choices=constants.CLASS_CHOICES,blank=True,)
+    cur_grade = models.CharField('Current grade',max_length=6,choices=CLASS_CHOICES,blank=True,)
     cur_school_addr = models.CharField('Current school address',blank=True, max_length=160)
     cur_school_phone = models.CharField('Current school phone',blank=True, max_length=20)    
     cur_teacher = models.CharField('Current teacher',blank=True, max_length=20)        
@@ -69,10 +82,10 @@ class Application(models.Model):
     prev_school3_phone = models.CharField('Phone',blank=True, max_length=20)            
     prev_school3_phone = models.CharField('Dates',blank=True, max_length=40)                  
 
-    describe_play = models.TextField('Interaction',blank=False,help_text='Please describe your child’s play and interaction with others:')
+    describe_play = models.TextField('Interaction',blank=False,help_text="Please describe your child's play and interaction with others.")
     describe_special = models.TextField('Qualities',blank=False,help_text='Describe what is special about your child:')
-    describe_needs = models.TextField('Needs',blank=False,help_text='Describe any special needs your child may have (learning, emotional, social, physical):')
-    describe_circumstances = models.TextField('Circumstances',blank=False,help_text='Are there any circumstances that might affect your child’s learning? (Divorce or separation, death in the family, illness, sibling birth, etc.):')
+    describe_needs = models.TextField('Needs',blank=False,help_text="Describe any special needs your child may have learning, emotional, social, physical:")
+    describe_circumstances = models.TextField('Circumstances',blank=False,help_text="Are there any circumstances that might affect your child's learning (Divorce or separation, death in the family, illness, sibling birth, etc.)")
     describe_seeking = models.TextField('Seeking',blank=False,help_text='What kind of education are you seeking for your child?:')
     describe_contribution = models.TextField('Contribution',blank=False,help_text='How do you see yourself participating in a parent co-op?')
 
@@ -82,9 +95,8 @@ class Application(models.Model):
         help_text='Please upload an image of your child. Please make sure the photo is mostly square, not rectangular.')    
     
     notes = models.TextField('Notes',blank=True,help_text="Anything else you'd like us to know?")
+    accepted = models.BooleanField(default=False)
     
-    
-    photo
     
     def __unicode__(self):
         return u'%s %s' % (self.child_last, self.child_first)

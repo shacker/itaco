@@ -12,12 +12,15 @@
 {% endblock extrahead %}
 
 <script type="text/javascript" charset="utf-8">
-    // thedate.x comes from the item_edit view. If this is a new entry,
-    // thedate won't be present and datepicker will fall back on the default (today).
+	// Date pickers
     $(document).ready(function(){
+
+        $('#id_rq_start_date').datepicker(
+          {changeMonth: true, changeYear: true, yearRange: '2011:2020'}
+      );
+
         $('#id_birthdate').datepicker(
-          {changeMonth: true, changeYear: true, yearRange: '1970:2020'},
-          {defaultDate: new Date({{student.birthdate.year}},{{student.birthdate.month}} - 1, {{student.birthdate.day}})}
+          {changeMonth: true, changeYear: true, yearRange: '2011:2020'}
       );
      });
 
@@ -25,9 +28,8 @@
 
 <h2>Apply to Attend Crestmont </h2>
 
-<p>{{foo}}</p>
-
-<form action="" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="ItemAddEdit">
+<div id="appl_form">
+<form action="" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="ApplicationForm">
   {% csrf_token %}
 
   {{form.as_p}}
@@ -36,4 +38,4 @@
 
 </form>
 
-{% endblock content %}
+</div>{% endblock content %}

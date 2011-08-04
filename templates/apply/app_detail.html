@@ -1,46 +1,78 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block title %}View application{% endblock %}
 
 {% block content %}
 
+<style type="text/css" media="screen">
+	h3 {
+		font-size:1.0em;
+		margin-bottom:-10px;
+	}
+</style>
 
 <h2>Application for {{app}}</h2>
 
+<p><a href="{% url process_apps %}">Return to Applications</a></p>
 
-
+<h3>Photo</h3>
 <p>
+
+	<div class="avatar">
+	    {% if app.avatar %}
+
+			{% thumbnail app.avatar "200x200" crop="center" as im %}
+				<a href="/site_media/{{app.avatar}}" class="lightbox"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{app}}'s avatar image" /></a>
+			{% endthumbnail %}
+
+	    {% else %}
+	       <img src="/site_media/images/user_default.jpg" width="200" alt="{{profile}}'s avatar image" /><br />
+	    {% endif %}    
+	</div>
+
+</p>
+
+<h3>Application Status</h3>
+<p>
+	{{app.get_accepted_display}}
+</p>
+
+<h3>Family</h3>
+<p>
+	{% if app.family %}
 	{{app.family}}
+	{% else %}
+	New Family
+	{% endif %}
+
 </p>
 
-<p>
-	{{app.child_last}}
-</p>
 
-<p>
-	{{app.child_first}}
-</p>
-
+<h3>Application date:</h3>
 <p>
 	{{app.appdate}}
 </p>
 
+<h3>Grade and Requested start date</h3>
 <p>
-	{{app.grade}}
-</p>
-
-<p>
+	{{app.grade}}<br />
 	{{app.rq_start_date}}
 </p>
 
+
+
+<h3>Sex</h3>
 <p>
-	{{app.sex}}
+	{{app.get_sex_display}}
 </p>
 
+<h3>Birthdate</h3>
 <p>
 	{{app.birthdate}}
 </p>
 
+<h3>Languages</h3>
 <p>
 	{{app.langs}}
 </p>
@@ -48,207 +80,124 @@
 
 
 
-
+<h3>Parent 1</h3>
 <p>
-	{{app.par1_lname}}
-</p>
+	{{app.par1_fname}} {{app.par1_lname}}<br />
 
-<p>
-	{{app.par1_fname}}
-</p>
-
-<p>
-	{{app.par1_email}}
-</p>
-
-<p>
-	{{app.par1_address1}}
-</p>
-
-<p>
-	{{app.par1_address2}}
-</p>
-
-<p>
-	{{app.par1_city}}
-</p>
-
-<p>
+	<a href="mailto:{{app.par1_email}}">{{app.par1_email}}</a><br />
+	{{app.par1_address1}},
+	{{app.par1_address2}}<br />
+	{{app.par1_city}},
 	{{app.par1_state}}
+	{{app.par1_zip}}<br />
+	h: {{app.par1_phone_home}}<br />
+	w: {{app.par1_phone_work}}<br />
 </p>
 
+<h3>Parent 1</h3>
 <p>
-	{{app.par1_zip}}
-</p>
+	{{app.par2_fname}} {{app.par2_lname}}<br />
 
-<p>
-	{{app.par1_phone_home}}
-</p>
-
-<p>
-	{{app.par1_phone_work}}
-</p>
-
-
-
-<p>
-	{{app.par2_lname}}
-</p>
-
-<p>
-	{{app.par2_fname}}
-</p>
-
-<p>
-	{{app.par2_email}}
-</p>
-
-<p>
-	{{app.par2_address1}}
-</p>
-
-<p>
-	{{app.par2_address2}}
-</p>
-
-<p>
-	{{app.par2_city}}
-</p>
-
-<p>
+	<a href="mailto:{{app.par2_email}}">{{app.par2_email}}</a><br />
+	{{app.par2_address1}},
+	{{app.par2_address2}}<br />
+	{{app.par2_city}},
 	{{app.par2_state}}
+	{{app.par2_zip}}<br />
+	h: {{app.par2_phone_home}}<br />
+	w: {{app.par2_phone_work}}<br />
 </p>
 
+
+
+
+
+
+<h3>Current School</h3>
 <p>
-	{{app.par2_zip}}
+	School {{app.cur_school}}<br />
+	Grade: {{app.cur_grade}}<br />
+	Addr: {{app.cur_school_addr}}<br />
+	Phone: {{app.cur_school_phone}}<br />
+	Teacher: {{app.cur_teacher}}
 </p>
 
+
+<h3>Previous School 1</h3>
 <p>
-	{{app.par2_phone_home}}
+	School: {{app.prev_school1}}<br />
+	Phone: {{app.prev_school1_phone}}<br />
+	Dates: {{app.prev_school1_dates}}
 </p>
 
+<h3>Previous School 2</h3>
 <p>
-	{{app.par2_phone_work}}
+	School: {{app.prev_school2}}<br />
+	Phone: {{app.prev_school2_phone}}<br />
+	Dates: {{app.prev_school2_dates}}
 </p>
 
-
-
+<h3>Previous School 3</h3>
 <p>
-	{{app.living}}
+	School: {{app.prev_school3}}<br />
+	Phone: {{app.prev_school3_phone}}<br />
+	Dates: {{app.prev_school3_dates}}
 </p>
 
+
+
+
+
+
+<h3>Living</h3>
 <p>
-	{{app.cur_school}}
+	{{app.living|linebreaks}}
 </p>
 
+<h3>Play</h3>
 <p>
-	{{app.cur_grade}}
+	{{app.describe_play|linebreaks}}
 </p>
 
+<h3>What is Special About Your Child?</h3>
 <p>
-	{{app.cur_school_addr}}
+	{{app.describe_special|linebreaks}}
 </p>
 
+<h3>Special Needs</h3>
 <p>
-	{{app.cur_school_phone}}
+	{{app.describe_needs|linebreaks}}
 </p>
 
+<h3>Special Circumstances</h3>
 <p>
-	{{app.cur_teacher}}
+	{{app.describe_circumstances|linebreaks}}
 </p>
 
-
-
+<h3>Seeking</h3>
 <p>
-	{{app.prev_school1}}
+	{{app.describe_seeking|linebreaks}}
 </p>
 
+<h3>Expected Contributions</h3>
 <p>
-	{{app.prev_school1_phone}}
+	{{app.describe_contribution|linebreaks}}
 </p>
 
+
+<h3>Heard About</h3>
 <p>
-	{{app.prev_school1_dates}}
+	{{app.get_heard_about_display}}
 </p>
 
 
 
+
+<h3>Notes</h3>
 <p>
-	{{app.prev_school2}}
-</p>
-
-<p>
-	{{app.prev_school2_phone}}
-</p>
-
-<p>
-	{{app.prev_school2_dates}}
+	{{app.notes|linebreaks}}
 </p>
 
 
-
-<p>
-	{{app.prev_school3}}
-</p>
-
-<p>
-	{{app.prev_school3_phone}}
-</p>
-
-<p>
-	{{app.prev_school3_dates}}
-</p>
-
-
-
-<p>
-	{{app.describe_play}}
-</p>
-
-<p>
-	{{app.describe_special}}
-</p>
-
-<p>
-	{{app.describe_needs}}
-</p>
-
-<p>
-	{{app.describe_circumstances}}
-</p>
-
-<p>
-	{{app.describe_seeking}}
-</p>
-
-<p>
-	{{app.describe_contribution}}
-</p>
-
-
-
-<p>
-	{{app.heard_about}}
-</p>
-
-
-
-<p>
-	{{app.avatar}}
-</p>
-
-
-
-
-
-<p>
-	{{app.notes}}
-</p>
-
-<p>
-	{{app.accepted}}
-</p>
-}}
-</p>
 
 {% endblock content %}

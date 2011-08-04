@@ -52,6 +52,11 @@
     Please use the form below to tell us a bit about your child and your family. <br />
     We'll get back to you shortly.</p>
 
+{% if not user.is_authenticated %}
+<p style="color:green;font-family:Arial;font-size:1.1em;"><strong>Important: If you already have or have ever had a child enrolled at Crestmont, <br />please <a href="{% url auth_login %}">log in</a> to this site before applying.</strong></p>
+{% endif %}
+
+
 {% if form.errors %}
 <ul class="errorlist" style="margin-bottom:30px;">    
     <li>Oops - a few required fields still need filling out. Please see the messages in red below.</li>

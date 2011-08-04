@@ -77,12 +77,12 @@
         <li><a href="{% url batch_obl %}" title="Batch Obligation Hours">Batch Obligation Hours</a></li>
         {% if user.is_superuser %}
         <li><a href="{% url batch_board_credit %}" title="Batch-Add Board Credits">Batch Board Credits</a></li>
+        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>        
         {% endif %}
 
         <li><a href="/admin/itaco/charge/add/" title="Other Charges">Add Other Charges</a></li>
         <li><a href="/admin/itaco/credit/add/" title="Other Credits">Add Other Credits</a></li>
         <li><a href="/admin/itaco/obligation/add/" title="Add Obligations">Add Other Obligations</a></li>
-
         <li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li>
 
           {% if user.is_staff %}

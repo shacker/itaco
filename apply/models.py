@@ -5,6 +5,12 @@ from django.contrib.localflavor.us.models import *
 from django.template.defaultfilters import slugify
 
 # Not using the CLASS_CHOICES from iTaco.constants because it includes Alumni
+APP_CHOICES = (
+    ('1','Accepted'),
+    ('2','Rejected'),
+    ('3','Pending'),    
+)
+
 CLASS_CHOICES = (
     ('kind','Kindergarten'),
     ('1st','1st grade'),
@@ -103,8 +109,7 @@ class Application(models.Model):
         help_text='Please upload an image of your child. Please make sure the photo is mostly square, not rectangular.')    
     
     notes = models.TextField('Notes',blank=True,help_text="Anything else you'd like us to know?")
-    accepted = models.BooleanField(default=False)
-    
+    accepted = models.CharField('Application status',max_length=2,choices=APP_CHOICES,default=3,blank=False,)
     
     def __unicode__(self):
         return u'%s %s' % (self.child_last, self.child_first)

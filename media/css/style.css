@@ -658,3 +658,13 @@ ul.errorlist li {
     font-size:20px;
     color:#464646;    
 }
+
+fieldset {
+    margin-bottom:20px;
+    border: 1px solid #999;
+    padding:20px;
+}
+
+legend {
+    font-size:1.5em;
+}

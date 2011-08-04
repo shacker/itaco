@@ -20,9 +20,14 @@ def apply(request):
         form = ApplicationForm(request.POST,files=request.FILES)
 
         if form.is_valid():
-            # # Don't commit the save until we've added in the fields we need to set
+            # Don't commit the save until we've added in the fields we need to set
             app = form.save(commit=False)
             app.appdate = datetime.now()
+            
+            # If user is logged in, they are already a Crestmont family and this
+            # app should be associated with that family
+            if request.user.is_authenticated():
+                app.family = request.user.get_profile().family
                 
             app.save()
            

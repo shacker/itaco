@@ -20,21 +20,646 @@
       );
 
         $('#id_birthdate').datepicker(
-          {changeMonth: true, changeYear: true, yearRange: '2011:2020'}
+          {changeMonth: true, changeYear: true, yearRange: '1990:2020'}
       );
      });
 
 </script>
 
+<style type="text/css" media="screen">
+    span.minor {
+        display:block;
+        width:400px;
+        font-size:1.1em;
+    }
+    
+    td {
+        padding-bottom:20px;
+        vertical-align:top;
+    }
+    
+    input.shortfield {
+        width:170px !important;
+    }
+    
+    input#id_avatar {
+        font-size:0.9em;
+    }
+</style>
 <h2>Apply to Attend Crestmont </h2>
+
+<p>We'd love to consider your child for Crestmont School! <br />
+    Please use the form below to tell us a bit about your child and your family. <br />
+    We'll get back to you shortly.</p>
+
+{% if form.errors %}
+<ul class="errorlist" style="margin-bottom:30px;">    
+    <li>Oops - a few required fields still need filling out. Please see the messages in red below.</li>
+</ul>
+{% endif %}
 
 <div id="appl_form">
 <form action="" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="ApplicationForm">
   {% csrf_token %}
 
-  {{form.as_p}}
 
-  <input  type="submit" value="Submit" style="margin-top:10px;" />
+      
+        <fieldset id="about_your_child" class="">
+            <legend>About Your Child</legend>
+            
+        <table>      
+		<tr>
+			<td><label for="child_last" />
+			   
+				{{form.child_last.label}}
+			</td>				
+
+			<td>
+				{{form.child_last}}<br />
+				<span class="minor">{{form.child_last.help_text|safe}}</span>
+				 {{ form.child_last.errors }}
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_child_first" />
+				{{form.child_first.label}}
+			</td>				
+
+			<td>
+				{{form.child_first}}<br />
+				<span class="minor">{{form.child_first.help_text|safe}}</span>
+				 {{ form.child_first.errors }}				
+			</td>				
+		</tr>	
+		
+		<tr>
+			<td><label for="id_grade" />
+				{{form.grade.label}}
+			</td>				
+
+			<td>
+				{{form.grade}}<br />
+				<span class="minor">{{form.grade.help_text|safe}}</span>
+				 {{ form.grade.errors }}								
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_rq_start_date" />
+				{{form.rq_start_date.label}}
+			</td>				
+
+			<td>
+				{{form.rq_start_date}}<br />
+				<span class="minor">{{form.rq_start_date.help_text|safe}}</span>
+				 {{ form.rq_start_date.errors }}												
+			</td>				
+		</tr>	
+		
+		<tr>
+			<td><label for="id_sex" />
+				{{form.sex.label}}
+			</td>				
+
+			<td>
+				{{form.sex}}<br />
+				<span class="minor">{{form.sex.help_text|safe}}</span>
+				 {{ form.grade.errors }}												
+			</td>				
+		</tr>	
+		
+		<tr>
+			<td><label for="id_birthdate" />
+				{{form.birthdate.label}}
+			</td>				
+
+			<td>
+				{{form.birthdate}}<br />
+				<span class="minor">{{form.birthdate.help_text|safe}}</span>
+				 {{ form.birthdate.errors }}												
+			</td>				
+		</tr>	
+		
+		<tr>
+			<td><label for="id_langs" />
+				{{form.langs.label}}
+			</td>				
+
+			<td>
+				{{form.langs}}<br />
+				<span class="minor">{{form.langs.help_text|safe}}</span>
+				 {{ form.langs.errors }}																
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_avatar" />
+				{{form.avatar.label}}
+			</td>				
+
+			<td>
+				{{form.avatar}}<br />
+				<span class="minor">{{form.avatar.help_text|safe}}
+				 {{ form.avatar.errors }}
+			</td>				
+		</tr>
+				
+		</table>	
+		</fieldset>
+		
+		<fieldset id="about_parent_1" class="">
+		  <legend>About Parent 1</legend>
+		  
+  		<table>
+
+
+
+  		<tr>
+  			<td><label for="id_par1_lname" />
+  				{{form.par1_lname.label}}
+  			</td>				
+
+  			<td>
+  				{{form.par1_lname}}<br />
+  				<span class="minor">{{form.par1_lname.help_text|safe}}</span>
+				 {{ form.par1_lname.errors }}												  				
+  			</td>				
+  		</tr>	
+
+  		<tr>
+  			<td><label for="id_par1_fname" />
+  				{{form.par1_fname.label}}
+  			</td>				
+
+  			<td>
+  				{{form.par1_fname}}<br />
+  				<span class="minor">{{form.par1_fname.help_text|safe}}</span>
+				 {{ form.par1_fname.errors }}												  				
+  			</td>				
+  		</tr>		
+
+
+  		<tr>
+  			<td><label for="id_par1_email" />
+  				{{form.par1_email.label}}
+  			</td>				
+
+  			<td>
+  				{{form.par1_email}}<br />
+  				<span class="minor">{{form.par1_email.help_text|safe}}</span>
+				 {{ form.par1_email.errors }}												  				
+  			</td>				
+  		</tr>	
+
+  		<tr>
+  			<td><label for="id_par1_address1" />
+  				{{form.par1_address1.label}}
+  			</td>				
+
+  			<td>
+  				{{form.par1_address1}}<br />
+  				<span class="minor">{{form.par1_address1.help_text|safe}}</span>
+				 {{ form.par1_address1.errors }}												  				
+  			</td>				
+  		</tr>	
+
+  		<tr>
+  			<td><label for="id_par1_address2" />
+  				{{form.par1_address2.label}}
+  			</td>				
+
+  			<td>
+  				{{form.par1_address2}}<br />
+  				<span class="minor">{{form.par1_address2.help_text|safe}}</span>
+				 {{ form.par1_address2.errors }}												  				
+  			</td>				
+  		</tr>	
+
+  		<tr>
+  			<td><label for="id_par1_city" />
+  				{{form.par1_city.label}}
+  			</td>				
+
+  			<td>
+  				{{form.par1_city}}<br />
+  				<span class="minor">{{form.par1_city.help_text|safe}}</span>
+				 {{ form.par1_city.errors }}												  				
+  			</td>				
+  		</tr>	
+
+	
+
+  		<tr>
+  			<td><label for="id_par1_state" />
+  				{{form.par1_state.label}}
+  			</td>				
+
+  			<td>
+  				{{form.par1_state}}<br />
+  				<span class="minor">{{form.par1_state.help_text|safe}}</span>
+				 {{ form.par1_state.errors }}												  				
+  			</td>				
+  		</tr>		
+
+  		<tr>
+  			<td><label for="id_par1_zip" />
+  				{{form.par1_zip.label}}
+  			</td>				
+
+  			<td>
+  				{{form.par1_zip}}<br />
+  				<span class="minor">{{form.par1_zip.help_text|safe}}</span>
+				 {{ form.par1_zip.errors }}												  				
+  			</td>				
+  		</tr>	
+
+  		<tr>
+  			<td><label for="id_par1_phone_home" />
+  				{{form.par1_phone_home.label}}
+  			</td>				
+
+  			<td>
+  				{{form.par1_phone_home}}<br />
+  				<span class="minor">{{form.par1_phone_home.help_text|safe}}</span>
+				 {{ form.par1_phone_home.errors }}												  				
+  			</td>				
+  		</tr>		
+
+  		<tr>
+  			<td><label for="id_par1_phone_work" />
+  				{{form.par1_phone_work.label}}
+  			</td>				
+
+  			<td>
+  				{{form.par1_phone_work}}<br />
+  				<span class="minor">{{form.par1_phone_work.help_text|safe}}</span>
+				 {{ form.par1_phone_work.errors }}												  				
+  			</td>				
+  		</tr>
+  		</table>		  
+		</fieldset>
+
+
+
+
+        <fieldset id="about_parent_2" class="">
+            <legend>About Parent 2</legend>
+
+		<table>
+		<tr>
+			<td><label for="id_par2_lname" />
+				{{form.par2_lname.label}}
+			</td>				
+
+			<td>
+				{{form.par2_lname}}<br />
+				<span class="minor">{{form.par2_lname.help_text|safe}}</span>
+				 {{ form.par2_lname.errors }}																
+			</td>				
+		</tr>	
+		
+		<tr>
+			<td><label for="id_par2_fname" />
+				{{form.par2_fname.label}}
+			</td>				
+
+			<td>
+				{{form.par2_fname}}<br />
+				<span class="minor">{{form.par2_fname.help_text|safe}}</span>
+				 {{ form.par2_fname.errors }}																
+			</td>				
+		</tr>		
+		
+		
+		<tr>
+			<td><label for="id_par2_email" />
+				{{form.par2_email.label}}
+			</td>				
+
+			<td>
+				{{form.par2_email}}<br />
+				<span class="minor">{{form.par2_email.help_text|safe}}</span>
+				 {{ form.par2_email.errors }}																
+			</td>				
+		</tr>	
+		
+		<tr>
+			<td><label for="id_par2_address1" />
+				{{form.par2_address1.label}}
+			</td>				
+
+			<td>
+				{{form.par2_address1}}<br />
+				<span class="minor">{{form.par2_address1.help_text|safe}}</span>
+				 {{ form.par2_address1.errors }}																
+			</td>				
+		</tr>	
+		
+		<tr>
+			<td><label for="id_par2_address2" />
+				{{form.par2_address2.label}}
+			</td>				
+
+			<td>
+				{{form.par2_address2}}<br />
+				<span class="minor">{{form.par2_address2.help_text|safe}}</span>
+				 {{ form.par2_address2.errors }}																
+			</td>				
+		</tr>	
+		
+		<tr>
+			<td><label for="id_par2_city" />
+				{{form.par2_city.label}}
+			</td>				
+
+			<td>
+				{{form.par2_city}}<br />
+				<span class="minor">{{form.par2_city.help_text|safe}}</span>
+				 {{ form.par2_city.errors }}																
+			</td>				
+		</tr>	
+		
+	
+		
+		<tr>
+			<td><label for="id_par2_state" />
+				{{form.par2_state.label}}
+			</td>				
+
+			<td>
+				{{form.par2_state}}<br />
+				<span class="minor">{{form.par2_state.help_text|safe}}</span>
+				 {{ form.par2_state.errors }}																
+			</td>				
+		</tr>		
+		
+		<tr>
+			<td><label for="id_par2_zip" />
+				{{form.par2_zip.label}}
+			</td>				
+
+			<td>
+				{{form.par2_zip}}<br />
+				<span class="minor">{{form.par2_zip.help_text|safe}}
+				 {{ form.par2_zip.errors }}
+			</td>				
+		</tr>	
+		
+		<tr>
+			<td><label for="id_par2_phone_home" />
+				{{form.par2_phone_home.label}}
+			</td>				
+
+			<td>
+				{{form.par2_phone_home}}<br />
+				<span class="minor">{{form.par2_phone_home.help_text|safe}}
+				 {{ form.par2_phone_home.errors }}
+			</td>				
+		</tr>		
+		
+		<tr>
+			<td><label for="id_par2_phone_work" />
+				{{form.par2_phone_work.label}}
+			</td>				
+
+			<td>
+				{{form.par2_phone_work}}<br />
+				<span class="minor">{{form.par2_phone_work.help_text|safe}}
+				 {{ form.par2_phone_work.errors }}
+			</td>				
+		</tr>
+		</table>
+		</fieldset>
+			
+			
+		<fieldset id="previous_schools" class="">
+		  <legend>Previous Schools</legend>
+		  
+		<table>															
+
+		
+		
+		<tr>
+			<td><label for="id_cur_school" />
+				{{form.cur_school.label}}
+			</td>				
+
+			<td>
+				{{form.cur_school}}<br />
+				<span class="minor">{{form.cur_school.help_text|safe}}
+				 {{ form.cur_school.errors }}
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_cur_grade" />
+				{{form.cur_grade.label}}
+			</td>				
+
+			<td>
+				{{form.cur_grade}}<br />
+				<span class="minor">{{form.cur_grade.help_text|safe}}
+				 {{ form.cur_grade.errors }}
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_cur_school_address" />
+				{{form.cur_school_address.label}}
+			</td>				
+
+			<td>
+				{{form.cur_school_address}}<br />
+				<span class="minor">{{form.cur_school_address.help_text|safe}}
+				 {{ form.cur_school_address.errors }}
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_cur_school_phone" />
+				{{form.cur_school_phone.label}}
+			</td>				
+
+			<td>
+				{{form.cur_school_phone}}<br />
+				<span class="minor">{{form.cur_school_phone.help_text|safe}}
+				 {{ form.cur_school_phone.errors }}
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_cur_teacher" />
+				{{form.cur_teacher.label}}
+			</td>				
+
+			<td>
+				{{form.cur_teacher}}<br />
+				<span class="minor">{{form.cur_teacher.help_text|safe}}
+				 {{ form.cur_teacher.errors }}
+			</td>				
+		</tr>
+		</table>
+		
+		
+		<table style="margin-top:30px;">
+		  <tr>
+		      <th>&nbsp;</th>
+		      <th>Previous school #1</th>
+		      <th>Previous school #2</th>
+		      <th>Previous school #3</th>		      		      
+		  </tr>
+		  <tr>
+		      <td>Name</td>
+		      <td>{{form.prev_school1}}</td>
+		      <td>{{form.prev_school2}}</td>
+		      <td>{{form.prev_school3}}</td>		      		            		      		      
+		  </tr>
+		  <tr>
+		      <td>Phone</td>
+		      <td>{{form.prev_school1_phone}}</td>
+		      <td>{{form.prev_school2_phone}}</td>
+		      <td>{{form.prev_school3_phone}}</td>		      		            		      		      
+		  </tr>
+		  <tr>
+		      <td>Dates</td>
+		      <td>{{form.prev_school1_dates}}</td>
+		      <td>{{form.prev_school2_dates}}</td>
+		      <td>{{form.prev_school3_dates}}</td>		      		            		      		      
+		  </tr>		  		  
+		</table>
+										
+		
+  		</fieldset>
+
+		
+		
+		<fieldset id="" class="">
+		  <legend>More Info</legend>
+		  
+		<table>
+		    
+		<tr>
+			<td><label for="id_living" />
+				{{form.living.label}}
+			</td>				
+
+			<td>
+				{{form.living}}<br />
+				<span class="minor">{{form.living.help_text|safe}}
+				 {{ form.living.errors }}
+			</td>				
+		</tr>		    
+		<tr>
+			<td><label for="id_describe_play" />
+				{{form.describe_play.label}}
+			</td>				
+
+			<td>
+				{{form.describe_play}}<br />
+				<span class="minor">{{form.describe_play.help_text|safe}}
+				 {{ form.describe_play.errors }}
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_describe_special" />
+				{{form.describe_special.label}}
+			</td>				
+
+			<td>
+				{{form.describe_special}}<br />
+				<span class="minor">{{form.describe_special.help_text|safe}}
+				 {{ form.describe_special.errors }}
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_describe_needs" />
+				{{form.describe_needs.label}}
+			</td>				
+
+			<td>
+				{{form.describe_needs}}<br />
+				<span class="minor">{{form.describe_needs.help_text|safe}}
+				 {{ form.describe_needs.errors }}
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_describe_circumstances" />
+				{{form.describe_circumstances.label}}
+			</td>				
+
+			<td>
+				{{form.describe_circumstances}}<br />
+				<span class="minor">
+				 {{ form.describe_circumstances.errors }}
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_describe_seeking" />
+				{{form.describe_seeking.label}}
+			</td>				
+
+			<td>
+				{{form.describe_seeking}}<br />
+				<span class="minor">{{form.describe_seeking.help_text|safe}}
+				 {{ form.describe_seeking.errors }}
+			</td>				
+		</tr>
+		
+		
+		<tr>
+			<td><label for="id_describe_contribution" />
+				{{form.describe_contribution.label}}
+			</td>				
+
+			<td>
+				{{form.describe_contribution}}<br />
+				<span class="minor">{{form.describe_contribution.help_text|safe}}
+				 {{ form.describe_contribution.errors }}
+			</td>				
+		</tr>
+		
+
+
+
+		<tr>
+			<td><label for="id_notes" />
+				{{form.notes.label}}
+			</td>				
+
+			<td>
+				{{form.notes}}<br />
+				<span class="minor">{{form.notes.help_text|safe}}
+				 {{ form.notes.errors }}
+			</td>				
+		</tr>
+		
+		<tr>
+			<td><label for="id_heard_about" />
+				{{form.heard_about.label}}
+			</td>				
+
+			<td>
+				{{form.heard_about}}<br />
+				<span class="minor">{{form.heard_about.help_text|safe}}
+				 {{ form.heard_about.errors }}
+			</td>				
+		</tr>	
+		
+	
+		
+		<tr>	
+		  <td>&nbsp;</td>  
+		  <td><input  type="submit" value="Apply" style="margin-top:30px;" /></td>  		  
+		</tr>			    
+		</table>
+		</fieldset>
+
+
 
 </form>
 

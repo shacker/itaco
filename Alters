@@ -1,5 +1,8 @@
 TODO
 
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `family_id` INT(11) NULL DEFAULT 0  AFTER `id`;
+
+
 =============================
 IN PRODUCTION
 

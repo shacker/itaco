@@ -1,11 +1,18 @@
 from django.db import models
 from ourcrestmont.itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
-from ourcrestmont.itaco.constants import CLASS_CHOICES
 from sorl.thumbnail import ImageField
 from django.contrib.localflavor.us.models import *
 from django.template.defaultfilters import slugify
 
-
+# Not using the CLASS_CHOICES from iTaco.constants because it includes Alumni
+CLASS_CHOICES = (
+    ('kind','Kindergarten'),
+    ('1st','1st grade'),
+    ('2nd','2nd grade'),
+    ('3rd','3rd grade'),
+    ('4th','4th grade'),
+    ('5th','5th grade'),  
+)
 
 HEARD_ABOUT_CHOICES = (
     ('friend','Friend'),
@@ -29,8 +36,9 @@ class Application(models.Model):
     """
     Closely mimics the traditional/PDF application.
     """
-    child_last = models.CharField('Last Name',blank=False, max_length=100)
-    child_first = models.CharField('First Name',blank=False, max_length=100)    
+    family = models.ForeignKey(Family,null=True,blank=True,help_text="Is your family already enrolled at Crestmont? If so, please select your family from the list.")
+    child_last = models.CharField("Child's Last Name",blank=False, max_length=100)
+    child_first = models.CharField("Child's First Name",blank=False, max_length=100)    
     appdate = models.DateField('Application date',blank=True,)
     grade = models.CharField('Applying for grade',max_length=6,choices=CLASS_CHOICES,blank=False,)
     rq_start_date = models.DateField('Requested start date',blank=False,)
@@ -63,7 +71,7 @@ class Application(models.Model):
     par2_phone_home = PhoneNumberField('Home/mobile phone',blank=True)
     par2_phone_work = PhoneNumberField('Work phone',blank=True)    
     
-    living = models.TextField('Living arrangement',help_text="What is your child's livig arrangement? Who is the legal guardian?")
+    living = models.TextField('Living arrangement',help_text="What is your child's living arrangement? Who is the legal guardian?")
     cur_school = models.CharField('Current school',blank=True, max_length=120)
     cur_grade = models.CharField('Current grade',max_length=6,choices=CLASS_CHOICES,blank=True,)
     cur_school_addr = models.CharField('Current school address',blank=True, max_length=160)
@@ -72,15 +80,15 @@ class Application(models.Model):
 
     prev_school1 = models.CharField('Previous school',blank=True, max_length=40)        
     prev_school1_phone = models.CharField('Phone',blank=True, max_length=20)            
-    prev_school1_phone = models.CharField('Dates',blank=True, max_length=40)  
+    prev_school1_dates = models.CharField('Dates',blank=True, max_length=40)  
     
     prev_school2 = models.CharField('Previous school',blank=True, max_length=40)        
     prev_school2_phone = models.CharField('Phone',blank=True, max_length=20)            
-    prev_school2_phone = models.CharField('Dates',blank=True, max_length=40)
+    prev_school2_dates = models.CharField('Dates',blank=True, max_length=40)
     
     prev_school3 = models.CharField('Previous school',blank=True, max_length=40)        
     prev_school3_phone = models.CharField('Phone',blank=True, max_length=20)            
-    prev_school3_phone = models.CharField('Dates',blank=True, max_length=40)                  
+    prev_school3_dates = models.CharField('Dates',blank=True, max_length=40)                  
 
     describe_play = models.TextField('Interaction',blank=False,help_text="Please describe your child's play and interaction with others.")
     describe_special = models.TextField('Qualities',blank=False,help_text='Describe what is special about your child:')
@@ -89,7 +97,7 @@ class Application(models.Model):
     describe_seeking = models.TextField('Seeking',blank=False,help_text='What kind of education are you seeking for your child?:')
     describe_contribution = models.TextField('Contribution',blank=False,help_text='How do you see yourself participating in a parent co-op?')
 
-    heard_about = models.CharField('How did you hear about Crestmont?',max_length=6,choices=HEARD_ABOUT_CHOICES,blank=False,)
+    heard_about = models.CharField('Referred by',max_length=6,choices=HEARD_ABOUT_CHOICES,blank=False,help_text='How did you hear about Crestmont?')
     
     avatar = ImageField('Child photo',upload_to='uploads/applicant_avatars', blank=True,null=True,
         help_text='Please upload an image of your child. Please make sure the photo is mostly square, not rectangular.')    

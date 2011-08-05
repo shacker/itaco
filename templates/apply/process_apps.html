@@ -34,7 +34,7 @@
     </tr>
     {% for app in accepted  %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td>{{app.child_last}}, {{app.child_first}}</td>
+        <td><a href="{% url app_detail app.id %}">{{app.child_last}}, {{app.child_first}}</a></td>
         <td>{{app.get_grade_display}}</td>
         <td>{{app.appdate}}</td>        
     </tr>
@@ -53,7 +53,7 @@
     </tr>
     {% for app in rejected  %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td>{{app.child_last}}, {{app.child_first}}</td>
+        <td><a href="{% url app_detail app.id %}">{{app.child_last}}, {{app.child_first}}</a></td>
         <td>{{app.get_grade_display}}</td>
         <td>{{app.appdate}}</td>        
     </tr>

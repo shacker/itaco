@@ -33,10 +33,26 @@
 
 </p>
 
-<h3>Application Status</h3>
+<fieldset id="" class="" style="width:300px;">
+	<legend>Application Status</legend>
+	
+	
 <p>
-	{{app.get_accepted_display}}
+	{{app.get_status_display}} 
 </p>
+
+<form action="{% url change_app_status %}" method="post" accept-charset="utf-8">
+	{% csrf_token %}
+	<select name="app_status" id="app_status" >
+		{% for s in status_choices  %}
+		<option value="{{s.0}}"{% if app.status.0 == s.0 %} selected{% endif %}>{{s.1}}</option>
+		{% endfor %}		
+	</select>
+	<input type="hidden" name="app_id" value="{{app.id}}" id="">
+	
+	<p><input type="submit" value="Change"></p>
+</form>
+</fieldset>
 
 <h3>Family</h3>
 <p>
@@ -56,7 +72,7 @@
 
 <h3>Grade and Requested start date</h3>
 <p>
-	{{app.grade}}<br />
+	{{app.get_grade_display}} :: 
 	{{app.rq_start_date}}
 </p>
 

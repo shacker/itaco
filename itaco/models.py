@@ -24,7 +24,7 @@ def get_avatar_path(instance, filename):
 
 def get_student_avatar_path(instance, filename):
     """
-    Since students don't have an associated User object, we unfornately need a
+    Since students don't have an associated User object, we unfortunately need a
     separate function to define student avatar upload paths.
     """
 

@@ -55,8 +55,8 @@ class Application(models.Model):
     # Parent/guardians. Could have subclassed Profile object for this, but this 
     # is a more limited set of fields, and that prob. wouldn't have saved any work.
     
-    par1_lname = models.CharField('Last Name',blank=False, max_length=100)
-    par1_fname = models.CharField('First Name',blank=False, max_length=100)    
+    par1_lname = models.CharField('Parent 1 Last Name',blank=False, max_length=100)
+    par1_fname = models.CharField('Parent 1 First Name',blank=False, max_length=100)    
     par1_email = models.EmailField('Email',blank=False)
     par1_address1 = models.CharField('Address 1',max_length=100)
     par1_address2 = models.CharField('Address 2',max_length=100,blank=True)
@@ -66,14 +66,14 @@ class Application(models.Model):
     par1_phone_home = PhoneNumberField('Home/mobile phone',blank=True)
     par1_phone_work = PhoneNumberField('Work phone',blank=True)
     
-    par2_lname = models.CharField('Last Name',blank=False, max_length=100)
-    par2_fname = models.CharField('First Name',blank=False, max_length=100)    
-    par2_email = models.EmailField('Email',blank=False)
-    par2_address1 = models.CharField('Address 1',max_length=100)
+    par2_lname = models.CharField('Parent 2 Last Name',blank=True, max_length=100)
+    par2_fname = models.CharField('Parent 2 First Name',blank=True, max_length=100)    
+    par2_email = models.EmailField('Email',blank=True)
+    par2_address1 = models.CharField('Address 1',max_length=100,blank=True)
     par2_address2 = models.CharField('Address 2',max_length=100,blank=True)
-    par2_city = models.CharField('City',max_length=30)
-    par2_state = USStateField('State',default='CA')
-    par2_zip = models.CharField('Zip',max_length=10)
+    par2_city = models.CharField('City',max_length=30,blank=True)
+    par2_state = USStateField('State',default='CA',blank=True)
+    par2_zip = models.CharField('Zip',max_length=10,blank=True)
     par2_phone_home = PhoneNumberField('Home/mobile phone',blank=True)
     par2_phone_work = PhoneNumberField('Work phone',blank=True)    
     

@@ -7,6 +7,7 @@ CLASS_CHOICES = (
     ('4th','4th grade'),
     ('5th','5th grade'),
     ('alum','Alumni'),    
+    ('fut','Future'),        
 )
 
 

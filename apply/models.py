@@ -110,6 +110,7 @@ class Application(models.Model):
     
     notes = models.TextField('Notes',blank=True,help_text="Anything else you'd like us to know?")
     status = models.CharField('Application status',max_length=2,choices=STATUS_CHOICES,default=3,blank=False,)
+    fee_paid = models.BooleanField(default=False,help_text="Applications cannot be set to Accepted until fee is paid.")
     
     def __unicode__(self):
         return u'%s %s' % (self.child_last, self.child_first)

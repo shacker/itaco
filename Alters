@@ -6,6 +6,10 @@ ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `accepted` `accep
 
 123-456-7890
 
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `fee_paid` TINYINT(1) NULL DEFAULT 0  AFTER `status`;
+
+
+
 =============================
 IN PRODUCTION
 

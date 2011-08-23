@@ -56,6 +56,9 @@ def roster_students(request,printable=False):
         'type': "students",
         'title': "Student Roster"                
     }
+    
+    # for r in roster:
+    #     print r.family.id
 
     if printable:
         return dict_students

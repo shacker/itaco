@@ -4,6 +4,23 @@
 
 {% block content %}
 
+<h2>Paid Pending Applications</h2>
+<p>Paid Pending apps are ready to be accepted, which will transform their data into real iTaco Family entries.</p>
+<table>
+    <tr>
+        <th>Child</th>
+        <th>Grade</th>
+        <th>App. Date</th>        
+    </tr>
+    {% for app in paid_pending  %}
+    <tr class="{% cycle 'row1' 'row2' %}">
+        <td><a href="{% url app_detail app.id %}">{{app.child_last}}, {{app.child_first}}</a></td>
+        <td>{{app.get_grade_display}}</td>
+        <td>{{app.appdate}}</td>        
+    </tr>
+    {% endfor %}    
+
+</table>
 
 <h2>Pending Applications</h2>
 

@@ -21,4 +21,4 @@ class ApplicationForm(ModelForm):
     
     class Meta:
         model = Application
-        exclude = ('appdate','accepted',)
+        exclude = ('appdate','accepted','fee_paid','status')

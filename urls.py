@@ -64,7 +64,7 @@ urlpatterns = patterns('',
       
 
     # Admin, databrowse, filebrowser
-    (r'^admin/?', include(admin.site.urls)),
+    (r'^admin/', include(admin.site.urls)),
     #(r'^databrowse/(.*)', databrowse.site.root),
     
     

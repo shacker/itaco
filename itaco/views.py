@@ -724,7 +724,7 @@ def summary_charges_credits(request,csv = False,period='',):
         # charges_by_family = Charge.objects.values('family').filter(date__gte=billing_period.start,date__lte=billing_period.end,).annotate(Sum('charged_amount'))
         # Can't do this adequately with a single queryset, so we'll return these as a list of dictionaries
         charges_by_family = []
-        families = Family.objects.all()
+        families = Family.has_students.all()
         for f in families:
             famtot = Charge.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,family=f).aggregate(total=Sum('charged_amount'))
             charges_by_family.append({'fam':f,'famtot':famtot})
@@ -753,7 +753,7 @@ def summary_charges_credits(request,csv = False,period='',):
         # credits_by_family = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,).values('family').annotate(Sum('charged_amount'))
         # Can't do this adequately with a single queryset, so we'll return these as a list of dictionaries
         credits_by_family = []
-        families = Family.objects.all()
+        families = Family.has_students.all()
         for f in families:
             famtot = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,family=f).aggregate(total=Sum('charged_amount'))
             credits_by_family.append({'fam':f,'famtot':famtot})

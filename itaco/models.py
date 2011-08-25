@@ -176,7 +176,7 @@ class Profile(models.Model):
     has_timesheet = models.BooleanField(default=False,help_text="Enable for staff/faculty who use hourly timesheets (Treasurer will upload via FTP; will become available from members Profile page.)")
 
     # To find all of this person's additional mailing lists, use profile.list_extras.all()
-    list_extras = models.ManyToManyField(ListExtra, help_text="Everyone is AUTOMATICALLY added to the lists to which they logically belong. Add ADDITIONAL lists here.")
+    list_extras = models.ManyToManyField(ListExtra, blank=True, help_text="Everyone is AUTOMATICALLY added to the lists to which they logically belong. Add ADDITIONAL lists here.")
     
     # Two managers for this model - the first is default (so all parents appear in the admin).
     # The second is only invoked when we call Profile.has_students.all()  e.g. on Parents Roster page.

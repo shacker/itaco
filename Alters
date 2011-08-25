@@ -9,15 +9,12 @@ CREATE TABLE `itaco_profile_list_extras` (
 ;
 
 
+Go live
+Go through all ListExtra field and add to corresponding Profiles
+Run listgen and confirm
 Remove addresses field from listextra model
 
-Get list extras for a single profile:
-profile = Profile.objects.get(id=215)
-profile.list_extras.all()
 
-Get list extras for a given list:
-mlist = ListExtra.objects.get(list='board-nomail')
-profiles = Profile.objects.filter(list_extras=mlist)
 
 
 

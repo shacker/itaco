@@ -12,10 +12,10 @@ import os, sys, site
 site.addsitedir('/home/crest/sites/crest/lib/python2.5/site-packages')
 
 # Toggle/comment these depending on whether you're testing in dev or running in production.
-sys.path.append('/home/crest/sites/crest')
-sys.path.append('/home/crest/sites/crest/ourcrestmont')
-# sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org')
-# sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org/ourcrestmont')
+# sys.path.append('/home/crest/sites/crest')
+# sys.path.append('/home/crest/sites/crest/ourcrestmont')
+sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org')
+sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org/ourcrestmont')
 
 
 
@@ -50,16 +50,16 @@ def write_file(group,peeps=None,extra=None,extranomail=None):
         for p in peeps :
             # Most queries give us Profile objects, but some (teahers) give us User objects.
             # But in all cases we want the User object when writing the email addr
-            try :
-                p = p.user
-            except:
-                # p is still p
-                p = p
-            thefile.write(p.email + "\n")
+            # try :
+            #     p = p.user
+            # except:
+            #     # p is still p
+            #     p = p
+            thefile.write("%s <%s> \n" % (p, p.user.email))
             
     try:
         if extra:
-            thefile.write(extra.addresses + "\n")
+            thefile.write(extra)            
     except:
         pass
         
@@ -88,7 +88,7 @@ def write_file(group,peeps=None,extra=None,extranomail=None):
     # Now process the -nomail extras, if they exist
     if extranomail :
         thefilenomail = open(os.path.join(settings.LISTGENPATH, group + "-nomail.txt"), 'w')
-        thefilenomail.write(extranomail.addresses + "\n")
+        thefilenomail.write(extranomail)
         thefilenomail.close
         print "Generated NOMAIL list for %s" % group
 
@@ -143,10 +143,6 @@ for group in groupset :
         peeps = Profile.objects.filter(family__student__enrolled=True,participating_parent=True,user__is_active=True)          
                         
     if group == 'everyone' :
-        # peeps = User.objects.filter(is_active=True)
-        # peeps = Profile.objects.filter(user__is_active=True,family__student__enrolled=True)
-        # Everyone list consists of all active users minus alumni or anyone whose student is not enrolled
-        # peeps = Profile.objects.filter(user__is_active=True).exclude(family__student__enrolled=False).exclude(family__student__alumni=True)
         
         # Everyone is defined as all parents in families that have one or more students enrolled, plus all teachers. Anyone else?
         peeps = Profile.objects.filter(
@@ -177,14 +173,28 @@ for group in groupset :
     #########
     # Now get any regular "extras" for the list 
     try:
-        extra = ListExtra.objects.get(list=group)
+        mlist = ListExtra.objects.get(list=group)
+        profiles = Profile.objects.filter(list_extras=mlist)
+        # Convert the set of profiles into a string of email addresses, one per line
+        extra = ''
+        for p in profiles:
+            extra += "%s <%s>\n" % (p, p.user.email)
+
     except:
         extra = None
 
+
     # Now get any "nomail" extras for the list 
     try:
+
         extranomailstring = "%s-nomail" % group
-        extranomail = ListExtra.objects.get(list=extranomailstring)
+        mlist = ListExtra.objects.get(list=extranomailstring)
+        profiles = Profile.objects.filter(list_extras=mlist)
+        # Convert the set of profiles into a string of email addresses, one per line
+        extranomail = ''
+        for p in profiles:
+            extranomail += "%s <%s>\n" % (p, p.user.email)
+        
     except:
         extranomail = None
     

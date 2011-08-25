@@ -85,6 +85,7 @@ class ProfileForm(ModelForm):
                'url',
                'fax',
                'primary_contact',
+               'list_extras',
                )
 
       widgets = {'avatar':forms.FileInput}

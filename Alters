@@ -1,5 +1,29 @@
 TODO
 
+CREATE TABLE `itaco_profile_list_extras` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `profile_id` integer NOT NULL,
+    `listextra_id` integer NOT NULL,
+    UNIQUE (`profile_id`, `listextra_id`)
+)
+;
+
+
+Remove addresses field from listextra model
+
+Get list extras for a single profile:
+profile = Profile.objects.get(id=215)
+profile.list_extras.all()
+
+Get list extras for a given list:
+mlist = ListExtra.objects.get(list='board-nomail')
+profiles = Profile.objects.filter(list_extras=mlist)
+
+
+
+=============================
+IN PRODUCTION
+
 ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `family_id` INT(11) NULL DEFAULT 0  AFTER `id`;
 
 ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `accepted` `accepted` TINYINT(2) NOT NULL DEFAULT 3  COMMENT ''  AFTER `notes`;
@@ -7,11 +31,6 @@ ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `accepted` `accep
 123-456-7890
 
 ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `fee_paid` TINYINT(1) NULL DEFAULT 0  AFTER `status`;
-
-
-
-=============================
-IN PRODUCTION
 
 
 1) Add famname field

@@ -26,6 +26,8 @@ class ProfileAdmin(admin.ModelAdmin):
     raw_id_fields = ('user', )
     list_display = ('profile_name','title','participating_parent','no_lists',)
     list_editable = ('participating_parent',)
+    filter_horizontal = ('list_extras',)
+    
 
 class ProfileInline(admin.TabularInline):
     model = Profile

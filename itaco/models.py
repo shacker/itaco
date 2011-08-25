@@ -32,6 +32,22 @@ def get_student_avatar_path(instance, filename):
     return 'uploads/student_avatars/' + str(instance.id) + '/' + slugify(parts[0]) + '.' + parts[1]
 
 
+class ListExtra(models.Model):
+    """
+    Extra email addresses to be added to mailing lists.
+    The listgen tool works on straight queries, but there are always a few outlier addresses
+    that need to be added that can't be extracted from queries. This provides a simple
+    interface to add those addresses.
+    """
+    list = models.SlugField(help_text='Should match list name, e.g. &quot;everyone&quot; for everyone@crestmontschool.org.')
+    addresses = models.TextField(blank=True,help_text='Add addresses here, one per line.')
+
+    def __unicode__(self):
+        return u'%s' % (self.list)
+        
+    class Meta:
+        ordering = ['list']        
+        
 class SchoolYear(models.Model):
     """System tracks school years individually."""
     title = models.CharField(max_length=100)
@@ -62,7 +78,6 @@ class BoardPosition(models.Model):
 
 
 class CommitteeJob(models.Model):
-    # slug = models.CharField(max_length=24)
     title = models.CharField(max_length=64)
     reports_to = models.ForeignKey(BoardPosition)
 
@@ -160,6 +175,9 @@ class Profile(models.Model):
     comm_job = models.ManyToManyField(CommitteeJob,help_text="Select the COMMITTEE JOB(s) (family job) this person currently holds.",verbose_name='Committee Job',blank=True)
     has_timesheet = models.BooleanField(default=False,help_text="Enable for staff/faculty who use hourly timesheets (Treasurer will upload via FTP; will become available from members Profile page.)")
 
+    # To find all of this person's additional mailing lists, use profile.list_extras.all()
+    list_extras = models.ManyToManyField(ListExtra, help_text="Everyone is AUTOMATICALLY added to the lists to which they logically belong. Add ADDITIONAL lists here.")
+    
     # Two managers for this model - the first is default (so all parents appear in the admin).
     # The second is only invoked when we call Profile.has_students.all()  e.g. on Parents Roster page.
     objects = models.Manager()
@@ -439,16 +457,5 @@ class Charge(models.Model):
 
         super(Charge, self).save() # Call the "real" save() method.
 
-class ListExtra(models.Model):
-    """
-    Extra email addresses to be added to mailing lists.
-    The listgen tool works on straight queries, but there are always a few outlier addresses
-    that need to be added that can't be extracted from queries. This provides a simple
-    interface to add those addresses.
-    """
-    list = models.SlugField(help_text='Should match list name, e.g. &quot;everyone&quot; for everyone@crestmontschool.org.')
-    addresses = models.TextField(blank=True,help_text='Add addresses here, one per line.')
 
-    def __unicode__(self):
-        return u'%s' % (self.list)
 

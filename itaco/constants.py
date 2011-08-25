@@ -67,6 +67,38 @@ UNIT_CHOICES = (
     ('dollars','Dollars'),          
 )
 
+
+# 
+# LIST_EXTRAS = (
+#     ('second','second'),
+#     ('first','first'),
+#     ('fifth','fifth'),
+#     ('third','third'),
+#     ('fourth','fourth'),
+#     ('kindergarten','kindergarten'),
+#     ('board','board'),
+#     ('first-nomail','first-nomail'),
+#     ('teachers','teachers'),
+#     ('everyone','everyone'),
+#     ('executivecom','executivecom'),
+#     ('alumni','alumni'),
+#     ('participation','participation'),
+#     ('twothree','twothree'),
+#     ('fourfive','fourfive'),
+#     ('teachers-nomail','teachers-nomail'),
+#     ('board-nomail','board-nomail'),
+#     ('twothree-nomail','twothree-nomail'),
+#     ('fourfive-nomail','fourfive-nomail'),
+#     ('second-nomail','second-nomail'),
+#     ('third-nomail','third-nomail'),
+#     ('fourth-nomail','fourth-nomail'),
+#     ('fifth-nomail','fifth-nomail'),
+#     ('kindergarten-nomail','kindergarten-nomail'),
+#     ('executivecom-nomail','executivecom-nomail'),
+#     ('participation-nomail','participation-nomail'),
+#     ('everyone-nomail','everyone-nomail'),
+# )
+
 # Credit units doesn't have help text - we enter units automatically depending on the charge type selected.
 OBL_UNITS_HELP_TEXT='<strong>Please use the following amounts when entering obligations:</strong><br />       Membership Meeting: 1 unit per meeting<br />        Maintenance/Work Party: Number of hours<br />        Fundraising: Number of hours<br />        Field Trip: Enter 1 unit per trip; partial credits OK e.g. .5 for driving halfway or .25 for BART pickup<br />        Annual Obligation/Scrip: Number of dollars<br />        Housekeeping: Enter 1 unit per cleaning<br />        Committee/Co-op Job: Enter 1 unit per job'
 CREDIT_UNITS_HELP_TEXT='<strong>Please use the following units when entering credits. iTaco will convert to dollars automatically:</strong><br />         Board: DOLLARS<br />       Participating parent: HOURS <br /> Extra housekeeping: Hours (Note this is NOT the same as regular obligation housekeeping)<br />        Aid substitute: HOURS<br />   Teacher substitute: Hours<br />'

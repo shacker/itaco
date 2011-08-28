@@ -56,6 +56,7 @@ class ChargeAdmin(admin.ModelAdmin):
     
 class ListExtraAdmin(admin.ModelAdmin):
     ordering = ('list',)
+    # list_display = ('list','nomail')    
 
     
 class BoardPositionAdmin(admin.ModelAdmin):

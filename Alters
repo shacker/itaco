@@ -8,6 +8,7 @@ CREATE TABLE `itaco_profile_list_extras` (
 )
 ;
 
+ALTER TABLE `crest_ourdjang`.`itaco_listextra` ADD COLUMN `nomail` TINYINT(1) NULL DEFAULT 0  AFTER `list`;
 
 Go live
 Go through all ListExtra field and add to corresponding Profiles

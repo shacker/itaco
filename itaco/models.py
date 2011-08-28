@@ -40,6 +40,7 @@ class ListExtra(models.Model):
     interface to add those addresses.
     """
     list = models.SlugField(help_text='Should match list name, e.g. &quot;everyone&quot; for everyone@crestmontschool.org.')
+    nomail = models.BooleanField(default=False,help_text='User can send to list but does not receive mail from it.')
     addresses = models.TextField(blank=True,help_text='Add addresses here, one per line.')
 
     def __unicode__(self):

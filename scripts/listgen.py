@@ -51,7 +51,8 @@ def write_file(group,peeps=None):
 
     if peeps:
         for p in peeps :
-            thefile.write("%s %s <%s> \n" % (p.user.last_name, p.user.first_name, p.user.email))
+            # thefile.write("%s %s <%s> \n" % (p.user.last_name, p.user.first_name, p.user.email))
+            thefile.write("%s \n" % (p.user.email))
 
     if extra:
         thefile.write(extra)          
@@ -142,7 +143,9 @@ for group in groupset :
         profiles = Profile.objects.filter(list_extras=group)
         extra = ''
         for p in profiles:
-            extra += "%s %s <%s>\n" % (p.user.last_name, p.user.first_name, p.user.email)
+            # extra += "%s %s <%s>\n" % (p.user.last_name, p.user.first_name, p.user.email)
+            extra += "%s\n" % (p.user.email)
+
             
     
     except:

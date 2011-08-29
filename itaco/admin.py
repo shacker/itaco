@@ -56,7 +56,8 @@ class ChargeAdmin(admin.ModelAdmin):
     
 class ListExtraAdmin(admin.ModelAdmin):
     ordering = ('list',)
-    # list_display = ('list','nomail')    
+    # list_display = ('list','nomail')   
+    exclude = ('addresses',) 
 
     
 class BoardPositionAdmin(admin.ModelAdmin):

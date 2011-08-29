@@ -1,5 +1,23 @@
 TODO
 
+
+Reasons:
+Could not tell person's name from looking at email address
+No way to see which lists a person is on by looking just at their profile
+Possibility of having different addresses listed on a person's profile than in the list extras
+Unnecessarily manual process
+
+
+Add archive lists
+crestmont.archive@gmail.com
+crestmont.k@gmail.com
+crestmont.5@gmail.com
+crestmont.4@gmail.com
+crestmont.3@gmail.com
+crestmont.2@gmail.com
+
+
+
 CREATE TABLE `itaco_profile_list_extras` (
     `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `profile_id` integer NOT NULL,

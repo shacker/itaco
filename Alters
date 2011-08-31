@@ -1,21 +1,11 @@
 TODO
 
 
-Reasons:
-Could not tell person's name from looking at email address
-No way to see which lists a person is on by looking just at their profile
-Possibility of having different addresses listed on a person's profile than in the list extras
-Unnecessarily manual process
 
 
-Add archive lists
-crestmont.archive@gmail.com
-crestmont.k@gmail.com
-crestmont.5@gmail.com
-crestmont.4@gmail.com
-crestmont.3@gmail.com
-crestmont.2@gmail.com
 
+=============================
+IN PRODUCTION
 
 
 CREATE TABLE `itaco_profile_list_extras` (
@@ -28,17 +18,7 @@ CREATE TABLE `itaco_profile_list_extras` (
 
 ALTER TABLE `crest_ourdjang`.`itaco_listextra` ADD COLUMN `nomail` TINYINT(1) NULL DEFAULT 0  AFTER `list`;
 
-Go live
-Go through all ListExtra field and add to corresponding Profiles
-Run listgen and confirm
-Remove addresses field from listextra model
 
-
-
-
-
-=============================
-IN PRODUCTION
 
 ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `family_id` INT(11) NULL DEFAULT 0  AFTER `id`;
 

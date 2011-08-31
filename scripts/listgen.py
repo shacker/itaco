@@ -12,10 +12,10 @@ import os, sys, site
 site.addsitedir('/home/crest/sites/crest/lib/python2.5/site-packages')
 
 # Toggle/comment these depending on whether you're testing in dev or running in production.
-sys.path.append('/home/crest/sites/crest')
-sys.path.append('/home/crest/sites/crest/ourcrestmont')
-# sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org')
-# sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org/ourcrestmont')
+# sys.path.append('/home/crest/sites/crest')
+# sys.path.append('/home/crest/sites/crest/ourcrestmont')
+sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org')
+sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org/ourcrestmont')
 
 
 
@@ -149,13 +149,32 @@ for group in groupset :
     except:
         extra = None
 
+    # Also add in the GMail archives and other misc extras
+    if group.list == 'kindergarten':
+        extra += 'crestmont.k@gmail.com\n'
+
+    if group.list == 'first':
+        extra += 'crestmont.1@gmail.com\n'
+
+    if group.list == 'second':
+        extra += 'crestmont.2@gmail.com\n'
+
+    if group.list == 'third':
+        extra += 'crestmont.3@gmail.com\n'
+
+    if group.list == 'fourth':
+        extra += 'crestmont.4@gmail.com\n'
+
+    if group.list == 'fifth':
+        extra += 'crestmont.5@gmail.com\n'
+
+
     # Handle the pre-iTaco alumni who don't have User objects in the system - stored in a permanent text file
     if group.list == 'alumni':
-        # scriptpath = os.path.join(os.path.basename(__file__))
-        # scriptpath = sys.path[0]
-        # sys.path[0] gets the path of the running script
         alumpath = os.path.join(sys.path[0],'listgen-alumni.txt')
-        extra = open(alumpath, 'r').read()
+        extra += open(alumpath, 'r').read()
+        
+
 
     # Commit!
     write_file(group,peeps)

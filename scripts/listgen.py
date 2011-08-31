@@ -12,10 +12,10 @@ import os, sys, site
 site.addsitedir('/home/crest/sites/crest/lib/python2.5/site-packages')
 
 # Toggle/comment these depending on whether you're testing in dev or running in production.
-sys.path.append('/home/crest/sites/crest')
-sys.path.append('/home/crest/sites/crest/ourcrestmont')
-# sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org')
-# sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org/ourcrestmont')
+# sys.path.append('/home/crest/sites/crest')
+# sys.path.append('/home/crest/sites/crest/ourcrestmont')
+sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org')
+sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org/ourcrestmont')
 
 
 
@@ -26,7 +26,7 @@ from ourcrestmont import settings
 setup_environ(settings)
 
 # Folder to store output lists before adding to Mailman
-filepath = os.path.join(os.path.basename(__file__), 'scripts','listgen'),
+filepath = os.path.join(os.path.basename(__file__), 'scripts','listgen')
 
 
 #################### Import models from Django project and custom vars
@@ -145,11 +145,17 @@ for group in groupset :
         for p in profiles:
             # extra += "%s %s <%s>\n" % (p.user.last_name, p.user.first_name, p.user.email)
             extra += "%s\n" % (p.user.email)
-
-            
     
     except:
         extra = None
+
+    # Handle the pre-iTaco alumni who don't have User objects in the system - stored in a permanent text file
+    if group.list == 'alumni':
+        scriptpath = os.path.join(os.path.basename(__file__))
+        alumpath = os.path.join(os.path.dirname(scriptpath), 'scripts','listgen-alumni.txt')
+        extra = open(alumpath, 'r').read()
+        print extra
+
 
     # Commit!
     write_file(group,peeps)

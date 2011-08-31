@@ -12,10 +12,10 @@ import os, sys, site
 site.addsitedir('/home/crest/sites/crest/lib/python2.5/site-packages')
 
 # Toggle/comment these depending on whether you're testing in dev or running in production.
-# sys.path.append('/home/crest/sites/crest')
-# sys.path.append('/home/crest/sites/crest/ourcrestmont')
-sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org')
-sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org/ourcrestmont')
+sys.path.append('/home/crest/sites/crest')
+sys.path.append('/home/crest/sites/crest/ourcrestmont')
+# sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org')
+# sys.path.append('/Users/shacker/Sites/virtualenvs/crestmontschool.org/ourcrestmont')
 
 
 

@@ -1,6 +1,9 @@
-# Do not delete - these are the older alumni, from before iTaco. 
+
+######
+# Older alumni, from before iTaco. 
 # They don't have corresponding User objects in the system, so can't 
 # be queried for. These addresses are culled in by listgen.py
+######
 
 jlambconn@comcast.net
 andreathompson@mindspring.com

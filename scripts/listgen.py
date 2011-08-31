@@ -151,11 +151,11 @@ for group in groupset :
 
     # Handle the pre-iTaco alumni who don't have User objects in the system - stored in a permanent text file
     if group.list == 'alumni':
-        scriptpath = os.path.join(os.path.basename(__file__))
-        alumpath = os.path.join(os.path.dirname(scriptpath), 'scripts','listgen-alumni.txt')
+        # scriptpath = os.path.join(os.path.basename(__file__))
+        # scriptpath = sys.path[0]
+        # sys.path[0] gets the path of the running script
+        alumpath = os.path.join(sys.path[0],'listgen-alumni.txt')
         extra = open(alumpath, 'r').read()
-        print extra
-
 
     # Commit!
     write_file(group,peeps)

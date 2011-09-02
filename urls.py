@@ -15,11 +15,11 @@ urlpatterns = patterns('',
     # Admin, databrowse, filebrowser
     (r'^admin/', include(admin.site.urls)),
     
-    # Media handling
-    url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.STATIC_DOC_ROOT}),   
-    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.STATIC_DOC_ROOT}),                
+    # # Media handling
+    # url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
+    #         {'document_root': settings.STATIC_DOC_ROOT}),   
+    # url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+    #         {'document_root': settings.STATIC_DOC_ROOT}),                
     
     # For django-registration (password resets, etc)
     (r'^accounts/', include('registration.backends.default.urls')),    
@@ -80,3 +80,22 @@ urlpatterns += patterns('itaco.views',
     # Generate mailing list members
     url(r'^lists/$', 'listgen', name='listgen'),
 )
+
+
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+
+      (
+          r'^media[/]+(?P<path>.*)$',
+          'django.views.static.serve',
+          {'document_root': settings.MEDIA_ROOT}
+      ),
+
+      (
+          r'^(?P<path>robots\.txt)$',
+          'django.views.static.serve',
+          {'document_root': settings.MEDIA_ROOT }
+      ),
+
+    )

@@ -61,7 +61,7 @@
         {% endifequal %}
         
         {% ifequal type "students" %}    
-        <a href="{% url family_contact item.id %}" title="{{ item }}">{{ item }}</a>
+        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
         {% endifequal %}        
         
         {% ifequal type "kinder" %}    

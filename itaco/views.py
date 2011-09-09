@@ -19,10 +19,6 @@ import sys,os
 
 
 def listgen(request):
-    print settings.PROJECT_DIR
-    print settings.MEDIA_ROOT
-    print settings.MEDIA_URL
-    print settings.STATIC_URL
     """
     Listgen script runs externally, via cronjob, and generates text files. This just lets people see who's on the lists.
     """

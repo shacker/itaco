@@ -10,7 +10,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-PROJECT_DIR = os.path.dirname(__file__)
+PROJECT_DIR = os.path.realpath(os.path.dirname(__file__))
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -29,20 +29,23 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash if there is a path component (optional in other cases).
-# Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/media/'
+# Full and relative paths to media and static
+
+MEDIA_ROOT = os.path.join(PROJECT_DIR, "media")
+MEDIA_URL = "/media/"
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_DIR, 'static'),
+)
+STATIC_URL = "/static/"
+
 
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/admin_media/'
+# ADMIN_MEDIA_PREFIX = '/admin_media/'
 
 
 # Make this unique, and don't share it with anybody.
@@ -87,12 +90,12 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.flatpages',
     'django.contrib.databrowse',
-    'django.contrib.messages',    
+    'django.contrib.messages', 
+    'django.contrib.staticfiles',   
     'ourcrestmont.itaco',
     'ourcrestmont.roster',
     'ourcrestmont.apply',
-    # 'filebrowser',
-    'sorl.thumbnail',
+    'easy_thumbnails',
     'profiles',
     'django_extensions',
 
@@ -103,9 +106,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "ourcrestmont.itaco.context_processors.family_id", # Custom processor to get current user's family ID into every page.
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
-
+    "django.core.context_processors.static",
 )
 
+
+
+
+# THUMBNAIL_PREFIX = '/cache/'
+# THUMBNAIL_CACHE_TIMEOUT = 3600 * 24 * 365
 
 # Our custom Django profiles are held in the Profile model, which inherits from User
 AUTH_PROFILE_MODULE = 'itaco.Profile'

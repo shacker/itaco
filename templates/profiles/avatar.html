@@ -2,13 +2,8 @@
 
 <div class="avatar">
     {% if profile.avatar %}
-		
-		{% thumbnail profile.avatar "200x200" crop="center" as im %}
-		    {# <a href="{% url profiles_profile_detail profile.user %}"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{profile}}'s avatar image" /></a> #}
-			<a href="/site_media/{{profile.avatar}}" class="lightbox"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{profile}}'s avatar image" /></a>
-		{% endthumbnail %}
-		
+		<a href="/media/{{profile.avatar}}" class="lightbox"><img src="{% thumbnail profile.avatar 200x200 %}" alt="{{profile}}'s avatar image" /></a>
     {% else %}
-       <a href="{% url profiles_profile_detail profile.user %}"><img src="/site_media/images/user_default.jpg" width="200" alt="{{profile}}'s avatar image" /></a><br />
+       <a href="{% url profiles_profile_detail profile.user %}"><img src="{{STATIC_URL}}images/user_default.jpg" width="200" alt="{{profile}}'s avatar image" /></a><br />
     {% endif %}    
 </div>

@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
-
+from django.conf.urls.static import static
 
 #from django.contrib import databrowse
 from ourcrestmont.itaco.models import *
@@ -79,7 +79,7 @@ urlpatterns += patterns('itaco.views',
     
     # Generate mailing list members
     url(r'^lists/$', 'listgen', name='listgen'),
-)
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 
@@ -90,12 +90,6 @@ if settings.DEBUG:
           r'^media[/]+(?P<path>.*)$',
           'django.views.static.serve',
           {'document_root': settings.MEDIA_ROOT}
-      ),
-
-      (
-          r'^(?P<path>robots\.txt)$',
-          'django.views.static.serve',
-          {'document_root': settings.MEDIA_ROOT }
       ),
 
     )

@@ -37,7 +37,7 @@
     {# family-tables is an include so we can target it directly for csv output, or display tables inline on HTML page #}
     {% include "family-tables.html" %}
     <br />
-    <p><a href="{{ thepath }}/csv/"><img src="/site_media/images/excel.png" width="70" height="70" align="left" style="margin-top:-5px;border:none;"/></a>
+    <p><a href="{{ thepath }}/csv/"><img src="{{STATIC_URL}}images/excel.png" width="70" height="70" align="left" style="margin-top:-5px;border:none;"/></a>
 	<a href="{{ thepath }}/csv/">Download <br />as Excel <br />spreadsheet</a></p>
 
     <h3 style="margin-top:50px;">Annual Obligations Visualized</h3>

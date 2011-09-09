@@ -16,15 +16,15 @@
 
 <table>
 	<tr>
-		<td><a href="{% url roster_print %}"><img src="/site_media/images/roster_icon.jpg" height="64" alt="Roster Icon"></a></td>
+		<td><a href="{% url roster_print %}"><img src="{{STATIC_URL}}images/roster_icon.jpg" height="64" alt="Roster Icon"></a></td>
 		
 
 		<td>
-			<a href="{% url signin_print %}"><img src="/site_media/images/login_icon.gif" width="64" height="64" alt="Login roster">
+			<a href="{% url signin_print %}"><img src="{{STATIC_URL}}images/login_icon.gif" width="64" height="64" alt="Login roster">
 		</td>
 		
 		<td>
-			<a href="{% url vcard_multi %}"><img src="/site_media/images/vcard.png" width="64" height="64" alt="Vcard">
+			<a href="{% url vcard_multi %}"><img src="{{STATIC_URL}}images/vcard.png" width="64" height="64" alt="Vcard">
 		</td>
 	</tr>
 	

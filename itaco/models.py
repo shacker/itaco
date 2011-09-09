@@ -6,9 +6,9 @@ from django.db.models import signals
 from signals import update_profile
 import constants
 # from sorl.thumbnail.fields import ThumbnailField
-from sorl.thumbnail import ImageField
+# from sorl.thumbnail import ImageField
+from easy_thumbnails.fields import ThumbnailerImageField
 from django.template.defaultfilters import slugify
-
 
 def get_avatar_path(instance, filename):
     """
@@ -150,7 +150,7 @@ class Profile(models.Model):
     """
     user = models.ForeignKey(User,related_name="profileuser")
     family = models.ForeignKey(Family,blank=True,null=True)
-    avatar = ImageField('Personal Photo / Headshot',upload_to=get_avatar_path, blank=True,null=True,
+    avatar = ThumbnailerImageField('Personal Photo / Headshot',upload_to=get_avatar_path, blank=True,null=True,
         help_text='Upload an image of yourself! Please make sure your photo is mostly square, not rectangular.')
 
     title = models.CharField(blank=True, max_length=100,help_text='e.g. Third Grade Teacher. Right now this is only used for teachers, but could be used for anyone in the future.')
@@ -216,7 +216,7 @@ class Student(models.Model):
     enrolled = models.BooleanField(default=True,help_text="Enrolled and Alumni are separate b/c not all students who enroll end up graduating. This way we can keep track of them separately.")
     alumni = models.BooleanField(default=False)
     reader = models.CharField(max_length=4, choices=constants.READER_TYPE_CHOICES,blank=True,null=True)
-    avatar = ImageField('Student Photo',upload_to=get_student_avatar_path, blank=True,null=True,
+    avatar = ThumbnailerImageField('Student Photo',upload_to=get_student_avatar_path, blank=True,null=True,
         help_text='Please upload an image of your child. Crop the photo in advance so that it\'s mostly square, not rectangular, and no larger than 600px wide.')
 
     class Meta:

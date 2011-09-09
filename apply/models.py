@@ -1,6 +1,7 @@
 from django.db import models
 from ourcrestmont.itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
-from sorl.thumbnail import ImageField
+# from sorl.thumbnail import ImageField
+from easy_thumbnails.fields import ThumbnailerImageField
 from django.contrib.localflavor.us.models import *
 from django.template.defaultfilters import slugify
 
@@ -105,7 +106,7 @@ class Application(models.Model):
 
     heard_about = models.CharField('Referred by',max_length=6,choices=HEARD_ABOUT_CHOICES,blank=False,help_text='How did you hear about Crestmont?')
     
-    avatar = ImageField('Child photo',upload_to='uploads/applicant_avatars', blank=True,null=True,
+    avatar = ThumbnailerImageField('Child photo',upload_to='uploads/applicant_avatars', blank=True,null=True,
         help_text='Please upload an image of your child. Please make sure the photo is mostly square, not rectangular.')    
     
     notes = models.TextField('Notes',blank=True,help_text="Anything else you'd like us to know?")

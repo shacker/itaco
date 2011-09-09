@@ -11,6 +11,7 @@ from django.db.models import Sum, Count
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 # For reading files from listgen output
 import sys,os
@@ -18,6 +19,10 @@ import sys,os
 
 
 def listgen(request):
+    print settings.PROJECT_DIR
+    print settings.MEDIA_ROOT
+    print settings.MEDIA_URL
+    print settings.STATIC_URL
     """
     Listgen script runs externally, via cronjob, and generates text files. This just lets people see who's on the lists.
     """

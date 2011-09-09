@@ -23,11 +23,11 @@
 	    {% if app.avatar %}
 
 			{% thumbnail app.avatar "200x200" crop="center" as im %}
-				<a href="/site_media/{{app.avatar}}" class="lightbox"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{app}}'s avatar image" /></a>
+				<a href="{{STATIC_URL}}{{app.avatar}}" class="lightbox"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{app}}'s avatar image" /></a>
 			{% endthumbnail %}
 
 	    {% else %}
-	       <img src="/site_media/images/user_default.jpg" width="200" alt="{{profile}}'s avatar image" /><br />
+	       <img src="{{STATIC_URL}}images/user_default.jpg" width="200" alt="{{profile}}'s avatar image" /><br />
 	    {% endif %}    
 	</div>
 

@@ -28,12 +28,11 @@
 
         <td>
 	    {% if person.avatar %}
-			{% thumbnail person.avatar "75x75" crop="center" as im %}
-				<a href="{% url profiles_profile_detail person.user %}" title="{{ person }}"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{person}}'s avatar image" /> <br />{{person}}</a>
-			{% endthumbnail %}
-
+	
+				<a href="{% url profiles_profile_detail person.user %}" title="{{ person }}"><img src="{% thumbnail person.avatar 75x75%}" alt="{{person}}'s avatar image" /> <br />{{person}}</a>
+	
 	    {% else %}
-			<a href="{% url profiles_profile_detail person.user %}"><img src="/site_media/images/user_default.jpg" width="75" height="75" alt="{{person}}'s avatar image" /> <br />{{person}}</a><br />
+			<a href="{% url profiles_profile_detail person.user %}"><img src="{{STATIC_URL}}images/user_default.jpg" width="75" height="75" alt="{{person}}'s avatar image" /> <br />{{person}}</a><br />
 	    {% endif %}
 
         </td>

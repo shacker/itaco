@@ -150,7 +150,9 @@ class Profile(models.Model):
     """
     user = models.ForeignKey(User,related_name="profileuser")
     family = models.ForeignKey(Family,blank=True,null=True)
-    avatar = ThumbnailerImageField('Personal Photo / Headshot',upload_to=get_avatar_path, blank=True,null=True,
+    avatar = ThumbnailerImageField('Personal Photo / Headshot',
+        upload_to=get_avatar_path, blank=True,null=True,
+        resize_source=dict(size=(800, 600), crop='smart'),
         help_text='Upload an image of yourself! Please make sure your photo is mostly square, not rectangular.')
 
     title = models.CharField(blank=True, max_length=100,help_text='e.g. Third Grade Teacher. Right now this is only used for teachers, but could be used for anyone in the future.')

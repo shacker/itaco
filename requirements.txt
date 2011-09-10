@@ -10,5 +10,6 @@ docutils
 # VObject for vcards
 vobject
 Django
-sorl-thumbnail
+# sorl-thumbnail
+easy_thumbnails
 

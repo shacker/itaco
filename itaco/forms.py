@@ -65,7 +65,7 @@ class ProfileForm(ModelForm):
 
     class Meta:
       model = Profile
-      exclude = ('family','user','board_pos','comm_job',)
+      exclude = ('family','user','board_pos','comm_job','list_extras')
       fields = (
                'about',
                'avatar',

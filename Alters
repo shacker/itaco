@@ -1,13 +1,9 @@
 TODO
 
 
-To switch form sorl to easy_thumbnails:
 
-Drop kvstore table
-pip install easy_thumbnails
-add to installed_apps
-syncdb
-visit all pages
+Drop old kvstore table
+
 
 
 =============================

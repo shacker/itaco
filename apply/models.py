@@ -25,7 +25,8 @@ HEARD_ABOUT_CHOICES = (
     ('friend','Friend'),
     ('event','Information Event'),
     ('prsfly','Preschool Flyer'),
-    ('news','Newspaper'),
+    ('bpm','Berkeley Parents Network'),
+    ('ss','Solano Stroll'),    
     ('other','Other (please explain)'),
 )
 
@@ -105,6 +106,7 @@ class Application(models.Model):
     describe_contribution = models.TextField('Contribution',blank=False,help_text='How do you see yourself participating in a parent co-op?')
 
     heard_about = models.CharField('Referred by',max_length=6,choices=HEARD_ABOUT_CHOICES,blank=False,help_text='How did you hear about Crestmont?')
+    heard_about_other = models.CharField(blank=True, max_length=140)
     
     avatar = ThumbnailerImageField('Child photo',upload_to='uploads/applicant_avatars', blank=True,null=True,
         help_text='Please upload an image of your child. Please make sure the photo is mostly square, not rectangular.')    

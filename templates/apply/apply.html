@@ -653,7 +653,19 @@
 				<span class="minor">{{form.heard_about.help_text|safe}}
 				 {{ form.heard_about.errors }}
 			</td>				
-		</tr>	
+		</tr>
+		
+		<tr>
+			<td><label for="id_heard_about_other" />
+				If referred by "Other," <br />please describe:
+			</td>				
+
+			<td>
+				{{form.heard_about_other}}<br />
+				<span class="minor">{{form.heard_about_other.help_text|safe}}
+				 {{ form.heard_about_other.errors }}
+			</td>				
+		</tr>			
 		
 	
 		

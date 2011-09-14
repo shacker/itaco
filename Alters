@@ -1,8 +1,8 @@
 TODO
 
 
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `heard_about_other` VARCHAR(140) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `heard_about`;
 
-Drop old kvstore table
 
 
 

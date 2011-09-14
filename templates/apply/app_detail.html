@@ -22,9 +22,9 @@
 	<div class="avatar">
 	    {% if app.avatar %}
 
-			{% thumbnail app.avatar "200x200" crop="center" as im %}
-				<a href="{{STATIC_URL}}{{app.avatar}}" class="lightbox"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}" alt="{{app}}'s avatar image" /></a>
-			{% endthumbnail %}
+
+				<a href="{{STATIC_URL}}{{app.avatar}}" class="lightbox"><img src="{% thumbnail app.avatar 200x200%}" alt="{{app}}'s avatar image" /></a>
+
 
 	    {% else %}
 	       <img src="{{STATIC_URL}}images/user_default.jpg" width="200" alt="{{profile}}'s avatar image" /><br />
@@ -207,6 +207,14 @@
 	{{app.get_heard_about_display}}
 </p>
 
+
+{% if app.heard_about_other %}
+	<h3>Other Referral</h3>
+	<p>If they selected "other" in Referral dropdown:</p>
+	<p>
+		{{app.heard_about_other}}
+	</p>
+{% endif %}
 
 
 

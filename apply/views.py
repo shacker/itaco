@@ -228,3 +228,22 @@ def change_app_status(request):
         
     return HttpResponseRedirect(reverse('process_apps'))
        
+       
+def show_addrs(request):
+    '''
+    View all email addresses of current applicants
+    '''
+    
+    apps = Application.objects.all()
+    emails = []
+    for a in apps:
+        if a.par1_email:
+            emails.append(a.par1_email)
+        if a.par2_email:
+            emails.append(a.par2_email)
+    
+
+    return render_to_response('apply/show_addrs.html', 
+        locals(),
+        context_instance = RequestContext(request),
+    )  

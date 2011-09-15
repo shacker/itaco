@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Process applications{% endblock %}
+
+{% block content %}
+
+<h3>Applicant emails</h3>
+
+<p>Emails of all parents with current applications (regardless whether they've been accepted, rejected, etc.) An application can have up to two parents; if present, both emails are included here. Copy this list of emails into your email client. Remember to put the recipients on the bcc: line, not the to: or cc: line!</p>
+
+<textarea name="emails" rows="8" cols="80">
+{% for e in emails %}{{e}}{% if not forloop.last %},{% endif %}{% endfor %}
+</textarea>
+
+<h3>Applicant addresses</h3>
+
+<p>Street addresses of all parents with current applications.</p>
+
+{# We assume that if a first name is present for the parent, we can render the rest of the fields. #}
+
+<textarea name="addrs" rows="14" cols="80">
+{% for a in apps %}
+{% if a.par1_fname %}
+Child: {{a}}
+
+{{a.par1_fname}} {{a.par1_lname}}
+{{a.par1_address1}}{% if a.par1_address2 %}, {{a.par1_address2}}{% endif %}
+{{a.par1_city}}, {{a.par1_state}}
+{{a.par1_zip}}
+{% endif %}
+{% if a.par2_fname %}
+{{a.par2_fname}} {{a.par2_lname}}
+{{a.par2_address1}} {% if a.par2_address2 %}, {{a.par2_address2}}{% endif %}
+{{a.par2_city}}, {{a.par2_state}}
+{{a.par2_zip}}
+{% endif %}
+
+------------------------
+{% endfor %}
+</textarea>
+
+{% endblock content %}

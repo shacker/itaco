@@ -43,6 +43,25 @@
 </table>
 
 
+<h2>Waitlist Applications</h2>
+
+<table>
+    <tr>
+        <th>Child</th>
+        <th>Grade</th>
+        <th>App. Date</th>        
+    </tr>
+    {% for app in waitlist  %}
+    <tr class="{% cycle 'row1' 'row2' %}">
+        <td><a href="{% url app_detail app.id %}">{{app.child_last}}, {{app.child_first}}</a></td>
+        <td>{{app.get_grade_display}}</td>
+        <td>{{app.appdate}}</td>        
+    </tr>
+    {% endfor %}    
+
+</table>
+
+
 <h2>Accepted Applications</h2>
 
 <table>

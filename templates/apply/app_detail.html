@@ -36,7 +36,23 @@
 <fieldset id="" class="" style="width:300px;">
 	<legend>Application Status</legend>
 	
+	<p>Attended tour: <strong>{{app.attended_tour}}</strong></p>				
 	<p>Application fee paid? <strong>{{app.fee_paid|yesno:"Yes,No"}}</strong></p>
+	<p>Offer letter sent? <strong>{{app.sent_offer_letter|yesno:"Yes,No"}}</strong></p>	
+	<p>Eval letter sent? <strong>{{app.sent_eval_letter|yesno:"Yes,No"}}</strong></p>		
+	<p>Evaluation date: <strong>{{app.eval_date}}</strong></p>
+	<p>Teacher rec form: 
+		{% if app.teacher_rec_form %}
+			Yes - <a href="/media/{{app.teacher_rec_form}}">click to view</a> 
+		{% else %}
+			<strong>None</strong>
+		{% endif %}
+	</p>			
+	
+	<h3>Notes</h3>
+	<p>
+		{{app.notes|linebreaks}}
+	</p>		
 	
 <p>
 	{{app.get_status_display}} 
@@ -92,6 +108,11 @@
 <h3>Languages</h3>
 <p>
 	{{app.langs}}
+</p>
+
+<h3>Ethnicity</h3>
+<p>
+	{{app.ethnicity}}
 </p>
 
 
@@ -218,10 +239,7 @@
 
 
 
-<h3>Notes</h3>
-<p>
-	{{app.notes|linebreaks}}
-</p>
+
 
 
 

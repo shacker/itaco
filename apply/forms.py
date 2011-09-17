@@ -2,6 +2,12 @@ from django.db import models
 from django.forms import ModelForm
 from django import forms
 from ourcrestmont.apply.models import Application
+# 
+# YESNO_CHOICES = (
+#     ('0','No'),
+#     ('1','Yes'),  
+# 
+# )
 
 class ApplicationForm(ModelForm):
     # family = forms.ModelChoiceField(queryset=Family.has_students.all())
@@ -17,6 +23,9 @@ class ApplicationForm(ModelForm):
     prev_school1_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'shortfield'}))
     prev_school2_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'shortfield'}))
     prev_school3_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'shortfield'}))
+    # attended_tour = forms.CharField(widget=forms.TextInput())
+    # attended_tour = forms.ChoiceField(widget=forms.NullBooleanSelect, choices=YESNO_CHOICES)
+    
             
     
     class Meta:

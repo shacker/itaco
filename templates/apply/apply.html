@@ -45,6 +45,10 @@
     input#id_avatar {
         font-size:0.9em;
     }
+
+
+	
+
 </style>
 <h2>Apply to Attend Crestmont </h2>
 
@@ -145,7 +149,17 @@
 				 {{ form.birthdate.errors }}												
 			</td>				
 		</tr>	
-		
+		<tr>
+			<td><label for="id_ethnicity" />
+				{{form.ethnicity.label}}
+			</td>				
+
+			<td>
+				{{form.ethnicity}}<br />
+				<span class="minor">{{form.ethnicity.help_text|safe}}</span>
+				 {{ form.ethnicity.errors }}												
+			</td>				
+		</tr>		
 		<tr>
 			<td><label for="id_langs" />
 				{{form.langs.label}}
@@ -165,10 +179,22 @@
 
 			<td>
 				{{form.avatar}}<br />
-				<span class="minor">{{form.avatar.help_text|safe}}
+				<span class="minor">{{form.avatar.help_text|safe}}</span>
 				 {{ form.avatar.errors }}
 			</td>				
 		</tr>
+		
+		<tr>
+			<td><label for="id_teacher_rec_form" />
+				{{form.teacher_rec_form.label}}
+			</td>				
+
+			<td>
+				{{form.teacher_rec_form}}<br />
+				<span class="minor">{{form.teacher_rec_form.help_text|safe}}</span>
+				 {{ form.teacher_rec_form.errors }}
+			</td>				
+		</tr>		
 				
 		</table>	
 		</fieldset>
@@ -665,7 +691,19 @@
 				<span class="minor">{{form.heard_about_other.help_text|safe}}
 				 {{ form.heard_about_other.errors }}
 			</td>				
-		</tr>			
+		</tr>
+		
+		<tr>
+			<td><label for="id_attended_tour" />
+				Have you attended a tour or info event? 
+			</td>				
+
+			<td>
+				{{form.attended_tour}}<br />
+				<span class="minor">{{form.attended_tour.help_text|safe}}
+				 {{ form.attended_tour.errors }}
+			</td>			
+		</tr>					
 		
 	
 		

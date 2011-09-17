@@ -10,6 +10,7 @@ STATUS_CHOICES = (
     ('1','Accepted'),
     ('2','Rejected'),
     ('3','Pending'),    
+    ('4','Waitlist'),        
 )
 
 CLASS_CHOICES = (
@@ -52,6 +53,7 @@ class Application(models.Model):
     rq_start_date = models.DateField('Requested start date',blank=False,)
     sex = models.CharField(blank=False, max_length=2,choices=(('m','Male'),('f','Female')))
     birthdate = models.DateField('Birth date',blank=False,)
+    ethnicity = models.CharField('Ethnic Origin',blank=True, max_length=100)
     langs = models.CharField('Languages spoken',blank=True, max_length=255)
     
     # Parent/guardians. Could have subclassed Profile object for this, but this 
@@ -107,13 +109,19 @@ class Application(models.Model):
 
     heard_about = models.CharField('Referred by',max_length=6,choices=HEARD_ABOUT_CHOICES,blank=False,help_text='How did you hear about Crestmont?')
     heard_about_other = models.CharField(blank=True, max_length=140)
+    attended_tour = models.BooleanField('Have you attended a tour or info event?',default=False)
     
     avatar = ThumbnailerImageField('Child photo',upload_to='uploads/applicant_avatars', blank=True,null=True,
         help_text='Please upload an image of your child. Please make sure the photo is mostly square, not rectangular.')    
     
+    teacher_rec_form = models.FileField(upload_to='uploads/teacher_rec_forms/%Y/%m/%d',help_text='Please attach a PDF copy of the Teacher Recommendation form.')
     notes = models.TextField('Notes',blank=True,help_text="Anything else you'd like us to know?")
     status = models.CharField('Application status',max_length=2,choices=STATUS_CHOICES,default=3,blank=False,)
     fee_paid = models.BooleanField(default=False,help_text="Applications cannot be set to Accepted until fee is paid.")
+    sent_offer_letter = models.BooleanField(default=False,help_text="System has already sent offer letter.")    
+    sent_eval_letter = models.BooleanField(default=False,help_text="System has already sent evaluation letter.")        
+    eval_date = models.DateField(blank=True)
+    
     
     def __unicode__(self):
         return u'%s %s' % (self.child_last, self.child_first)

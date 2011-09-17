@@ -65,6 +65,7 @@ def process_apps(request):
     accepted = Application.objects.filter(status=1).order_by('appdate')
     rejected = Application.objects.filter(status=2).order_by('appdate')    
     pending = Application.objects.filter(status=3,fee_paid=False).order_by('appdate')  
+    waitlist = Application.objects.filter(status=4,fee_paid=False).order_by('appdate')      
     paid_pending = Application.objects.filter(status=3,fee_paid=True).order_by('appdate')        
 
     return render_to_response('apply/process_apps.html', 
@@ -217,6 +218,12 @@ def change_app_status(request):
         app.status = 2
         app.save()
         messages.success(request, "Application for %s set to Rejected" % app)
+        
+    # Put this app on the waitlist
+    elif request.POST['app_status'] == '4':
+        app.status = 4
+        app.save()
+        messages.success(request, "Application for %s set to Waitlist" % app)        
     
     # Fallback - leave as pending or set back to pending
     elif request.POST['app_status'] == '3':

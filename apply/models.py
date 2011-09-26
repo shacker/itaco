@@ -14,7 +14,7 @@ STATUS_CHOICES = (
 )
 
 CLASS_CHOICES = (
-    ('kind','Kindergarten'),
+    ('K','Kindergarten'),
     ('1st','1st grade'),
     ('2nd','2nd grade'),
     ('3rd','3rd grade'),
@@ -114,7 +114,7 @@ class Application(models.Model):
     avatar = ThumbnailerImageField('Child photo',upload_to='uploads/applicant_avatars', blank=True,null=True,
         help_text='Please upload an image of your child. Please make sure the photo is mostly square, not rectangular.')    
     
-    teacher_rec_form = models.FileField(upload_to='uploads/teacher_rec_forms/%Y/%m/%d',help_text='Please attach a PDF copy of the Teacher Recommendation form.')
+    teacher_rec_form = models.FileField(upload_to='uploads/teacher_rec_forms/%Y/%m/%d',help_text='Please attach a PDF copy of the Teacher Recommendation form.',blank=True)
     notes = models.TextField('Notes',blank=True,help_text="Anything else you'd like us to know?")
     status = models.CharField('Application status',max_length=2,choices=STATUS_CHOICES,default=3,blank=False,)
     fee_paid = models.BooleanField(default=False,help_text="Applications cannot be set to Accepted until fee is paid.")

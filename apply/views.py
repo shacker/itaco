@@ -61,12 +61,12 @@ def process_apps(request):
     Accepted students get their family, parent, profile, and student objects added automatically.
     Does not yet send accept/reject emails, but could...
     '''
-    
-    accepted = Application.objects.filter(status=1).order_by('appdate')
-    rejected = Application.objects.filter(status=2).order_by('appdate')    
-    pending = Application.objects.filter(status=3,fee_paid=False).order_by('appdate')  
-    waitlist = Application.objects.filter(status=4,fee_paid=False).order_by('appdate')      
-    paid_pending = Application.objects.filter(status=3,fee_paid=True).order_by('appdate')        
+    apps = Application.objects.all().order_by('-appdate')
+    # accepted = Application.objects.filter(status=1).order_by('appdate')
+    # rejected = Application.objects.filter(status=2).order_by('appdate')    
+    # pending = Application.objects.filter(status=3,fee_paid=False).order_by('appdate')  
+    # waitlist = Application.objects.filter(status=4,fee_paid=False).order_by('appdate')      
+    # paid_pending = Application.objects.filter(status=3,fee_paid=True).order_by('appdate')        
 
     return render_to_response('apply/process_apps.html', 
         locals(),

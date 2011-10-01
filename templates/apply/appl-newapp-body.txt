@@ -1,0 +1,6 @@
+Thanks for applying to Crestmont!  {{ app }} is being considered. We'll get back to you shortly.
+
+To learn more about our school...
+
+If you have any questions...
+

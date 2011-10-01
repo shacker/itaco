@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block title %}Send offer letter{% endblock %}
+
+{% block content %}
+<style type="text/css" media="screen">
+	textarea {
+		width:600px;
+		height:300px;
+	}
+</style>
+
+
+{# Use custom model method to determine whether this app qualifies to have an offer letter sent #}
+{% if app.ready_for_offer %}
+		
+<h2>Send offer letter to parents of {{app}}</h2>
+<p>All conditions are met. Send the offer letter as shown below, or modify as needed then press Send.</p>
+
+<form action="" method="post" accept-charset="utf-8">
+	{% csrf_token %}
+	<textarea name="letter_body">
+Dear parents of {{app.child_first}} {{app.child_last}} -
+
+We are pleased to inform you that your child has been accepted to Crestmont School. 
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Please do the following...
+
+Best regards,
+Crestmont School
+	</textarea>
+	
+	<p><input type="submit" value="Send Now"></p>
+</form>
+
+{% else %}
+	<p>Cannot send offer letter - conditions not yet met. </p>
+{% endif %}
+	
+{% endblock %}

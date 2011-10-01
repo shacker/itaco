@@ -2,12 +2,7 @@ from django.db import models
 from django.forms import ModelForm
 from django import forms
 from ourcrestmont.apply.models import Application
-# 
-# YESNO_CHOICES = (
-#     ('0','No'),
-#     ('1','Yes'),  
-# 
-# )
+
 
 class ApplicationForm(ModelForm):
     # family = forms.ModelChoiceField(queryset=Family.has_students.all())
@@ -30,4 +25,4 @@ class ApplicationForm(ModelForm):
     
     class Meta:
         model = Application
-        exclude = ('appdate','accepted','fee_paid','status')
+        exclude = ('appdate','accepted','fee_paid','status','teacher_rec_form')

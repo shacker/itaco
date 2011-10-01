@@ -4,6 +4,8 @@ from ourcrestmont.itaco.models import Family, Profile, Student, SchoolYear, Comm
 from easy_thumbnails.fields import ThumbnailerImageField
 from django.contrib.localflavor.us.models import *
 from django.template.defaultfilters import slugify
+from django.db.models import signals
+from apply.signals import app_submitted
 
 # Not using the CLASS_CHOICES from iTaco.constants because it includes Alumni
 STATUS_CHOICES = (
@@ -120,9 +122,25 @@ class Application(models.Model):
     fee_paid = models.BooleanField(default=False,help_text="Applications cannot be set to Accepted until fee is paid.")
     sent_offer_letter = models.BooleanField(default=False,help_text="System has already sent offer letter.")    
     sent_eval_letter = models.BooleanField(default=False,help_text="System has already sent evaluation letter.")        
-    eval_date = models.DateField(blank=True)
+    eval_date = models.DateField(blank=True,help_text='Home evaluation has occurred')
     
     
     def __unicode__(self):
         return u'%s %s' % (self.child_last, self.child_first)
         
+        
+    def ready_for_offer(self):
+        '''
+        Returns true if Application meets all criteria for having the offer letter sent.
+        Only send offer if
+            - They've attended a tour
+            - The app is not set to rejected
+            - We haven't set an offer letter before
+        '''
+        
+        if self.attended_tour and self.status != 2 and not self.sent_offer_letter:
+            return True
+      
+        
+# When Application model instance is saved, send email to admissions and to submittor
+signals.post_save.connect(app_submitted, sender=Application)

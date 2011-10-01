@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from datetime import datetime
 from django.contrib import messages
+from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.defaultfilters import slugify
 import sys, zipfile, os, os.path, shutil
@@ -254,3 +255,80 @@ def show_addrs(request):
         locals(),
         context_instance = RequestContext(request),
     )  
+    
+    
+def send_offer(request, app_id):
+    """When an admin clicks Send Offer on an app, present the offer letter for review, send email on Submit."""
+    
+    app = get_object_or_404(Application,pk=app_id)
+    
+    if request.POST:
+
+        # Send email to parents of applicant. 
+        # We know we'll have an email for the first. 
+        # Also send to the second if we have it.
+        recipients = [app.par1_email,]
+        if app.par2_email:
+            recipients.append(app.par2_email)
+            
+        email_subject = 'Your child has been accepted at Crestmont School'
+        email_body_txt = request.POST['letter_body']
+        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)
+        
+        if msg.send(fail_silently=False):
+            messages.success(request, "Offer letter sent to %s" % recipients)
+            app.sent_offer_letter = True
+            app.save()
+        else:
+            messages.error(request, "Something went wrong. Offer letter NOT sent.")
+            
+        return HttpResponseRedirect(reverse('process_apps'))
+        
+        
+    else:
+        # Show letter template for review/editing
+    
+        return render_to_response('apply/send_offer_letter.html', 
+            locals(),
+            context_instance = RequestContext(request),
+        )    
+        
+        
+    
+def send_eval_letter(request, app_id):
+    """All kindergarten teacher to send evaluation results emails to parents."""
+    
+    # Need test here - does app qualify for an offer letter? Paid, etc.?
+    
+    app = get_object_or_404(Application,pk=app_id)
+    
+    if request.POST:
+
+        # Send email to parents of applicant. 
+        # We know we'll have an email for the first. 
+        # Also send to the second if we have it.
+        recipients = [app.par1_email,]
+        if app.par2_email:
+            recipients.append(app.par2_email)
+            
+        email_subject = "Results of your child's Crestmont kindergarten evaluation"
+        email_body_txt = request.POST['letter_body']
+        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)
+        
+        if msg.send(fail_silently=False):
+            messages.success(request, "Evaluation results letter sent to %s" % recipients)
+            app.sent_eval_letter = True
+            app.save()
+        else:
+            messages.error(request, "Something went wrong. Evaluation letter NOT sent.")
+            
+        return HttpResponseRedirect(reverse('process_apps'))
+        
+        
+    else:
+        # Show letter template for review/editing
+    
+        return render_to_response('apply/send_eval_letter.html', 
+            locals(),
+            context_instance = RequestContext(request),
+        )            

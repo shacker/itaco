@@ -69,6 +69,19 @@
 	
 	<p><input type="submit" value="Change"></p>
 </form>
+
+{% if app.ready_for_offer %}
+<p><a href="{% url app_send_offer app.id %}">Send Offer Letter</a> </p>
+{% else %}
+<p>Not ready for offer letter or offer letter already sent.</p>
+{% endif %}
+
+{% if not app.sent_eval_letter %}
+	<a href="{% url app_send_eval app.id %}">Send evaluation letter</a>
+{% else %}
+	<p>Evaluation letter already sent.</p>
+{% endif %}
+
 </fieldset>
 
 <h3>Family</h3>

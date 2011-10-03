@@ -40,6 +40,8 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = "/static/"
 
+# Path to location of files that will be attached to emails. Override in local.
+ATTACHMENTS_PATH = ''
 
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
@@ -152,7 +154,11 @@ HOUSEKEEP_HOURLY = 60
 AIDSUB_HOURLY = 12
 TEACHSUB_HOURLY = 14
 
-
+# Constants needed for sending of application offer letters
+FIRST_TUITION_PAYMENT = 333
+PAYMENT_DUE_DATE_1 = 'March 18, 2012'
+PAYMENT_DUE_DATE_2 = 'May 1, 2012'
+PAYMENT_DUE_DATE_3 = 'June 1, 2012'
 
 # Directory where generated mailing list files will go - override in local_settings
 LISTGENPATH = ""

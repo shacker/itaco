@@ -16,21 +16,39 @@
 {% if app.ready_for_offer %}
 		
 <h2>Send offer letter to parents of {{app}}</h2>
-<p>All conditions are met. Send the offer letter as shown below, or modify as needed then press Send.</p>
+<p>All conditions are met. Send the offer letter as shown below, or modify as needed then press Send. Please note the details carefully. If some constants - such as current school year, payment amount etc. are not correct, please contact the webmaster and ask them to update those system-wide.</p>
+
+<p>While you can't see the contract attachment in this form, it will be attached to the outgoing message automatically.</p>
+
+<p>It is a <strong>big deal</strong> if these message go out erroneously or contain mistakes. Please test carefully at the start of each admissions cycle to make sure everything is working correctly.</p>
 
 <form action="" method="post" accept-charset="utf-8">
 	{% csrf_token %}
 	<textarea name="letter_body">
-Dear parents of {{app.child_first}} {{app.child_last}} -
+{% now "F d, Y" %}
 
-We are pleased to inform you that your child has been accepted to Crestmont School. 
+{{app.par1_fname}} {{app.par1_lname}}{% if app.par2_fname %} and {{app.par2_fname}} {{app.par2_lname}}{% endif %}
+{{app.par1_address1}} {% if app.par1_address2 %}, {{app.par1_address2}}{% endif %}
+{{app.par1_city}}, {{app.par1_state}} {{app.par1_zip}}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Dear {{app.par1_fname}}{% if app.par2_fname %} and {{app.par2_fname}}{% endif %},
 
-Please do the following...
+We are delighted to offer a place to {{app.child_first}} in our kindergarten class for the {{cur_year}} school year.  Enclosed is a copy of the Crestmont School Parent Contract.  To accept our offer, please read and sign the attached contract and return it to the school Membership Box with a non-refundable first tuition payment of ${{pay_amount}} by {{pay_due_date_1}}.  A second tuition payment for the same amount is due by {{pay_due_date_2}} and a third tuition payment, also for the same amount, is due on {{pay_due_date_3}}.  All payments subsequent to the first are invoiced via email.
 
-Best regards,
-Crestmont School
+Please note that the contract incorporates our By-Laws and the Crestmont Handbook.  Both are posted on our Admissions page:
+
+http://crestmontschool.org/admissions
+
+Crestmont School honors all children. The community provides a rich and nurturing environment that encourages children to think independently and act together.  The teachers and Admissions Committee feel that {{app.child_first}} would thrive at Crestmont and we hope to welcome your family to the school and community this fall. 
+
+Please feel free to call our enrollment line at 221-6760 if you have any questions.  You may also email me with contract questions.  Should you decide not to enroll your child, please contact us as soon as possible so that we may offer the place to a child on our wait list.  We hope to hear from you soon!
+
+Sincerely,
+
+{{chair}}
+Membership Chair
+{{chair.user.email}}
+
 	</textarea>
 	
 	<p><input type="submit" value="Send Now"></p>

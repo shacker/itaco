@@ -1,9 +1,9 @@
-from ourcrestmont.itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
+from itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
 from apply.models import Application, STATUS_CHOICES
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse
-from ourcrestmont.apply.forms import ApplicationForm
+from apply.forms import ApplicationForm
 from django import forms
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -261,6 +261,14 @@ def send_offer(request, app_id):
     """When an admin clicks Send Offer on an app, present the offer letter for review, send email on Submit."""
     
     app = get_object_or_404(Application,pk=app_id)
+    cur_year = SchoolYear.objects.get(current=True)
+    pay_amount = settings.FIRST_TUITION_PAYMENT
+    pay_due_date_1 = settings.PAYMENT_DUE_DATE_1
+    pay_due_date_2 = settings.PAYMENT_DUE_DATE_2
+    pay_due_date_3 = settings.PAYMENT_DUE_DATE_3
+    # Determine who currently holds the position of Membership Chair.
+    # Technically this could be a shared position but we'll cheat and just use the first (it's usually just one)
+    chair = BoardPosition.objects.get(title='Membership').profile_set.all()[0]       
     
     if request.POST:
 
@@ -274,6 +282,7 @@ def send_offer(request, app_id):
         email_subject = 'Your child has been accepted at Crestmont School'
         email_body_txt = request.POST['letter_body']
         msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)
+        msg.attach_file(settings.ATTACHMENTS_PATH + '/Crestmont_Contract.pdf')
         
         if msg.send(fail_silently=False):
             messages.success(request, "Offer letter sent to %s" % recipients)
@@ -301,6 +310,7 @@ def send_eval_letter(request, app_id):
     # Need test here - does app qualify for an offer letter? Paid, etc.?
     
     app = get_object_or_404(Application,pk=app_id)
+    enrollment_chairs = BoardPosition.objects.get(title='Enrollment').profile_set.all()
     
     if request.POST:
 
@@ -311,9 +321,13 @@ def send_eval_letter(request, app_id):
         if app.par2_email:
             recipients.append(app.par2_email)
             
-        email_subject = "Results of your child's Crestmont kindergarten evaluation"
+        email_subject = "Invitation to Crestmont student evaluation meeting"
         email_body_txt = request.POST['letter_body']
         msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)
+
+        # Only send emergency form if this is a non-K application
+        if app.grade != 'K':
+            msg.attach_file(settings.ATTACHMENTS_PATH + '/Visitor_Emergency_Form.pdf')
         
         if msg.send(fail_silently=False):
             messages.success(request, "Evaluation results letter sent to %s" % recipients)

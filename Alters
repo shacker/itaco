@@ -15,6 +15,9 @@ ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `attended_tour` TINY
 
 ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `teacher_rec_form` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci  NULL DEFAULT ''  AFTER `avatar`;
 
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `staff_notes` LONGTEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `notes`;
+
+
 
 
 

@@ -3,7 +3,7 @@ from apply.models import Application, STATUS_CHOICES
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse
-from apply.forms import ApplicationForm
+from apply.forms import ApplicationForm, AppEditForm
 from django import forms
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -83,33 +83,88 @@ def app_detail(request,app_id=None):
     
     app = get_object_or_404(Application,pk=app_id)
     status_choices = STATUS_CHOICES
+    
+    # Edit application details
+    if request.POST:
+        form = AppEditForm(request.POST,instance=app)
 
+        if form.is_valid():
+            # Don't commit the save until we've added in the fields we need to set
+            app = form.save(commit=False)
+            app.status = form.cleaned_data['status']
+            app.staff_notes = form.cleaned_data['staff_notes']
+            app.save()
+            messages.success(request, "App status and/or notes for %s have been modified" % app)            
+
+    else:
+        form = AppEditForm(instance=app)
+    
     return render_to_response('apply/app_detail.html', 
         locals(),
         context_instance = RequestContext(request),
     )  
     
-    
-def change_app_status(request):
+
+# Kill this after migrating logic into app_detail view    
+def app_edit(request):
     '''
-    Toggle an application from pending to rejected or accepted
+    Edit app status and notes, possibly other editable fields
     '''
+    app_id = int(request.POST['app_id'])
+    app = get_object_or_404(Application,pk=app_id)
     
-    app = get_object_or_404(Application,pk=request.POST['app_id'])
     
-    '''
-    If rejected:
-        set status to rejected and return to process_apps; show message
-    If accepted:
-        show warning dialog; create student, family and parent records; show message
-    Else:
-        return to process_apps, show message
-    '''    
+    # Edit application details
+    if request.POST:
+        form = ApplicationEditForm(request.POST,files=request.FILES)
+
+        if form.is_valid():
+            # Don't commit the save until we've added in the fields we need to set
+            app = form.save(commit=False)
+            app.appdate = datetime.now()
+            
+            
     
     if request.POST['app_status'] == '1':
-        # Uncomment these after rest of code finished
-        # app.status = 1
-        # app.save()
+        app.status = 1
+        messages.success(request, "Application for %s set to Accepted" % app)
+            
+    # Reject this app
+    elif request.POST['app_status'] == '2':
+        app.status = 2
+        messages.success(request, "Application for %s set to Rejected" % app)
+        
+    # Set to pending
+    elif request.POST['app_status'] == '3':
+        messages.success(request, "Application for %s set to Pending" % app)
+
+    # Set to waitlist
+    elif request.POST['app_status'] == '4':
+        app.status = 4
+        messages.success(request, "Application for %s set to Waitlist" % app)        
+        
+    else:
+        # This will probably never happen
+        messages.error(request, "Application for %s not changed" % app)        
+
+    app.save()
+    return HttpResponseRedirect(reverse('process_apps'))
+       
+
+def app_intake(request,app_id):
+    """docstring for app_intake"""
+    
+    # Don't allow an already accepted student to be re-accepted - 
+    # we don't want to create duplicates of the student, family, parent objects!
+    if app.status == '1' and request.POST['app_status'] == '1':
+        messages.error(request, "Student has already been accepted. Did not re-accept.")
+        return HttpResponseRedirect(reverse('process_apps'))
+    
+    
+    if request.POST['app_status'] == '1':
+
+        app.status = 1
+        app.save()
         messages.success(request, "Application for %s set to Accepted" % app)
         
         # Create related student, family, and parent records
@@ -213,29 +268,7 @@ def change_app_status(request):
             messages.success(request, "Profile image for student copied into student record.")
             
         messages.success(request, "New student record created. Please review the student entry in admin.")
-        
-    # Reject this app
-    elif request.POST['app_status'] == '2':
-        app.status = 2
-        app.save()
-        messages.success(request, "Application for %s set to Rejected" % app)
-        
-    # Put this app on the waitlist
-    elif request.POST['app_status'] == '4':
-        app.status = 4
-        app.save()
-        messages.success(request, "Application for %s set to Waitlist" % app)        
-    
-    # Fallback - leave as pending or set back to pending
-    elif request.POST['app_status'] == '3':
-        messages.success(request, "Application for %s set to Pending" % app)
-        
-    else:
-        # This will probably never happen
-        messages.error(request, "Application for %s not changed" % app)        
-        
-    return HttpResponseRedirect(reverse('process_apps'))
-       
+
        
 def show_addrs(request):
     '''

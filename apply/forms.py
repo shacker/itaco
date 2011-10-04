@@ -21,8 +21,15 @@ class ApplicationForm(ModelForm):
     # attended_tour = forms.CharField(widget=forms.TextInput())
     # attended_tour = forms.ChoiceField(widget=forms.NullBooleanSelect, choices=YESNO_CHOICES)
     
-            
-    
     class Meta:
         model = Application
         exclude = ('appdate','accepted','fee_paid','status','teacher_rec_form')
+
+
+
+
+class AppEditForm(ModelForm):
+
+    class Meta:
+        model = Application
+        fields = ('fee_paid','eval_date','status','staff_notes')

@@ -8,39 +8,80 @@
 <style type="text/css" media="screen">
 	h3 {
 		font-size:1.0em;
-		margin-bottom:-10px;
+/*		margin-bottom:-10px;*/
+	}
+	
+	fieldset {
+		width:800px;
+		margin-top:20px;
+	}
+	
+	textarea {
+		width:500px;
+		height:200px;
 	}
 </style>
 
 <h2>Application for {{app}}</h2>
 
-<p><a href="{% url process_apps %}">Return to Applications</a></p>
+<p><a href="#summary">Jump to Summary</a> | <a href="{% url process_apps %}">Return to Applications</a></p>
 
 <h3>Photo</h3>
-<p>
 
-	<div class="avatar">
-	    {% if app.avatar %}
+<div class="avatar">
+    {% if app.avatar %}
+			<a href="/media/{{app.avatar}}" class="lightbox"><img src="{% thumbnail app.avatar 200x200%}" alt="{{app}}'s avatar image" /></a>
+    {% else %}
+       <img src="{{STATIC_URL}}images/user_default.jpg" width="200" alt="{{profile}}'s avatar image" /><br />
+    {% endif %}    
+</div>
 
-
-				<a href="{{STATIC_URL}}{{app.avatar}}" class="lightbox"><img src="{% thumbnail app.avatar 200x200%}" alt="{{app}}'s avatar image" /></a>
-
-
-	    {% else %}
-	       <img src="{{STATIC_URL}}images/user_default.jpg" width="200" alt="{{profile}}'s avatar image" /><br />
-	    {% endif %}    
-	</div>
-
-</p>
-
-<fieldset id="" class="" style="width:300px;">
+<fieldset>
 	<legend>Application Status</legend>
 	
-	<p>Attended tour: <strong>{{app.attended_tour}}</strong></p>				
-	<p>Application fee paid? <strong>{{app.fee_paid|yesno:"Yes,No"}}</strong></p>
-	<p>Offer letter sent? <strong>{{app.sent_offer_letter|yesno:"Yes,No"}}</strong></p>	
-	<p>Eval letter sent? <strong>{{app.sent_eval_letter|yesno:"Yes,No"}}</strong></p>		
-	<p>Evaluation date: <strong>{{app.eval_date}}</strong></p>
+	{# <p>Attended tour: <strong>{{app.attended_tour}}</strong></p>				 #}
+	{# <p>Application fee paid? <strong>{{app.fee_paid|yesno:"Yes,No"}}</strong></p> #}
+	{# <p>Offer letter sent? <strong>{{app.sent_offer_letter|yesno:"Yes,No"}}</strong></p>	 #}
+	{# <p>Eval letter sent? <strong>{{app.sent_eval_letter|yesno:"Yes,No"}}</strong></p>		 #}
+	{# <p>Evaluation date: <strong>{{app.eval_date}}</strong></p> #}
+	
+	<table>
+	    <tr>
+	        <th>Grade</th>
+	        <th>Ethnicity</th>
+	        <th>App. Date</th>
+	 		<th>Sent Eval</th>	
+	        <th>Eval Date</th>
+	 		<th>Sent Offer</th>
+	 		<th>Tour</th>
+	        <th>Rec. Form</th>
+	        <th>Paid</th>        
+	        <th>Status</th>
+	    </tr>
+
+
+	    <tr>
+	        <td>{{app.grade}}</td>
+	        <td>{{app.ethnicity}}</td>
+	        <td>{{app.appdate|date:"M d"}}</td> 
+	        <td class="small">{% if app.sent_eval_letter %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}</td> 
+
+	        <td>{{app.eval_date|date:"M d"}}</td> 
+
+	        <td class="small">{% if app.sent_offer_letter %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}</td> 
+	        <td class="small">{% if app.attended_tour %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}</td> 
+
+	        <td class="small">{% if app.teacher_rec_form %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}</td>
+	        <td class="small">{% if app.fee_paid %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}</td>
+	        <td class="small">
+				{% if app.status == '1' %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}
+				{% if app.status == '4' %}<img src="{{STATIC_URL}}images/hourglass_add.png" width="16" height="16" alt="Icon Alert">{% endif %}			
+				{% if app.status == '2' %}<img src="{{STATIC_URL}}images/icon_error.gif" width="16" height="16" alt="Icon Error">{% endif %}			
+			</td>
+	    </tr>
+
+
+	</table>	
 	<p>Teacher rec form: 
 		{% if app.teacher_rec_form %}
 			Yes - <a href="/media/{{app.teacher_rec_form}}">click to view</a> 
@@ -49,25 +90,13 @@
 		{% endif %}
 	</p>			
 	
-	<h3>Notes</h3>
-	<p>
-		{{app.notes|linebreaks}}
-	</p>		
-	
-<p>
-	{{app.get_status_display}} 
-</p>
 
-<form action="{% url change_app_status %}" method="post" accept-charset="utf-8">
+<form action="" method="post" accept-charset="utf-8" id="appedit">
 	{% csrf_token %}
-	<select name="app_status" id="app_status" >
-		{% for s in status_choices  %}
-		<option value="{{s.0}}"{% if app.status.0 == s.0 %} selected{% endif %}>{{s.1}}</option>
-		{% endfor %}		
-	</select>
-	<input type="hidden" name="app_id" value="{{app.id}}" id="">
 	
-	<p><input type="submit" value="Change"></p>
+	{{form.as_p}}
+	
+	<p><input type="submit" value="Save"></p>
 </form>
 
 {% if app.ready_for_offer %}
@@ -84,6 +113,7 @@
 
 </fieldset>
 
+<a name="summary"></a>
 <h3>Family</h3>
 <p>
 	{% if app.family %}

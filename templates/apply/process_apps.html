@@ -21,25 +21,25 @@
         <th>Grade</th>
         <th>Ethnicity</th>
         <th>App. Date</th>
+ 		<th>Sent Eval</th>
         <th>Eval Date</th>
  		<th>Sent Offer</th>
- 		<th>Sent Eval</th>
  		<th>Tour</th>
         <th>Rec. Form</th>
         <th>Paid</th>        
         <th>Status</th>
-
     </tr>
+
     {% for app in apps  %}
     <tr class="{% cycle 'row1' 'row2' %}">
         <td><a href="{% url app_detail app.id %}">{{app.child_last}}, {{app.child_first}}</a></td>
         <td>{{app.grade}}</td>
         <td>{{app.ethnicity}}</td>
         <td>{{app.appdate|date:"M d"}}</td> 
+        <td class="small">{% if app.sent_eval_letter %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}</td> 
         <td>{{app.eval_date|date:"M d"}}</td> 
 
         <td class="small">{% if app.sent_offer_letter %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}</td> 
-        <td class="small">{% if app.sent_eval_letter %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}</td> 
         <td class="small">{% if app.attended_tour %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}</td> 
 
         <td class="small">{% if app.teacher_rec_form %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}</td>

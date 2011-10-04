@@ -61,7 +61,8 @@ urlpatterns += patterns('itaco.views',
 
 
     # Misc administrative tools, such as batch daycare charge entry and billing summary
-    url(r'^tools/charges/daycare/$', 'batch_daycare_charges', name='batch_daycare_charges'),
+    url(r'^tools/charges/daycare/$', 'batch_charges', {'type':'hrdc'}, name='batch_daycare_charges'),
+    url(r'^tools/charges/meal/$', 'batch_charges', {'type':'meal'}, name='batch_meal_charges'),    
     url(r'^tools/charges/participation/$', 'batch_participation_credits', name='batch_participation_credits'),    
     url(r'^tools/obligations/$', 'batch_obl', name='batch_obl'),    
     url(r'^tools/credits/board/$', 'batch_board_credit', name='batch_board_credit'),

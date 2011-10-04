@@ -411,15 +411,18 @@ def render_to_csv(request,fam):
 
 # View restricted to users with is_staff permissions
 @user_passes_test(lambda u: u.is_staff, login_url='/')
-def batch_daycare_charges(request):
+def batch_charges(request, *args, **kwargs):
     """
-    Provides ability to add multiple daycare charges at once.
+    Provides ability to add multiple charges at once.
+    Type of charge (daycare, meals) is provided from a dict coming from URLs.
     For privileged users (Trackers) only.
     """
+    # What kind of charges are we adding here? Daycare? Meal?
+    type = kwargs.pop('type', None)
 
-    DaycareChargeFormSet = formset_factory(ChargeForm, extra=20)
+    ChargeFormSet = formset_factory(ChargeForm, extra=20)
     if request.method == 'POST':
-        formset = DaycareChargeFormSet(request.POST, request.FILES)
+        formset = ChargeFormSet(request.POST, request.FILES)
 
         if formset.is_valid():
             for form in formset.cleaned_data:
@@ -432,26 +435,31 @@ def batch_daycare_charges(request):
                 if form:
                     charge = Charge()
                     charge.family = form['family']
-                    charge.type = 'hrdc'
+                    charge.type = type
                     charge.date = request.POST['the_date']
                     charge.amount = form['amount']
                     charge.note = form['note']
                     charge.save()
 
-                    messages.success(request, "%s daycare hours added for %s" % (form['amount'], form['family']))
+                    if type == 'hrdc':
+                        messages.success(request, "%s daycare hours added for %s" % (form['amount'], form['family']))
+
+                    if type == 'meal':
+                        messages.success(request, "%s meal dollars added for %s" % (form['amount'], form['family']))
 
         else:
             messages.error(request, "Something went wrong. No charges have been added.  Most likely one of the forms was missing data (totally empty forms are OK, but half-filled forms are not).  Please click the Back button in your browser, correct any errors, and re-submit.")
 
-        # Redirect to a new page to avoid possibility of a browser reload re-adding charges.
-        # return HttpResponseRedirect("complete")
-        return HttpResponseRedirect(reverse('batch_daycare_charges'))
+        if type == 'hrdc':
+            return HttpResponseRedirect(reverse('batch_daycare_charges'))
+        if type == 'meal':
+            return HttpResponseRedirect(reverse('batch_meal_charges'))            
     else:
-        formset = DaycareChargeFormSet()
+        formset = ChargeFormSet()
 
     return render_to_response(
         'tools/charge_batch.html',
-        {'formset': formset},
+        locals(),
         context_instance = RequestContext(request),
         )
 

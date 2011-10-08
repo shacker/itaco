@@ -123,7 +123,7 @@ class Application(models.Model):
     fee_paid = models.BooleanField(default=False,help_text="Applications cannot be set to Accepted until fee is paid.")
     sent_offer_letter = models.BooleanField(default=False,help_text="System has already sent offer letter.")    
     sent_eval_letter = models.BooleanField(default=False,help_text="System has already sent evaluation letter.")        
-    eval_date = models.DateField(blank=True,help_text='Attended evaluation on this date. Use this format: 2011-08-08')
+    eval_date = models.DateField(blank=True,null=True,help_text='Attended evaluation on this date. Use this format: 2011-08-08')
     intake_complete = models.BooleanField(default=False,help_text="This field set automatically after Intake process is run, and is used to prevent duplicate intakes.")            
     
     def __unicode__(self):

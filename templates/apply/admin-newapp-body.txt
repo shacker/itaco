@@ -1,0 +1,7 @@
+A new application to Crestmont has been received for child:
+
+{{ app }} 
+
+To review this application, visit:
+http://{{site}}{% url app_detail app.id %}
+

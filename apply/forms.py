@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django import forms
 from ourcrestmont.apply.models import Application
 
+
 class ApplicationForm(ModelForm):
     # family = forms.ModelChoiceField(queryset=Family.has_students.all())
     # amount = forms.FloatField(help_text='')
@@ -17,8 +18,18 @@ class ApplicationForm(ModelForm):
     prev_school1_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'shortfield'}))
     prev_school2_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'shortfield'}))
     prev_school3_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'shortfield'}))
-            
+    # attended_tour = forms.CharField(widget=forms.TextInput())
+    # attended_tour = forms.ChoiceField(widget=forms.NullBooleanSelect, choices=YESNO_CHOICES)
     
     class Meta:
         model = Application
-        exclude = ('appdate','accepted','fee_paid','status')
+        exclude = ('appdate','accepted','fee_paid','status','teacher_rec_form')
+
+
+
+
+class AppEditForm(ModelForm):
+
+    class Meta:
+        model = Application
+        fields = ('fee_paid','eval_date','status','staff_notes')

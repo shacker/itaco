@@ -7,8 +7,9 @@
 
 <meta name="generator" content="Django"> 
 
-<link rel="stylesheet" href="{{STATIC_URL}}css/style.css?rev=2" type="text/css" media="screen">
+<link rel="stylesheet" href="{{STATIC_URL}}css/style.css?rev=3" type="text/css" media="screen">
 <link rel="stylesheet" href="{{STATIC_URL}}css/nav.css" type="text/css" media="screen">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/buttons.css" media="screen, projection" type="text/css" />	
 
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/dropdowns.js"></script>
@@ -75,22 +76,20 @@
         <li><a href="{% url batch_meal_charges %}" title="Batch Meal Charges">Batch Meal Charges</a></li>
         <li><a href="{% url batch_participation_credits %}" title="Batch Participation Credits">Batch Participation Credits</a></li>
         <li><a href="{% url batch_obl %}" title="Batch Obligation Hours">Batch Obligation Hours</a></li>
-        {% if user.is_superuser %}
-        <li><a href="{% url batch_board_credit %}" title="Batch-Add Board Credits">Batch Board Credits</a></li>
-        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>        
-        {% endif %}
-
         <li><a href="/admin/itaco/charge/add/" title="Other Charges">Add Other Charges</a></li>
         <li><a href="/admin/itaco/credit/add/" title="Other Credits">Add Other Credits</a></li>
         <li><a href="/admin/itaco/obligation/add/" title="Add Obligations">Add Other Obligations</a></li>
-        <li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li>
 
-          {% if user.is_staff %}
-		{# Change default year ID below once per year #}
-		<li><a href="{% url obligation_summary 4 %}">Obligations summary</a></li>
-          <li><a href="/admin/" title="Admin">Admin</a></li>
-          {% endif %}
-        </ul>
+        {% if user.is_superuser %}
+		<li><a href="#">SUPERUSERS ONLY: &crarr;</a></li>
+        <li><a href="{% url batch_board_credit %}" title="Batch-Add Board Credits">Batch Board Credits</a></li>
+        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>
+		<li><a href="{% url obligation_summary 4 %}">Obligations summary</a></li> {# Change default year ID once per year #}
+        <li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li>		
+		<li><a href="/admin/" title="Admin">Admin</a></li>
+        {% endif %}
+
+		</ul>
     </li>
 
   {% endif %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block title %}Send eval letter{% endblock %}
+
+{% block content %}
+<style type="text/css" media="screen">
+	textarea {
+		width:600px;
+		height:300px;
+	}
+</style>
+
+{% if app.sent_eval_letter %}
+	<p>Evaluation letter has been sent before. Cannot send again. </p>
+{% else %}
+	
+<h2>
+Send 
+{% if app.grade == 'K' %}
+	KINDERGARTEN
+{% else %}
+	NON-K
+{% endif %}	
+evaluation invite to parents of {{app}}
+</h2>
+
+
+<p>Send the evaluation letter as shown below, or modify as needed then press Send.</p>
+
+<p>The letter shown below is different depending on whether student is applying to K or another grade. If this is an eval letter for a non-kindergartener, the Emergency Contact form will be automatically attached to the email they receive.</p>
+
+
+<form action="" method="post" accept-charset="utf-8">
+	{% csrf_token %}
+	<textarea name="letter_body">
+{% now "F d, Y" %}
+
+{{app.par1_fname}} {{app.par1_lname}}{% if app.par2_fname %} and {{app.par2_fname}} {{app.par2_lname}}{% endif %}
+{{app.par1_address1}} {% if app.par1_address2 %}, {{app.par1_address2}}{% endif %}
+{{app.par1_city}}, {{app.par1_state}} {{app.par1_zip}}
+
+Dear {{app.par1_fname}}{% if app.par2_fname %} and {{app.par2_fname}}{% endif %},
+{% if app.grade == 'K' %}
+Your child, {{app.child_first}} is scheduled to attend a kindergarten evaluation at Crestmont School on [day, month, date], from [time] am. It is helpful to arrive 10 to 15 minutes early so your child will be comfortable at school before the session begins. 
+
+The children will meet with Robin Hart-Poindexter and Barbara Villere in the kindergarten room. The teachers will help the children say goodbye to their parents, who will wait in the main building. Refreshments will be available and Crestmont board members will be present to answer questions about the school. During the session, the children will have free play, a short circle time, a story, a snack and an activity. 
+
+If you have any questions, or need to reschedule the visit, please call the enrollment line at 221-6760 or email us at info@crestmontschool.org. Please let us know if your child has any food allergies. We look forward to seeing you and your child.
+{% else %} {# This is the 1-5 eval letter  #}
+Thank you for applying to Crestmont School. We look forward to hosting {{app.child_first}} for a day visit from 8:45 am - 12:00 pm on [Day], [Date]. If you are unable to keep this appointment, please reply to this message or call (510) 221-6760 as soon as possible.
+
+Arrival and pick-up will be at the [Grade #] grade classroom, [specify location here]. Plan to arrive 5-10 minutes early so that your child can easily transition. This visit will be one without parents present, so please prepare your child if you feel it is necessary. Also, please send a drink and a morning snack/lunch with your child. During your child’s visit he/she will spend time with the teacher of his/her current grade and the teacher of the grade you are applying for.
+
+The attached emergency form must be completed and submitted to the evaluating teacher on the morning of your child's visit. 
+ 
+Thank you again for your interest in Crestmont.  We look forward to seeing you soon!
+{% endif %}
+
+Sincerely, 
+{% for c in enrollment_chairs %}{{c.user.first_name}} {{c.user.last_name}}{% if not forloop.last %} and {% endif %}{% endfor %}
+Enrollment Co-Chairs 
+
+	</textarea>
+	
+	<p><input type="submit" value="Send Now"></p>
+</form>
+
+{% endif %}
+
+	
+{% endblock %}

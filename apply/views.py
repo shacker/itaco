@@ -1,14 +1,15 @@
-from ourcrestmont.itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
+from itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
 from apply.models import Application, STATUS_CHOICES
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse
-from ourcrestmont.apply.forms import ApplicationForm
+from apply.forms import ApplicationForm, AppEditForm
 from django import forms
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from datetime import datetime
 from django.contrib import messages
+from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.defaultfilters import slugify
 import sys, zipfile, os, os.path, shutil
@@ -61,11 +62,12 @@ def process_apps(request):
     Accepted students get their family, parent, profile, and student objects added automatically.
     Does not yet send accept/reject emails, but could...
     '''
-    
-    accepted = Application.objects.filter(status=1).order_by('appdate')
-    rejected = Application.objects.filter(status=2).order_by('appdate')    
-    pending = Application.objects.filter(status=3,fee_paid=False).order_by('appdate')  
-    paid_pending = Application.objects.filter(status=3,fee_paid=True).order_by('appdate')        
+    apps = Application.objects.all().order_by('-appdate')
+    # accepted = Application.objects.filter(status=1).order_by('appdate')
+    # rejected = Application.objects.filter(status=2).order_by('appdate')    
+    # pending = Application.objects.filter(status=3,fee_paid=False).order_by('appdate')  
+    # waitlist = Application.objects.filter(status=4,fee_paid=False).order_by('appdate')      
+    # paid_pending = Application.objects.filter(status=3,fee_paid=True).order_by('appdate')        
 
     return render_to_response('apply/process_apps.html', 
         locals(),
@@ -81,35 +83,49 @@ def app_detail(request,app_id=None):
     
     app = get_object_or_404(Application,pk=app_id)
     status_choices = STATUS_CHOICES
+    
+    # Edit application details
+    if request.POST:
+        form = AppEditForm(request.POST,instance=app)
 
+        if form.is_valid():
+            # Don't commit the save until we've added in the fields we need to set
+            app = form.save(commit=False)
+            app.status = form.cleaned_data['status']
+            app.staff_notes = form.cleaned_data['staff_notes']
+            app.save()
+            messages.success(request, "App status and/or notes for %s have been modified" % app)            
+
+    else:
+        form = AppEditForm(instance=app)
+    
     return render_to_response('apply/app_detail.html', 
         locals(),
         context_instance = RequestContext(request),
     )  
     
+
+
+def intake(request,app_id):
+    """
+    Convert an application into a set of records in the iTaco db
+    for new student, family and parents. Also sends welcome message.
+    """
     
-def change_app_status(request):
-    '''
-    Toggle an application from pending to rejected or accepted
-    '''
+    app = get_object_or_404(Application,pk=app_id)
     
-    app = get_object_or_404(Application,pk=request.POST['app_id'])
-    
-    '''
-    If rejected:
-        set status to rejected and return to process_apps; show message
-    If accepted:
-        show warning dialog; create student, family and parent records; show message
-    Else:
-        return to process_apps, show message
-    '''    
-    
-    if request.POST['app_status'] == '1':
-        # Uncomment these after rest of code finished
-        # app.status = 1
-        # app.save()
-        messages.success(request, "Application for %s set to Accepted" % app)
+    # Get current school year and Membership chair for use in welcome email
+    cur_year = SchoolYear.objects.get(current=True)
+    chair = BoardPosition.objects.get(title='Membership').profile_set.all()[0]       
         
+    # Make sure we don't try to perform intake for a student/family/parents twice!
+    if app.intake_complete == '1' :
+        messages.error(request, "Intake has already occurred for this student. Did not re-intake.")
+        return HttpResponseRedirect(reverse('process_apps'))
+    
+    
+    if request.POST:
+
         # Create related student, family, and parent records
         # Applications may have been submitted by existing families or by new families
         # so first get a family object depending on that.
@@ -124,9 +140,7 @@ def change_app_status(request):
             
             # Since this is a new family, create User objects and related profile records
             # The duplication of code here is stupid - we repeat the next 20 lines to handle both parents.
-            # This is probably evidence that I should have designed the the Applications sytem to store
-            # User and Profile records to begin with rather than putting everything in a separate record.
-            # But too late to turn back now.
+            # Is there a better way? Not a huge deal, just not very DRY.
             
             # First run-through for Parent 1. If you modify any of this, do the same for the Parent 2 block below.
             user = User()
@@ -210,21 +224,161 @@ def change_app_status(request):
             student.save()
             messages.success(request, "Profile image for student copied into student record.")
             
-        messages.success(request, "New student record created. Please review the student entry in admin.")
         
-    # Reject this app
-    elif request.POST['app_status'] == '2':
-        app.status = 2
+        # Send welcome message to parents.
+        # We know we'll have an email for the first. 
+        # Also send to the second if we have it.
+        
+        recipients = [app.par1_email,]
+        if app.par2_email:
+            recipients.append(app.par2_email)
+            
+        email_subject = 'Welcome to Crestmont School!'
+        email_body_txt = request.POST['letter_body']
+        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)
+        
+        if msg.send(fail_silently=False):
+            messages.success(request, "Welcome letter sent to %s" % recipients)
+            app.sent_offer_letter = True
+            app.save()
+        else:
+            messages.error(request, "Something went wrong. Offer letter NOT sent.")        
+
+        # Update the intake_complete field so we don't accidentally intake this app again
+        app.intake_complete = 1
         app.save()
-        messages.success(request, "Application for %s set to Rejected" % app)
+        
+        messages.success(request, "New student record created. Please review the student entry in admin.")
+        return HttpResponseRedirect(reverse('process_apps'))
     
-    # Fallback - leave as pending or set back to pending
-    elif request.POST['app_status'] == '3':
-        messages.success(request, "Application for %s set to Pending" % app)
+    else: 
+        # Display app intake warning page to admins
+        return render_to_response('apply/intake.html', 
+            locals(),
+            context_instance = RequestContext(request),
+        )
+
+       
+def show_addrs(request):
+    '''
+    View all email addresses of current applicants
+    '''
+    
+    apps = Application.objects.all()
+    emails = []
+    for a in apps:
+        if a.par1_email:
+            emails.append(a.par1_email)
+        if a.par2_email:
+            emails.append(a.par2_email)
+    
+
+    return render_to_response('apply/show_addrs.html', 
+        locals(),
+        context_instance = RequestContext(request),
+    )  
+    
+    
+def app_fee(request):
+    '''
+    Allow a parent to pay the application fee with PayPal.
+    Since applying parents don't yet have logins, the payment process
+    is not attached to the app at the db level. Admissions personell
+    processing payments must manually set the "paid" field on the application.
+    '''
+    
+    return render_to_response('apply/app_fee.html', 
+        locals(),
+        context_instance = RequestContext(request),
+    )  
+        
+    
+def send_offer(request, app_id):
+    """When an admin clicks Send Offer on an app, present the offer letter for review, send email on Submit."""
+    
+    app = get_object_or_404(Application,pk=app_id)
+    cur_year = SchoolYear.objects.get(current=True)
+    pay_amount = settings.FIRST_TUITION_PAYMENT
+    pay_due_date_1 = settings.PAYMENT_DUE_DATE_1
+    pay_due_date_2 = settings.PAYMENT_DUE_DATE_2
+    pay_due_date_3 = settings.PAYMENT_DUE_DATE_3
+    # Determine who currently holds the position of Membership Chair.
+    # Technically this could be a shared position but we'll cheat and just use the first (it's usually just one)
+    chair = BoardPosition.objects.get(title='Membership').profile_set.all()[0]       
+    
+    if request.POST:
+
+        # Send email to parents of applicant. 
+        # We know we'll have an email for the first. 
+        # Also send to the second if we have it.
+        recipients = [app.par1_email,]
+        if app.par2_email:
+            recipients.append(app.par2_email)
+            
+        email_subject = 'Your child has been accepted at Crestmont School'
+        email_body_txt = request.POST['letter_body']
+        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)
+        msg.attach_file(settings.ATTACHMENTS_PATH + '/Crestmont_Contract.pdf')
+        
+        if msg.send(fail_silently=False):
+            messages.success(request, "Offer letter sent to %s" % recipients)
+            app.sent_offer_letter = True
+            app.save()
+        else:
+            messages.error(request, "Something went wrong. Offer letter NOT sent.")
+            
+        return HttpResponseRedirect(reverse('process_apps'))
+        
         
     else:
-        # This will probably never happen
-        messages.error(request, "Application for %s not changed" % app)        
+        # Show letter template for review/editing
+    
+        return render_to_response('apply/send_offer_letter.html', 
+            locals(),
+            context_instance = RequestContext(request),
+        )    
         
-    return HttpResponseRedirect(reverse('process_apps'))
-       
+        
+    
+def send_eval_letter(request, app_id):
+    """All kindergarten teacher to send evaluation results emails to parents."""
+    
+    # Need test here - does app qualify for an offer letter? Paid, etc.?
+    
+    app = get_object_or_404(Application,pk=app_id)
+    enrollment_chairs = BoardPosition.objects.get(title='Enrollment').profile_set.all()
+    
+    if request.POST:
+
+        # Send email to parents of applicant. 
+        # We know we'll have an email for the first. 
+        # Also send to the second if we have it.
+        recipients = [app.par1_email,]
+        if app.par2_email:
+            recipients.append(app.par2_email)
+            
+        email_subject = "Invitation to Crestmont student evaluation meeting"
+        email_body_txt = request.POST['letter_body']
+        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)
+
+        # Only send emergency form if this is a non-K application
+        if app.grade != 'K':
+            msg.attach_file(settings.ATTACHMENTS_PATH + '/Visitor_Emergency_Form.pdf')
+        
+        if msg.send(fail_silently=False):
+            messages.success(request, "Evaluation results letter sent to %s" % recipients)
+            app.sent_eval_letter = True
+            app.save()
+        else:
+            messages.error(request, "Something went wrong. Evaluation letter NOT sent.")
+            
+        return HttpResponseRedirect(reverse('process_apps'))
+        
+        
+    else:
+        # Show letter template for review/editing
+    
+        return render_to_response('apply/send_eval_letter.html', 
+            locals(),
+            context_instance = RequestContext(request),
+        )            

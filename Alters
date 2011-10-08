@@ -1,8 +1,26 @@
 TODO
 
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `intake_complete` TINYINT(1) NULL DEFAULT 0  AFTER `eval_date`;
 
 
-Drop old kvstore table
+
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `heard_about_other` VARCHAR(140) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `heard_about`;
+
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `sent_offer_letter` TINYINT(1) NULL DEFAULT 0  AFTER `fee_paid`;
+
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `ethnicity` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `birthdate`;
+
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `sent_eval_letter` TINYINT(1) NULL DEFAULT 0  AFTER `sent_offer_letter`;
+
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `eval_date` DATE NULL DEFAULT NULL  AFTER `sent_eval_letter`;
+
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `attended_tour` TINYINT(1) NULL DEFAULT 0  AFTER `heard_about_other`;
+
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `teacher_rec_form` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci  NULL DEFAULT ''  AFTER `avatar`;
+
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `staff_notes` LONGTEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `notes`;
+
+
 
 
 

@@ -78,6 +78,7 @@ LOGIN_EXEMPT_URLS = (
     r'^accounts/password/reset/', # Users with forgotten passwords must be able to access password reset form.
     r'^site_media/', # Without this, user gets no CSS or images until logged in.
     r'^apply/$', # Non-members are allowed to apply to the school
+    r'^apply/app_fee/?$', # Non-members are allowed to apply to the school    
 )
 
 

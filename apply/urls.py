@@ -3,6 +3,7 @@ from ourcrestmont.apply.views import *
 
 urlpatterns = patterns('apply.views',
 
+    url(r'^app_fee/?$', 'app_fee', name='app_fee'),
     url(r'^/?$', 'apply', name='apply'),
     url(r'^process_apps/?$', 'process_apps', name='process_apps'),    
     url(r'^app/send_offer/(?P<app_id>\d+)/?$', 'send_offer', name='app_send_offer'),

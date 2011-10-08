@@ -105,8 +105,6 @@ def app_detail(request,app_id=None):
     )  
     
 
-# Kill this after migrating logic into app_detail view    
-
 
 def intake(request,app_id):
     """
@@ -143,7 +141,6 @@ def intake(request,app_id):
             # Since this is a new family, create User objects and related profile records
             # The duplication of code here is stupid - we repeat the next 20 lines to handle both parents.
             # Is there a better way? Not a huge deal, just not very DRY.
-
             
             # First run-through for Parent 1. If you modify any of this, do the same for the Parent 2 block below.
             user = User()
@@ -281,6 +278,20 @@ def show_addrs(request):
         context_instance = RequestContext(request),
     )  
     
+    
+def app_fee(request):
+    '''
+    Allow a parent to pay the application fee with PayPal.
+    Since applying parents don't yet have logins, the payment process
+    is not attached to the app at the db level. Admissions personell
+    processing payments must manually set the "paid" field on the application.
+    '''
+    
+    return render_to_response('apply/app_fee.html', 
+        locals(),
+        context_instance = RequestContext(request),
+    )  
+        
     
 def send_offer(request, app_id):
     """When an admin clicks Send Offer on an app, present the offer letter for review, send email on Submit."""

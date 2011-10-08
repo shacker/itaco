@@ -118,7 +118,7 @@ class Application(models.Model):
     
     teacher_rec_form = models.FileField(upload_to='uploads/teacher_rec_forms/%Y/%m/%d',help_text='Please attach a PDF copy of the Teacher Recommendation form.',blank=True)
     notes = models.TextField('Notes',blank=True,help_text="Anything else you'd like us to know?")
-    staff_notes = models.TextField('Staff Notes (fully private)',blank=True,help_text="Internal notes for this candidate.")    
+    staff_notes = models.TextField('Staff Notes (fully private)',blank=True,null=True,help_text="Internal notes for this candidate.")    
     status = models.CharField('Application status',max_length=2,choices=STATUS_CHOICES,default=3,blank=False,)
     fee_paid = models.BooleanField(default=False,help_text="Applications cannot be set to Accepted until fee is paid.")
     sent_offer_letter = models.BooleanField(default=False,help_text="System has already sent offer letter.")    

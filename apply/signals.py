@@ -16,7 +16,7 @@ def app_submitted(sender, instance, signal, created, **kwargs):
         site = Site.objects.get(id=1) # Need this for link in email template. 
 
         # Send email to site admins
-        recipients = ['shacker@birdhouse.org',]
+        recipients = ['info@crestmontschool.org',]
         email_subject = render_to_string("apply/admin-newapp-subject.txt", { 'app': app })                    
         email_body_txt = render_to_string("apply/admin-newapp-body.txt", { 'app': app, 'site': site, })        
         msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)

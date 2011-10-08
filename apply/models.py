@@ -69,8 +69,8 @@ class Application(models.Model):
     par1_city = models.CharField('City',max_length=30)
     par1_state = USStateField('State',default='CA')
     par1_zip = models.CharField('Zip',max_length=10)
-    par1_phone_home = PhoneNumberField('Home/mobile phone',blank=True)
-    par1_phone_work = PhoneNumberField('Work phone',blank=True)
+    par1_phone_home = PhoneNumberField('Home/mobile phone',blank=True,help_text='Phone format must be 555-123-4567')
+    par1_phone_work = PhoneNumberField('Work phone',blank=True,help_text='Phone format must be 555-123-4567')
     
     par2_lname = models.CharField('Parent 2 Last Name',blank=True, max_length=100)
     par2_fname = models.CharField('Parent 2 First Name',blank=True, max_length=100)    
@@ -80,8 +80,8 @@ class Application(models.Model):
     par2_city = models.CharField('City',max_length=30,blank=True)
     par2_state = USStateField('State',default='CA',blank=True)
     par2_zip = models.CharField('Zip',max_length=10,blank=True)
-    par2_phone_home = PhoneNumberField('Home/mobile phone',blank=True)
-    par2_phone_work = PhoneNumberField('Work phone',blank=True)    
+    par2_phone_home = PhoneNumberField('Home/mobile phone',blank=True,help_text='Phone format must be 555-123-4567')
+    par2_phone_work = PhoneNumberField('Work phone',blank=True,help_text='Phone format must be 555-123-4567')    
     
     living = models.TextField('Living arrangement',help_text="What is your child's living arrangement? Who is the legal guardian?")
     cur_school = models.CharField('Current school',blank=True, max_length=120)
@@ -123,8 +123,8 @@ class Application(models.Model):
     fee_paid = models.BooleanField(default=False,help_text="Applications cannot be set to Accepted until fee is paid.")
     sent_offer_letter = models.BooleanField(default=False,help_text="System has already sent offer letter.")    
     sent_eval_letter = models.BooleanField(default=False,help_text="System has already sent evaluation letter.")        
-    eval_date = models.DateField(blank=True,help_text='Attended evaluation on this date. Use form: 2011-08-08')
-    
+    eval_date = models.DateField(blank=True,help_text='Attended evaluation on this date. Use this format: 2011-08-08')
+    intake_complete = models.BooleanField(default=False,help_text="This field set automatically after Intake process is run, and is used to prevent duplicate intakes.")            
     
     def __unicode__(self):
         return u'%s %s' % (self.child_last, self.child_first)
@@ -135,12 +135,33 @@ class Application(models.Model):
         Returns true if Application meets all criteria for having the offer letter sent.
         Only send offer if
             - They've attended a tour
+            - Child has attended an evaluation            
             - The app is not set to rejected
-            - We haven't set an offer letter before
+            - We've received a teacher recommendation form
+            - We haven't sent an offer letter before            
+
+            - We don't check for payment here because we don't do intake until payment received
         '''
         
-        if self.attended_tour and self.status != 2 and not self.sent_offer_letter:
+        if (self.attended_tour
+            and self.eval_date
+            and self.status != '2' 
+            and self.teacher_rec_form 
+            and not self.sent_offer_letter
+            ):
+            
             return True
+            
+    def ready_for_intake(self):
+        '''
+        Returns true if Application meets all criteria for conversion to iTaco member
+        Only intake if:
+            - Application set to Accepted (they can't be accepted until ready_for_offer conditions are met, so all of above criteria are impled)
+            - Family accepted our offer by paying enrollment fee
+        '''
+        
+        if self.status == '1' and self.fee_paid:
+            return True            
       
         
 # When Application model instance is saved, send email to admissions and to submittor

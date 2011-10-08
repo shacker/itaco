@@ -106,67 +106,28 @@ def app_detail(request,app_id=None):
     
 
 # Kill this after migrating logic into app_detail view    
-def app_edit(request):
-    '''
-    Edit app status and notes, possibly other editable fields
-    '''
-    app_id = int(request.POST['app_id'])
+
+
+def intake(request,app_id):
+    """
+    Convert an application into a set of records in the iTaco db
+    for new student, family and parents. Also sends welcome message.
+    """
+    
     app = get_object_or_404(Application,pk=app_id)
     
-    
-    # Edit application details
-    if request.POST:
-        form = ApplicationEditForm(request.POST,files=request.FILES)
-
-        if form.is_valid():
-            # Don't commit the save until we've added in the fields we need to set
-            app = form.save(commit=False)
-            app.appdate = datetime.now()
-            
-            
-    
-    if request.POST['app_status'] == '1':
-        app.status = 1
-        messages.success(request, "Application for %s set to Accepted" % app)
-            
-    # Reject this app
-    elif request.POST['app_status'] == '2':
-        app.status = 2
-        messages.success(request, "Application for %s set to Rejected" % app)
+    # Get current school year and Membership chair for use in welcome email
+    cur_year = SchoolYear.objects.get(current=True)
+    chair = BoardPosition.objects.get(title='Membership').profile_set.all()[0]       
         
-    # Set to pending
-    elif request.POST['app_status'] == '3':
-        messages.success(request, "Application for %s set to Pending" % app)
-
-    # Set to waitlist
-    elif request.POST['app_status'] == '4':
-        app.status = 4
-        messages.success(request, "Application for %s set to Waitlist" % app)        
-        
-    else:
-        # This will probably never happen
-        messages.error(request, "Application for %s not changed" % app)        
-
-    app.save()
-    return HttpResponseRedirect(reverse('process_apps'))
-       
-
-def app_intake(request,app_id):
-    """docstring for app_intake"""
-    
-    # Don't allow an already accepted student to be re-accepted - 
-    # we don't want to create duplicates of the student, family, parent objects!
-    if app.status == '1' and request.POST['app_status'] == '1':
-        messages.error(request, "Student has already been accepted. Did not re-accept.")
+    # Make sure we don't try to perform intake for a student/family/parents twice!
+    if app.intake_complete == '1' :
+        messages.error(request, "Intake has already occurred for this student. Did not re-intake.")
         return HttpResponseRedirect(reverse('process_apps'))
     
     
-    if request.POST['app_status'] == '1':
+    if request.POST:
 
-        app.status = 1
-        app.save()
-        messages.success(request, "Application for %s set to Accepted" % app)
-        
         # Create related student, family, and parent records
         # Applications may have been submitted by existing families or by new families
         # so first get a family object depending on that.
@@ -181,9 +142,8 @@ def app_intake(request,app_id):
             
             # Since this is a new family, create User objects and related profile records
             # The duplication of code here is stupid - we repeat the next 20 lines to handle both parents.
-            # This is probably evidence that I should have designed the the Applications sytem to store
-            # User and Profile records to begin with rather than putting everything in a separate record.
-            # But too late to turn back now.
+            # Is there a better way? Not a huge deal, just not very DRY.
+
             
             # First run-through for Parent 1. If you modify any of this, do the same for the Parent 2 block below.
             user = User()
@@ -267,7 +227,39 @@ def app_intake(request,app_id):
             student.save()
             messages.success(request, "Profile image for student copied into student record.")
             
+        
+        # Send welcome message to parents.
+        # We know we'll have an email for the first. 
+        # Also send to the second if we have it.
+        
+        recipients = [app.par1_email,]
+        if app.par2_email:
+            recipients.append(app.par2_email)
+            
+        email_subject = 'Welcome to Crestmont School!'
+        email_body_txt = request.POST['letter_body']
+        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)
+        
+        if msg.send(fail_silently=False):
+            messages.success(request, "Welcome letter sent to %s" % recipients)
+            app.sent_offer_letter = True
+            app.save()
+        else:
+            messages.error(request, "Something went wrong. Offer letter NOT sent.")        
+
+        # Update the intake_complete field so we don't accidentally intake this app again
+        app.intake_complete = 1
+        app.save()
+        
         messages.success(request, "New student record created. Please review the student entry in admin.")
+        return HttpResponseRedirect(reverse('process_apps'))
+    
+    else: 
+        # Display app intake warning page to admins
+        return render_to_response('apply/intake.html', 
+            locals(),
+            context_instance = RequestContext(request),
+        )
 
        
 def show_addrs(request):

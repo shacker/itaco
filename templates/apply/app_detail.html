@@ -8,7 +8,6 @@
 <style type="text/css" media="screen">
 	h3 {
 		font-size:1.0em;
-/*		margin-bottom:-10px;*/
 	}
 	
 	fieldset {
@@ -19,6 +18,11 @@
 	textarea {
 		width:500px;
 		height:200px;
+	}
+	
+	/*	This shouldn't be necessary to get button text color working right, but it does... */
+	a.button {
+		color:#EEE;
 	}
 </style>
 
@@ -37,13 +41,17 @@
 </div>
 
 <fieldset>
+	<legend>Process</legend>
+
+<p>
+	<a href="{% url app_send_eval app.id %}" class="button {% if app.sent_eval_letter %}grey{% else%}blue{% endif %} small" >Send Evaluation Letter</a>
+	<a href="{% url app_send_offer app.id %}" class="button {% if app.ready_for_offer %}blue{% else%}grey{% endif %} small">Send Offer Letter</a>
+	<a href="{% url app_intake app.id %}" class="button {% if app.ready_for_intake %}blue{% else%}grey{% endif %} small">Intake</a>	
+</p>
+</fieldset>
+
+<fieldset>
 	<legend>Application Status</legend>
-	
-	{# <p>Attended tour: <strong>{{app.attended_tour}}</strong></p>				 #}
-	{# <p>Application fee paid? <strong>{{app.fee_paid|yesno:"Yes,No"}}</strong></p> #}
-	{# <p>Offer letter sent? <strong>{{app.sent_offer_letter|yesno:"Yes,No"}}</strong></p>	 #}
-	{# <p>Eval letter sent? <strong>{{app.sent_eval_letter|yesno:"Yes,No"}}</strong></p>		 #}
-	{# <p>Evaluation date: <strong>{{app.eval_date}}</strong></p> #}
 	
 	<table>
 	    <tr>
@@ -99,17 +107,7 @@
 	<p><input type="submit" value="Save"></p>
 </form>
 
-{% if app.ready_for_offer %}
-<p><a href="{% url app_send_offer app.id %}">Send Offer Letter</a> </p>
-{% else %}
-<p>Not ready for offer letter or offer letter already sent.</p>
-{% endif %}
 
-{% if not app.sent_eval_letter %}
-	<a href="{% url app_send_eval app.id %}">Send evaluation letter</a>
-{% else %}
-	<p>Evaluation letter already sent.</p>
-{% endif %}
 
 </fieldset>
 

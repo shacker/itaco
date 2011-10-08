@@ -8,12 +8,15 @@
 	td.small {
 		text-align:center;
 	}
+	
+	/*	This shouldn't be necessary to get button text color working right, but it does... */
+	a.button {
+		color:#EEE;
+	}
 </style>
 
-<p><a href="{% url show_addrs %}">Retrieve applicant emails and addresses</a></p>
 
-<h2>Pending Applications</h2>
-<p>Paid Pending apps are ready to be accepted, which will transform their data into real iTaco Family entries.</p>
+<h2>Applications</h2>
 
 <table>
     <tr>
@@ -28,6 +31,7 @@
         <th>Rec. Form</th>
         <th>Paid</th>        
         <th>Status</th>
+        <th>Intake</th>
     </tr>
 
     {% for app in apps  %}
@@ -49,6 +53,8 @@
 			{% if app.status == '4' %}<img src="{{STATIC_URL}}images/hourglass_add.png" width="16" height="16" alt="Icon Alert">{% endif %}			
 			{% if app.status == '2' %}<img src="{{STATIC_URL}}images/icon_error.gif" width="16" height="16" alt="Icon Error">{% endif %}			
 		</td>
+        <td class="small">{% if app.intake_complete %}<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">{% endif %}</td>
+		
     </tr>
     {% endfor %}    
 
@@ -60,5 +66,7 @@
 	Waitlist: <img src="{{STATIC_URL}}images/hourglass_add.png" width="16" height="16" alt="Icon Alert"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	Rejected: <img src="{{STATIC_URL}}images/icon_error.gif" width="16" height="16" alt="Icon Error">
 </p>
+
+<p><a href="{% url show_addrs %}" class="button blue small">Retrieve applicant emails and addresses</a></p>
 
 {% endblock content %}

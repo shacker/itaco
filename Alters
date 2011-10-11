@@ -1,5 +1,21 @@
 TODO
 
+ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `teacher_rec_form` `teacher_rec_form` VARCHAR(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  COMMENT ''  AFTER `avatar`;
+
+
+ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `avatar` `avatar` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''  COMMENT ''  AFTER `attended_tour`;
+
+ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `avatar` `avatar` VARCHAR(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT ''  COMMENT ''  AFTER `attended_tour`;
+
+
+
+
+
+
+=============================
+IN PRODUCTION
+
+
 ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `intake_complete` TINYINT(1) NULL DEFAULT 0  AFTER `eval_date`;
 
 
@@ -19,14 +35,6 @@ ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `attended_tour` TINY
 ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `teacher_rec_form` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci  NULL DEFAULT ''  AFTER `avatar`;
 
 ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `staff_notes` LONGTEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `notes`;
-
-
-
-
-
-=============================
-IN PRODUCTION
-
 
 CREATE TABLE `itaco_profile_list_extras` (
     `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,

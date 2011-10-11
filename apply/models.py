@@ -1,11 +1,12 @@
 from django.db import models
 from ourcrestmont.itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
-# from sorl.thumbnail import ImageField
 from easy_thumbnails.fields import ThumbnailerImageField
 from django.contrib.localflavor.us.models import *
 from django.template.defaultfilters import slugify
 from django.db.models import signals
 from apply.signals import app_submitted
+from time import time
+
 
 # Not using the CLASS_CHOICES from iTaco.constants because it includes Alumni
 STATUS_CHOICES = (
@@ -33,15 +34,18 @@ HEARD_ABOUT_CHOICES = (
     ('other','Other (please explain)'),
 )
 
-# 
-# def get_applicant_avatar_path(instance, filename):
-#     """
-#     Create a logical filename for applicant's uploaded photo
-#     """
-# 
-#     parts = str(filename).split(".")
-#     return 'uploads/applicant_avatars/' + str(instance.id) + '/' + slugify(parts[0]) + '.' + parts[1]
 
+def get_applicant_avatar_path(instance, filename):
+    """
+    Since applicants aren't logged in we don't have a user ID to name a directory for, 
+    so name dir for unix timestamp to guarantee uniqueness.
+    """
+    timestamp = str(time()).split('.')[0]
+    return '/'.join(['uploads','applicant_avatars', str(timestamp), filename])
+
+def get_recform_path( instance, filename ):
+    # make the filepath include the ID of the current app
+    return '/'.join(['uploads','teacher_rec_forms', str(instance.id), filename])
 
 class Application(models.Model):
     """
@@ -57,9 +61,6 @@ class Application(models.Model):
     birthdate = models.DateField('Birth date',blank=False,)
     ethnicity = models.CharField('Ethnic Origin',blank=True, max_length=100)
     langs = models.CharField('Languages spoken',blank=True, max_length=255)
-    
-    # Parent/guardians. Could have subclassed Profile object for this, but this 
-    # is a more limited set of fields, and that prob. wouldn't have saved any work.
     
     par1_lname = models.CharField('Parent 1 Last Name',blank=False, max_length=100)
     par1_fname = models.CharField('Parent 1 First Name',blank=False, max_length=100)    
@@ -90,7 +91,7 @@ class Application(models.Model):
     cur_school_phone = models.CharField('Current school phone',blank=True, max_length=20)    
     cur_teacher = models.CharField('Current teacher',blank=True, max_length=20)        
 
-    prev_school1 = models.CharField('Previous school',blank=True, max_length=40)        
+    prev_school1 = models.CharField('Previous school',blank=True,max_length=40)        
     prev_school1_phone = models.CharField('Phone',blank=True, max_length=20)            
     prev_school1_dates = models.CharField('Dates',blank=True, max_length=40)  
     
@@ -105,7 +106,7 @@ class Application(models.Model):
     describe_play = models.TextField('Interaction',blank=False,help_text="Please describe your child's play and interaction with others.")
     describe_special = models.TextField('Qualities',blank=False,help_text='Describe what is special about your child:')
     describe_needs = models.TextField('Needs',blank=False,help_text="Describe any special needs your child may have learning, emotional, social, physical:")
-    describe_circumstances = models.TextField('Circumstances',blank=False,help_text="Are there any circumstances that might affect your child's learning (Divorce or separation, death in the family, illness, sibling birth, etc.)")
+    describe_circumstances = models.TextField('Circumstances',blank=False,help_text="Are there any circumstances that might affect your child's learning <br>(Divorce or separation, death in the family, illness, sibling birth, etc.)")
     describe_seeking = models.TextField('Seeking',blank=False,help_text='What kind of education are you seeking for your child?:')
     describe_contribution = models.TextField('Contribution',blank=False,help_text='How do you see yourself participating in a parent co-op?')
 
@@ -113,10 +114,11 @@ class Application(models.Model):
     heard_about_other = models.CharField(blank=True, max_length=140)
     attended_tour = models.BooleanField('Have you attended a tour or info event?',default=False)
     
-    avatar = ThumbnailerImageField('Child photo',upload_to='uploads/applicant_avatars', blank=True,null=True,
-        help_text='Please upload an image of your child. Please make sure the photo is mostly square, not rectangular.')    
+    avatar = ThumbnailerImageField('Child photo',upload_to=get_applicant_avatar_path,resize_source=dict(size=(800, 600)), 
+        help_text='Please upload an image of your child in JPG format. Horizontal format works best.')    
     
-    teacher_rec_form = models.FileField(upload_to='uploads/teacher_rec_forms/%Y/%m/%d',help_text='Please attach a PDF copy of the Teacher Recommendation form.',blank=True)
+    teacher_rec_form = models.FileField('Replace teacher rec form',upload_to=get_recform_path,help_text='Please attach a PDF copy of the Teacher Recommendation form.',blank=True)
+
     notes = models.TextField('Notes',blank=True,help_text="Anything else you'd like us to know?")
     staff_notes = models.TextField('Staff Notes (fully private)',blank=True,null=True,help_text="Internal notes for this candidate.")    
     status = models.CharField('Application status',max_length=2,choices=STATUS_CHOICES,default=3,blank=False,)

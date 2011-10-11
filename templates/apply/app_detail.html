@@ -24,6 +24,8 @@
 	a.button {
 		color:#EEE;
 	}
+	
+
 </style>
 
 <h2>Application for {{app}}</h2>
@@ -90,7 +92,7 @@
 
 
 	</table>	
-	<p>Teacher rec form: 
+	<p><strong>Teacher rec form: </strong>
 		{% if app.teacher_rec_form %}
 			Yes - <a href="/media/{{app.teacher_rec_form}}">click to view</a> 
 		{% else %}
@@ -99,7 +101,7 @@
 	</p>			
 	
 
-<form action="" method="post" accept-charset="utf-8" id="appedit">
+<form action="" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="appedit">
 	{% csrf_token %}
 	
 	{{form.as_p}}

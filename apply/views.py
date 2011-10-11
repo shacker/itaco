@@ -41,8 +41,8 @@ def apply(request):
            
             # Upon successful submit, we redirect back to the public site - there's nothing here for a non-member to see.
             return HttpResponseRedirect('http://crestmontschool.org/application-received/')            
-        # else:
-        #     print form.errors
+        else:
+            print form.errors
     else:
         form = ApplicationForm()
 
@@ -86,7 +86,7 @@ def app_detail(request,app_id=None):
     
     # Edit application details
     if request.POST:
-        form = AppEditForm(request.POST,instance=app)
+        form = AppEditForm(request.POST,instance=app,files=request.FILES)
 
         if form.is_valid():
             # Don't commit the save until we've added in the fields we need to set

@@ -51,6 +51,8 @@
 	}
 	
 
+	
+
 </style>
 <h2>Apply to Attend Crestmont </h2>
 
@@ -74,6 +76,16 @@
 </ul>
 {% endif %}
 
+{% comment %}
+Unfortunately, this form is complex in ways that it shouldn't have to be. 
+It's all hand-rendered just so we can have control over the layout variance for
+the set of previous schools. We wanted those to appear in a table so they didn't 
+take up so much vertical space. That meant rendering all fields manually. And that
+in turn meant we didn't have access to the usual "required field" CSS class,
+so had to put a silly IF condition on nearly every label. Amazing - a one-liner form
+turned into a 700-liner.
+{% endcomment %}
+
 <div id="appl_form">
 <form action="" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="ApplicationForm">
   {% csrf_token %}
@@ -85,12 +97,12 @@
             
         <table>      
 		<tr>
-			<td><label for="child_last" />
-			   
+			<td><label for="child_last" /> 
 				{{form.child_last.label}}
+				{% if form.child_last.css_classes == 'required' %}*{% endif %}
 			</td>				
 
-			<td>
+			<td class="{{form.child_last.css_classes}}">
 				{{form.child_last}}<br />
 				<span class="minor">{{form.child_last.help_text|safe}}</span>
 				 {{ form.child_last.errors }}
@@ -100,6 +112,7 @@
 		<tr>
 			<td><label for="id_child_first" />
 				{{form.child_first.label}}
+				{% if form.child_first.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -112,6 +125,7 @@
 		<tr>
 			<td><label for="id_grade" />
 				{{form.grade.label}}
+				{% if form.grade.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -124,6 +138,7 @@
 		<tr>
 			<td><label for="id_rq_start_date" />
 				{{form.rq_start_date.label}}
+				{% if form.rq_start_date.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -136,6 +151,7 @@
 		<tr>
 			<td><label for="id_sex" />
 				{{form.sex.label}}
+				{% if form.sex.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -148,6 +164,7 @@
 		<tr>
 			<td><label for="id_birthdate" />
 				{{form.birthdate.label}}
+				{% if form.birthdate.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -159,6 +176,7 @@
 		<tr>
 			<td><label for="id_ethnicity" />
 				{{form.ethnicity.label}}
+				{% if form.ethnicity.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -170,6 +188,7 @@
 		<tr>
 			<td><label for="id_langs" />
 				{{form.langs.label}}
+				{% if form.langs.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -182,6 +201,7 @@
 		<tr>
 			<td><label for="id_avatar" />
 				{{form.avatar.label}}
+				{% if form.avatar.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -191,31 +211,18 @@
 			</td>				
 		</tr>
 		
-		<tr>
-			<td><label for="id_teacher_rec_form" />
-				{{form.teacher_rec_form.label}}
-			</td>				
-
-			<td>
-				{{form.teacher_rec_form}}<br />
-				<span class="minor">{{form.teacher_rec_form.help_text|safe}}</span>
-				 {{ form.teacher_rec_form.errors }}
-			</td>				
-		</tr>		
-				
 		</table>	
 		</fieldset>
 		
 		<fieldset id="about_parent_1" class="">
 		  <legend>About Parent 1</legend>
 		  
+
   		<table>
-
-
-
   		<tr>
   			<td><label for="id_par1_lname" />
   				{{form.par1_lname.label}}
+				{% if form.par1_lname.css_classes == 'required' %}*{% endif %}
   			</td>				
 
   			<td>
@@ -228,6 +235,7 @@
   		<tr>
   			<td><label for="id_par1_fname" />
   				{{form.par1_fname.label}}
+				{% if form.par1_fname.css_classes == 'required' %}*{% endif %}
   			</td>				
 
   			<td>
@@ -241,6 +249,7 @@
   		<tr>
   			<td><label for="id_par1_email" />
   				{{form.par1_email.label}}
+				{% if form.par1_email.css_classes == 'required' %}*{% endif %}
   			</td>				
 
   			<td>
@@ -253,6 +262,7 @@
   		<tr>
   			<td><label for="id_par1_address1" />
   				{{form.par1_address1.label}}
+				{% if form.par1_address1.css_classes == 'required' %}*{% endif %}
   			</td>				
 
   			<td>
@@ -265,6 +275,7 @@
   		<tr>
   			<td><label for="id_par1_address2" />
   				{{form.par1_address2.label}}
+				{% if form.par1_address2.css_classes == 'required' %}*{% endif %}
   			</td>				
 
   			<td>
@@ -277,6 +288,7 @@
   		<tr>
   			<td><label for="id_par1_city" />
   				{{form.par1_city.label}}
+				{% if form.par1_city.css_classes == 'required' %}*{% endif %}
   			</td>				
 
   			<td>
@@ -291,6 +303,7 @@
   		<tr>
   			<td><label for="id_par1_state" />
   				{{form.par1_state.label}}
+				{% if form.par1_state.css_classes == 'required' %}*{% endif %}
   			</td>				
 
   			<td>
@@ -303,6 +316,7 @@
   		<tr>
   			<td><label for="id_par1_zip" />
   				{{form.par1_zip.label}}
+				{% if form.par1_zip.css_classes == 'required' %}*{% endif %}
   			</td>				
 
   			<td>
@@ -315,6 +329,7 @@
   		<tr>
   			<td><label for="id_par1_phone_home" />
   				{{form.par1_phone_home.label}}
+				{% if form.par1_phone_home.css_classes == 'required' %}*{% endif %}
   			</td>				
 
   			<td>
@@ -327,6 +342,7 @@
   		<tr>
   			<td><label for="id_par1_phone_work" />
   				{{form.par1_phone_work.label}}
+				{% if form.par1_phone_work.css_classes == 'required' %}*{% endif %}
   			</td>				
 
   			<td>
@@ -580,6 +596,7 @@
 		<tr>
 			<td><label for="id_living" />
 				{{form.living.label}}
+				{% if form.living.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -591,6 +608,7 @@
 		<tr>
 			<td><label for="id_describe_play" />
 				{{form.describe_play.label}}
+				{% if form.describe_play.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -603,6 +621,7 @@
 		<tr>
 			<td><label for="id_describe_special" />
 				{{form.describe_special.label}}
+				{% if form.describe_special.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -615,6 +634,7 @@
 		<tr>
 			<td><label for="id_describe_needs" />
 				{{form.describe_needs.label}}
+				{% if form.describe_needs.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -627,11 +647,12 @@
 		<tr>
 			<td><label for="id_describe_circumstances" />
 				{{form.describe_circumstances.label}}
+				{% if form.describe_circumstances.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
 				{{form.describe_circumstances}}<br />
-				<span class="minor">
+				<span class="minor">{{form.describe_circumstances.help_text|safe}}
 				 {{ form.describe_circumstances.errors }}
 			</td>				
 		</tr>
@@ -639,6 +660,7 @@
 		<tr>
 			<td><label for="id_describe_seeking" />
 				{{form.describe_seeking.label}}
+				{% if form.describe_seeking.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -652,6 +674,7 @@
 		<tr>
 			<td><label for="id_describe_contribution" />
 				{{form.describe_contribution.label}}
+				{% if form.describe_contribution.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -667,6 +690,7 @@
 		<tr>
 			<td><label for="id_notes" />
 				{{form.notes.label}}
+				{% if form.notes.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -679,6 +703,7 @@
 		<tr>
 			<td><label for="id_heard_about" />
 				{{form.heard_about.label}}
+				{% if form.heard_about.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>
@@ -690,7 +715,7 @@
 		
 		<tr>
 			<td><label for="id_heard_about_other" />
-				If referred by "Other," <br />please describe:
+				If referred by "Other," <br />please describe:				
 			</td>				
 
 			<td>
@@ -703,6 +728,7 @@
 		<tr>
 			<td><label for="id_attended_tour" />
 				Have you attended <br />a tour or info event? 
+				{% if form.attended_tour.css_classes == 'required' %}*{% endif %}				
 			</td>				
 
 			<td>

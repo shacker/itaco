@@ -25,6 +25,16 @@ CLASS_CHOICES = (
     ('5th','5th grade'),  
 )
 
+CURRENT_CLASS_CHOICES = (
+    ('P','Preschool'),
+    ('K','Kindergarten'),
+    ('1st','1st grade'),
+    ('2nd','2nd grade'),
+    ('3rd','3rd grade'),
+    ('4th','4th grade'),
+    ('5th','5th grade'),  
+)
+
 HEARD_ABOUT_CHOICES = (
     ('friend','Friend'),
     ('event','Information Event'),
@@ -34,6 +44,9 @@ HEARD_ABOUT_CHOICES = (
     ('other','Other (please explain)'),
 )
 
+# To get radio buttons for a boolean field, per:
+# http://stackoverflow.com/questions/854683/django-booleanfield-as-radio-buttons
+BOOL_CHOICES = ((False, 'No'),(True, 'Yes'))
 
 def get_applicant_avatar_path(instance, filename):
     """
@@ -86,7 +99,7 @@ class Application(models.Model):
     
     living = models.TextField('Living arrangement',help_text="What is your child's living arrangement? Who is the legal guardian?")
     cur_school = models.CharField('Current school',blank=True, max_length=120)
-    cur_grade = models.CharField('Current grade',max_length=6,choices=CLASS_CHOICES,blank=True,)
+    cur_grade = models.CharField('Current grade',max_length=6,choices=CURRENT_CLASS_CHOICES,blank=True,)
     cur_school_addr = models.CharField('Current school address',blank=True, max_length=160)
     cur_school_phone = models.CharField('Current school phone',blank=True, max_length=20)    
     cur_teacher = models.CharField('Current teacher',blank=True, max_length=20)        
@@ -112,7 +125,7 @@ class Application(models.Model):
 
     heard_about = models.CharField('Referred by',max_length=6,choices=HEARD_ABOUT_CHOICES,blank=False,help_text='How did you hear about Crestmont?')
     heard_about_other = models.CharField(blank=True, max_length=140)
-    attended_tour = models.BooleanField('Have you attended a tour or info event?',default=False)
+    attended_tour = models.BooleanField('Have you attended a tour or info event?',choices=BOOL_CHOICES,default=False)
     
     avatar = ThumbnailerImageField('Child photo',upload_to=get_applicant_avatar_path,resize_source=dict(size=(800, 600)), 
         help_text='Please upload an image of your child in JPG format. Horizontal format works best.')    
@@ -125,11 +138,11 @@ class Application(models.Model):
     fee_paid = models.BooleanField(default=False,help_text="Applications cannot be set to Accepted until fee is paid.")
     sent_offer_letter = models.BooleanField(default=False,help_text="System has already sent offer letter.")    
     sent_eval_letter = models.BooleanField(default=False,help_text="System has already sent evaluation letter.")        
-    eval_date = models.DateField(blank=True,null=True,help_text='Attended evaluation on this date. Use this format: 2011-08-08')
+    eval_date = models.DateField(blank=True,null=True,help_text='Attended evaluation on this date.')
     intake_complete = models.BooleanField(default=False,help_text="This field set automatically after Intake process is run, and is used to prevent duplicate intakes.")            
     
     def __unicode__(self):
-        return u'%s %s' % (self.child_last, self.child_first)
+        return u'%s %s' % (self.child_first, self.child_last)
         
         
     def ready_for_offer(self):

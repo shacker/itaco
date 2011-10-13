@@ -27,7 +27,7 @@ def listgen(request):
 
     mldict = {}
     nomailmldict = {}
-    groupset = ['kindergarten','first','second','third','twothree','fourth','fifth','fourfive','board','teachers','alumni','executivecom','participation','everyone',]
+    groupset = ['kindergarten','first','second','third','twothree','fourth','fifth','fourfive','board','teachers','alumni','executivecom','alphageeks','participation','everyone',]
     for group in groupset :
         try: # Get the regular members
             tempfile = open(os.path.join(settings.LISTGENPATH, group + ".txt"), 'r')

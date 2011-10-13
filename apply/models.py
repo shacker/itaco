@@ -69,7 +69,7 @@ class Application(models.Model):
     child_first = models.CharField("Child's First Name",blank=False, max_length=100)    
     appdate = models.DateField('Application date',blank=True,)
     grade = models.CharField('Applying for grade',max_length=6,choices=CLASS_CHOICES,blank=False,)
-    rq_start_date = models.DateField('Requested start date',blank=False,)
+    rq_start_date = models.DateField('Requested start date',blank=False,help_text='The 2012 school year begins on Sept. 5')
     sex = models.CharField(blank=False, max_length=2,choices=(('m','Male'),('f','Female')))
     birthdate = models.DateField('Birth date',blank=False,)
     ethnicity = models.CharField('Ethnic Origin',blank=True, max_length=100)
@@ -125,7 +125,7 @@ class Application(models.Model):
 
     heard_about = models.CharField('Referred by',max_length=6,choices=HEARD_ABOUT_CHOICES,blank=False,help_text='How did you hear about Crestmont?')
     heard_about_other = models.CharField(blank=True, max_length=140)
-    attended_tour = models.BooleanField('Have you attended a tour or info event?',choices=BOOL_CHOICES,default=False)
+    attended_tour = models.BooleanField('Have you attended a tour or info event?',choices=BOOL_CHOICES,default=False,help_text='<strong>Important:</strong> Your application will not be considered<br /> until you have attended a school tour or information event.<br /> If you answer No to this question, please schedule your tour soon.')
     
     avatar = ThumbnailerImageField('Child photo',upload_to=get_applicant_avatar_path,resize_source=dict(size=(800, 600)), 
         help_text='Please upload an image of your child in JPG format. Horizontal format works best.')    

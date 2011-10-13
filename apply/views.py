@@ -40,7 +40,8 @@ def apply(request):
             app.save()
            
             # Upon successful submit, we redirect back to the public site - there's nothing here for a non-member to see.
-            return HttpResponseRedirect('http://crestmontschool.org/application-received/')            
+            # return HttpResponseRedirect('http://crestmontschool.org/application-received/')            
+            return HttpResponseRedirect(reverse('app_fee',args=[app.id]))            
         else:
             print form.errors
     else:
@@ -279,19 +280,31 @@ def show_addrs(request):
     )  
     
     
-def app_fee(request):
+def app_fee(request, app_id):
     '''
     Allow a parent to pay the application fee with PayPal.
-    Since applying parents don't yet have logins, the payment process
-    is not attached to the app at the db level. Admissions personell
-    processing payments must manually set the "paid" field on the application.
     '''
+
+    app = get_object_or_404(Application,pk=app_id)
     
     return render_to_response('apply/app_fee.html', 
         locals(),
         context_instance = RequestContext(request),
     )  
-        
+       
+       
+def app_fee_thanks(request, app_id):
+    '''
+    On return from payment gateway, set paid=True
+    '''
+
+    app = get_object_or_404(Application,pk=app_id)
+    
+    return render_to_response('apply/app_fee_thanks.html', 
+        locals(),
+        context_instance = RequestContext(request),
+    )  
+               
     
 def send_offer(request, app_id):
     """When an admin clicks Send Offer on an app, present the offer letter for review, send email on Submit."""

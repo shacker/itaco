@@ -27,8 +27,9 @@ urlpatterns = patterns('',
     # Rosters - family and student listings
     (r'^roster/', include('roster.urls')),                 
     
-    # Applications - subclassed version of Family and Student, plus public app URLs
-    (r'^apply/', include('apply.urls')),                 
+    # Applications - includes public and private URLs (separated for security)
+    (r'^apply/', include('apply.urls')),             
+    (r'^app/', include('apply.private_urls')),                     
         
     # Profile editing
     # First match /profiles/edit before django-profiles gets it and loads the defaults, so we can pass in our custom form object.

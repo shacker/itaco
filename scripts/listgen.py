@@ -106,7 +106,7 @@ for group in groupset :
         peeps = None
         
     if group.list == 'alphageeks' :
-        # For alphageeks we need the group iterator, but no query - we'll just use extralist for them
+        # For executivecom we need the group iterator, but no query - we'll just use extralist for them
         peeps = None        
         
     if group.list == 'participation' :

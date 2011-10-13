@@ -16,7 +16,8 @@
     $(document).ready(function(){
 
         $('#id_rq_start_date').datepicker(
-          {changeMonth: true, changeYear: true, yearRange: '2011:2020'}
+          { minDate: new Date(2012, 9-1, 5), changeMonth: true, changeYear: true, yearRange: '2011:2020'}
+
       );
 
         $('#id_birthdate').datepicker(
@@ -56,9 +57,7 @@
 
 <p><strong>Before you fill out this application</strong>, be sure you have a photo of your child in JPG format (horizontal format is best). You'll need to upload this image during the application process.</p>
 
-<p>After submitting this form, you will be prompted to make a non-refundable $50 electronic application payment. Your application will not be considered until this fee is received.</p>
-
-<p>Link to <a href="{% url app_fee %}">fee payment</a> - Scot will move this after getting clear about where it goes - in offer letter only?</p>
+<p>After submitting this form, you will be prompted to make a non-refundable $50 electronic application payment, either via PayPal or by check. Your application will not be considered until this fee is received.</p>
 
 
 {% if not user.is_authenticated %}
@@ -92,18 +91,7 @@ turned into a 700-liner.
             <legend>About Your Child</legend>
             
         <table>      
-		<tr>
-			<td><label for="child_last" /> 
-				{{form.child_last.label}}
-				{% if form.child_last.css_classes == 'required' %}*{% endif %}
-			</td>				
 
-			<td class="{{form.child_last.css_classes}}">
-				{{form.child_last}}<br />
-				<span class="minor">{{form.child_last.help_text|safe}}</span>
-				 {{ form.child_last.errors }}
-			</td>				
-		</tr>
 		
 		<tr>
 			<td><label for="id_child_first" />
@@ -117,7 +105,18 @@ turned into a 700-liner.
 				 {{ form.child_first.errors }}				
 			</td>				
 		</tr>	
-		
+		<tr>
+			<td><label for="child_last" /> 
+				{{form.child_last.label}}
+				{% if form.child_last.css_classes == 'required' %}*{% endif %}
+			</td>				
+
+			<td class="{{form.child_last.css_classes}}">
+				{{form.child_last}}<br />
+				<span class="minor">{{form.child_last.help_text|safe}}</span>
+				 {{ form.child_last.errors }}
+			</td>				
+		</tr>		
 		<tr>
 			<td><label for="id_grade" />
 				{{form.grade.label}}

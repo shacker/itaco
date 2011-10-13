@@ -105,6 +105,10 @@ for group in groupset :
         # For executivecom we need the group iterator, but no query - we'll just use extralist for them
         peeps = None
         
+    if group.list == 'alphageeks' :
+        # For alphageeks we need the group iterator, but no query - we'll just use extralist for them
+        peeps = None        
+        
     if group.list == 'participation' :
         peeps = Profile.objects.filter(family__student__enrolled=True,participating_parent=True,user__is_active=True)          
                         

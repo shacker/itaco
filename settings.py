@@ -80,8 +80,8 @@ LOGIN_EXEMPT_URLS = (
     r'^apply/.*$', # Non-members are allowed to apply to the school
 )
 
-
-ROOT_URLCONF = 'crest.urls'
+# Override in local_settings so we don't have to hard-code the project name here.
+ROOT_URLCONF = ''
 
 
 INSTALLED_APPS = (

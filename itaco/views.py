@@ -1,9 +1,9 @@
 from django.db import models
 from django import forms
 from django.forms.formsets import formset_factory
-from ourcrestmont.itaco.models import *
-from ourcrestmont.itaco.constants import *
-from ourcrestmont.itaco.forms import ChargeForm, PartCredForm, OblForm, StudentForm
+from itaco.models import *
+from itaco.constants import *
+from itaco.forms import ChargeForm, PartCredForm, OblForm, StudentForm
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect

@@ -1,7 +1,7 @@
 from django.db import models
 from django.forms import ModelForm
 from django import forms
-from ourcrestmont.apply.models import Application
+from apply.models import Application
 
 
 class ApplicationForm(ModelForm):

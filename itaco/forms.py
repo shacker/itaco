@@ -1,7 +1,7 @@
 from django.db import models
 from django.forms import ModelForm
 from django import forms
-from ourcrestmont.itaco.models import *
+from itaco.models import *
 
 
 class ChargeForm(ModelForm):

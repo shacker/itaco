@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group, User
-from ourcrestmont.itaco.models import Profile, Family
+from itaco.models import Profile, Family
 
 
 def family_id(request):

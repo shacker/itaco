@@ -68,7 +68,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',    
-    'ourcrestmont.middleware.login_req.LoginRequiredMiddleware',
+    'middleware.login_req.LoginRequiredMiddleware',
     
 )
 
@@ -81,7 +81,7 @@ LOGIN_EXEMPT_URLS = (
 )
 
 
-ROOT_URLCONF = 'ourcrestmont.urls'
+ROOT_URLCONF = 'crest.urls'
 
 
 INSTALLED_APPS = (
@@ -94,9 +94,9 @@ INSTALLED_APPS = (
     'django.contrib.databrowse',
     'django.contrib.messages', 
     'django.contrib.staticfiles',   
-    'ourcrestmont.itaco',
-    'ourcrestmont.roster',
-    'ourcrestmont.apply',
+    'itaco',
+    'roster',
+    'apply',
     'easy_thumbnails',
     'profiles',
     'django_extensions',
@@ -105,7 +105,7 @@ INSTALLED_APPS = (
 
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    "ourcrestmont.itaco.context_processors.family_id", # Custom processor to get current user's family ID into every page.
+    "itaco.context_processors.family_id", # Custom processor to get current user's family ID into every page.
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
     "django.core.context_processors.static",
@@ -169,6 +169,6 @@ LISTGENPATH = ""
 # This allows local settings to override.
 #####################################################################
 try:
-    from ourcrestmont.local_settings import *
+    from local_settings import *
 except ImportError, exp:
     pass

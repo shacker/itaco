@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from ourcrestmont.apply.views import *
+from apply.views import *
 
 # These URLs are visible without iTaco login
 urlpatterns = patterns('apply.views',

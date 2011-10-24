@@ -1,5 +1,5 @@
 from django.db import models
-from ourcrestmont.itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
+from itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
 from easy_thumbnails.fields import ThumbnailerImageField
 from django.contrib.localflavor.us.models import *
 from django.template.defaultfilters import slugify

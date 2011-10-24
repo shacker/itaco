@@ -3,8 +3,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 #from django.contrib import databrowse
-from ourcrestmont.itaco.models import *
-from ourcrestmont.itaco.forms import ProfileForm
+from itaco.models import *
+from itaco.forms import ProfileForm
 
 
 from django.contrib import admin

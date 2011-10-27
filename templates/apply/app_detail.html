@@ -62,6 +62,8 @@
     {% endif %}    
 </div>
 
+{# Only show Process icons to superusers, not to teachers #}
+{% if user.is_superuser %}	
 <fieldset>
 	<legend>Process</legend>
 
@@ -71,6 +73,8 @@
 	<a href="{% url app_intake app.id %}" class="button {% if app.ready_for_intake %}blue{% else%}grey{% endif %} small">Intake</a>	
 </p>
 </fieldset>
+{% endif %}
+
 
 <fieldset>
 	<legend>Application Status</legend>
@@ -109,9 +113,9 @@
 				{% if app.status == '2' %}<img src="{{STATIC_URL}}images/icon_error.gif" width="16" height="16" alt="Icon Error">{% endif %}			
 			</td>
 	    </tr>
-
-
 	</table>	
+	
+	
 	<p><strong>Teacher rec form: </strong>
 		{% if app.teacher_rec_form %}
 			Yes - <a href="/media/{{app.teacher_rec_form}}">click to view</a> 
@@ -129,9 +133,8 @@
 	<p><input type="submit" value="Save"></p>
 </form>
 
-
-
 </fieldset>
+
 
 <a name="summary"></a>
 <h3>Family</h3>

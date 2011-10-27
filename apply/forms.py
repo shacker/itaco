@@ -26,8 +26,17 @@ class ApplicationForm(ModelForm):
 
 
 class AppEditForm(ModelForm):
-
+    # Full application edit form, for superusers only
     class Meta:
         model = Application
         widgets = {'teacher_rec_form': forms.FileInput}
         fields = ('teacher_rec_form','fee_paid','attended_tour','eval_date','status','staff_notes')
+
+
+
+class TeacherAppEditForm(ModelForm):
+    # Minimal application edit form, mostly just for teachers
+    class Meta:
+        model = Application
+        widgets = {'teacher_rec_form': forms.FileInput}
+        fields = ('staff_notes',)

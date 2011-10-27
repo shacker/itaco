@@ -49,20 +49,20 @@
 
           <li><a href="/docs/health-safety/" title="Health and Safety">Health and Safety</a></li>
           <li><a href="/docs/housekeeping/" title="Housekeeping">Housekeeping</a></li>
-
-          <!-- <li><a href="/docs/scrip/" title="Scrip Instructions">Scrip Instructions</a></li>           -->
           <li><a href="/docs/board/" title="Board Documents">Board Documents</a></li>
           <li><a href="/docs/misc/" title="Miscellaneous Documents">Miscellaneous Documents</a></li>
           <li><a href="/docs/about/" title="iTaco Documentation">iTaco Documentation</a></li>
+
           {% if user.is_superuser %}
           <li><a href="/docs/about/admins/" title="Docs for Admins">Admin Docs</a></li>
           {% endif %}
+
           <li><a href="/docs/email-archive/" title="E-Mail Archive">E-Mail Archive</a></li>
         </ul>
 
     <li><a href="{% url listgen %}" title="Mailing Lists">Lists</a></li>
-  <li><a href="{% url profiles_profile_detail user %}" title="Profile">My Profile</a></li>
-  <li><a href="http://crestmontschool.org/" title="Public">Public Site</a>
+	<li><a href="{% url profiles_profile_detail user %}" title="Profile">My Profile</a></li>
+	<li><a href="http://crestmontschool.org/" title="Public">Public Site</a>
         <ul>
           <li><a href="http://www.zazzle.com/crestmontschool" title="Merch">Crestmont Merchandise</a></li>
         </ul>
@@ -79,6 +79,12 @@
         <li><a href="/admin/itaco/charge/add/" title="Other Charges">Add Other Charges</a></li>
         <li><a href="/admin/itaco/credit/add/" title="Other Credits">Add Other Credits</a></li>
         <li><a href="/admin/itaco/obligation/add/" title="Add Obligations">Add Other Obligations</a></li>
+
+		{# teachers submenu #}
+		{% if perms.apply and not user.is_superuser %}
+		<li><a href="#">SUPERUSERS ONLY: &crarr;</a></li>
+        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>			
+		{% endif %}
 
         {% if user.is_superuser %}
 		<li><a href="#">SUPERUSERS ONLY: &crarr;</a></li>

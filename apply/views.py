@@ -3,7 +3,7 @@ from apply.models import Application, STATUS_CHOICES
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse
-from apply.forms import ApplicationForm, AppEditForm
+from apply.forms import ApplicationForm, AppEditForm, TeacherAppEditForm
 from django import forms
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -87,18 +87,23 @@ def app_detail(request,app_id=None):
     
     # Edit application details
     if request.POST:
-        form = AppEditForm(request.POST,instance=app,files=request.FILES)
-
+        if request.user.is_superuser:
+            form = AppEditForm(request.POST,instance=app,files=request.FILES)
+        else:
+            form = TeacherAppEditForm(request.POST,instance=app,files=request.FILES)
+        
         if form.is_valid():
-            # Don't commit the save until we've added in the fields we need to set
             app = form.save(commit=False)
-            app.status = form.cleaned_data['status']
             app.staff_notes = form.cleaned_data['staff_notes']
             app.save()
             messages.success(request, "App status and/or notes for %s have been modified" % app)            
 
     else:
-        form = AppEditForm(instance=app)
+        if request.user.is_superuser:
+            form = AppEditForm(instance=app)
+        else:
+            # Show minimal form to teachers
+            form = TeacherAppEditForm(instance=app)
     
     return render_to_response('apply/app_detail.html', 
         locals(),

@@ -1,6 +1,10 @@
-Thanks for applying to Crestmont!  {{ app }} is being considered. We'll get back to you shortly.
+Thank you for applying to Crestmont school.
 
-To learn more about our school...
+Once your application process is complete (application fee is received, you've attended a school tour or information event, and your child's teacher recommendation form has been received), we will contact you to schedule your child's school visit at Crestmont.
 
-If you have any questions...
+Evaluations for all grades will begin in February. In the meantime, please feel free to contact us at info@crestmontschool.org or 510-221-6760 with any questions you may have.
 
+Best Regards,
+
+{% for c in enrollment_chairs %}{{c.user.first_name}} {{c.user.last_name}}{% if not forloop.last %} and {% endif %}{% endfor %}
+Crestmont Enrollment Co-chairs

@@ -22,7 +22,7 @@ def apply(request):
     closely mimic the PDF application form, we store everything flat here. Later, if people
     are accepted, we copy fields from an app record into the appropriate models.
     '''
-    
+        
     # Submit a new application
     if request.POST:
         form = ApplicationForm(request.POST,files=request.FILES)
@@ -39,8 +39,7 @@ def apply(request):
                 
             app.save()
            
-            # Upon successful submit, we redirect back to the public site - there's nothing here for a non-member to see.
-            # return HttpResponseRedirect('http://crestmontschool.org/application-received/')            
+            # Upon successful submit, redirect to the app fee view for this applicant.
             return HttpResponseRedirect(reverse('app_fee',args=[app.id]))            
         else:
             print form.errors
@@ -48,10 +47,7 @@ def apply(request):
         form = ApplicationForm()
 
 
-    return render_to_response('apply/apply.html', 
-        {
-            'form': form,
-        },
+    return render_to_response('apply/apply.html', locals(),
         context_instance = RequestContext(request),
     )
     

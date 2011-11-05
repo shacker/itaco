@@ -14,6 +14,13 @@ from django.conf import settings
 from django.template.defaultfilters import slugify
 import sys, zipfile, os, os.path, shutil
 from django.contrib.auth.models import User
+# from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import user_passes_test
+
+# Only superusers and teachers and special users can access the app system.
+# Some additional controls are put on teachers in the app_detail template.
+def can_edit_apps(user):
+    return user.has_perm("apply.change_application")
 
 
 def apply(request):
@@ -50,9 +57,37 @@ def apply(request):
     return render_to_response('apply/apply.html', locals(),
         context_instance = RequestContext(request),
     )
+   
     
-    
+def app_fee(request, app_id):
+    '''
+    Allow a parent to pay the application fee with PayPal.
+    '''
 
+    app = get_object_or_404(Application,pk=app_id)
+    
+    return render_to_response('apply/app_fee.html', 
+        locals(),
+        context_instance = RequestContext(request),
+    )  
+       
+
+       
+def app_fee_thanks(request, app_id):
+    '''
+    On return from payment gateway, set paid=True
+    '''
+
+    app = get_object_or_404(Application,pk=app_id)
+    
+    return render_to_response('apply/app_fee_thanks.html', 
+        locals(),
+        context_instance = RequestContext(request),
+    )  
+
+         
+
+@user_passes_test(can_edit_apps)
 def process_apps(request):
     '''
     View and process outstanding applications. 
@@ -72,7 +107,7 @@ def process_apps(request):
     )    
     
     
-
+@user_passes_test(can_edit_apps)
 def app_detail(request,app_id=None):
     '''
     View all fields of an individual application
@@ -107,7 +142,7 @@ def app_detail(request,app_id=None):
     )  
     
 
-
+@user_passes_test(can_edit_apps)
 def intake(request,app_id):
     """
     Convert an application into a set of records in the iTaco db
@@ -260,7 +295,7 @@ def intake(request,app_id):
             context_instance = RequestContext(request),
         )
 
-       
+@user_passes_test(can_edit_apps)       
 def show_addrs(request):
     '''
     View all email addresses of current applicants
@@ -280,33 +315,9 @@ def show_addrs(request):
         context_instance = RequestContext(request),
     )  
     
-    
-def app_fee(request, app_id):
-    '''
-    Allow a parent to pay the application fee with PayPal.
-    '''
 
-    app = get_object_or_404(Application,pk=app_id)
-    
-    return render_to_response('apply/app_fee.html', 
-        locals(),
-        context_instance = RequestContext(request),
-    )  
-       
-       
-def app_fee_thanks(request, app_id):
-    '''
-    On return from payment gateway, set paid=True
-    '''
-
-    app = get_object_or_404(Application,pk=app_id)
-    
-    return render_to_response('apply/app_fee_thanks.html', 
-        locals(),
-        context_instance = RequestContext(request),
-    )  
-               
-    
+          
+@user_passes_test(can_edit_apps)    
 def send_offer(request, app_id):
     """When an admin clicks Send Offer on an app, present the offer letter for review, send email on Submit."""
     
@@ -353,7 +364,7 @@ def send_offer(request, app_id):
         )    
         
         
-    
+@user_passes_test(can_edit_apps)    
 def send_eval_letter(request, app_id):
     """All kindergarten teacher to send evaluation results emails to parents."""
     

@@ -49,7 +49,8 @@ def apply(request):
             # Upon successful submit, redirect to the app fee view for this applicant.
             return HttpResponseRedirect(reverse('app_fee',args=[app.id]))            
         else:
-            print form.errors
+            # print form.errors
+            pass
     else:
         form = ApplicationForm()
 

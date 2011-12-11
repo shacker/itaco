@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Search roster{% endblock %}
+
+{% block content %}
+
+{% include "roster/roster_subnav.html" %}
+
+<h3>Search for parents by first name, last name, or interest/vocation</h3>
+
+<form action="" method="get" accept-charset="utf-8">{% csrf_token %}
+<input type="text" name="q" value="" id="q" style="width:250px;">
+<input type="submit" value="Search Rosters">
+</form>
+
+{# If a query string exists but nothing is returned, report. #}
+{% if query_string and found_profiles.count = 0 %}
+	<h2> No results to show, sorry.</h2>
+{% endif %}
+
+{# Normal results #}
+{% if found_profiles %}
+ <h2>{{found_profiles.count}} search results for term: "{{ query_string }}"</h2>
+
+	   {% for f in found_profiles %}
+	   <p><strong><a href="{% url profiles_profile_detail f.user %}">{{f}}</a></strong><br />
+	       <span class="minor">
+			{% if f.about %}
+				{{f.about|truncatewords:50}}				
+			{% else %}
+				Profile information not available.
+			{% endif %}
+
+	       </span>        
+	   </p>
+	   {% endfor %}
+ 
+{% endif %}
+
+
+
+{% endblock content %}

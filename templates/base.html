@@ -30,7 +30,7 @@
   </div>
   <ul id="nav" class="clearfloat">
 
-    {% if user.is_authenticated %}
+  {% if user.is_authenticated %}
 
   <li><a href="/" title="Home">Calendar</a>
 
@@ -38,7 +38,12 @@
   <li><a href="{% url family_detail myfam_id %}" title="iTaco">iTaco</a>
   {% endif %}
 
-  <li><a href="{% url roster_parents_faces %}" title="Roster">Rosters</a></li>
+  <li><a href="{% url roster_parents_faces %}" title="Roster">Rosters</a>
+      <ul>
+        <li><a href="{% url roster_parents_list %}" title="Search">All Rosters</a></li>
+        <li><a href="{% url roster_search %}" title="Search">Search Rosters</a></li>
+      </ul>	
+  </li>
   <li><a href="/contact/" title="Tuition/Contact">Tuition/Contact</a></li>
   <li><a href="#" title="Documents">Documents</a>
 

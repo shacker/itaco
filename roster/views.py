@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse
 from django.db.models import Sum, Count
+from django.db.models import Q
 
 
 # Create dicts separately for each roster, so we can re-use them in the print view.
@@ -300,7 +301,40 @@ def roster_export(request):
     
     return render_to_response('roster/export.html', locals(),
         context_instance = RequestContext(request),
-    )  
+    ) 
+    
+
+    
+def roster_search(request):
+    """
+    Search in rosters by name or content in About field.
+    """
+
+    if request.GET:    
+
+        query_string = ''
+        found_profiles = None
+        if ('q' in request.GET) and request.GET['q'].strip():
+            query_string = request.GET['q']
+
+            found_profiles = Profile.objects.filter(
+                Q(about__icontains=query_string) |
+                Q(user__first_name__icontains=query_string) |
+                Q(user__last_name__icontains=query_string)                 
+            )
+
+    else :
+        query_string = None
+        found_profiles = None
+        
+    # print found_profiles
+
+    return render_to_response('roster/search.html',
+      { 'query_string': query_string, 'found_profiles': found_profiles },
+      context_instance=RequestContext(request))
+
+
+    
     
 def vcard_single(request, username):
     """

@@ -6,6 +6,7 @@ urlpatterns = patterns('roster.views',
 
 
     url(r'^families/?$', 'roster_families', name='roster_families'),
+    url(r'^search/?$', 'roster_search', name='roster_search'),    
     url(r'^parents/list/?$', 'roster_parents', name='roster_parents_list'),    
     url(r'^parents/?$', 'roster_parents', {'faces':True}, name='roster_parents_faces'),        
     url(r'^students/k/?$', 'roster_students_kinder', name='roster_students_kinder'),

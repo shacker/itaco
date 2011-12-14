@@ -157,6 +157,7 @@ class Profile(models.Model):
 
     title = models.CharField(blank=True, max_length=100,help_text='e.g. Third Grade Teacher. Right now this is only used for teachers, but could be used for anyone in the future.')
     about = models.TextField(blank=True,help_text="Tell us a bit about yourself - interests, work, favorite bands... <br />This field will be displayed on your Profile page.")
+    tags = models.CharField(blank=True, max_length=255,help_text="Comma-separated keywords. Not displayed on site, but helps your profile get found in site Search.")    
     email_2 = models.EmailField('Secondary email',blank=True)
     address1 = models.CharField(max_length=100)
     address2 = models.CharField(max_length=100,blank=True)

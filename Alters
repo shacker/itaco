@@ -1,6 +1,6 @@
 TODO
 
-Give teachers group perms to edit applications
+tags = models.CharField(blank=True, max_length=255,help_text="Comma-separated keywords. Not displayed on site, but helps your profile get found in Search.")
 
 
 

@@ -11,16 +11,7 @@ class ChargeForm(ModelForm):
         model = Charge
         exclude = ('units','type','date','charged_amount',)
         
-     
 
-
-# class MaintOblForm(ModelForm):
-#     family = forms.ModelChoiceField(queryset=Family.has_students.all())
-#     amount = forms.FloatField(help_text='')
-#
-#     class Meta:
-#         model = Obligation
-#         exclude = ('units','type','date','charged_amount',)
 
 class OblForm(ModelForm):
     family = forms.ModelChoiceField(queryset=Family.has_students.all())
@@ -70,6 +61,7 @@ class ProfileForm(ModelForm):
       exclude = ('family','user','board_pos','comm_job','list_extras')
       fields = (
                'about',
+               'tags',
                'avatar',
                'email',
                'email_2',

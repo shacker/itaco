@@ -319,6 +319,7 @@ def roster_search(request):
 
             found_profiles = Profile.objects.filter(
                 Q(about__icontains=query_string) |
+                Q(tags__icontains=query_string) |                
                 Q(user__first_name__icontains=query_string) |
                 Q(user__last_name__icontains=query_string)                 
             )

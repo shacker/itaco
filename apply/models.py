@@ -44,6 +44,8 @@ HEARD_ABOUT_CHOICES = (
     ('other','Other (please explain)'),
 )
 
+
+
 # To get radio buttons for a boolean field, per:
 # http://stackoverflow.com/questions/854683/django-booleanfield-as-radio-buttons
 BOOL_CHOICES = ((False, 'No'),(True, 'Yes'))
@@ -138,7 +140,7 @@ class Application(models.Model):
     fee_paid = models.BooleanField(default=False,help_text="Applications cannot be set to Accepted until fee is paid.")
     sent_offer_letter = models.BooleanField(default=False,help_text="System has already sent offer letter.")    
     sent_eval_letter = models.BooleanField(default=False,help_text="System has already sent evaluation letter.")        
-    eval_date = models.DateField(blank=True,null=True,help_text='Attended evaluation on this date.')
+    eval_date = models.DateTimeField('Eval date/time',blank=True,null=True,help_text='Attended / will attend evaluation on this date.')
     intake_complete = models.BooleanField(default=False,help_text="This field set automatically after Intake process is run, and is used to prevent duplicate intakes.")            
     
     def __unicode__(self):

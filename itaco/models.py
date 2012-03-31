@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import Group, User
 from django.contrib.localflavor.us.models import *
 import datetime, time

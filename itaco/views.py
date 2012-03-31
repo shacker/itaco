@@ -441,10 +441,10 @@ def batch_charges(request, *args, **kwargs):
                     charge.note = form['note']
                     charge.save()
 
-                    if type == 'hrdc':
+                    if charge.type == 'hrdc':
                         messages.success(request, "%s daycare hours added for %s" % (form['amount'], form['family']))
 
-                    if type == 'meal':
+                    if charge.type == 'meal':
                         messages.success(request, "%s meal dollars added for %s" % (form['amount'], form['family']))
 
         else:

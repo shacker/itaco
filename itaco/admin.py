@@ -53,6 +53,7 @@ class ChargeAdmin(admin.ModelAdmin):
     exclude = ('units',)    
     search_fields = ['family__famname',]
     list_filter = ('type',)
+    ordering = ['-date']
     
 class ListExtraAdmin(admin.ModelAdmin):
     ordering = ('list',)

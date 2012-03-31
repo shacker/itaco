@@ -44,12 +44,6 @@ STATIC_URL = "/static/"
 ATTACHMENTS_PATH = ''
 
 
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
-# ADMIN_MEDIA_PREFIX = '/admin_media/'
-
-
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'e4tal2awmr310ezp09df!=yy(klri$uh$&xg$#5m7jjxr(waz5'
 
@@ -162,6 +156,38 @@ PAYMENT_DUE_DATE_3 = 'June 1, 2012'
 
 # Directory where generated mailing list files will go - override in local_settings
 LISTGENPATH = ""
+
+
+# TinyMCE admin config
+# For admin use we call the config in media/js/tinymce_kdmc_setup.js.
+
+TINYMCE_ADMIN_CONFIG={
+  'theme': "advanced", 
+  'relative_urls': False, 
+  'remove_linebreaks': False, 
+  'convert_urls': True, 
+  # 'width':'800px',
+  # 'height':'300px',
+  'plugins': "advimage,advlink,fullscreen,paste,media,searchreplace,template,table,spellchecker",
+  'paste_auto_cleanup_on_paste' : True,
+    'theme_advanced_toolbar_location': "top",
+    'theme_advanced_toolbar_align': "left",
+    'theme_advanced_statusbar_location': "bottom",
+    'theme_advanced_buttons1': "|formatselect,styleselect,|,bold,italic,underline,|,bullist,numlist,blockquote,|,undo,redo,|,link,unlink,|,image,|search,|,pasteword,media,charmap,|,code,|,table,cleanup",
+    'theme_advanced_buttons2': "",
+    'theme_advanced_buttons3': "",
+    'theme_advanced_buttons1_add_before':'spellchecker',    
+    'theme_advanced_path': 'false',
+    'theme_advanced_blockformats': "p,h2,h3,h4,pre",
+    'theme_advanced_styles': "[all] clearfix=clearfix;[p] small=small;[img] Image left-aligned=img_left;[img] Image left-aligned (nospace)=img_left_nospacetop;[img] Image right-aligned=img_right;[img] Image right-aligned (nospace)=img_right_nospacetop;[img] Image Block=img_block;[img] Image Block (nospace)=img_block_nospacetop;[div] column span-2=column span-2;[div] column span-4=column span-4;[div] column span-8=column span-8",
+    'theme_advanced_resizing ': 'true',
+    'theme_advanced_resize_horizontal ': 'false',
+    'theme_advanced_resizing_use_cookie ': 'true',
+    'theme_advanced_styles': "Image left-aligned=alignleft;Image right-aligned=alignright;Image w/border=image-border",
+    'advlink_styles': "intern=internal;extern=external",
+  'content_css' : "/static/css/tiny_editor.css",
+  'file_browser_callback': "CustomFileBrowser", 
+}
 
 
 #####################################################################

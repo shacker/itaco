@@ -93,12 +93,13 @@ admin.site.register(BillingPeriod,BillingPeriodAdmin)
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOld
 
-class FlatPageAdmin(FlatPageAdminOld):
+class FlatPageAdmin(admin.ModelAdmin):
     class Media:
         js = (
                 'js/tiny_mce/tiny_mce.js',
                 'js/textareas.js',
             )
+
 
 # We have to unregister it, and then reregister
 admin.site.unregister(FlatPage)

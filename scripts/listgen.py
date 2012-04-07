@@ -9,7 +9,7 @@ listgen.sh will call this script and do the subsequent mailman subscription magi
 
 import os, sys, site
 
-site.addsitedir('/home/crest/sites/crest/lib/python2.5/site-packages')
+site.addsitedir('/home/crest/sites/crest/lib/python2.7/site-packages')
 
 # Toggle/comment these depending on whether you're testing in dev or running in production.
 sys.path.append('/home/crest/sites/crest')

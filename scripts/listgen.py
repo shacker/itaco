@@ -19,7 +19,7 @@ sys.path.append('/home/crest/sites/crest/crest')
 
 
 
-os.environ['DJANGO_SETTINGS_MODULE'] ='ourcrestmont.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] ='crest.settings'
 
 from django.core.management import setup_environ
 from ourcrestmont import settings

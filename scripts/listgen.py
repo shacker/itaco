@@ -22,16 +22,16 @@ sys.path.append('/home/crest/sites/crest/crest')
 os.environ['DJANGO_SETTINGS_MODULE'] ='crest.settings'
 
 from django.core.management import setup_environ
-from ourcrestmont import settings
+from crest import settings
 setup_environ(settings)
 
 # Folder to store output lists before adding to Mailman
-filepath = os.path.join(os.path.basename(__file__), 'scripts','listgen')
-
+# filepath = os.path.join(os.path.basename(__file__), 'scripts','listgen')
+filepath = os.path.join(os.path.dirname(__file__))
 
 #################### Import models from Django project and custom vars
 
-from ourcrestmont.itaco.models import *
+from crest.itaco.models import *
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
 
@@ -175,7 +175,8 @@ for group in groupset :
 
     # Handle the pre-iTaco alumni who don't have User objects in the system - stored in a permanent text file
     if group.list == 'alumni':
-        alumpath = os.path.join(sys.path[0],'listgen-alumni.txt')
+        # alumpath = os.path.join(sys.path[0],'listgen-alumni.txt')
+        alumpath = os.path.join(filepath,'listgen-alumni.txt')
         extra += open(alumpath, 'r').read()
         
 

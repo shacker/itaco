@@ -212,6 +212,7 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
         date__lte=obl_period_end,
         ).order_by('-date',)
 
+
     ch = Charge.objects.filter(
         family=fam_id,
         date__gte=period_start,
@@ -276,17 +277,13 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
 
     """
     Completed obligations per obligation type
-    Using Django's Aggregate functions in v1.1
-    http://docs.djangoproject.com/en/dev/topics/db/aggregation/
-    Aggregate returns a dictionary - we retrieve the dictionary value we need,
-    which is always amount__sum.
     """
-    obl_member_meetings_complete = o.filter(type='mbsmtg').aggregate(Sum('amount'))['amount__sum']
-    obl_maint_hours_complete = o.filter(type='maint').aggregate(Sum('amount'))['amount__sum']
-    obl_fundraising_hours_complete = o.filter(type='fundrais').aggregate(Sum('amount'))['amount__sum']
-    obl_field_trips_complete = o.filter(type='fldtrp').aggregate(Sum('amount'))['amount__sum']
-    obl_housekeeping_complete = o.filter(type='housekpg').aggregate(Sum('amount'))['amount__sum']
-    obl_coop_jobs_complete = o.filter(type='cmt_coop').aggregate(Sum('amount'))['amount__sum']
+    obl_member_meetings_complete = o.filter(type='mbsmtg').count()
+    obl_maint_hours_complete = o.filter(type='maint').count()
+    obl_fundraising_hours_complete = o.filter(type='fundrais').count()
+    obl_field_trips_complete = o.filter(type='fldtrp').count()
+    obl_housekeeping_complete = o.filter(type='housekpg').count()
+    obl_coop_jobs_complete = o.filter(type='cmt_coop').count()
 
     # Annual obligation depends on number of kids in family, which we have via s.count()
     num_kids = s.count()

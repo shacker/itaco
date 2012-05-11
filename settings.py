@@ -100,6 +100,7 @@ INSTALLED_APPS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "itaco.context_processors.family_id", # Custom processor to get current user's family ID into every page.
+    "itaco.context_processors.cur_year", # Custom processor to get current user's family ID into every page.    
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
     "django.core.context_processors.static",

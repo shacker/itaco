@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group, User
-from itaco.models import Profile, Family
+from itaco.models import Profile, Family, SchoolYear
 
 
 def family_id(request):
@@ -16,5 +16,13 @@ def family_id(request):
         
     return {
         'myfam_id': myfam_id,
+    }
+
+def cur_year(request):
+    '''
+    Discover current school year 
+    '''
+    return {
+        'cur_year': SchoolYear.objects.get(current=True),
     }
 

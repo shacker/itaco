@@ -95,7 +95,7 @@
 		<li><a href="#">SUPERUSERS ONLY: &crarr;</a></li>
         <li><a href="{% url batch_board_credit %}" title="Batch-Add Board Credits">Batch Board Credits</a></li>
         <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>
-		<li><a href="{% url obligation_summary 4 %}">Obligations summary</a></li> {# Change default year ID once per year #}
+		<li><a href="{% url obligation_summary cur_year.id %}">Obligations summary</a></li> {# Get current school year from context processor #}
         <li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li>		
 		<li><a href="/admin/" title="Admin">Admin</a></li>
         {% endif %}

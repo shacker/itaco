@@ -414,13 +414,14 @@ class Charge(models.Model):
                 self.units = 'hours'
                 self.charged_amount = round(self.amount * settings.DAYCARE_REGULAR_HOURLY * self.family.fa_factor, 2)
 
-            if self.type == 'dihvdc': # Drop-in hourly vacation daycare
-                self.units = 'hours'
-                self.charged_amount = round(self.amount * settings.DAYCARE_VACATION_DROPIN * self.family.fa_factor, 2)
+            # This charge type eliminated May 2012 per Jenifer MacGillivray
+            # if self.type == 'dihvdc': # Drop-in hourly vacation daycare
+            #     self.units = 'hours'
+            #     self.charged_amount = round(self.amount * settings.DAYCARE_VACATION_DROPIN * self.family.fa_factor, 2)
 
-            if self.type == 'pavdc': # Pre-arranged vacation daycare
+            if self.type == 'pavdc': # Vacation daycare (no longer called "pre-arranged")
                 self.units = 'hours'
-                self.charged_amount = round(self.amount * settings.DAYCARE_VACATION_PREARRANGE * self.family.fa_factor, 2)
+                self.charged_amount = round(self.amount * settings.DAYCARE_VACATION * self.family.fa_factor, 2)
 
             if self.type == 'edc1': # Event daycare flat fee - 1 child
                 self.units = 'dollars'

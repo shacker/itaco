@@ -42,7 +42,7 @@
       <ul>
         <li><a href="{% url roster_parents_list %}" title="Search">All Rosters</a></li>
         <li><a href="{% url roster_search %}" title="Search">Search Rosters</a></li>
-      </ul>	
+      </ul>
   </li>
   <li><a href="/contact/" title="Tuition/Contact">Tuition/Contact</a></li>
   <li><a href="#" title="Documents">Documents</a>
@@ -51,6 +51,7 @@
           <li><a href="/docs/participation/" title="Participation Documents">Participation Documents</a></li>
           <li><a href="/docs/membership/" title="Membership Documents">Membership Documents</a></li>
           <li><a href="http://crestmontschool.org/admissions/" title="Board Documents">Financial Aid and Admissions Documents</a></li>
+
 
           <li><a href="/docs/health-safety/" title="Health and Safety">Health and Safety</a></li>
           <li><a href="/docs/housekeeping/" title="Housekeeping">Housekeeping</a></li>
@@ -89,7 +90,7 @@
 		{# teachers submenu #}
 		{% if perms.apply and not user.is_superuser %}
 		<li><a href="#">SUPERUSERS ONLY: &crarr;</a></li>
-        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>			
+        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>	
 		{% endif %}
 
         {% if user.is_superuser %}

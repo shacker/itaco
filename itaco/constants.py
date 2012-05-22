@@ -44,7 +44,6 @@ READER_TYPE_CHOICES = (
 
 CHARGE_TYPE_CHOICES = (
     ('hrdc','Hourly Regular Daycare'),
-    ('dihvdc','Drop-in Hourly Vacation Daycare'),
     ('meal','Meal Expense'),        
     ('pavdc','Pre-Arranged Vac. Daycare'),
     ('edc1','Event Daycare Flat Fee - 1 Child'),

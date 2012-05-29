@@ -279,8 +279,16 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
     Completed obligations per obligation type
     """
     obl_member_meetings_complete = o.filter(type='mbsmtg').count()
-    obl_maint_hours_complete = o.filter(type='maint').count()
-    obl_fundraising_hours_complete = o.filter(type='fundrais').count()
+
+    # This needs to be a sum, not a count - we need total number of hours, not the number of records!
+    # Sum() returns a dictionary, so need to access that element of the dictionary.
+    # obl_maint_hours_complete = o.filter(type='maint').count()
+    obl_maint_hours_complete = o.filter(type='maint').aggregate(Sum('amount'))['amount__sum']
+
+    # Same caveat with fundraising hours
+    # obl_fundraising_hours_complete = o.filter(type='fundrais').count()
+    obl_fundraising_hours_complete = o.filter(type='fundrais').aggregate(Sum('amount'))['amount__sum']
+
     obl_field_trips_complete = o.filter(type='fldtrp').count()
     obl_housekeeping_complete = o.filter(type='housekpg').count()
     obl_coop_jobs_complete = o.filter(type='cmt_coop').count()
@@ -883,10 +891,9 @@ def obligation_summary(request,year=None):
         # Calculate all remaining obligations
         field_trips_completed = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='fldtrp').count()
         meetings_attended = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='mbsmtg').count()
-        maint_hours = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='maint').count()
-        housekeep_hours = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='housekpg').count()
-        fundraising_hours = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='fundrais').count()
-
+        maint_hours = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='maint').aggregate(Sum('amount'))['amount__sum']
+        housekeep_hours = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='housekpg').aggregate(Sum('amount'))['amount__sum']
+        fundraising_hours = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='fundrais').aggregate(Sum('amount'))['amount__sum']
 
         fam_oblist.append({
             'fam':f,

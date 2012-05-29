@@ -1,14 +1,10 @@
-<h3>Summary for  
-
+<h3>Summary for
 {% if period_period %}
    billing period {{ period.start|date:"M dS Y" }} - {{ period.end|date:"M dS Y" }}
 {% else %}
     {{ period_string }}
 {% endif %}
-
 </h3>
-
-
 
 
 <p><strong>Legend:</strong><br />
@@ -25,17 +21,17 @@
     {% for charge in charges %}
     <tr class="{% cycle 'row1' 'row2' %}">
         <td>{{ charge.date }}</td>
-        <td>{{ charge.get_type_display }}{% if charge.note %} <a href="#" class="tooltip" title="{{ charge.note }}">&#x2318;</a>{% endif %}</td> 
-        <td align="right">{% ifnotequal charge.amount 1 %}{{ charge.amount|floatformat:2 }}{% endifnotequal %}</td> 
-        <td align="right">${{ charge.charged_amount|floatformat:2 }}</td>         
+        <td>{{ charge.get_type_display }}{% if charge.note %} <a href="#" class="tooltip" title="{{ charge.note }}">&#x2318;</a>{% endif %}</td>
+        <td align="right">{% ifnotequal charge.amount 1 %}{{ charge.amount|floatformat:2 }}{% endifnotequal %}</td>
+        <td align="right">${{ charge.charged_amount|floatformat:2 }}</td>
     </tr>
-    {% endfor %}  
+    {% endfor %}
 
     <tr class="row3">
-        <td><strong>Total  charges:</strong></td> 
-        <td>&nbsp;</td> 
+        <td><strong>Total  charges:</strong></td>
+        <td>&nbsp;</td>
         <td align="right"><strong>{{ total_charge_hours|floatformat:2 }}</strong></td>
-        <td align="right"><strong>${{ total_charge_dollars|floatformat:2 }}</strong></td>        
+        <td align="right"><strong>${{ total_charge_dollars|floatformat:2 }}</strong></td>
     </tr>
 
 </table>
@@ -43,8 +39,6 @@
 
 
 
-
- 
 {% ifnotequal total_credits 0 %}
 <h3>Credits</h3>
 <table>
@@ -52,12 +46,12 @@
 
     {% for credit in credits %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td>{{ credit.date }}</td> <td>{{ credit.get_type_display }}{% if credit.note %} <a href="#" class="tooltip" title="{{ credit.note }}">&#x2318;</a>{% endif %} </td> 
-        <td  align="right">{{ credit.amount|floatformat:2 }}</td> 
-        <td  align="right">{{ credit.charged_amount|floatformat:2 }}</td> 
+        <td>{{ credit.date }}</td> <td>{{ credit.get_type_display }}{% if credit.note %} <a href="#" class="tooltip" title="{{ credit.note }}">&#x2318;</a>{% endif %} </td>
+        <td  align="right">{{ credit.amount|floatformat:2 }}</td>
+        <td  align="right">{{ credit.charged_amount|floatformat:2 }}</td>
     </tr>
-    {% endfor %}  
-    
+    {% endfor %}
+
    <tr class="row3"><td colspan="3"><strong>Total credits:</strong></td>  <td align="right"><strong>{{ total_credits|floatformat:2 }}</strong></td></tr>
 </table>
 {% endifnotequal %}
@@ -66,7 +60,7 @@
 {% ifnotequal board_credit 0 %}
     <h3>Board Position Credits</h3>
     <p>The following credits will be applied at the end of the current billing cycle:</p>
-    
+
     <p>
         {{ board_string|safe }}
         Total credit for board positions (to be applied at end of month): <strong>${{ board_credit }}</strong>.
@@ -81,9 +75,9 @@
 
     {% for obligation in obl_hr_list %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td>{{ obligation.date }}</td> <td>{% if obligation.note %} <a href="#" class="tooltip" title="{{ obligation.note }}">&#x2318;</a>{% endif %} {{ obligation.get_type_display }}</td> <td align="right">{{ obligation.amount|floatformat:2 }}</td> 
+        <td>{{ obligation.date }}</td> <td>{% if obligation.note %} <a href="#" class="tooltip" title="{{ obligation.note }}">&#x2318;</a>{% endif %} {{ obligation.get_type_display }}</td> <td align="right">{{ obligation.amount|floatformat:2 }}</td>
     </tr>
-    {% endfor %}  
+    {% endfor %}
 
     <tr class="row3"><td><strong>Total obligation hours:</strong></td> <td>&nbsp;</td> <td align="right"><strong>{{ total_obligation_hours|floatformat:2 }}</strong></td></tr>
 </table>
@@ -97,9 +91,9 @@
 
     {% for obligation in obl_dl_list %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td>{{ obligation.date }}</td> <td>{% if obligation.note %} <a href="#" class="tooltip" title="{{ obligation.note }}">&#x2318;</a>{% endif %} {{ obligation.get_type_display }}</td> <td align="right">{{ obligation.amount|floatformat:2 }}</td> 
+        <td>{{ obligation.date }}</td> <td>{% if obligation.note %} <a href="#" class="tooltip" title="{{ obligation.note }}">&#x2318;</a>{% endif %} {{ obligation.get_type_display }}</td> <td align="right">{{ obligation.amount|floatformat:2 }}</td>
     </tr>
-    {% endfor %}  
+    {% endfor %}
 
     <tr class="row3"><td><strong>Total obligation dollars:</strong></td><td>&nbsp;</td> <td align="right"><strong>{{ total_obligation_dollars|floatformat:2 }}</strong></td></tr>
 </table>
@@ -113,10 +107,10 @@
 
     {% for obligation in obl_ut_list %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td>{{ obligation.date }}</td> <td>{% if obligation.note %} <a href="#" class="tooltip" title="{{ obligation.note }}">&#x2318;</a>{% endif %} {{ obligation.get_type_display }}</td> <td align="right">{{ obligation.amount|floatformat:2 }}</td> 
+        <td>{{ obligation.date }}</td> <td>{% if obligation.note %} <a href="#" class="tooltip" title="{{ obligation.note }}">&#x2318;</a>{% endif %} {{ obligation.get_type_display }}</td> <td align="right">{{ obligation.amount|floatformat:2 }}</td>
     </tr>
-    {% endfor %}  
+    {% endfor %}
 
-    <tr class="row3"><td><strong>Total obligation units:</strong></td> <td>&nbsp;</td> <td align="right"><strong>{{ total_obligation_units|floatformat:2 }}</strong></td></tr>   
+    <tr class="row3"><td><strong>Total obligation units:</strong></td> <td>&nbsp;</td> <td align="right"><strong>{{ total_obligation_units|floatformat:2 }}</strong></td></tr>
 </table>
-{% endifnotequal %}  
+{% endifnotequal %}

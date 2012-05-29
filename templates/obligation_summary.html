@@ -58,19 +58,21 @@
 		
 		<td>
 			<span class="{% if f.maint_hours < obl_maint_hours %}under{% else %}over{% endif %}">
-			{{f.maint_hours}}/{{obl_maint_hours}}
+			{% if f.maint_hours %}{{f.maint_hours|floatformat}}{% else %}0{% endif %}/{{obl_maint_hours}}
+
 			</span>
 		</td>
 		
 		<td>
 			<span class="{% if f.housekeep_hours < obl_housekeeping %}under{% else %}over{% endif %}">
-			{{f.housekeep_hours}}/{{obl_housekeeping}}
+			{% if f.housekeep_hours %}{{f.housekeep_hours|floatformat}}{% else %}0{% endif %}/{{obl_housekeeping}}
 			</span>
 		</td>
 		
 		<td>
 			<span class="{% if f.fundraising_hours < obl_fundraising_hours %}under{% else %}over{% endif %}">
-			{{f.fundraising_hours}}/{{obl_fundraising_hours}}
+			{% if f.fundraising_hours %}{{f.fundraising_hours|floatformat}}{% else %}0{% endif %}/{{obl_fundraising_hours}}
+			
 			</span>
 		</td>								
 		

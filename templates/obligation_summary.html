@@ -46,13 +46,13 @@
 
 		<td>
 			<span class="{% if f.field_trips_completed < obl_field_trips %}under{% else %}over{% endif %}">
-			{{f.field_trips_completed}}/{{obl_field_trips}}
+			{% if f.field_trips_completed %}{{f.field_trips_completed|floatformat}}{% else %}0{% endif %}/{{obl_field_trips}}
 			</span>
 		</td>
 		
 		<td>
 			<span class="{% if f.meetings_attended < obl_member_meetings %}under{% else %}over{% endif %}">
-			{{f.meetings_attended}}/{{obl_member_meetings}}
+			{% if f.meetings_attended %}{{f.meetings_attended|floatformat}}{% else %}0{% endif %}/{{obl_member_meetings}}
 			</span>
 		</td>
 		

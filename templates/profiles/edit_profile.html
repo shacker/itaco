@@ -10,6 +10,12 @@
 {# Reusable avatar code #}
 {% include 'profiles/avatar.html' %}
 
+{% if form.errors %}
+<ul class="errorlist">
+	<li>There was a problem submitting your edited profile. Please see the messages in red below.</li>
+</ul>
+{% endif %}
+
 <form enctype="multipart/form-data" method="post" action="" class="profile">	
 	{% csrf_token %}
 

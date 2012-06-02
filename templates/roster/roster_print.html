@@ -7,7 +7,7 @@
 
 	<title>Crestmont Roster {{ cur_year }}</title>
 
-    
+
 	<style type="text/css" media="all">
 
     body {
@@ -18,11 +18,11 @@
     h1 {
         font-size: 16px;
     }
-    
+
     h2 {
         margin-top:0px;
-        margin-bottom:0px;    
-        font-size:14px;    
+        margin-bottom:0px;
+        font-size:14px;
     }
 
 
@@ -32,35 +32,35 @@
     }
 
 	table.innertable {
-		width:400px;
+		width:500px;
 	}
 	table.innertable tr td {
 		border:none;
-		width:30%;
+		min-width:180px;
 
 	}
 
     td {
 /*        width:50%;*/
         border:1px solid #C7C7C7;
-        border-collapse: collapse;        
+        border-collapse: collapse;
 
     }
 
     td.withborder {
 /*        border-top: 1px solid #919191;*/
         padding-top:0px;
-        padding-bottom:0px;        
+        padding-bottom:0px;
     }
-    
+
     td.col3 {
         width:33%;
     }
-    
+
 	tr.even {
 		background-color:#F4F4F4;
 	}
-	
+
 	.famtable tr td {
 		width:50%;
 	}
@@ -69,7 +69,7 @@
 		width:33%;
 	}
 
-    
+
     .shade, th {
         background-color:#E4E4E4;
         text-align:left;
@@ -84,7 +84,7 @@
 	#container {
 		width:900px;
 	}
-	
+
 	.famdiv {
 		border:1px solid gray;
 		width:370px;
@@ -92,7 +92,7 @@
 		margin-right:50px;
 		margin-bottom:15px;
 	}
-	
+
 	.famtitle {
 		background-color:#D3D3D3;
 		margin:0px;
@@ -100,14 +100,14 @@
 		font-weight:bold;
 		font-size:1.1em;
 	}
-	
+
 	.leftpad {
 		padding-left:10px;
 	}
-	
+
 
 	</style>
-	
+
 </head>
 
 <body>
@@ -123,21 +123,22 @@
 {# Begin staff roster #}
 
 <table border="1" cellspacing="3" cellpadding="3" class="stafftable">
-    <tr class="shade"><td colspan="3"><h2>Teachers</h2></td></tr>
+    <tr class="shade"><td colspan="4"><h2>Teachers</h2></td></tr>
     {% for staffer in roster_teach.roster  %}
     <tr class="{% cycle 'odd' 'even' %}">
         <td><strong>{{ staffer.title }}</strong></td>
-        <td><strong>{{ staffer.user.first_name }} {{ staffer.user.last_name }}</strong></td>   
+        <td><strong>{{ staffer.user.first_name }} {{ staffer.user.last_name }}</strong></td>
         <td><strong>
 		{% if staffer.phone_mobile %}
 			{{ staffer.phone_mobile }}
 		{% else %}
-			{{ staffer.phone_home }}		
+			{{ staffer.phone_home }}
 		{% endif %}
-		</strong></td>        
+		</strong></td>
+    <td>{{staffer.user.email}}</td>
     </tr>
     {% endfor %}
-     
+
 </table>
 
 <br />
@@ -146,15 +147,16 @@
 
 <table border="1" cellspacing="3" cellpadding="3" class="stafftable">
 
-    <tr  class="shade"><td colspan="3"><h2>Aides</h2></td></tr>
+    <tr  class="shade"><td colspan="4"><h2>Aides</h2></td></tr>
     {% for staffer in roster_teach.aides  %}
     <tr class="{% cycle 'odd' 'even' %}">
         <td><strong>{{ staffer.title }}</strong></td>
-        <td><strong>{{ staffer.user.first_name }} {{ staffer.user.last_name }}</strong></td>        
+        <td><strong>{{ staffer.user.first_name }} {{ staffer.user.last_name }}</strong></td>
         <td><strong>{{ staffer.phone_home }}</strong></td>
+        <td>{{staffer.user.email}}</td>
     </tr>
-    {% endfor %}    
-    
+    {% endfor %}
+
 </table>
 
 {# End staff roster #}
@@ -168,7 +170,7 @@
 {# Begin board roster #}
 
 <table border="1" cellspacing="5" cellpadding="5">
-    <tr class="shade"><td colspan="2"><h2>Board of Directors</h2></td></tr>
+    <tr class="shade"><td colspan="3"><h2>Board of Directors</h2></td></tr>
     {% for b in roster_brd.roster  %}
     <tr class="{% cycle 'odd' 'even' %}">
         <td valign="top"><strong>{{ b.title }}</strong></td>
@@ -177,34 +179,35 @@
 
             {% for parent in b.profile_set.all %}
                 {% if parent.user.is_active %}
-				<tr>
-                    <td><strong>{{ parent.user.first_name }} {{ parent.user.last_name }}</strong></td> 
-					<td><strong>
-						{% if parent.phone_mobile %}
-							{{ parent.phone_mobile }}
-						{% else %}
-							{{ parent.phone_home }}		
-						{% endif %}
-					</strong></td>
-				</tr>
+          				<tr>
+                    <td><strong>{{ parent.user.first_name }} {{ parent.user.last_name }}</strong></td>
+          					<td><strong>
+          						{% if parent.phone_mobile %}
+          							{{ parent.phone_mobile }}
+          						{% else %}
+          							{{ parent.phone_home }}
+          						{% endif %}
+          					</strong></td>
+                    <td>{{parent.user.email}}</td>
+          				</tr>
                 {% endif %}
             {% empty %}
                 Not assigned
-            {% endfor %}            
+            {% endfor %}
 			</table>
-        </td>        
+        </td>
     </tr>
     {% endfor %}
- 
+
     <tr>
         <td valign="top"><strong>Bookkeeper</strong></td>
         <td><strong>
             Richard Snow <br />
             862 Sir Francis Drake #135 <br />
             San Anselmo, CA 94960
-        </strong></td>        
+        </strong></td>
     </tr>
-    
+
 </table>
 
 {# End board roster #}
@@ -236,42 +239,42 @@
             {{ s.first_name }} {{ s.last_name }}<br />
           {% endfor %}
       </td>
-            
+
       <td valign="top" class="col3">
           <strong>2nd Grade</strong><br />
           {% for s in roster_2.roster  %}
             {{ s.first_name }} {{ s.last_name }}<br />
           {% endfor %}
-      </td> 
-      
-         
+      </td>
+
+
     </tr>
-    
-    
+
+
     <tr>
 
-      
+
       <td valign="top" class="col3">
           <strong>3rd Grade</strong><br />
           {% for s in roster_3.roster  %}
             {{ s.first_name }} {{ s.last_name }}<br />
           {% endfor %}
-      </td> 
-      
+      </td>
+
       <td valign="top" class="col3">
           <strong>4th Grade</strong><br />
           {% for s in roster_4.roster  %}
             {{ s.first_name }} {{ s.last_name }}<br />
           {% endfor %}
       </td>
-            
+
       <td valign="top" class="col3">
           <strong>5th Grade</strong><br />
           {% for s in roster_5.roster  %}
             {{ s.first_name }} {{ s.last_name }}<br />
           {% endfor %}
-      </td>           
-    </tr>    
+      </td>
+    </tr>
 
 </table>
 
@@ -291,11 +294,11 @@
 <div id="container">
 {% for fam in roster_fam.roster %}
 
-		<div class="famdiv">		
+		<div class="famdiv">
 		<div class="famtitle">{{fam}}</div>
-		
+
 		{% for parent in fam.profile_set.all %}
-			
+
          <p class="leftpad">
              <strong>{{ parent.user.first_name }} {{ parent.user.last_name }}<br />
              {% for pos in parent.board_pos.all %}
@@ -305,15 +308,15 @@
 
              {% if parent.user.email %}
              {{ parent.user.email }}<br />
-             {% endif %}  
+             {% endif %}
 
              {% if parent.email_2 %}
              {{ parent.email_2 }} (alt.)<br />
-             {% endif %}      
+             {% endif %}
 
              {% if parent.phone_home %}
              Home: {{ parent.phone_home }}<br />
-             {% endif %} 
+             {% endif %}
 
              {% if parent.phone_work %}
              Work: {{ parent.phone_work }}<br />
@@ -321,11 +324,11 @@
 
              {% if parent.phone_mobile %}
              Mobile: {{ parent.phone_mobile }}<br />
-             {% endif %} 
+             {% endif %}
 
              {% if parent.phone_fax %}
              Fax: {{ parent.phone_fax }}<br />
-             {% endif %}   
+             {% endif %}
 
 			{# To avoid duplication of street addresses for most families, just print street address once. #}
 			{# UNLESS the multiple_residence checkbox is enabled for the family #}
@@ -348,18 +351,18 @@
 
 	            {% if parent.zip %}
 	            {{ parent.zip }}<br />
-	            {% endif %}					
+	            {% endif %}
 			{% endif %}
 
          </p>
 
 			{# To avoid duplication of street addresses for most families, just print street address once. #}
 			{# UNLESS the multiple_residence checkbox is enabled for the family #}
-			{% if not fam.multiple_residence %}			           
+			{% if not fam.multiple_residence %}
 	           {% if forloop.last %}
 	            <p class="leftpad">
 	            <strong>Street Address</strong><br />
-          
+
 	            {% if parent.address1 %}
 	            {{ parent.address1 }}<br />
 	            {% endif %}
@@ -396,21 +399,21 @@
              {% endif %}
              {% if student.email %}
              {{ student.email }}<br />
-             {% endif %}  
+             {% endif %}
          </p>
          {% endfor %}
 		</div>
 
 		{# Show families two-up #}
-		{% if forloop.counter|divisibleby:2  %} 
+		{% if forloop.counter|divisibleby:2  %}
 			<div style="clear:both;"></div>
 		{% endif %}
 
 		{# We can safely fit 6 divs onto a page #}
-		{% if forloop.counter|divisibleby:6  %} 
+		{% if forloop.counter|divisibleby:6  %}
 			<div style="page-break-after:always"></div>
 		{% endif %}
-		
+
 
 
 

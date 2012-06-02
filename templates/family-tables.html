@@ -21,7 +21,7 @@
     {% for charge in charges %}
     <tr class="{% cycle 'row1' 'row2' %}">
         <td>{{ charge.date }}</td>
-        <td>{{ charge.get_type_display }}{% if charge.note %} <a href="#" class="tooltip" title="{{ charge.note }}">&#x2318;</a>{% endif %}</td>
+        <td>{{ charge.get_type_display }}{% if charge.note %} <a href="#" class="normalTip" title="{{ charge.note }}">&#x2318;</a>{% endif %}</td>
         <td align="right">{% ifnotequal charge.amount 1 %}{{ charge.amount|floatformat:2 }}{% endifnotequal %}</td>
         <td align="right">${{ charge.charged_amount|floatformat:2 }}</td>
     </tr>

@@ -5,16 +5,18 @@
 
 <title>Our Crestmont - {% block title %}{% endblock title%}</title>
 
-<meta name="generator" content="Django"> 
+<meta name="generator" content="Django">
 
 <link rel="stylesheet" href="{{STATIC_URL}}css/style.css?rev=3" type="text/css" media="screen">
 <link rel="stylesheet" href="{{STATIC_URL}}css/nav.css" type="text/css" media="screen">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/buttons.css" media="screen, projection" type="text/css" />	
+<link rel="stylesheet" href="{{ STATIC_URL }}css/buttons.css" media="screen, projection" type="text/css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/atooltip.css" media="screen, projection" type="text/css" />
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/tooltip/jquery.atooltip.min.js"></script>
+
 <script type="text/javascript" src="{{STATIC_URL}}js/dropdowns.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/selectobject.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/tooltip.js"></script>
 
 {% block extrahead %}{% endblock %}
 
@@ -90,7 +92,7 @@
 		{# teachers submenu #}
 		{% if perms.apply and not user.is_superuser %}
 		<li><a href="#">SUPERUSERS ONLY: &crarr;</a></li>
-        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>	
+        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>
 		{% endif %}
 
         {% if user.is_superuser %}
@@ -98,7 +100,7 @@
         <li><a href="{% url batch_board_credit %}" title="Batch-Add Board Credits">Batch Board Credits</a></li>
         <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>
 		<li><a href="{% url obligation_summary cur_year.id %}">Obligations summary</a></li> {# Get current school year from context processor #}
-        <li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li>		
+        <li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li>
 		<li><a href="/admin/" title="Admin">Admin</a></li>
         {% endif %}
 
@@ -134,10 +136,15 @@
 </div>
 
 
-<div id="footer">
-  &copy; {% now "Y" %} <span class="url fn org">Crestmont School</span> &nbsp; &bull;  &nbsp; Powered by <a href="http://djangoproject.org/" target="_blank">Django</a> &nbsp; &bull;  &nbsp; Logged in as: {{ user }}
-</div>
+    <div id="footer">
+      &copy; {% now "Y" %} <span class="url fn org">Crestmont School</span> &nbsp; &bull;  &nbsp; Powered by <a href="http://djangoproject.org/" target="_blank">Django</a> &nbsp; &bull;  &nbsp; Logged in as: {{ user }}
+    </div>
 
-
+    <script type="text/javascript">
+    // Use tooltips anywhere by adding class="normalTip" to an anchor
+      $(function(){
+        $('a.normalTip').aToolTip();
+      });
+    </script>
 </body>
 </html>

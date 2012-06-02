@@ -608,7 +608,7 @@ td select {
   background:#f7f5d1;
   padding:2px 5px;
   color:#333;
-  display:none;
+  /*display:none;*/
   }
 
 form.profile input, form.profile textarea {

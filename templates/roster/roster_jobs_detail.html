@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+{% include "roster/roster_subnav.html" %}
+
+<h3>{{ job }}</h3>
+
+<p><strong>Currently held by:</strong> 
+{% for p in job.profile_set.all  %}
+    <a href="{% url profiles_profile_detail p.user.username %}">{{p}}</a>{% if not forloop.last %};{% endif %}
+{% endfor %}
+</p>
+
+<p><strong>Reports to:</strong> {{job.reports_to}} </p>
+
+{% if job.description %}
+    {{job.description|linebreaks}}
+
+{% else %}
+    <p>Description not yet available</p>
+{% endif %}
+
+{% endblock content %}
+

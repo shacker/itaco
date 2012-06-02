@@ -81,6 +81,7 @@ class BoardPosition(models.Model):
 
 class CommitteeJob(models.Model):
     title = models.CharField(max_length=64)
+    description = models.TextField()
     reports_to = models.ForeignKey(BoardPosition)
 
     class Meta:

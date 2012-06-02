@@ -258,6 +258,25 @@ def roster_jobs(request,printable=False):
             context_instance = RequestContext(request),
     )   
 
+def roster_jobs_detail(request,jobid=None):
+    '''
+    Detailed description of a family job
+    '''
+    job = get_object_or_404(CommitteeJob,id=jobid)
+
+    return render_to_response('roster/roster_jobs_detail.html', locals(),
+        context_instance = RequestContext(request),
+    )   
+
+def roster_jobs_all(request):
+    '''
+    Complete list of family jobs, whether they're currently occupied or not
+    '''
+    jobs = CommitteeJob.objects.all()
+
+    return render_to_response('roster/roster_jobs_all.html', locals(),
+        context_instance = RequestContext(request),
+    )  
 
 
 def roster_print(request):

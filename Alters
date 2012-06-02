@@ -1,16 +1,19 @@
 TODO
 
-ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `eval_date` `eval_date` DATETIME NULL DEFAULT NULL  COMMENT ''  AFTER `sent_eval_letter`;
+ALTER TABLE `crest_ourdjang`.`itaco_committeejob` ADD COLUMN `description` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL  AFTER `title`;
 
-
-
-tags = models.CharField(blank=True, max_length=255,help_text="Comma-separated keywords. Not displayed on site, but helps your profile get found in Search.")
 
 
 
 
 =============================
 IN PRODUCTION
+
+ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `eval_date` `eval_date` DATETIME NULL DEFAULT NULL  COMMENT ''  AFTER `sent_eval_letter`;
+
+
+
+tags = models.CharField(blank=True, max_length=255,help_text="Comma-separated keywords. Not displayed on site, but helps your profile get found in Search.")
 
 
 ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `teacher_rec_form` `teacher_rec_form` VARCHAR(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  COMMENT ''  AFTER `avatar`;

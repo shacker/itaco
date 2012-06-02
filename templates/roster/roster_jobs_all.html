@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+{% include "roster/roster_subnav.html" %}
+
+<h3>Complete list of family jobs</h3>
+
+<p>The <a href="{% url roster_jobs %}">Committe Jobs roster</a> only lists currently held positions. <br />
+    This page lists all jobs in the system, whether they're currently occupied or not.</p>
+
+<ul>
+{% for job in jobs %}
+    <li><a href="{% url roster_jobs_detail job.id %}">{{job}}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock content %}
+

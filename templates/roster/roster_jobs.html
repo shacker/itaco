@@ -20,7 +20,7 @@ See the <a href="{% url roster_board %}">Board Roster</a> to see who currently o
     
 {% for pos in roster %}   
     <tr class="{% cycle 'row1' 'row2' %}">
-    <td><strong>{{ pos }}</strong></td>
+    <td><strong><a href="{% url roster_jobs_detail pos.id %}">{{ pos }}</a></strong></td>
   
     <td>
     {% for parent in pos.profile_set.all %}
@@ -38,5 +38,7 @@ See the <a href="{% url roster_board %}">Board Roster</a> to see who currently o
 {% endfor %}
 </table>
 
+<p>This table only shows currently occupied jobs. See also the <a href="{% url roster_jobs_all %}">Complete Jobs Listing</a>.
+</p>
 {% endblock content %}
 

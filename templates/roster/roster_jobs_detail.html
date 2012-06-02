@@ -23,5 +23,9 @@
     <p>Description not yet available</p>
 {% endif %}
 
+{% if request.user.is_superuser %}
+	You have permission to <a href="{% url admin:itaco_committeejob_change job.id %}">edit this description</a>.
+{% endif %}
+
 {% endblock content %}
 

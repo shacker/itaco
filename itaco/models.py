@@ -46,10 +46,10 @@ class ListExtra(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.list)
-        
+
     class Meta:
-        ordering = ['list']        
-        
+        ordering = ['list']
+
 class SchoolYear(models.Model):
     """System tracks school years individually."""
     title = models.CharField(max_length=100)
@@ -159,7 +159,7 @@ class Profile(models.Model):
 
     title = models.CharField(blank=True, max_length=100,help_text='e.g. Third Grade Teacher. Right now this is only used for teachers, but could be used for anyone in the future.')
     about = models.TextField(blank=True,help_text="Tell us a bit about yourself - interests, work, favorite bands... <br />This field will be displayed on your Profile page.")
-    tags = models.CharField(blank=True, max_length=255,help_text="Comma-separated keywords. Not displayed on site, but helps your profile get found in site Search.")    
+    tags = models.CharField(blank=True, max_length=255,help_text="Comma-separated keywords. Not displayed on site, but helps your profile get found in site Search.")
     email_2 = models.EmailField('Secondary email',blank=True)
     address1 = models.CharField(max_length=100)
     address2 = models.CharField(max_length=100,blank=True)
@@ -183,7 +183,7 @@ class Profile(models.Model):
 
     # To find all of this person's additional mailing lists, use profile.list_extras.all()
     list_extras = models.ManyToManyField(ListExtra, blank=True, help_text="Everyone is AUTOMATICALLY added to the lists to which they logically belong. Add ADDITIONAL lists here.")
-    
+
     # Two managers for this model - the first is default (so all parents appear in the admin).
     # The second is only invoked when we call Profile.has_students.all()  e.g. on Parents Roster page.
     objects = models.Manager()

@@ -17,22 +17,22 @@ See the <a href="{% url roster_board %}">Board Roster</a> to see who currently o
         <td><strong>ASSIGNED TO</strong></td>
         <td><strong>REPORTS TO</strong></td>
     </tr>
-    
-{% for pos in roster %}   
+
+{% for pos in roster %}
     <tr class="{% cycle 'row1' 'row2' %}">
     <td><strong><a href="{% url roster_jobs_detail pos.id %}">{{ pos }}</a></strong></td>
-  
+
     <td>
     {% for parent in pos.profile_set.all %}
-    {% if parent.user.is_active %}
+
         <a href="{% url profiles_profile_detail parent.user %}">{{ parent.user.first_name }} {{ parent.user.last_name }}</a><br />
-    {% endif %}
+
     {% empty %}
         Not assigned
     {% endfor %}
     </td>
 
-    <td><strong>{{ pos.reports_to }}</strong></td>  
+    <td><strong>{{ pos.reports_to }}</strong></td>
     </tr>
 
 {% endfor %}

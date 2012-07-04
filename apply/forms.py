@@ -15,11 +15,11 @@ class ApplicationForm(ModelForm):
     prev_school3_dates = forms.CharField(required=False,widget=forms.TextInput(attrs={'class':'shortfield'}))
     prev_school1_phone = forms.CharField(required=False,widget=forms.TextInput(attrs={'class':'shortfield'}))
     prev_school2_phone = forms.CharField(required=False,widget=forms.TextInput(attrs={'class':'shortfield'}))
-    prev_school3_phone = forms.CharField(required=False,widget=forms.TextInput(attrs={'class':'shortfield'}))    
-    
+    prev_school3_phone = forms.CharField(required=False,widget=forms.TextInput(attrs={'class':'shortfield'}))
+
     error_css_class = 'error'
-    required_css_class = 'required'    
-    
+    required_css_class = 'required'
+
     class Meta:
         model = Application
         exclude = ('appdate','accepted','fee_paid','status','teacher_rec_form')

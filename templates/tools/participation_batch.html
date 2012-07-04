@@ -13,7 +13,7 @@
 <form action="" method="post" accept-charset="utf-8">
 	{% csrf_token %}
     {{ formset.management_form }}
-    
+
 	<table>
 	    <tr>
 	        <th>
@@ -25,7 +25,7 @@
 	    </tr>
 		<tr>
 		  <td colspan="2">&nbsp;  </td>
-		</tr>	    
+		</tr>
         {% for form in formset.forms  %}
             {{ form }}
     		<tr>
@@ -37,5 +37,13 @@
 <p><input type="submit" value="Submit"></p>
 </form>
 
+<script type="text/javascript" charset="utf-8">
+	// Initialize date pickers
+    $(document).ready(function(){
+	    $('#the_date').datepicker(
+	    	{ dateFormat: 'yy-mm-dd'}
+	    );
+    });
+</script>
 
 {% endblock content %}

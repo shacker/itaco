@@ -5,9 +5,6 @@
 
 {% block content %}
 
-{% block extrahead %}
-  <script src="{{STATIC_URL}}js/ui.datepicker.js" type="text/javascript"></script>
-{% endblock extrahead %}
 
 <script type="text/javascript" charset="utf-8">
 	// Date pickers
@@ -15,12 +12,11 @@
 
         $('#id_rq_start_date').datepicker(
           { minDate: new Date(2012, 9-1, 5), changeMonth: true, changeYear: true, yearRange: '2011:2020'}
-
-      );
+      	);
 
         $('#id_birthdate').datepicker(
           {changeMonth: true, changeYear: true, yearRange: '1990:2020'}
-      );
+      	);
      });
 
 </script>
@@ -59,14 +55,14 @@
 
 
 {% if not user.is_authenticated %}
-<p style="color:green;font-family:Arial;font-size:1.1em;"><strong>Important: If you already have or have ever had a child enrolled at Crestmont, <br />please <a href="{% url auth_login %}">log in</a> to this site before applying.</strong></p>
+	<p style="color:green;font-family:Arial;font-size:1.1em;"><strong>Important: If you already have or have ever had a child enrolled at Crestmont, <br />please <a href="{% url auth_login %}">log in</a> to this site before applying.</strong></p>
 {% endif %}
 
 
 {% if form.errors %}
-<ul class="errorlist" style="margin-bottom:30px;">
-    <li>Oops - a few required fields still need filling out. Please see the messages in red below.</li>
-</ul>
+	<ul class="errorlist" style="margin-bottom:30px;">
+	    <li>Oops - a few required fields still need filling out. Please see the messages in red below.</li>
+	</ul>
 {% endif %}
 
 {% comment %}
@@ -83,13 +79,9 @@ turned into a 700-liner.
 <form action="" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="ApplicationForm">
   {% csrf_token %}
 
-
-
         <fieldset id="about_your_child" class="">
             <legend>About Your Child</legend>
-
         <table>
-
 
 		<tr>
 			<td><label for="id_child_first" />
@@ -359,8 +351,6 @@ turned into a 700-liner.
   		</tr>
   		</table>
 		</fieldset>
-
-
 
 
         <fieldset id="about_parent_2" class="">
@@ -757,8 +747,6 @@ turned into a 700-liner.
 			</td>
 		</tr>
 
-
-
 		<tr>
 		  <td>&nbsp;</td>
 		  <td><input  type="submit" value="Apply and Pay Application Fee Now" style="margin-top:30px;" /></td>
@@ -766,8 +754,7 @@ turned into a 700-liner.
 		</table>
 		</fieldset>
 
-
-
 </form>
 
-</div>{% endblock content %}
+</div>
+{% endblock content %}

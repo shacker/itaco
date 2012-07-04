@@ -2,6 +2,7 @@
 
 {% block title %}Batch-add Charges{% endblock %}
 
+
 {% block content %}
 
 <h3>Batch-add {{type}} Charges</h3>
@@ -9,13 +10,13 @@
 {% if type == 'hrdc' %}
 <p>This tool is for adding <strong>HOURLY REGULAR DAYCARE</strong> charges in batches. <br />
     All charges will be added for the date at the top of the form.<br />
-    Enter the number of <strong>HOURS</strong> in the "Amount" field.<br />	
+    Enter the number of <strong>HOURS</strong> in the "Amount" field.<br />
 {% endif %}
-    
+
 {% if type == 'meal' %}
 <p>This tool is for adding <strong>MEAL</strong> charges in batches. <br />
     All charges will be added for the date at the top of the form.<br />
-    Enter amounts with the following formula:  K: Pizza=3,Bread=1; 1-5: Pizza=5,Bread=2)<br />	
+    Enter amounts with the following formula:  K: Pizza=3,Bread=1; 1-5: Pizza=5,Bread=2)<br />
 {% endif %}
 
 
@@ -23,7 +24,7 @@
 <form action="" method="post" accept-charset="utf-8">
 	{% csrf_token %}
     {{ formset.management_form }}
-    
+
 	<table>
 	    <tr>
 	        <th>
@@ -35,7 +36,7 @@
 	    </tr>
 		<tr>
 		  <td colspan="2">&nbsp;  </td>
-		</tr>	    
+		</tr>
         {% for form in formset.forms  %}
             {{ form }}
     		<tr>
@@ -47,5 +48,13 @@
 <p><input type="submit" value="Submit"></p>
 </form>
 
+<script type="text/javascript" charset="utf-8">
+	// Initialize date pickers
+    $(document).ready(function(){
+	    $('#the_date').datepicker(
+	    	{ dateFormat: 'yy-mm-dd'}
+	    );
+    });
+</script>
 
 {% endblock content %}

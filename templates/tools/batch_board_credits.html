@@ -8,12 +8,12 @@
 {% if billing_period %}
 
 <h3>{{ title }} for {{ billing_period }} :: {{ billing_period.start }} - {{ billing_period.end }}</h3>
-    
+
 	{% if apply %}
 
-    
+
 	    <p><strong>Do not reload this page, or credits will be re-applied!</strong></p>
-    
+
 	{% else %}
 
 	    <p>
@@ -21,19 +21,19 @@
 	    To use another billing period, select it <strong>before</strong> clicking Apply.<br />
 	    To add or edit other types of credits, see the Tools menu above.
 	     </p>
-    
+
 	    <form action="" name="Links" method="post" accept-charset="utf-8">
 		{% csrf_token %}
-	        <p>Apply credits for another billing period: 
+	        <p>Apply credits for another billing period:
 	             <select name="SelectPeriod" id="select_bp" onchange="PeriodSelect()" >
 	                 <option value="">------------</option>
 	                 {% for bp in bp_list  %}
 	                     <option {% ifequal bp.id billing_period.id  %} selected="selected"{% endifequal %} value="{% url batch_board_credit_period bp.id %}">{{ bp.start|date:"M d Y" }} - {{ bp.end|date:"M d Y" }}</option>
-	                 {% endfor %}            
+	                 {% endfor %}
 	            </select>
 	        </p>
 	    </form>
-        
+
 	    {{ board_string|safe }}
 
 		 <p class="bigbutton"><a href="{% url batch_board_credit_apply billing_period.id %}">Apply Board Credits</a></p>
@@ -44,7 +44,7 @@
 
 {% else %}
 
-	<p><strong>No Billing Period matching the current date has been set up in the Admin. Please create one, then return here.</strong></p> 
+	<p><strong>No Billing Period matching the current date has been set up in the Admin. Please create one, then return here.</strong></p>
 
 {% endif %}
 

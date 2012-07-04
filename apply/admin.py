@@ -1,6 +1,6 @@
 from apply.models import *
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin 
+from django.contrib.auth.admin import UserAdmin
 from django.contrib import messages
 
 class ApplicationAdmin(admin.ModelAdmin):

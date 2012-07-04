@@ -23,7 +23,7 @@
 	            <input type="text" name="the_date" value="{% now "Y-m-j" %}" id="the_date">
 	        </th>
 	    </tr>
-	
+
 	    <tr>
 	        <th>
 	            <label for="type">Type:</label>
@@ -33,18 +33,18 @@
 	            	<option value="">---------</option>
 	            	<option value="maint">Maintenance hours</option>
 	            	<option value="fldtrp">Fieldtrips</option>
-	            	
+
 	            </select>
 	        </th>
-	    </tr>	
+	    </tr>
 	  </table>
-	
+
 <p>    <strong>Maintenance</strong>: Enter the number of <strong>HOURS</strong> in the "Amount" field.<br />
     <strong>Field trips</strong>: Enter "1" for one field trip in the "Amount" field.<br />
-</p>	
-	
+</p>
+
 	<hr style="background-color:#C4CDC8;margin:20px;"/>
-	
+
 	  <table>
         {% for form in formset.forms  %}
             {{ form }}
@@ -57,5 +57,13 @@
 <p><input type="submit" value="Submit"></p>
 </form>
 
+<script type="text/javascript" charset="utf-8">
+	// Initialize date pickers
+    $(document).ready(function(){
+	    $('#the_date').datepicker(
+	    	{ dateFormat: 'yy-mm-dd'}
+	    );
+    });
+</script>
 
 {% endblock content %}

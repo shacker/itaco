@@ -123,11 +123,15 @@ ANN_MAINTENANCE_HOURS = 10
 ANN_MAINTENANCE_HOURS_BOARD = 4 # Lower maint hours obligation if board position is occupied
 ANN_MAINTENANCE_HOURS_BOARD_SHARED = 7 # Lower maint hours obligation if board position is occupied and that position is also shared
 ANN_EXTERNAL_FUNDRAISING_HOURS = 2
-ANN_OBLIGATION_1_CHILD = 300
-ANN_OBLIGATION_2_CHILD = 390
 ANN_HOUSEKEEPING_SESSIONS = 3
 ANN_FIELD_TRIPS = 3
 ANN_COOP_JOBS = 1
+
+# These two currently not used - keeping here in case we ever use them again in the future.
+ANN_OBLIGATION_1_CHILD = 300
+ANN_OBLIGATION_2_CHILD = 390
+
+
 
 # Charge conversions (dollars per hour)
 

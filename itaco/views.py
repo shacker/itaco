@@ -163,12 +163,13 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
 
     """
     Annual obligation depends on number of kids in family, which we have via s.count()
+    Removing this for now - Vickie, Amy agree its' currently not needed.
     """
-    num_kids = s.count()
-    if num_kids > 1 :
-        obl_annual_obligation_due = settings.ANN_OBLIGATION_2_CHILD
-    else:
-        obl_annual_obligation_due = settings.ANN_OBLIGATION_1_CHILD
+    # num_kids = s.count()
+    # if num_kids > 1 :
+    #     obl_annual_obligation_due = settings.ANN_OBLIGATION_2_CHILD
+    # else:
+    #     obl_annual_obligation_due = settings.ANN_OBLIGATION_1_CHILD
 
     """
     This family may hold one or more board positions. Get list of all positions
@@ -346,7 +347,7 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
           'obl_housekeeping_due' : obl_housekeeping_due,
           'obl_field_trips_due' : obl_field_trips_due,
           'obl_coop_jobs_due' : obl_coop_jobs_due,
-          'obl_annual_obligation_due' : obl_annual_obligation_due,
+          # 'obl_annual_obligation_due' : obl_annual_obligation_due,
 
           # Charges
           'charges': ch,
@@ -381,7 +382,7 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
           'housekeeping_data' : [obl_housekeeping_complete + .0001, obl_housekeeping_due - obl_housekeeping_complete],
           'field_trips_data' : [obl_field_trips_complete + .0001, obl_field_trips_due - obl_field_trips_complete],
           'coop_jobs_data' : [obl_coop_jobs_complete + .0001, obl_coop_jobs_due - obl_coop_jobs_complete],
-          'annual_obligation_data' : [obl_annual_obligation_complete + .0001, obl_annual_obligation_due - obl_annual_obligation_complete],
+          # 'annual_obligation_data' : [obl_annual_obligation_complete + .0001, obl_annual_obligation_due - obl_annual_obligation_complete],
 
           'thepath': request.path,
 

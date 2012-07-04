@@ -57,13 +57,13 @@
                   {% chart-data maint_hours_data %}
                   {% chart-size "300x150" %}
                   {% chart-background "EEEEEE" %}
-                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-colors "B1CDDE" "DED9AE" %}
                   {% chart-type "pie" %}
                   {% chart-labels "Fulfilled" "Unfulfilled" %}
                   {% chart-alt "Maintenance hours" %}
                 {% endchart %}
             </td>
-            
+
             <td>
                 <p>
                     {# {{member_meetings_data}} #}
@@ -75,14 +75,14 @@
                   {% chart-data member_meetings_data %}
                   {% chart-size "300x150" %}
                   {% chart-background "EEEEEE" %}
-                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-colors "B1CDDE" "DED9AE" %}
                   {% chart-type "pie" %}
                   {% chart-labels "Fulfilled" "Unfulfilled" %}
                   {% chart-alt "Membership meetings" %}
-                {% endchart %}        
-            </td>            
+                {% endchart %}
+            </td>
         </tr>
-        
+
         <tr>
             <td>
                 <p>
@@ -95,13 +95,13 @@
                   {% chart-data fundraising_data %}
                   {% chart-size "300x150" %}
                   {% chart-background "EEEEEE" %}
-                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-colors "B1CDDE" "DED9AE" %}
                   {% chart-type "pie" %}
                   {% chart-labels "Fulfilled" "Unfulfilled" %}
                   {% chart-alt "Fundraising hours" %}
                 {% endchart %}
             </td>
-            
+
             <td>
                 <p>
                     {# {{housekeeping_data}} #}
@@ -113,17 +113,17 @@
                   {% chart-data housekeeping_data %}
                   {% chart-size "300x150" %}
                   {% chart-background "EEEEEE" %}
-                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-colors "B1CDDE" "DED9AE" %}
                   {% chart-type "pie" %}
                   {% chart-labels "Fulfilled" "Unfulfilled" %}
                   {% chart-alt "Housekeeping sessions" %}
-                {% endchart %}       
-            </td>            
-        </tr>    
-        
-        
-        
-        
+                {% endchart %}
+            </td>
+        </tr>
+
+
+
+
         <tr>
             <td>
                 <p>
@@ -136,13 +136,13 @@
                   {% chart-data field_trips_data %}
                   {% chart-size "300x150" %}
                   {% chart-background "EEEEEE" %}
-                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-colors "B1CDDE" "DED9AE" %}
                   {% chart-type "pie" %}
                   {% chart-labels "Fulfilled" "Unfulfilled" %}
                   {% chart-alt "Field trips" %}
                 {% endchart %}
             </td>
-            
+
             <td>
                 <p>
                     {# {{coop_jobs_data}} #}
@@ -154,45 +154,22 @@
                   {% chart-data coop_jobs_data %}
                   {% chart-size "300x150" %}
                   {% chart-background "EEEEEE" %}
-                  {% chart-colors "B1CDDE" "DED9AE" %}  
+                  {% chart-colors "B1CDDE" "DED9AE" %}
                   {% chart-type "pie" %}
                   {% chart-labels "Fulfilled" "Unfulfilled" %}
                   {% chart-alt "Co-op jobs" %}
-                {% endchart %}       
-            </td>            
-        </tr>     
-        
-        
-        <tr>
-            <td>
-                <p>
-                    {# {{annual_obligation_data}} #}
-                <strong>Annual obligation/scrip dollars</strong> <br />
-                Annual obligation: ${{ obl_annual_obligation_due }}<br />
-                Completed: ${{ obl_annual_obligation_complete }}
-                </p>
-                {% chart %}
-                  {% chart-data annual_obligation_data %}
-                  {% chart-size "300x150" %}
-                  {% chart-background "EEEEEE" %}
-                  {% chart-colors "B1CDDE" "DED9AE" %}  
-                  {% chart-type "pie" %}
-                  {% chart-labels "Fulfilled" "Unfulfilled" %}
-                  {% chart-alt "Annual obligation dollars" %}
                 {% endchart %}
             </td>
-            
-            <td>
-                &nbsp;
-            </td>            
-        </tr>               
-        
+        </tr>
+
+      {# Old annual obligation row code was here - removed 7/3/12. Retrieve from git if needed. #}
+
 
     </table>
 
 
-    
-    
+
+
 {% endifequal %}
 
 

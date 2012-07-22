@@ -238,6 +238,38 @@ class Student(models.Model):
     # objects = UserManager()
 
 
+class StudentEmergency(models.Model):
+    """
+    Each student must have one emergency form filled out by a parent.
+    We'll display fields inherited from the Student and Profile (parent) models;
+    this model only contains fields not covered in those related models.
+    """
+    student = models.OneToOneField(Student)
+    addl_contacts = models.TextField('Additional contacts',help_text='Add names and phones for additional emergency contacts here, one per line. If none, write \"None\".')
+    out_of_state_contact = models.TextField(help_text='Out of state phone contact (name and phone) in case of earthquake emergency. If none, write \"None\".')
+    addl_authorized_take_home = models.TextField('Additional authorized for take home',help_text='Additional persons authorized to take child home from school (names and phones), one per line. If none, write \"None\".')
+    doctor = models.TextField(help_text='Name, phone, and insurance info for child\'s doctor.')
+    dentist = models.TextField(help_text='Name, phone, and insurance info for child\'s dentist.')
+    med_problems = models.TextField('Medical problems',help_text='Please list known medical problems. If none, write \"None\".')
+    allergies = models.TextField(help_text='Please list any known medical or food allergies. If none, write \"None\".')
+    auth_tylenol = models.BooleanField('Tylenol',default=False)
+    auth_polysporin = models.BooleanField('Polysporin (topical antibiotic)',default=False)
+    auth_antiseptic = models.BooleanField('General Antiseptic',default=False)
+    auth_benadryl = models.BooleanField('Benedryl (antihistamine)',default=False)
+    auth_epipen = models.BooleanField('EpiPen (epinephrine)',default=False)
+    auth_other = models.BooleanField('Other (specify)',default=False)
+    auth_other_specify = models.TextField('Describe other',blank=True,null=True,help_text='If you selected Other above, please describe.')
+    authorized = models.BooleanField(help_text='This emergency form is not valid until this box is checked and form is saved.')
+    auth_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Student Emergency Form"
+        # verbose_name_plural = "Students/Siblings"
+
+    def __unicode__(self):
+        return u'%s, %s' % (self.student.last_name, self.student.first_name)
+
+
 
 class BillingPeriodManager(models.Manager):
     """

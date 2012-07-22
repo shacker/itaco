@@ -20,8 +20,6 @@ $(function() {
 
 {% include "roster/roster_subnav.html" %}
 
-
-
 <h2>Family: {{ family }}</h2>
 
 <style type="text/css" media="screen">
@@ -29,33 +27,33 @@ $(function() {
 		width:800px;
 	}
 
-	
+
 	td {
 		vertical-align:top;
-		margin-top:20px;		
+		margin-top:20px;
 		padding-bottom:20px;
 	}
-	
+
 	td.narrow {
 		width:160px;
 	}
-	
+
 	table#subtable1, table#subtable2 {
 		width:350px;
 	}
-	
+
 	h3 {
 		margin:0px;
 		margin-bottom:10px;
 	}
-	
+
 </style>
 
 <table id="fam">
 	<tr>
 		<td>
 			<h3>Parents</h3>
-			
+
 			<table id="subtable1">
 		           {% for parent in parents %}
 					<tr>
@@ -131,7 +129,7 @@ $(function() {
 
 			</table>
 		</td>
-		
+
 		<td>
 			<h3>Students</h3>
 			<table id="subtable2">
@@ -167,10 +165,10 @@ $(function() {
 			      <a href="{% url edit_student student.id %}">Edit student</a><br />
 			      {% endif %}
 				</td>
-	           </tr> 
+	           </tr>
 	           {% endfor %}
 			</table>
-			
+
 			{% if siblings.count > 0 %}
 			<h3 style="margin-top:40px;">Siblings</h3>
 			<table id="subtable2">
@@ -208,7 +206,7 @@ $(function() {
 				</tr>
 	           {% endfor %}
 			</table>
-			{% endif %}			
+			{% endif %}
 		</td>
 	</tr>
 </table>

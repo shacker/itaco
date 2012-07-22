@@ -12,7 +12,7 @@
 	Covering {{period.start}} - {{period.end}}<br />
 	<span class="under">Red = Obligations due</span> <br />
 	<span class="over">Green = Obligations met or exceeded</span> 	<br />
-	<strong>No adjustments</strong> have been made here for board positions, siblings, etc. 
+	<strong>No adjustments</strong> have been made here for board positions, siblings, etc.
 </p>
 
 <table>
@@ -35,9 +35,9 @@
 		</th>
 		<th>
 			Fundraise
-		</th>								
+		</th>
 	</tr>
-	
+
 	{% for f in fam_oblist %}
 	<tr class="{% cycle 'row1' 'row2' %}">
 		<td>
@@ -49,37 +49,37 @@
 			{% if f.field_trips_completed %}{{f.field_trips_completed|floatformat}}{% else %}0{% endif %}/{{obl_field_trips}}
 			</span>
 		</td>
-		
+
 		<td>
 			<span class="{% if f.meetings_attended < obl_member_meetings %}under{% else %}over{% endif %}">
 			{% if f.meetings_attended %}{{f.meetings_attended|floatformat}}{% else %}0{% endif %}/{{obl_member_meetings}}
 			</span>
 		</td>
-		
+
 		<td>
 			<span class="{% if f.maint_hours < obl_maint_hours %}under{% else %}over{% endif %}">
 			{% if f.maint_hours %}{{f.maint_hours|floatformat}}{% else %}0{% endif %}/{{obl_maint_hours}}
 
 			</span>
 		</td>
-		
+
 		<td>
 			<span class="{% if f.housekeep_hours < obl_housekeeping %}under{% else %}over{% endif %}">
 			{% if f.housekeep_hours %}{{f.housekeep_hours|floatformat}}{% else %}0{% endif %}/{{obl_housekeeping}}
 			</span>
 		</td>
-		
+
 		<td>
 			<span class="{% if f.fundraising_hours < obl_fundraising_hours %}under{% else %}over{% endif %}">
 			{% if f.fundraising_hours %}{{f.fundraising_hours|floatformat}}{% else %}0{% endif %}/{{obl_fundraising_hours}}
-			
+
 			</span>
-		</td>								
-		
-		
-	</tr>	
+		</td>
+
+
+	</tr>
 	{% endfor %}
-	
+
 </table>
 
 {% endblock content %}

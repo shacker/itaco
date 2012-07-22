@@ -459,7 +459,7 @@ def batch_charges(request, *args, **kwargs):
         if type == 'hrdc':
             return HttpResponseRedirect(reverse('batch_daycare_charges'))
         if type == 'meal':
-            return HttpResponseRedirect(reverse('batch_meal_charges'))            
+            return HttpResponseRedirect(reverse('batch_meal_charges'))
     else:
         formset = ChargeFormSet()
 
@@ -730,7 +730,7 @@ def summary_charges_credits(request,csv = False,period='',):
 
     # print billing_period
     # print billing_period.id
-    
+
     if billing_period: # Don't crash if no current billing period is available
         # Need a list of billing periods to send to the template for selector picklists
         bp_list = BillingPeriod.objects.all().order_by('-start')
@@ -743,7 +743,7 @@ def summary_charges_credits(request,csv = False,period='',):
         for f in families:
             famtot = Charge.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,family=f).aggregate(total=Sum('charged_amount'))
             charges_by_family.append({'fam':f,'famtot':famtot})
-            
+
         total_charges = Charge.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end).aggregate(Sum('charged_amount'))['charged_amount__sum']
 
 
@@ -751,12 +751,12 @@ def summary_charges_credits(request,csv = False,period='',):
         # For each, append to a dictionary where the key has the same name and the value is an aggregate summary of all charges with that name.
         # We'll pass this whole dict to the template.
 
-        charge_type_totals = []      
+        charge_type_totals = []
         for c in CHARGE_TYPE_CHOICES :
             # Append dict to list
             charge_type_total = Charge.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,type=c[0]).aggregate(Sum('charged_amount'))
             charge_type_totals.append({'type':c,'total':charge_type_total})
-            
+
         credit_type_totals = []
         for c in CREDIT_TYPE_CHOICES :
             # Append dict to list
@@ -772,7 +772,7 @@ def summary_charges_credits(request,csv = False,period='',):
         for f in families:
             famtot = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end,family=f).aggregate(total=Sum('charged_amount'))
             credits_by_family.append({'fam':f,'famtot':famtot})
-        
+
         total_credits = Credit.objects.filter(date__gte=billing_period.start,date__lte=billing_period.end).aggregate(Sum('charged_amount'))['charged_amount__sum']
 
         # Make billing_summary_dict a global so we can use it both in this function and in render_to_csv
@@ -862,10 +862,10 @@ def edit_student(request,student_id=None):
 @user_passes_test(lambda u: u.is_superuser, login_url='/')
 def obligation_summary(request,year=None):
     """
-    A list of families and their numbers towards field trips, meetings, 
+    A list of families and their numbers towards field trips, meetings,
     maintenance, housekeeping and fundraising.
     """
-    
+
     try:
         period = SchoolYear.objects.get(pk=year)
     except:
@@ -874,7 +874,7 @@ def obligation_summary(request,year=None):
     period_start = period.start
     period_end = period.end
 
-    
+
     """
     Obligation constants brought in from settings
     """
@@ -884,11 +884,11 @@ def obligation_summary(request,year=None):
     obl_housekeeping = settings.ANN_HOUSEKEEPING_SESSIONS
     obl_field_trips = settings.ANN_FIELD_TRIPS
     obl_coop_jobs = settings.ANN_COOP_JOBS
-    
+
     families = Family.objects.all()
     fam_oblist = []
     for f in families:
-        
+
         # Calculate all remaining obligations
         field_trips_completed = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='fldtrp').aggregate(Sum('amount'))['amount__sum']
         meetings_attended = Obligation.objects.filter(family=f,date__gte=period_start,date__lte=period_end,type='mbsmtg').aggregate(Sum('amount'))['amount__sum']
@@ -904,12 +904,42 @@ def obligation_summary(request,year=None):
             'housekeep_hours':housekeep_hours,
             'fundraising_hours':fundraising_hours,
             })
-        
-    
+
+
 
     return render_to_response('obligation_summary.html',
         locals(),
         context_instance = RequestContext(request),
     )
-    
-    
+
+
+
+
+@user_passes_test(lambda u: u.is_superuser, login_url='/')
+def emergency_forms(request):
+    """
+    A list of student emergency forms that have / have not been submitted.
+    """
+
+    students = Student.objects.all().order_by('last_name')
+
+    return render_to_response('tools/emergency_forms.html',
+        locals(),
+        context_instance = RequestContext(request),
+    )
+
+
+@user_passes_test(lambda u: u.is_superuser, login_url='/')
+def emergency_form_detail(request,student_id=None):
+    """
+    Printable detail view for an emergency form
+    """
+
+    student = get_object_or_404(Student,pk=student_id)
+
+    return render_to_response('tools/emergency_form_detail.html',
+        locals(),
+        context_instance = RequestContext(request),
+    )
+
+

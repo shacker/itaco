@@ -1,0 +1,163 @@
+<html>
+<head>
+	<title>Emergency Form for {{student}}</title>
+</head>
+<body>
+	<style>
+	body {
+		font-family:Arial;
+		margin:20px 50px 20px 50px;
+	}
+
+	h1 {
+		font-size:18px;
+	}
+	h2 {
+		font-size:16px;
+	}
+	h3{
+		font-size:14px;
+	}
+	p, li {
+		font-size:13px;
+		margin-left:20px;
+	}
+	</style>
+
+	<h1>Crestmont School Emergency Form and Consent for Medical Treatment</h1>
+	<h2>Emergency Form for: {{student}}</h2>
+
+	<h3>
+		<strong>Date of birth:</strong> {{student.birthdate}}<br />
+		<strong>Form last updated by parent/guardian:</strong> {{student.studentemergency.auth_date}}
+	</h3>
+
+	<h3><strong>Parent/guardians</strong> (&#x238B; = Primary Contact):</h3>
+
+        {% for parent in student.family.profile_set.all %}
+        	<p>
+            <strong>{{ parent.user.first_name }} {{ parent.user.last_name }}
+             {% ifequal parent.primary_contact 1 %}<strong>&#x238B;</strong>{% endifequal %}<br />
+            </strong>
+
+           {% if parent.address1 %}
+           {{ parent.address1 }}<br />
+           {% endif %}
+
+           {% if parent.address2 %}
+           {{ parent.address2 }}<br />
+           {% endif %}
+
+           {% if parent.city %}
+           {{ parent.city }},
+           {% endif %}
+
+           {% if parent.state %}
+           {{ parent.state }},
+           {% endif %}
+
+           {% if parent.zip %}
+           {{ parent.zip }}<br />
+           {% endif %}
+
+           {% if parent.phone_home %}
+           Home: {{ parent.phone_home }}<br />
+           {% endif %}
+
+           {% if parent.phone_work %}
+           Work: {{ parent.phone_work }}<br />
+           {% endif %}
+
+           {% if parent.phone_mobile %}
+           Mobile: {{ parent.phone_mobile }}<br />
+           {% endif %}
+
+           {% if parent.phone_fax %}
+           Fax: {{ parent.phone_fax }}<br />
+           {% endif %}
+       </p>
+
+    {% endfor %}
+
+	<h3><strong>Custody:</strong> [Do we need this?]</h3>
+
+	<h3><strong>Additional Persons Who May Be Called In An Emergency:</strong></h3>
+	{% if student.studentemergency.addl_contacts %}
+		{{student.studentemergency.addl_contacts|linebreaks}}
+	{% else %}
+		<h3>None stated.</h3>
+	{% endif %}
+
+
+	<h3><strong>Out of State Phone Contact in Case of Earthquake Emergency:</strong></h3>
+
+	{% if student.studentemergency.out_of_state_contact %}
+		{{student.studentemergency.out_of_state_contact|linebreaks}}
+	{% else %}
+		<h3>None stated.</h3>
+	{% endif %}
+
+
+
+	<h3><strong>Additional Persons Authorized to Take Child From School:</strong></h3>
+
+	{% if student.studentemergency.addl_authorized_take_home %}
+		{{student.studentemergency.addl_authorized_take_home|linebreaks}}
+	{% else %}
+		<h3>None stated.</h3>
+	{% endif %}
+
+
+	<h3><strong>Doctor:</strong></h3>
+
+	{% if student.studentemergency.doctor %}
+		{{student.studentemergency.doctor|linebreaks}}
+	{% else %}
+		<h3>None stated.</h3>
+	{% endif %}
+
+	<h3><strong>Dentist:</strong></h3>
+
+	{% if student.studentemergency.dentist %}
+		{{student.studentemergency.dentist|linebreaks}}
+	{% else %}
+		<h3>None stated.</h3>
+	{% endif %}
+
+
+	<h3><strong>List of Medical Problems:</strong></h3>
+
+	{% if student.studentemergency.med_problems %}
+		{{student.studentemergency.med_problems|linebreaks}}
+	{% else %}
+		<h3>None stated.</h3>
+	{% endif %}
+
+	<h3><strong>List of Medicine or Food Allergies:</strong></h3>
+
+	{% if student.studentemergency.allergies %}
+		{{student.studentemergency.allergies|linebreaks}}
+	{% else %}
+		<h3>None stated.</h3>
+	{% endif %}
+
+
+	<h3><strong>Authorized medications:</strong></h3>
+	<ul>
+	{% if student.studentemergency.auth_tylenol %}<li>Tylenol</li>{% endif %}
+	{% if student.studentemergency.auth_polysporin %}<li>Polysporin (topical antibiotic)</li>{% endif %}
+	{% if student.studentemergency.tylauth_antisepticenol %}<li>General Antiseptic</li>{% endif %}
+	{% if student.studentemergency.auth_benadryl %}<li>Benedryl (antihistamine)</li>{% endif %}
+	{% if student.studentemergency.auth_epipen %}<li>EpiPen (epinephrine)</li>{% endif %}
+
+	{% if student.studentemergency.auth_other_specify %}
+	{{ student.studentemergency.auth_other_specify|linebreaks }}
+	{% endif %}
+	</ul>
+
+	<p><strong>Medications not on this list should not be administered.</strong></p>
+
+
+
+</body>
+</html>

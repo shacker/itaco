@@ -17,6 +17,10 @@ class StudentAdmin(admin.ModelAdmin):
     list_display = ('last_name','first_name','family','expected_grad_yr','alumni',)
     actions = [make_alumni,]
 
+class StudentEmergencyAdmin(admin.ModelAdmin):
+    list_display = ('student','authorized','auth_date')
+
+
 class StudentInline(admin.TabularInline):
     model = Student
     extra = 1
@@ -82,6 +86,7 @@ admin.site.register(ListExtra,ListExtraAdmin)
 admin.site.register(Family,FamilyAdmin)
 admin.site.register(Profile,ProfileAdmin)
 admin.site.register(Student,StudentAdmin)
+admin.site.register(StudentEmergency,StudentEmergencyAdmin)
 admin.site.register(Credit,CreditAdmin)
 admin.site.register(Obligation,ObligationAdmin)
 admin.site.register(Charge,ChargeAdmin)

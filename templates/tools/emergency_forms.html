@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Emergency Forms{% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+	.datecol {
+		width:150px;
+	}
+	.authcol {
+		width:60px;
+	}
+</style>
+<h2>Student Emergency Forms</h2>
+
+
+
+<table>
+	<tr>
+		<th>
+			Student
+		</th>
+
+		<th>
+			Family
+		</th>
+		<th class="authcol">
+			Signed
+		</th>
+		<th class="datecol">
+			Date
+		</th>
+
+		<th>
+			Edit
+		</th>
+	</tr>
+
+	{% for s in students %}
+	<tr class="{% cycle 'row1' 'row2' %}">
+		<td>
+			{% if s.studentemergency %}
+				<a href="{% url emergency_form_detail s.id %}">{{s}}</a>
+			{% else %}
+				{{s}}
+			{% endif %}
+
+		</td>
+
+		<td>
+			{{s.family}}
+		</td>
+
+		<td class="authcol">
+			{% if s.studentemergency.authorized %}
+			<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">
+			{% else %}
+			<img src="{{STATIC_URL}}images/icon_error.gif" width="16" height="16" alt="Icon Error">
+			{% endif %}
+		</td>
+
+		<td class="datecol">
+			{{s.studentemergency.auth_date}}
+		</td>
+
+		<td>
+			{% if s.studentemergency %}
+				<a href="{% url admin:itaco_studentemergency_change s.studentemergency.id %}">(e)</a>
+			{% endif %}
+		</td>
+	</tr>
+	{% endfor %}
+
+</table>
+
+{% endblock content %}

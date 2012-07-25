@@ -47,7 +47,7 @@ class StudentForm(ModelForm):
 
 class StudentEmergencyForm(ModelForm):
 
-  authorized = forms.BooleanField(required=True)
+  authorized = forms.BooleanField(required=True,help_text='This emergency form is not valid until this box is checked and the form is saved.')
 
   class Meta:
       model = StudentEmergency

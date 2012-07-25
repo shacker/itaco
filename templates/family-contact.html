@@ -20,13 +20,10 @@ $(function() {
 
 {% include "roster/roster_subnav.html" %}
 
-<h2>Family: {{ family }}</h2>
-
 <style type="text/css" media="screen">
 	table#fam {
 		width:800px;
 	}
-
 
 	td {
 		vertical-align:top;
@@ -48,6 +45,19 @@ $(function() {
 	}
 
 </style>
+
+<h2>Family: {{ family }}</h2>
+
+  {# If this family has students for which we do not have emergency contact info, throw an alert #}
+  {% if family == user.get_profile.family %}
+  <ul id="messagelist">
+  {% for student in family.student_set.all  %}
+  	{% if not student.studentemergency.authorized %}
+  		<li class="info">iTaco does not have an emergency contact form on file for {{student}}. <a href="">Create one!</a></li>
+  	{% endif %}
+  {% endfor %}
+  </ul>
+  {% endif %}
 
 <table id="fam">
 	<tr>
@@ -117,7 +127,7 @@ $(function() {
 				               {% endif %}
 
 				        {% ifequal parent.user.id user.id  %}
-				        <a href="{% url profiles_edit_profile %}">Edit contact info</a><br />
+				        	<a href="{% url profiles_edit_profile %}">Edit contact info</a><br />
 				        {% endifequal %}
 
 						<a href="mailto:{{ parent.user.email }}"><img src="{{STATIC_URL}}images/email.jpg" width="30" height="30" alt="Email" style="margin-right:10px;"></a>
@@ -163,6 +173,7 @@ $(function() {
 			      {# Only staff or parents of this student can edit the student details #}
 			      {% if user.get_profile.family == student.family or user.is_staff %}
 			      <a href="{% url edit_student student.id %}">Edit student</a><br />
+			      <a href="{% url edit_student_emergency student.id %}">Emergency contact</a><br />
 			      {% endif %}
 				</td>
 	           </tr>

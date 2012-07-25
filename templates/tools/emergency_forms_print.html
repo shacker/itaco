@@ -8,7 +8,6 @@
 		font-family:Arial;
 		margin:20px 50px 20px 50px;
 	}
-
 	h1 {
 		font-size:18px;
 	}
@@ -22,7 +21,15 @@
 		font-size:13px;
 		margin-left:20px;
 	}
+
+	@media print
+	{
+	  hr { display:block; page-break-after:always; }
+	}
 	</style>
+
+	{% for auth_form in auth_forms %}
+	{% with auth_form.student as student %}
 
 	<h1>Crestmont School Emergency Form and Consent for Medical Treatment</h1>
 	<h2>Emergency Form for: {{student}}</h2>
@@ -155,7 +162,9 @@
 	{% endif %}
 	</ul>
 
-	<p><strong>Medications not on this list should not be administered.</strong></p>
+	{% endwith %}
+	<hr />
+	{% endfor %}
 
 
 

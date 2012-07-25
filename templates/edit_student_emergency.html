@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block title %}Editing Emergency Contact info for {{student}}{% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+.post ul li {
+  list-style-type: none;
+}
+ul li label {
+  display:inline;
+}
+
+textarea {
+  width:600px;
+  height:100px;
+}
+
+.fieldWrapper {
+  margin-bottom:30px;
+}
+
+input#id_authorized {
+  display:inline;
+  margin-right:10px;
+}
+</style>
+
+<h2>Editing Emergency Contact info for {{student}}</h2>
+
+<p>The information on this form will be printed out and used by Crestmont School
+in the event of any emergency. Some of the information shown below comes from existing
+profile information for parents and students stored elsewhere in iTaco. If you see
+information in the uneditable sections that needs updating, please visit your
+<a href="{% url profiles_profile_detail user %}" title="Profile">personal profile</a> page (one for each parent),
+or go to your <a href="{% url family_contact user.get_profile.family.id %}">family page</a>
+to edit student information.</p>
+
+<form action="" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="EmergencyAddEdit">
+  {% csrf_token %}
+
+<h3>{{student}}</h3>
+
+<p><strong>Date of birth:</strong> {{student.birthdate}}</p>
+
+<strong>Parents/guardians:</strong><br />
+      {% for parent in student.family.profile_set.all %}
+          <p>
+            <strong>{{ parent.user.first_name }} {{ parent.user.last_name }}
+             {% ifequal parent.primary_contact 1 %}<strong>&#x238B;</strong>{% endifequal %}<br />
+            </strong>
+
+           {% if parent.address1 %}
+           {{ parent.address1 }}<br />
+           {% endif %}
+
+           {% if parent.address2 %}
+           {{ parent.address2 }}<br />
+           {% endif %}
+
+           {% if parent.city %}
+           {{ parent.city }},
+           {% endif %}
+
+           {% if parent.state %}
+           {{ parent.state }},
+           {% endif %}
+
+           {% if parent.zip %}
+           {{ parent.zip }}<br />
+           {% endif %}
+
+           {% if parent.phone_home %}
+           Home: {{ parent.phone_home }}<br />
+           {% endif %}
+
+           {% if parent.phone_work %}
+           Work: {{ parent.phone_work }}<br />
+           {% endif %}
+
+           {% if parent.phone_mobile %}
+           Mobile: {{ parent.phone_mobile }}<br />
+           {% endif %}
+
+           {% if parent.phone_fax %}
+           Fax: {{ parent.phone_fax }}<br />
+           {% endif %}
+       </p>
+
+    {% endfor %}
+
+
+  <div class="fieldWrapper">
+  {{form.addl_contacts.label_tag}}
+  {{ form.addl_contacts.errors }}
+  {{form.addl_contacts}}<br />
+  {{form.addl_contacts.help_text}}
+  </div>
+
+
+  <div class="fieldWrapper">
+  {{form.out_of_state_contact.label_tag}}
+  {{ form.out_of_state_contact.errors }}
+  {{form.out_of_state_contact}}<br />
+  {{form.out_of_state_contact.help_text}}
+  </div>
+
+
+  <div class="fieldWrapper">
+  {{form.addl_authorized_take_home.label_tag}}
+  {{ form.addl_authorized_take_home.errors }}
+  {{form.addl_authorized_take_home}}<br />
+  {{form.addl_authorized_take_home.help_text}}
+  </div>
+
+
+  <div class="fieldWrapper">
+  {{form.doctor.label_tag}}
+  {{ form.doctor.errors }}
+  {{form.doctor}}<br />
+  {{form.doctor.help_text}}
+  </div>
+
+
+  <div class="fieldWrapper">
+  {{form.dentist.label_tag}}
+  {{ form.dentist.errors }}
+  {{form.dentist}}<br />
+  {{form.dentist.help_text}}
+  </div>
+
+  <div class="fieldWrapper">
+  {{form.med_problems.label_tag}}
+  {{ form.med_problems.errors }}
+  {{form.med_problems}}<br />
+  {{form.med_problems.help_text}}
+  </div>
+
+
+  <div class="fieldWrapper">
+  {{form.allergies.label_tag}}
+  {{ form.allergies.errors }}
+  {{form.allergies}}<br />
+  {{form.allergies.help_text}}
+  </div>
+
+
+
+  <p><label>I authorize the staff to give my child the following medications:</label></p>
+  <ul style="margin-bottom:30px;">
+    <li>
+      {{form.auth_tylenol}} {{form.auth_tylenol.label_tag}}
+    </li>
+
+    <li>
+      {{form.auth_polysporin}} {{form.auth_polysporin.label_tag}}
+    </li>
+
+
+    <li>
+      {{form.auth_antiseptic}} {{form.auth_antiseptic.label_tag}}
+    </li>
+
+    <li>
+      {{form.auth_benadryl}} {{form.auth_benadryl.label_tag}}
+    </li>
+
+    <li>
+      {{form.auth_epipen}} {{form.auth_epipen.label_tag}}
+    </li>
+
+    <li>
+      {{form.auth_epipen}} {{form.auth_epipen.label_tag}}
+    </li>
+
+</ul>
+
+
+
+  <div class="fieldWrapper">
+  <label>Other authorized medications:</label>
+  {{form.auth_other}}<br />
+  Please list any additional medications authorized for administration to your child.
+  </div>
+
+
+
+<p>I, {{user.get_profile.friendly_name}}, parent or legal guardian of {{student.friendly_name}}, a minor child, hereby give permission for my child to participate in CRESTMONT SCHOOL EXTENDED CARE activities conducted by CRESTMONT SCHOOL. I understand that CRESTMONT SCHOOL can, at any time, revoke its agreement to provide extended care for my child.</p>
+
+<p>As the parent or legal guardian of the child listed above, I hereby give the consent to the staff of Crestmont School and/or the Crestmont Extended Care Program to provide necessary first aid and to authorize emergency medical or dental care needed by my child.</p>
+
+<p>I understand and agree that by signing this Parent Authorization and Waiver/Release of Liability, I am agreeing to release, indemnify, and hold harmless Crestmont School and its officers, agents, members, and employees from any and all claims for injury, damage, liability or costs, including attorneys fees associated with or arising from participation in and/or receipt of instruction at Crestmont School and/or CRESTMONT SCHOOL EXTENDED CARE. This waiver/release of liability includes, but is not associated with the negligence of CRESTMONT SCHOOL or its officers, agents, members and employees. I understand that this Waiver/Release of Liability will be binding on me, my spouse, my heirs, my personal representatives, my children, any child for whom I am a legal guardian and any guardian ad litem for said children.</p>
+
+<p>I acknowledge that I have read this Parent Authorization and Waiver/Release of Liability and that I understand the words and language in it. I also understand that this Parent Authorization and Waiver/Release of Liability is valid for the duration of time that my child participates in CRESTMONT SCHOOL unless rescinded through my written instructions.</p>
+
+<p><strong>I understand that by checking the box below and clicking the Submit button, I am signing this document legally.</strong></p>
+
+
+  <div class="fieldWrapper">
+  {{form.authorized.label_tag}}
+  {{ form.authorized.errors }}
+  {{form.authorized}}
+  {{form.authorized.help_text}}
+  </div>
+
+  <input  type="submit" value="Submit" style="margin-top:10px;" />
+
+</form>
+
+{% endblock content %}

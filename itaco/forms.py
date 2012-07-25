@@ -45,6 +45,28 @@ class StudentForm(ModelForm):
         fields = ('birthdate','avatar')
         widgets = {'avatar':forms.FileInput}
 
+class StudentEmergencyForm(ModelForm):
+
+  authorized = forms.BooleanField(required=True)
+
+  class Meta:
+      model = StudentEmergency
+      fields = (
+        'addl_contacts',
+        'out_of_state_contact',
+        'addl_authorized_take_home',
+        'doctor',
+        'dentist',
+        'med_problems',
+        'allergies',
+        'auth_tylenol',
+        'auth_polysporin',
+        'auth_antiseptic',
+        'auth_benadryl',
+        'auth_epipen',
+        'auth_other',
+        'authorized',
+  )
 
 class ProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):

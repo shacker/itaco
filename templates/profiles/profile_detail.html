@@ -12,13 +12,13 @@
 
 <script type="text/javascript">
 $(function() {
-  // Use this example, or...
   $('a.lightbox').lightBox(); // Select all links that contains lightbox in the attribute rel
 });
 </script>
 
 {% ifequal user profile.user  %}
   <ul id="navlist2">
+      <li><a href="{% url family_contact profile.family.id %}">My family</a></li>
       <li><a href="{% url profiles_edit_profile %}">Edit my profile</a></li>
       <li><a href="/accounts/password/change/">Change my password</a></li>
       {# For staff/faculty - downloadable PDF timesheet (uploaded via FTP) #}

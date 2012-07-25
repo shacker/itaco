@@ -66,11 +66,13 @@ urlpatterns += patterns('itaco.views',
     url(r'^tools/billing_summary/period/(?P<period>\d+)/?$', 'summary_charges_credits', name='summary_charges_credits'),
     url(r'^tools/billing_summary/$', 'summary_charges_credits', name='summary_charges_credits'),
     url(r'^tools/billing_summary/(?P<csv>csv)/period/(?P<period>\d+)/$', 'summary_charges_credits', name='csv_summary_charges_credits'),
+    url(r'^tools/emergency_forms/print/(?P<student_id>\d+)/?$', 'emergency_forms_print', name='emergency_form_detail_print'),
+    url(r'^tools/emergency_forms/print/?$', 'emergency_forms_print', name='emergency_forms_all'),
     url(r'^tools/emergency_forms/$', 'emergency_forms', name='emergency_forms'),
-    url(r'^tools/emergency_forms/(?P<student_id>\d+)/?$', 'emergency_form_detail', name='emergency_form_detail'),
 
     # Edit student info
     url(r'^student/(?P<student_id>\d+)/edit/?$', 'edit_student', name='edit_student'),
+    url(r'^student/(?P<student_id>\d+)/emergency/edit/?$', 'edit_student_emergency', name='edit_student_emergency'),
 
     # Administrator's view of all obligations owed on one page
     url(r'^tools/obligation_summary/year/(?P<year>\d+)$', 'obligation_summary', name='obligation_summary'),

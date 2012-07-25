@@ -50,10 +50,10 @@
         <li><a href="{% url roster_search %}" title="Search">Search Rosters</a></li>
       </ul>
   </li>
-  <li><a href="/contact/" title="Tuition/Contact">Tuition/Contact</a></li>
   <li><a href="#" title="Documents">Documents</a>
 
         <ul>
+          <li><a href="/contact/" title="Tuition/Contact">Tuition/Contact</a></li>
           <li><a href="/docs/participation/" title="Participation Documents">Participation Documents</a></li>
           <li><a href="/docs/membership/" title="Membership Documents">Membership Documents</a></li>
           <li><a href="http://crestmontschool.org/admissions/" title="Board Documents">Financial Aid and Admissions Documents</a></li>
@@ -73,16 +73,18 @@
           <li><a href="/docs/email-archive/" title="E-Mail Archive">E-Mail Archive</a></li>
         </ul>
 
-  <li><a href="{% url listgen %}" title="Mailing Lists">Lists</a></li>
-	<li><a href="{% url profiles_profile_detail user %}" title="Profile">My Profile</a></li>
-	<li><a href="http://crestmontschool.org/" title="Public">Public Site</a>
-        <ul>
-          <li><a href="http://www.zazzle.com/crestmontschool" title="Merch">Crestmont Merchandise</a></li>
-        </ul>
-  </li>
+    <li><a href="{% url listgen %}" title="Mailing Lists">Lists</a></li>
+    <li><a href="{% url profiles_profile_detail user %}" title="Profile">My Profile</a></li>
+    <li><a href="{% url family_contact user.get_profile.family.id %}">My Family</a></li>
 
-  {% if user.is_staff %}
-  <li><a href="#" title="iTaco Tools">iTaco Tools</a>
+  	<li><a href="http://crestmontschool.org/" title="Public">Public Site</a>
+          <ul>
+            <li><a href="http://www.zazzle.com/crestmontschool" title="Merch">Crestmont Merchandise</a></li>
+          </ul>
+    </li>
+
+    {% if user.is_staff %}
+    <li><a href="#" title="iTaco Tools">iTaco Tools</a>
         <ul>
 
         <li><a href="{% url batch_daycare_charges %}" title="Batch Daycare Charges">Batch Daycare Charges</a></li>
@@ -96,18 +98,18 @@
 		{# teachers submenu #}
 		{% if perms.apply and not user.is_superuser %}
 		<li><a href="#">SUPERUSERS ONLY: &crarr;</a></li>
-    <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>
+        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>
 		{% endif %}
 
-    {% if user.is_superuser %}
-    <li><a href="#">SUPERUSERS ONLY: &crarr;</a></li>
-    <li><a href="{% url batch_board_credit %}" title="Batch-Add Board Credits">Batch Board Credits</a></li>
-    <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>
-    <li><a href="{% url obligation_summary cur_year.id %}">Obligations summary</a></li> {# Get current school year from context processor #}
-    <li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li>
-    <li><a href="{% url emergency_forms %}" title="Emergency Forms">Emergency Forms</a></li>
-    <li><a href="/admin/" title="Admin">Admin</a></li>
-    {% endif %}
+        {% if user.is_superuser %}
+        <li><a href="#">SUPERUSERS ONLY: &crarr;</a></li>
+        <li><a href="{% url batch_board_credit %}" title="Batch-Add Board Credits">Batch Board Credits</a></li>
+        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>
+        <li><a href="{% url obligation_summary cur_year.id %}">Obligations summary</a></li> {# Get current school year from context processor #}
+        <li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li>
+        <li><a href="{% url emergency_forms %}" title="Emergency Forms">Emergency Forms</a></li>
+        <li><a href="/admin/" title="Admin">Admin</a></li>
+        {% endif %}
 
 		</ul>
     </li>

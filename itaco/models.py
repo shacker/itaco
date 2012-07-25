@@ -195,7 +195,10 @@ class Profile(models.Model):
 
     # Looks redundant with above, but needed for the list_display on this model
     def profile_name(self):
-            return u'%s, %s' % (self.user.last_name, self.user.first_name)
+        return u'%s, %s' % (self.user.last_name, self.user.first_name)
+
+    def friendly_name(self):
+        return u'%s %s' % (self.user.first_name, self.user.last_name)
 
     def get_absolute_url(self):
         return ('profiles_profile_detail', (), { 'username': self.user.username })
@@ -234,6 +237,10 @@ class Student(models.Model):
     def __unicode__(self):
         return u'%s, %s' % (self.last_name, self.first_name)
 
+    def friendly_name(self):
+        return u'%s %s' % (self.first_name, self.last_name)
+
+
     # Use UserManager to get the create_user method, etc.
     # objects = UserManager()
 
@@ -245,21 +252,20 @@ class StudentEmergency(models.Model):
     this model only contains fields not covered in those related models.
     """
     student = models.OneToOneField(Student)
-    addl_contacts = models.TextField('Additional contacts',help_text='Add names and phones for additional emergency contacts here, one per line. If none, write \"None\".')
-    out_of_state_contact = models.TextField(help_text='Out of state phone contact (name and phone) in case of earthquake emergency. If none, write \"None\".')
-    addl_authorized_take_home = models.TextField('Additional authorized for take home',help_text='Additional persons authorized to take child home from school (names and phones), one per line. If none, write \"None\".')
-    doctor = models.TextField(help_text='Name, phone, and insurance info for child\'s doctor.')
-    dentist = models.TextField(help_text='Name, phone, and insurance info for child\'s dentist.')
-    med_problems = models.TextField('Medical problems',help_text='Please list known medical problems. If none, write \"None\".')
+    addl_contacts = models.TextField('Additional Persons Who May Be Called In An Emergency',help_text='Add names and phones for additional emergency contacts here, one per line. If none, write \"None\".')
+    out_of_state_contact = models.TextField('Out of State Phone Contact in Case of Earthquake Emergency',help_text='Out of state phone contact (name and phone) in case of earthquake emergency. If none, write \"None\".')
+    addl_authorized_take_home = models.TextField('Additional Persons Authorized to Take Child From School',help_text='Additional persons authorized to take child home from school (names and phones), one per line. If none, write \"None\".')
+    doctor = models.TextField('Child\'s Doctor',help_text='Name, phone, and insurance info for child\'s doctor.')
+    dentist = models.TextField('Child\'s Dentist',help_text='Name, phone, and insurance info for child\'s dentist.')
+    med_problems = models.TextField('List of Medical problems',help_text='Please list known medical problems. If none, write \"None\".')
     allergies = models.TextField(help_text='Please list any known medical or food allergies. If none, write \"None\".')
     auth_tylenol = models.BooleanField('Tylenol',default=False)
     auth_polysporin = models.BooleanField('Polysporin (topical antibiotic)',default=False)
     auth_antiseptic = models.BooleanField('General Antiseptic',default=False)
     auth_benadryl = models.BooleanField('Benedryl (antihistamine)',default=False)
     auth_epipen = models.BooleanField('EpiPen (epinephrine)',default=False)
-    auth_other = models.BooleanField('Other (specify)',default=False)
-    auth_other_specify = models.TextField('Describe other',blank=True,null=True,help_text='If you selected Other above, please describe.')
-    authorized = models.BooleanField(help_text='This emergency form is not valid until this box is checked and form is saved.')
+    auth_other = models.TextField('Describe other',blank=True,null=True,help_text='If you selected Other above, please describe.')
+    authorized = models.BooleanField(help_text='This emergency form is not valid until this box is checked and the form is saved.')
     auth_date = models.DateTimeField(auto_now=True)
 
     class Meta:

@@ -3,7 +3,7 @@ from django import forms
 from django.forms.formsets import formset_factory
 from itaco.models import *
 from itaco.constants import *
-from itaco.forms import ChargeForm, PartCredForm, OblForm, StudentForm
+from itaco.forms import ChargeForm, PartCredForm, OblForm, StudentForm, StudentEmergencyForm
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -914,7 +914,6 @@ def obligation_summary(request,year=None):
 
 
 
-
 @user_passes_test(lambda u: u.is_superuser, login_url='/')
 def emergency_forms(request):
     """
@@ -929,15 +928,64 @@ def emergency_forms(request):
     )
 
 
+
 @user_passes_test(lambda u: u.is_superuser, login_url='/')
-def emergency_form_detail(request,student_id=None):
+def emergency_forms_print(request, student_id = None):
     """
-    Printable detail view for an emergency form
+    Printable view of a single authorized student emergency contact forms
+    (if an ID is passed in) or all of them (if not).
     """
 
-    student = get_object_or_404(Student,pk=student_id)
+    auth_forms = StudentEmergency.objects.filter(authorized = True)
 
-    return render_to_response('tools/emergency_form_detail.html',
+    if student_id:
+        auth_forms = auth_forms.filter(student__id = student_id)
+
+    print student_id
+    print auth_forms.count()
+
+    return render_to_response('tools/emergency_forms_print.html',
+        locals(),
+        context_instance = RequestContext(request),
+    )
+
+
+
+def edit_student_emergency(request,student_id=None):
+    """
+    Editable Emergency Contact Form for a student.
+    Only parents of the current student or adminstrators can edit this.
+    """
+
+    student = get_object_or_404(Student, pk=student_id)
+
+    # Once we've got a student object (above), we can create an emergency form
+    # record for them (if we don't have one already). See docs re: why we use
+    # two vars on left side https://docs.djangoproject.com/en/dev/ref/models/querysets/#get-or-create
+    studentemergency, created = StudentEmergency.objects.get_or_create(student=student)
+
+    if request.user.get_profile().family == student.family or request.user.is_staff:
+
+        if request.POST:
+            form = StudentEmergencyForm(request.POST, instance=studentemergency)
+
+            if form.is_valid():
+                studentemergency.save()
+
+                messages.success(request, "Emergency contact info updated.")
+                return HttpResponseRedirect(reverse('family_contact',args=[student.family.id]))
+            else:
+                messages.error(request, "Form NOT submitted successfully. Please see the fields marked in red below.")
+
+        else:
+            form = StudentEmergencyForm(instance=studentemergency)
+
+        return render_to_response('edit_student_emergency.html', locals(), context_instance=RequestContext(request))
+    else:
+        messages.error(request, "Emergency contact form not changed (insufficient permission)")
+        return HttpResponseRedirect(reverse('family_contact',args=[student.family.id]))
+
+    return render_to_response('edit_student_emergency.html',
         locals(),
         context_instance = RequestContext(request),
     )

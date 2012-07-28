@@ -53,7 +53,7 @@ $(function() {
   <ul id="messagelist">
   {% for student in family.student_set.all  %}
   	{% if not student.studentemergency.authorized %}
-  		<li class="info">iTaco does not have an emergency contact form on file for {{student}}. <a href="">Create one!</a></li>
+  		<li class="info">iTaco does not have an emergency contact form on file for {{student}}. <a href="{% url edit_student_emergency student.id %}">Create one!</a></li>
   	{% endif %}
   {% endfor %}
   </ul>

@@ -250,8 +250,12 @@ def intake(request,app_id):
         if app.avatar:
             oldpath = os.path.join(settings.MEDIA_ROOT,str(app.avatar))
             newdir = os.path.join(settings.MEDIA_ROOT,'uploads','student_avatars',str(student.id))
-            os.makedirs(newdir)
-            shutil.copy(oldpath,newdir)
+            # Don't crash if source media avatar is missing for some reason
+            try:
+                os.makedirs(newdir)
+                shutil.copy(oldpath,newdir)
+            except:
+                pass
 
             # Now update the student record with new avatar
             filename = os.path.basename(oldpath)

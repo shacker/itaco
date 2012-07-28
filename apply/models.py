@@ -17,7 +17,7 @@ STATUS_CHOICES = (
 )
 
 CLASS_CHOICES = (
-    ('K','Kindergarten'),
+    ('kind','Kindergarten'),
     ('1st','1st grade'),
     ('2nd','2nd grade'),
     ('3rd','3rd grade'),

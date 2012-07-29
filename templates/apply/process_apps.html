@@ -13,6 +13,10 @@
 	a.button {
 		color:#EEE;
 	}
+
+    .strike {
+        text-decoration: line-through;
+    }
 </style>
 
 
@@ -38,7 +42,7 @@
 
     {% for app in apps  %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td><a href="{% url app_detail app.id %}">{{app.child_last}}, {{app.child_first}}</a></td>
+        <td {% if app.declined %}class="strike" {% endif %}><a href="{% url app_detail app.id %}">{{app.child_last}}, {{app.child_first}}</a></td>
         <td>{{app.grade}}</td>
         <td>{{app.ethnicity}}</td>
         <td>{{app.appdate|date:"M d"}}</td>

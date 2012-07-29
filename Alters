@@ -1,5 +1,15 @@
 TODO
 
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `declined` TINYINT(1) NOT NULL DEFAULT 0  AFTER `intake_complete`;
+
+
+
+
+=============================
+IN PRODUCTION
+
+
+
 ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `par1_phone_mobile` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  AFTER `par1_phone_work`;
 
 ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `par2_phone_mobile` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL  AFTER `par2_phone_work`;
@@ -12,17 +22,6 @@ ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `par1_phone_work`
 ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `par2_phone_home` `par2_phone_home` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  COMMENT ''  AFTER `par2_zip`;
 
 ALTER TABLE `crest_ourdjang`.`apply_application` CHANGE COLUMN `par2_phone_work` `par2_phone_work` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL  COMMENT ''  AFTER `par2_phone_home`;
-
-
-
-
-
-
-
-
-
-=============================
-IN PRODUCTION
 
 ALTER TABLE `crest_ourdjang`.`itaco_committeejob` ADD COLUMN `description` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL  AFTER `title`;
 

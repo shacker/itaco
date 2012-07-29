@@ -144,6 +144,7 @@ class Application(models.Model):
     sent_eval_letter = models.BooleanField(default=False,help_text="System has already sent evaluation letter.")
     eval_date = models.DateTimeField('Eval date/time',blank=True,null=True,help_text='Attended / will attend evaluation on this date.')
     intake_complete = models.BooleanField(default=False,help_text="This field set automatically after Intake process is run, and is used to prevent duplicate intakes.")
+    declined = models.BooleanField(default=False,help_text="This family declined our invitation to join the school. DO NOT INTAKE.")
 
     def __unicode__(self):
         return u'%s %s' % (self.child_first, self.child_last)

@@ -16,7 +16,7 @@
 {# Don't allow intake if conditions not met #}
 {% if app.ready_for_intake %}
 	<p>This application is ready for intake. These steps will occur when you click the button below:</p>
-	<ul>	
+	<ul>
 		<li>Create a new family record in iTaco if needed</li>
 		<li>Create one or more parent records in iTaco if needed</li>
 		<li>Create a student record in iTaco and copy the uploaded photo into it</li>
@@ -24,11 +24,11 @@
 	</ul>
 
 	<p>Examine the email text below and modify if necessary before submitting. <strong>This action cannot be undone!</strong> Use the Back button in your browser if unsure.</p>
-	
+
 	<form action="" method="post" accept-charset="utf-8">
 	{% csrf_token %}
 		<input type="hidden" name="app_id" value="{{app.id}}" id="app_id">
-		
+
 
 		<textarea name="letter_body">
 {% now "F d, Y" %}
@@ -39,30 +39,29 @@
 
 Dear {{app.par1_fname}}{% if app.par2_fname %} and {{app.par2_fname}}{% endif %},
 
-Thanks, and welcome! We have received your deposit/payment and have officially enrolled  {{app.child_first}} for the {{cur_year}} school year.  
+Welcome to Crestmont! We have received your deposit/payment and have officially enrolled  {{app.child_first}} for the {{cur_year}} school year.
 
 We have also created a login for each parent on the Crestmont private web site:
 
 http://our.crestmontschool.org
 
-We use this private site (aka iTaco) heavily throughout the year. As a co-op, it's important to be able to track credits, charges, and obligations for each parent. The site also provides contact information and rosters for all families, parents and students. Please take a moment to log in and look around. While there, please update your photo (so other parents can get to know you), contact information, and interests. Since all school mailing lists are automatically generated from data in this site, please make sure the email listed for you is current.
+We use this private site (aka iTaco) heavily throughout the year. As a co-op, it's important to be able to track credits, charges, and obligations for each parent. The site also provides contact information and rosters for all families, parents and students. Please take a moment to log in and look around. While there, please update your photo (so other parents can get to know you), contact information, and interests.  Since all school mailing lists are automatically generated from data in this site, please double check the email and contact information listed for you is current.  It is essential that you review your family's information so that all school communication, billing, and tracking can be managed effectively in iTaco.
 
-Each parent has their own login on the site - you cannot update your partner's information. To discover your login information, click the "I forgot my password" link and enter your email. You'll receive a message that includes your username, and a link that will let you set your preferred password.
+Each parent has their own login on the site - if you have a partner, you cannot update your partner's information.  To discover your login information, click the "I forgot my password" link and enter your email. You'll receive a message that includes your username, and a link that will let you set your preferred password.
 
 Looking forward to the new school year!
 
 Sincerely,
 
-{{chair}}
-Membership Chair
-{{chair.user.email}}
-
+{% for chair in chairs %}{{ chair }} {{chair.user.email}}
+{% endfor %}
+Membership Co-Chairs
 	</textarea>
 
 		<p><input type="submit" value="Intake {{app}} Now" class="button blue large"></p>
 	</form>
 
-{% else %}	
+{% else %}
 	<p>This application has not met all conditions for intake. Not processed.</p>
 
 {% endif %}

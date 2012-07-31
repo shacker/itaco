@@ -147,9 +147,9 @@ def intake(request,app_id):
 
     app = get_object_or_404(Application,pk=app_id)
 
-    # Get current school year and Membership chair for use in welcome email
+    # Get current school year and Membership chairs for use in welcome email
     cur_year = SchoolYear.objects.get(current=True)
-    chair = BoardPosition.objects.get(title='Membership').profile_set.all()[0]
+    chairs = BoardPosition.objects.get(title='Membership').profile_set.all()
 
     # Make sure we don't try to perform intake for a student/family/parents twice!
     if app.intake_complete == '1' :

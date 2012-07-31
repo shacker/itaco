@@ -1,4 +1,4 @@
-/* button 
+/* button
 ---------------------------------------------- */
 .button {
 	display: inline-block;
@@ -14,7 +14,7 @@
 	font-weight:bold;
 	padding: .4em 2em .44em;
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
-	-webkit-border-radius: .5em; 
+	-webkit-border-radius: .5em;
 	-moz-border-radius: .5em;
 	border-radius: .5em;
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
@@ -28,7 +28,7 @@
 	position: relative;
 	top: 1px;
 }
- 
+
 .bigrounded {
 	-webkit-border-radius: 2em;
 	-moz-border-radius: 2em;
@@ -42,10 +42,10 @@
 	font-size: 11px;
 	padding: .2em 1em .275em;
 }
- 
- 
+
+
 /* blue buttons */
-.blue {
+.blue, a.blue {
 	color: #d9eef7;
 	border: solid 1px #0076a3;
 	background: #0095cd;
@@ -68,7 +68,7 @@
 
 
 /* green buttons */
-.green {
+.green, a.green {
 	color: #e8f0de;
 	border: solid 1px #538312;
 	background: #64991e;
@@ -90,7 +90,7 @@
 }
 
 /* orange */
-.orange {
+.orange, a.orange {
 	color: #fef4e9;
 	border: solid 1px #da7c0c;
 	background: #f78d1d;
@@ -112,7 +112,7 @@
 }
 
 /* red */
-.red {
+.red, a.red {
 	color: #faddde;
 	border: solid 1px #980c10;
 	background: #d81b21;
@@ -136,7 +136,7 @@
 
 
 /* grey */
-.grey {
+.grey, a.grey {
 	color: #faddde;
     border: solid 1px #989392;
 	background: #B1B1B1;

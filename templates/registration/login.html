@@ -11,7 +11,7 @@
 
 	<p>You are logged in as {{ user.username }}</p>
 
-	<a href="/accounts/logout/">Log out?</a> 
+	<a href="/accounts/logout/">Log out?</a>
 
 {% else %}
 
@@ -28,13 +28,13 @@
 	<dd>{{ form.username }}</dd>
 	<dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
 	<dd>{{ form.password }}</dd>
-	<dt style="margin-top:10px;"><input type="submit" value="Log in" /></dt>
+	<dt style="margin-top:10px;"><input type="submit" class="button blue" value="Log in" /></dt>
 	</dl>
 	</form>
 
     <h3>Password Help</h3>
 	<p>I'm a new user or I've forgotten my password - <a href="/accounts/password/reset/">please re-send it</a>.</p>
-	
+
 
 {% endif %}
 

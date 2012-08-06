@@ -272,9 +272,9 @@ def intake(request,app_id):
         if app.par2_email:
             recipients.append(app.par2_email)
 
-        email_subject = 'Welcome to Crestmont School!'
+        email_subject = 'Welcome to iTaco, the Crestmont intranet'
         email_body_txt = request.POST['letter_body']
-        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)
+        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Membership <membership@crestmontschool.org>", recipients)
 
         if msg.send(fail_silently=False):
             messages.success(request, "Welcome letter sent to %s" % recipients)

@@ -27,7 +27,9 @@ urlpatterns = patterns('',
 
     # Profile editing
     # First match /profiles/edit before django-profiles gets it and loads the defaults, so we can pass in our custom form object.
-    ('^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
+    # Also we want to support hyphens in URLs to override that one as well.
+    url(r'^profiles/(?P<username>[-\w]+)/$', 'profiles.views.profile_detail', name='profiles_profile_detail'),
+    (r'^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
     (r'^profiles/', include('profiles.urls')),
 
     (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/media/images/flower.gif'}),

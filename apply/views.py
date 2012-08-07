@@ -204,33 +204,35 @@ def intake(request,app_id):
                 messages.error(request, "Failed creating iTaco user %s. Please contact the webmaster." % user.username)
 
 
-            # Second run-through for parent 2
-            user = User()
-            user.first_name = app.par2_fname
-            user.last_name = app.par2_lname
-            user.username = "%s_%s" % (slugify(app.par2_fname),slugify(app.par2_lname))
-            user.email = app.par2_email
-            user.set_password(User.objects.make_random_password(length=8))
-            user.active = True
-            try:
-                user.save()
-                messages.success(request, "New iTaco user created and set to active: %s" % user.username)
+            # Second run-through for parent 2. Only do this if a 2nd parent exists to avoid creating empty parent objects
+            # We'll assume that the existence of a first name for parent2 means we have that parent object
+            if app.par2_fname:
+                user = User()
+                user.first_name = app.par2_fname
+                user.last_name = app.par2_lname
+                user.username = "%s_%s" % (slugify(app.par2_fname),slugify(app.par2_lname))
+                user.email = app.par2_email
+                user.set_password(User.objects.make_random_password(length=8))
+                user.active = True
+                try:
+                    user.save()
+                    messages.success(request, "New iTaco user created and set to active: %s" % user.username)
 
-                # We now have a new User object. Attach a new Profile to them.
-                profile = Profile.objects.create(user=user)
-                profile.family = family
-                profile.address1 = app.par2_address1
-                profile.address2 = app.par2_address2
-                profile.city = app.par2_city
-                profile.state = app.par2_state
-                profile.zip = app.par2_zip
-                profile.phone_home = app.par2_phone_home
-                profile.phone_work = app.par2_phone_work
-                profile.phone_mobile = app.par2_phone_mobile
-                profile.save()
-            except:
-                # User creation could fail in the unlikely event that another user sam_jones already exists in the system
-                messages.error(request, "Failed creating iTaco user %s. Please contact the webmaster." % user.username)
+                    # We now have a new User object. Attach a new Profile to them.
+                    profile = Profile.objects.create(user=user)
+                    profile.family = family
+                    profile.address1 = app.par2_address1
+                    profile.address2 = app.par2_address2
+                    profile.city = app.par2_city
+                    profile.state = app.par2_state
+                    profile.zip = app.par2_zip
+                    profile.phone_home = app.par2_phone_home
+                    profile.phone_work = app.par2_phone_work
+                    profile.phone_mobile = app.par2_phone_mobile
+                    profile.save()
+                except:
+                    # User creation could fail in the unlikely event that another user sam_jones already exists in the system
+                    messages.error(request, "Failed creating iTaco user %s. Please contact the webmaster." % user.username)
 
 
         # Whether this is a new or old family, need to generate this Student object

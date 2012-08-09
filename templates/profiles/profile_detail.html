@@ -38,8 +38,10 @@ $(function() {
 {# Reusable avatar code #}
 {% include 'profiles/avatar.html' %}
 
-{% if profile.family %}
-    <h3>In family: <a href="{% url family_contact profile.family.id %}">{{ profile.family }}</a></h3>
+{% if myfam_id %}
+  {% if profile.family %}
+      <h3>In family: <a href="{% url family_contact profile.family.id %}">{{ profile.family }}</a></h3>
+  {% endif %}
 {% endif %}
 
 <p><strong>About:</strong><br>

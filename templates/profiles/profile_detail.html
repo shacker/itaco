@@ -18,7 +18,9 @@ $(function() {
 
 {% ifequal user profile.user  %}
   <ul id="navlist2">
-      <li><a href="{% url family_contact profile.family.id %}">My family</a></li>
+      {% if myfam_id %}
+        <li><a href="{% url family_contact profile.family.id %}">My family</a></li>
+      {% endif %}
       <li><a href="{% url profiles_edit_profile %}">Edit my profile</a></li>
       <li><a href="/accounts/password/change/">Change my password</a></li>
       {# For staff/faculty - downloadable PDF timesheet (uploaded via FTP) #}
@@ -38,11 +40,9 @@ $(function() {
 {# Reusable avatar code #}
 {% include 'profiles/avatar.html' %}
 
-{% if myfam_id %}
   {% if profile.family %}
       <h3>In family: <a href="{% url family_contact profile.family.id %}">{{ profile.family }}</a></h3>
   {% endif %}
-{% endif %}
 
 <p><strong>About:</strong><br>
 {% if not profile.about %}

@@ -48,6 +48,7 @@ class StudentForm(ModelForm):
 class StudentEmergencyForm(ModelForm):
 
   authorized = forms.BooleanField(required=True,help_text='This emergency form is not valid until this box is checked and the form is saved.')
+  media_release = forms.BooleanField(required=True,help_text='I authorize the terms of Media Release as described.')
 
   class Meta:
       model = StudentEmergency
@@ -65,6 +66,7 @@ class StudentEmergencyForm(ModelForm):
         'auth_benadryl',
         'auth_epipen',
         'auth_other',
+        'media_release',
         'authorized',
   )
 

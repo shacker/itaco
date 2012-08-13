@@ -28,7 +28,7 @@ input#id_authorized {
 }
 </style>
 
-<h2>Editing Emergency Contact info for {{student}}</h2>
+<h2>Editing Emergency Contact and Media Release for {{student}}</h2>
 
 <p>The information on this form will be printed out and used by Crestmont School
 in the event of any emergency. Some of the information shown below comes from existing
@@ -185,7 +185,20 @@ to edit student information.</p>
   Please list any additional medications authorized for administration to your child.
   </div>
 
+<hr />
+<h3>Media Release Form</h3>
 
+<p>Occasionally, Crestmont School would like to use the name, photographs, video recordings, and/or interview comments of students for educational and promotional purposes. Sometimes this includes requests from the news media to record and photograph students while covering school events. Any posting of student-related material on the Internet is done by legitimate news media personnel or Crestmont School personnel.  In order to use such material, parental consent is necessary for students under the age of 18.</p>
+
+<p>I understand that Crestmont School has no control over further distribution of a photo or image once it appears in a school publication web site. By signing below, I hereby release Crestmont School from any damages or injuries claimed by the student or parent related to production or distribution of the photo or image.</p>
+
+  <div class="fieldWrapper">
+  {{form.media_release.label_tag}}
+  {{ form.media_release.errors }}
+  {{form.media_release}}
+  {{form.media_release.help_text}}
+  </div>
+<hr />
 
 <p>I, {{user.get_profile.friendly_name}}, parent or legal guardian of {{student.friendly_name}}, a minor child, hereby give permission for my child to participate in CRESTMONT SCHOOL EXTENDED CARE activities conducted by CRESTMONT SCHOOL. I understand that CRESTMONT SCHOOL can, at any time, revoke its agreement to provide extended care for my child.</p>
 

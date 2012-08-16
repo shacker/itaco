@@ -265,7 +265,7 @@ class StudentEmergency(models.Model):
     auth_benadryl = models.BooleanField('Benedryl (antihistamine)',default=False)
     auth_epipen = models.BooleanField('EpiPen (epinephrine)',default=False)
     auth_other = models.TextField('Describe other',blank=True,null=True,help_text='If you selected Other above, please describe.')
-    media_release = models.BooleanField(default=False,help_text='I authorize the terms of Media Release as described.')
+    media_release = models.BooleanField(default=True,help_text='I authorize the terms of Media Release as described.')
     authorized = models.BooleanField(help_text='This emergency form is not valid until this box is checked and the form is saved.')
     auth_date = models.DateTimeField(auto_now=True)
 

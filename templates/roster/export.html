@@ -10,38 +10,40 @@
 	table {
 		margin-top:20px;
 	}
-	
+
 </style>
 <h3>Roster export options</h3>
 
 <table>
 	<tr>
 		<td><a href="{% url roster_print %}"><img src="{{STATIC_URL}}images/roster_icon.jpg" height="64" alt="Roster Icon"></a></td>
-		
 
+
+		{# No longer auto-generating the sign-in roster
 		<td>
 			<a href="{% url signin_print %}"><img src="{{STATIC_URL}}images/login_icon.gif" width="64" height="64" alt="Login roster">
 		</td>
-		
+		#}
+
 		<td>
 			<a href="{% url vcard_multi %}"><img src="{{STATIC_URL}}images/vcard.png" width="64" height="64" alt="Vcard">
 		</td>
 	</tr>
-	
+
 
 
 	<tr>
 		<td>
-			<strong><a href="{% url roster_print %}">Printable master roster</a></strong>	
+			<strong><a href="{% url roster_print %}">Printable master roster</a></strong>
 		</td>
 
 		<td>
-			<strong><a href="{% url signin_print %}">Printable sign-in roster</a></strong>	
+			<strong><a href="{% url signin_print %}">Printable sign-in roster</a></strong>
 		</td>
 
-		
+
 		<td>
-			<strong><a href="{% url vcard_multi %}">Download group vCard*</a></strong>	
+			<strong><a href="{% url vcard_multi %}">Download group vCard*</a></strong>
 		</td>
 	</tr>
 </table>

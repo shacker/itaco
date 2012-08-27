@@ -386,7 +386,7 @@ def vcard_multi(request):
 
 def signin_print(request):
     '''
-    Printable sign-in / sign-out sheet
+    Printable sign-in / sign-out sheet - No longer using this view
     '''
 
     # We don't necessarily have a primary contact for each family,

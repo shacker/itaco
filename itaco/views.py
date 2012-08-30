@@ -920,7 +920,7 @@ def emergency_forms(request):
     A list of student emergency forms that have / have not been submitted.
     """
 
-    students = Student.objects.all().order_by('last_name')
+    students = Student.objects.filter(enrolled=True).order_by('last_name')
 
     return render_to_response('tools/emergency_forms.html',
         locals(),
@@ -936,13 +936,10 @@ def emergency_forms_print(request, student_id = None):
     (if an ID is passed in) or all of them (if not).
     """
 
-    auth_forms = StudentEmergency.objects.filter(authorized = True)
+    auth_forms = StudentEmergency.objects.filter(authorized = True).order_by('student__last_name')
 
     if student_id:
         auth_forms = auth_forms.filter(student__id = student_id)
-
-    print student_id
-    print auth_forms.count()
 
     return render_to_response('tools/emergency_forms_print.html',
         locals(),

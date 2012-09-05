@@ -346,7 +346,7 @@ def send_offer(request, app_id):
 
         email_subject = 'Your child has been accepted at Crestmont School'
         email_body_txt = request.POST['letter_body']
-        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)
+        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <admissions@crestmontschool.org>", recipients)
         msg.attach_file(settings.ATTACHMENTS_PATH + '/Crestmont_Contract.pdf')
 
         if msg.send(fail_silently=False):
@@ -388,7 +388,7 @@ def send_eval_letter(request, app_id):
 
         email_subject = "Invitation to Crestmont student evaluation meeting"
         email_body_txt = request.POST['letter_body']
-        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <info@crestmontschool.org>", recipients)
+        msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <admissions@crestmontschool.org>", recipients)
 
         # Only send emergency form if this is a non-K application
         if app.grade != 'K':

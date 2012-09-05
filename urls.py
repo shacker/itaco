@@ -32,7 +32,7 @@ urlpatterns = patterns('',
     url(r'^profiles/(?P<username>[-\w]+)/$', 'profiles.views.profile_detail', name='profiles_profile_detail'),
     (r'^profiles/', include('profiles.urls')),
 
-    (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/media/images/flower.gif'}),
+    (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/images/flower.gif'}),
 )
 
 

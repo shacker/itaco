@@ -9,17 +9,31 @@
 		margin:20px 50px 20px 50px;
 	}
 	h1 {
-		font-size:18px;
-	}
-	h2 {
 		font-size:16px;
 	}
-	h3{
+	h2 {
 		font-size:14px;
+	}
+	h3{
+		font-size:12px;
+	}
+	h4 {
+		font-size:10px;
 	}
 	p, li {
 		font-size:13px;
 		margin-left:20px;
+	}
+	table {
+		margin-bottom:20px;
+	}
+	td {
+		vertical-align: top;
+		padding-right: 40px;
+	}
+
+	.minor {
+		font-size:0.6em;
 	}
 
 	@media print
@@ -31,104 +45,116 @@
 	{% for auth_form in auth_forms %}
 	{% with auth_form.student as student %}
 
-	<h1>Crestmont School Emergency Form and Consent for Medical Treatment</h1>
-	<h2>Emergency Form for: {{student}}</h2>
+	<h2>{{student}} ({{student.birthdate}})</h2>
 
-	<h3>
-		<strong>Date of birth:</strong> {{student.birthdate}}<br />
-		<strong>Form last updated by parent/guardian:</strong> {{student.studentemergency.auth_date}}
-	</h3>
 
-	<h3><strong>Parent/guardians</strong> (&#x238B; = Primary Contact):</h3>
-
+	<h3><strong>Parents/guardians</strong> (&#x238B; = Primary Contact):</h3>
+		<table>
+			<tr>
         {% for parent in student.family.profile_set.all %}
-        	<p>
-            <strong>{{ parent.user.first_name }} {{ parent.user.last_name }}
-             {% ifequal parent.primary_contact 1 %}<strong>&#x238B;</strong>{% endifequal %}<br />
-            </strong>
+        	<td>
+        		<p>
+		            <strong>{{ parent.user.first_name }} {{ parent.user.last_name }}
+		             {% ifequal parent.primary_contact 1 %}<strong>&#x238B;</strong>{% endifequal %}<br />
+		            </strong>
 
-           {% if parent.address1 %}
-           {{ parent.address1 }}<br />
-           {% endif %}
+		           {% if parent.address1 %}
+		           {{ parent.address1 }}<br />
+		           {% endif %}
 
-           {% if parent.address2 %}
-           {{ parent.address2 }}<br />
-           {% endif %}
+		           {% if parent.address2 %}
+		           {{ parent.address2 }}<br />
+		           {% endif %}
 
-           {% if parent.city %}
-           {{ parent.city }},
-           {% endif %}
+		           {% if parent.city %}
+		           {{ parent.city }},
+		           {% endif %}
 
-           {% if parent.state %}
-           {{ parent.state }},
-           {% endif %}
+		           {% if parent.state %}
+		           {{ parent.state }},
+		           {% endif %}
 
-           {% if parent.zip %}
-           {{ parent.zip }}<br />
-           {% endif %}
+		           {% if parent.zip %}
+		           {{ parent.zip }}<br />
+		           {% endif %}
 
-           {% if parent.phone_home %}
-           Home: {{ parent.phone_home }}<br />
-           {% endif %}
+		           {% if parent.phone_home %}
+		           Home: {{ parent.phone_home }}<br />
+		           {% endif %}
 
-           {% if parent.phone_work %}
-           Work: {{ parent.phone_work }}<br />
-           {% endif %}
+		           {% if parent.phone_work %}
+		           Work: {{ parent.phone_work }}<br />
+		           {% endif %}
 
-           {% if parent.phone_mobile %}
-           Mobile: {{ parent.phone_mobile }}<br />
-           {% endif %}
+		           {% if parent.phone_mobile %}
+		           Mobile: {{ parent.phone_mobile }}<br />
+		           {% endif %}
 
-           {% if parent.phone_fax %}
-           Fax: {{ parent.phone_fax }}<br />
-           {% endif %}
-       </p>
-
-    {% endfor %}
-
-	<h3><strong>Additional Persons Who May Be Called In An Emergency:</strong></h3>
-	{% if student.studentemergency.addl_contacts %}
-		{{student.studentemergency.addl_contacts|linebreaks}}
-	{% else %}
-		<h3>None stated.</h3>
-	{% endif %}
+		           {% if parent.phone_fax %}
+		           Fax: {{ parent.phone_fax }}<br />
+		           {% endif %}
+	       		</p>
+       		</td>
+       		{% endfor %}
+           </tr>
+       </table>
 
 
-	<h3><strong>Out of State Phone Contact in Case of Earthquake Emergency:</strong></h3>
+    <table>
+    	<tr>
+    		<td>
+				<h3><strong>Additional Persons Who May Be Called In An Emergency:</strong></h3>
+				{% if student.studentemergency.addl_contacts %}
+					{{student.studentemergency.addl_contacts|linebreaks}}
+				{% else %}
+					<h3>None stated.</h3>
+				{% endif %}
+			</td>
 
-	{% if student.studentemergency.out_of_state_contact %}
-		{{student.studentemergency.out_of_state_contact|linebreaks}}
-	{% else %}
-		<h3>None stated.</h3>
-	{% endif %}
+			<td>
+				<h3><strong>Out of State Earthquake/Emergency:</strong></h3>
+
+				{% if student.studentemergency.out_of_state_contact %}
+					{{student.studentemergency.out_of_state_contact|linebreaks}}
+				{% else %}
+					<h3>None stated.</h3>
+				{% endif %}
+			</td>
+
+		</tr>
+	</table>
+
+				<h3><strong>Additional Persons Authorized to Take Child From School:</strong></h3>
+
+				{% if student.studentemergency.addl_authorized_take_home %}
+					{{student.studentemergency.addl_authorized_take_home|linebreaks}}
+				{% else %}
+					<h3>None stated.</h3>
+				{% endif %}
 
 
+	<table>
+		<tr>
+			<td>
+				<h3><strong>Doctor:</strong></h3>
 
-	<h3><strong>Additional Persons Authorized to Take Child From School:</strong></h3>
+				{% if student.studentemergency.doctor %}
+					{{student.studentemergency.doctor|linebreaks}}
+				{% else %}
+					<h3>None stated.</h3>
+				{% endif %}
+			</td>
+			<td>
+				<h3><strong>Dentist:</strong></h3>
 
-	{% if student.studentemergency.addl_authorized_take_home %}
-		{{student.studentemergency.addl_authorized_take_home|linebreaks}}
-	{% else %}
-		<h3>None stated.</h3>
-	{% endif %}
-
-
-	<h3><strong>Doctor:</strong></h3>
-
-	{% if student.studentemergency.doctor %}
-		{{student.studentemergency.doctor|linebreaks}}
-	{% else %}
-		<h3>None stated.</h3>
-	{% endif %}
-
-	<h3><strong>Dentist:</strong></h3>
-
-	{% if student.studentemergency.dentist %}
-		{{student.studentemergency.dentist|linebreaks}}
-	{% else %}
-		<h3>None stated.</h3>
-	{% endif %}
-
+				{% if student.studentemergency.dentist %}
+					{{student.studentemergency.dentist|linebreaks}}
+				{% else %}
+					<h3>None stated.</h3>
+				{% endif %}
+			</td>
+		</tr>
+	</table>
 
 	<h3><strong>List of Medical Problems:</strong></h3>
 
@@ -159,6 +185,8 @@
 	{{ student.studentemergency.auth_other_specify|linebreaks }}
 	{% endif %}
 	</ul>
+
+	<h4><strong>Form last updated</strong> {{student.studentemergency.auth_date}}</h4>
 
 	{% endwith %}
 	<hr />

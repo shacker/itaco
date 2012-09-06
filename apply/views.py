@@ -95,7 +95,7 @@ def process_apps(request):
     Accepted students get their family, parent, profile, and student objects added automatically.
     Does not yet send accept/reject emails, but could...
     '''
-    apps = Application.objects.all().order_by('-appdate')
+    apps = Application.objects.filter(archived=False).order_by('-appdate')
 
     return render_to_response('apply/process_apps.html',
         locals(),

@@ -1,5 +1,7 @@
 TODO
 
+ALTER TABLE `crest_ourdjang`.`apply_application` ADD COLUMN `archived` TINYINT(1) NULL DEFAULT 0  AFTER `declined`;
+
 ALTER TABLE `crest_ourdjang`.`itaco_studentemergency` ADD COLUMN `media_release` TINYINT(1) NOT NULL DEFAULT 0  AFTER `auth_other`;
 
 

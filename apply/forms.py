@@ -30,7 +30,7 @@ class AppEditForm(ModelForm):
     class Meta:
         model = Application
         widgets = {'teacher_rec_form': forms.FileInput}
-        fields = ('teacher_rec_form','fee_paid','attended_tour','eval_date','status','staff_notes','declined')
+        fields = ('teacher_rec_form','fee_paid','attended_tour','eval_date','status','staff_notes','declined','archived')
 
 
 

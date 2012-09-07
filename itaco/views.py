@@ -885,7 +885,7 @@ def obligation_summary(request,year=None):
     obl_field_trips = settings.ANN_FIELD_TRIPS
     obl_coop_jobs = settings.ANN_COOP_JOBS
 
-    families = Family.objects.all()
+    families = Family.has_students.all()
     fam_oblist = []
     for f in families:
 

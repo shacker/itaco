@@ -936,7 +936,7 @@ def emergency_forms_print(request, student_id = None):
     (if an ID is passed in) or all of them (if not).
     """
 
-    auth_forms = StudentEmergency.objects.filter(authorized = True).order_by('student__last_name')
+    auth_forms = StudentEmergency.objects.filter(authorized=True, enrolled=True).order_by('student__last_name')
 
     if student_id:
         auth_forms = auth_forms.filter(student__id = student_id)

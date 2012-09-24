@@ -17,7 +17,8 @@ body {
   }
 
 body, select, input, textarea {
-  font: 100% Arial, Verdana, Sans-Serif;
+  font-family: Arial, Verdana, Sans-Serif;
+  line-height: 30px;
   }
 
 p {
@@ -53,8 +54,6 @@ small {
   }
 
 
-
-
 /* Structure */
 
 #page {
@@ -66,7 +65,7 @@ small {
 
   width:880px;
   margin:0 auto;
-  font-size:0.7em;
+  /*font-size:0.7em;*/
 
   padding: 0px 0px 35px 0px;
   }
@@ -332,16 +331,15 @@ h4 {
   width:482px;
   }
 
-.entry, .sidetext {
-
+/*.entry, .sidetext {
   font: 120%/140% Georgia, "Times New Roman", Times, serif;
 }
+*/
 
 h3 a:link, h3 a:visited {
   color:#464A5F;
   text-decoration:underline;
   }
-
 
 
 /*Post Formatting*/
@@ -491,8 +489,9 @@ white-space: nowrap;
 {
 display: inline;
 list-style-type: none;
-margin-left:1px;
+margin-left:0px;
 font-family:Arial;
+font-size: 0.8em;
 }
 
 #navlist2 a { padding: 2px 6px; }

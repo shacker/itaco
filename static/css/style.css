@@ -655,7 +655,7 @@ ul.errorlist li {
 #appl_form textarea {
     width:400px;
     font-size:20px;
-    color:#464646;    
+    color:#464646;
 }
 
 fieldset {
@@ -671,3 +671,12 @@ legend {
 .minor {
     font-size:0.9em;
 }
+
+ /*Nested lists in documentation */
+ol.nested ol li {
+  margin-left: 80px;
+ }
+
+ol.nested ol ol li {
+  margin-left: 120px;
+ }

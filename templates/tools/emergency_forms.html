@@ -29,6 +29,9 @@
 		<th class="authcol">
 			Signed
 		</th>
+		<th class="authcol">
+			Media Release
+		</th>
 		<th class="datecol">
 			Date
 		</th>
@@ -55,6 +58,14 @@
 
 		<td class="authcol">
 			{% if s.studentemergency.authorized %}
+			<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">
+			{% else %}
+			<img src="{{STATIC_URL}}images/icon_error.gif" width="16" height="16" alt="Icon Error">
+			{% endif %}
+		</td>
+
+		<td class="authcol">
+			{% if s.studentemergency.media_release %}
 			<img src="{{STATIC_URL}}images/icon_success.gif" width="16" height="16" alt="Icon Success">
 			{% else %}
 			<img src="{{STATIC_URL}}images/icon_error.gif" width="16" height="16" alt="Icon Error">

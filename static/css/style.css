@@ -18,7 +18,7 @@ body {
 
 body, select, input, textarea {
   font-family: Arial, Verdana, Sans-Serif;
-  line-height: 30px;
+  line-height: 20px;
   }
 
 p {
@@ -151,7 +151,7 @@ h2 {
   }
 
 h3, #sidebar h2 {
-  font: 1.3em Arial, Helvetica, sans-serif;
+  font: 1.2em Arial, Helvetica, sans-serif;
   text-transform:uppercase;
   letter-spacing:0.1em;
   margin-bottom:20px;

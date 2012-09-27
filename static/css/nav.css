@@ -27,7 +27,7 @@
 	display:block;
 	font-weight:bold;
 	color: #f5f5f4;
-	padding:0px 8px;
+	padding:3px 8px;
 	}
 
 #nav a:hover, #nav a:active, .current_page_item	a, #home .on {
@@ -57,7 +57,6 @@
 
 #nav li li a, #nav li li a:visited {
 	font-weight:normal;
-	font-size:0.9em;
 	color:#FFF;
 	}
 

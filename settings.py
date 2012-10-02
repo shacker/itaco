@@ -61,9 +61,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-	'django.contrib.messages.middleware.MessageMiddleware',    
+	'django.contrib.messages.middleware.MessageMiddleware',
     'middleware.login_req.LoginRequiredMiddleware',
-    
+
 )
 
 LOGIN_URL = '/accounts/login/'
@@ -86,21 +86,20 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.flatpages',
     'django.contrib.databrowse',
-    'django.contrib.messages', 
-    'django.contrib.staticfiles',   
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     'itaco',
     'roster',
     'apply',
     'easy_thumbnails',
     'profiles',
     'django_extensions',
-
 )
 
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "itaco.context_processors.family_id", # Custom processor to get current user's family ID into every page.
-    "itaco.context_processors.cur_year", # Custom processor to get current user's family ID into every page.    
+    "itaco.context_processors.cur_year", # Custom processor to get current user's family ID into every page.
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
     "django.core.context_processors.static",
@@ -142,7 +141,7 @@ DAYCARE_EVENT_1_CHILD = 6
 DAYCARE_EVENT_2_CHILD = 10
 DAYCARE_EVENT_3_CHILD = 12
 DAYCARE_LATE_PICKUP = 1
-MISSED_MAINTENANCE_HOURLY = 25 
+MISSED_MAINTENANCE_HOURLY = 25
 MISSED_HOUSECLEANING = 130
 MISSED_FUNDRAISING = 25
 MISSED_FIELDTRIP = 50
@@ -168,10 +167,10 @@ LISTGENPATH = ""
 # For admin use we call the config in media/js/tinymce_kdmc_setup.js.
 
 TINYMCE_ADMIN_CONFIG={
-  'theme': "advanced", 
-  'relative_urls': False, 
-  'remove_linebreaks': False, 
-  'convert_urls': True, 
+  'theme': "advanced",
+  'relative_urls': False,
+  'remove_linebreaks': False,
+  'convert_urls': True,
   # 'width':'800px',
   # 'height':'300px',
   'plugins': "advimage,advlink,fullscreen,paste,media,searchreplace,template,table,spellchecker",
@@ -182,7 +181,7 @@ TINYMCE_ADMIN_CONFIG={
     'theme_advanced_buttons1': "|formatselect,styleselect,|,bold,italic,underline,|,bullist,numlist,blockquote,|,undo,redo,|,link,unlink,|,image,|search,|,pasteword,media,charmap,|,code,|,table,cleanup",
     'theme_advanced_buttons2': "",
     'theme_advanced_buttons3': "",
-    'theme_advanced_buttons1_add_before':'spellchecker',    
+    'theme_advanced_buttons1_add_before':'spellchecker',
     'theme_advanced_path': 'false',
     'theme_advanced_blockformats': "p,h2,h3,h4,pre",
     'theme_advanced_styles': "[all] clearfix=clearfix;[p] small=small;[img] Image left-aligned=img_left;[img] Image left-aligned (nospace)=img_left_nospacetop;[img] Image right-aligned=img_right;[img] Image right-aligned (nospace)=img_right_nospacetop;[img] Image Block=img_block;[img] Image Block (nospace)=img_block_nospacetop;[div] column span-2=column span-2;[div] column span-4=column span-4;[div] column span-8=column span-8",
@@ -192,7 +191,7 @@ TINYMCE_ADMIN_CONFIG={
     'theme_advanced_styles': "Image left-aligned=alignleft;Image right-aligned=alignright;Image w/border=image-border",
     'advlink_styles': "intern=internal;extern=external",
   'content_css' : "/static/css/tiny_editor.css",
-  'file_browser_callback': "CustomFileBrowser", 
+  'file_browser_callback': "CustomFileBrowser",
 }
 
 

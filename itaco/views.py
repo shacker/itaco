@@ -17,7 +17,6 @@ from django.conf import settings
 import sys,os
 
 
-
 def listgen(request):
     """
     Listgen script runs externally, via cronjob, and generates text files. This just lets people see who's on the lists.
@@ -143,7 +142,6 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
     date__gte=period_start,date__lte=period_end
     """
 
-
     """
     Get base objects for family, and for parents and students in this family.
     """
@@ -161,15 +159,6 @@ def family_detail(request,fam_id,csv = False,year='',period='',all=''):
     obl_field_trips_due = settings.ANN_FIELD_TRIPS
     obl_coop_jobs_due = settings.ANN_COOP_JOBS
 
-    """
-    Annual obligation depends on number of kids in family, which we have via s.count()
-    Removing this for now - Vickie, Amy agree its' currently not needed.
-    """
-    # num_kids = s.count()
-    # if num_kids > 1 :
-    #     obl_annual_obligation_due = settings.ANN_OBLIGATION_2_CHILD
-    # else:
-    #     obl_annual_obligation_due = settings.ANN_OBLIGATION_1_CHILD
 
     """
     This family may hold one or more board positions. Get list of all positions
@@ -980,7 +969,7 @@ def edit_student_emergency(request,student_id=None):
         return render_to_response('edit_student_emergency.html', locals(), context_instance=RequestContext(request))
     else:
         messages.error(request, "Emergency contact form not changed (insufficient permission)")
-        return HttpResponseRedirect(reverse('family_contact',args=[student.family.id]))
+        return HttpResponseRedirect(reverse('family_contact', args=[student.family.id]))
 
     return render_to_response('edit_student_emergency.html',
         locals(),

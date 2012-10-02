@@ -2,7 +2,6 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 from django.conf.urls.static import static
 
-#from django.contrib import databrowse
 from itaco.models import *
 from itaco.forms import ProfileForm
 

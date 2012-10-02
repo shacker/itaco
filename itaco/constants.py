@@ -6,26 +6,26 @@ CLASS_CHOICES = (
     ('3rd','3rd grade'),
     ('4th','4th grade'),
     ('5th','5th grade'),
-    ('alum','Alumni'),    
-    ('fut','Future'),        
+    ('alum','Alumni'),
+    ('fut','Future'),
 )
 
 
 CREDIT_TYPE_CHOICES = (
     ('partpar','Participating Parent'),
     ('aidsub','Aid Substitute'),
-    ('teachsub','Teacher Substitute'),     
-    ('incorbil','Incorrect Billing'),                     
-    ('board','Board'),    
-    ('housekp','Extra Housekeeping'),    
+    ('teachsub','Teacher Substitute'),
+    ('incorbil','Incorrect Billing'),
+    ('board','Board'),
+    ('housekp','Extra Housekeeping'),
 )
 
 OBLIGATION_TYPE_CHOICES = (
     ('mbsmtg','Membership Meeting'),
     ('maint','Maintenance/Work Party'),
-    ('fundrais','Fundraising'),    
+    ('fundrais','Fundraising'),
     ('fldtrp','Field Trip'),
-    ('oblscrp1','Annual Obligation/Scrip (1 child enrolled)'),    
+    ('oblscrp1','Annual Obligation/Scrip (1 child enrolled)'),
     ('oblscrp2','Annual Obligation/Scrip (2 children enrolled)'),
     ('housekpg','Housekeeping'),
     ('cmt_coop','Committee/Co-op Job'),
@@ -37,24 +37,24 @@ READER_TYPE_CHOICES = (
     ('na','N/A (Kindergarten)'),
 )
 
-# Daycare is subject to financial aid post-processing, 
+# Daycare is subject to financial aid post-processing,
 # so we separate it out from other charge types.
 # When adding new charge type choices, you must explicitly make sure their shortcodes
 # are also included in the main itaco views.py and also in the billing summary
 
 CHARGE_TYPE_CHOICES = (
     ('hrdc','Hourly Regular Daycare'),
-    ('meal','Meal Expense'),        
+    ('meal','Meal Expense'),
     ('pavdc','Vacation Daycare'),
     ('edc1','Event Daycare Flat Fee - 1 Child'),
     ('edc2','Event Daycare Flat Fee - 2 Child'),
     ('edc3','Event Daycare Flat Fee - 3 Child'),
-    ('dclpu','Daycare Late Pickup'),            
+    ('dclpu','Daycare Late Pickup'),
     ('mshc','Missed Housecleaning'),
     ('mmh','Missed Maintenance'),
     ('mfrsg','Missed Fundraising'),
     ('mftr','Missed Fieldtrip'),
-    ('mmtg','Missed Meeting'),        
+    ('mmtg','Missed Meeting'),
     ('adj','Misc Adjustments'),
 )
 
@@ -63,40 +63,9 @@ CHARGE_TYPE_CHOICES = (
 UNIT_CHOICES = (
     ('units','Units'),
     ('hours','Hours'),
-    ('dollars','Dollars'),          
+    ('dollars','Dollars'),
 )
 
-
-# 
-# LIST_EXTRAS = (
-#     ('second','second'),
-#     ('first','first'),
-#     ('fifth','fifth'),
-#     ('third','third'),
-#     ('fourth','fourth'),
-#     ('kindergarten','kindergarten'),
-#     ('board','board'),
-#     ('first-nomail','first-nomail'),
-#     ('teachers','teachers'),
-#     ('everyone','everyone'),
-#     ('executivecom','executivecom'),
-#     ('alumni','alumni'),
-#     ('participation','participation'),
-#     ('twothree','twothree'),
-#     ('fourfive','fourfive'),
-#     ('teachers-nomail','teachers-nomail'),
-#     ('board-nomail','board-nomail'),
-#     ('twothree-nomail','twothree-nomail'),
-#     ('fourfive-nomail','fourfive-nomail'),
-#     ('second-nomail','second-nomail'),
-#     ('third-nomail','third-nomail'),
-#     ('fourth-nomail','fourth-nomail'),
-#     ('fifth-nomail','fifth-nomail'),
-#     ('kindergarten-nomail','kindergarten-nomail'),
-#     ('executivecom-nomail','executivecom-nomail'),
-#     ('participation-nomail','participation-nomail'),
-#     ('everyone-nomail','everyone-nomail'),
-# )
 
 # Credit units doesn't have help text - we enter units automatically depending on the charge type selected.
 OBL_UNITS_HELP_TEXT='<strong>Please use the following amounts when entering obligations:</strong><br />       Membership Meeting: 1 unit per meeting<br />        Maintenance/Work Party: Number of hours<br />        Fundraising: Number of hours<br />        Field Trip: Enter 1 unit per trip; partial credits OK e.g. .5 for driving halfway or .25 for BART pickup<br />        Annual Obligation/Scrip: Number of dollars<br />        Housekeeping: Enter 1 unit per cleaning<br />        Committee/Co-op Job: Enter 1 unit per job'

@@ -1,0 +1,5 @@
+scripts/listgen
+media/uploads
+media/images
+local_settings.py
+static/admin

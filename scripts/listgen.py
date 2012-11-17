@@ -1,8 +1,8 @@
 """
-Python replacement for old listgen.sh script (or at least half of it). 
+Python replacement for old listgen.sh script (or at least half of it).
 Extract lists of email addresses per Group and write them to text files.
 listgen.sh will call this script and do the subsequent mailman subscription magic.
- 
+
 """
 
 #################### Set up Django environment
@@ -40,12 +40,12 @@ from django.db.models import Q
 # print "output path is:"
 # print settings.LISTGENPATH
 
-def write_file(group,peeps=None):    
-    # Re-usable function to write membership text files that feed mailing lists 
+def write_file(group,peeps=None):
+    # Re-usable function to write membership text files that feed mailing lists
     # 1) Store regular subscribers
     # 2) Add any extras to the same list
     # 3) Create a second nomail list for the same group
-        
+
     # Open a file for the current group
     thefile = open(os.path.join(settings.LISTGENPATH, group.list + ".txt"), 'w')
 
@@ -55,7 +55,7 @@ def write_file(group,peeps=None):
             thefile.write("%s \n" % (p.user.email))
 
     if extra:
-        thefile.write(extra)          
+        thefile.write(extra)
 
     thefile.close()
 
@@ -72,75 +72,75 @@ for group in groupset :
 
     if group.list == 'kindergarten' :
         peeps = Profile.objects.filter(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='kind',user__is_active=True)
-        
+
     if group.list == 'first' :
         peeps = Profile.objects.filter(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='1st',user__is_active=True)
 
     if group.list == 'second' :
         peeps = Profile.objects.filter(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='2nd',user__is_active=True)
-                
+
     if group.list == 'third' :
-        peeps = Profile.objects.filter(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='3rd',user__is_active=True)    
-                        
+        peeps = Profile.objects.filter(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='3rd',user__is_active=True)
+
     if group.list == 'fourth' :
-        peeps = Profile.objects.filter(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='4th',user__is_active=True)   
-        
+        peeps = Profile.objects.filter(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='4th',user__is_active=True)
+
     if group.list == 'fifth' :
-        peeps = Profile.objects.filter(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='5th',user__is_active=True)  
-        
+        peeps = Profile.objects.filter(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='5th',user__is_active=True)
+
     if group.list == 'board' :
-        # Be sure to exclude teachers from the board list - they show up there because iTaco 
+        # Be sure to exclude teachers from the board list - they show up there because iTaco
         # makes teachers into board members for reporting-to purposes, but that's not acceptable here.
         peeps = Profile.objects.filter(board_pos__in=BoardPosition.objects.all()).exclude(user__groups__in=(87,))
-        
+
     if group.list == 'teachers' :
         peeps = Profile.objects.filter(user__groups__in=(87,),user__is_active=True)
-        
+
     if group.list == 'alumni' :
         # For alumni we need both a query - to get all parents of alumni, AND the extralist - to deal with the legacy alumni who were never in itaco.
         # Note that parents go on the alumni list as soon as they have one student who has graduated, even if another is still enrolled.
         peeps = Profile.objects.filter(family__student__alumni=True,)
-        
+
     if group.list == 'executivecom' :
         # For executivecom we need the group iterator, but no query - we'll just use extralist for them
         peeps = None
-        
+
     if group.list == 'alphageeks' :
         # For executivecom we need the group iterator, but no query - we'll just use extralist for them
-        peeps = None        
-        
+        peeps = None
+
     if group.list == 'participation' :
-        peeps = Profile.objects.filter(family__student__enrolled=True,participating_parent=True,user__is_active=True)          
-                        
+        peeps = Profile.objects.filter(family__student__enrolled=True,participating_parent=True,user__is_active=True)
+
     if group.list == 'everyone' :
-        
+
         # Everyone is defined as all parents in families that have one or more students enrolled, plus all teachers. Anyone else?
         peeps = Profile.objects.filter(
-            Q(family__student__enrolled=True,user__is_active=True) | 
+            Q(family__student__enrolled=True,user__is_active=True) |
             Q(user__groups__in=(87,),user__is_active=True)
-        )        
-        
+        )
+
     # Combined queries for the mixed lists via Q objects:
     # http://docs.djangoproject.com/en/dev/topics/db/queries/#complex-lookups-with-q-objects
-    if group.list == 'twothree' :        
+    if group.list == 'twothree' :
         peeps = Profile.objects.filter(
-            Q(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='2nd',user__is_active=True) | 
+            Q(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='2nd',user__is_active=True) |
             Q(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='3rd',user__is_active=True)
         )
-        
-    if group.list == 'fourfive' :        
+
+    if group.list == 'fourfive' :
         peeps = Profile.objects.filter(
-            Q(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='4th',user__is_active=True) | 
+            Q(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='4th',user__is_active=True) |
             Q(family__student__enrolled=True,family__student__expected_grad_yr__grad_class='5th',user__is_active=True)
         )
-        
-    # Some people opt to not receive any mail from crestmont lists. 
+
+    # Some people opt to not receive any mail from crestmont lists.
     # Respect the "no_lists" flag on the Profile model.
     try:
         peeps = peeps.exclude(no_lists=True)
     except:
         pass
-                          
+
     #########
     # Now get any "extras" for the list (this handles the nomail people too)
     try:
@@ -149,7 +149,7 @@ for group in groupset :
         for p in profiles:
             # extra += "%s %s <%s>\n" % (p.user.last_name, p.user.first_name, p.user.email)
             extra += "%s\n" % (p.user.email)
-    
+
     except:
         extra = None
 
@@ -178,12 +178,12 @@ for group in groupset :
         # alumpath = os.path.join(sys.path[0],'listgen-alumni.txt')
         alumpath = os.path.join(filepath,'listgen-alumni.txt')
         extra += open(alumpath, 'r').read()
-        
+
 
 
     # Commit!
     write_file(group,peeps)
-    
+
 
 
 

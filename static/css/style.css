@@ -553,7 +553,6 @@ ul#messagelist  {
 ul#messagelist li {
     list-style-type: none;
     background: #ffc;
-    height:20px;
     margin: 10px 0px;
     padding: 5px 6px 3px 28px;
     border: 1px solid #CECECE;

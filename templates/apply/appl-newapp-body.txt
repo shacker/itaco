@@ -11,4 +11,4 @@ Evaluations for all grades will begin in February. In the meantime, please feel 
 Best Regards,
 
 {% for c in enrollment_chairs %}{{c.user.first_name}} {{c.user.last_name}}{% if not forloop.last %} and {% endif %}{% endfor %}
-Crestmont Enrollment Co-chairs
+Crestmont Enrollment

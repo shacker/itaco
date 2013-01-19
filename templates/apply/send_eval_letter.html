@@ -11,6 +11,16 @@
 	}
 </style>
 
+
+{% if enrollment_chairs.count == 0 %}
+	<p>
+		There are no iTaco profiles with the Enrollment role.
+		Since the letter can't be signed, it can't be sent.
+		Please ask the iTaco data administrator to set one or more
+		profiles to have the Enrollment role, then try again.
+	</p>
+{% else %}
+
 {% if app.sent_eval_letter %}
 	<p>Evaluation letter has been sent before. Cannot send again. </p>
 {% else %}
@@ -59,7 +69,7 @@ Thank you again for your interest in Crestmont.  We look forward to seeing you s
 
 Sincerely,
 {% for c in enrollment_chairs %}{{c.user.first_name}} {{c.user.last_name}}{% if not forloop.last %} and {% endif %}{% endfor %}
-Crestmont Enrollment Co-Chairs
+Crestmont Enrollment
 
 	</textarea>
 
@@ -67,6 +77,6 @@ Crestmont Enrollment Co-Chairs
 </form>
 
 {% endif %}
-
+{% endif %}
 
 {% endblock %}

@@ -261,16 +261,15 @@ def intake(request,app_id):
 
             # Now update the student record with new avatar
             filename = os.path.basename(oldpath)
-            student.avatar = os.path.join('uploads','student_avatars',str(student.id),str(filename))
+            student.avatar = os.path.join('uploads', 'student_avatars', str(student.id), str(filename))
             student.save()
             messages.success(request, "Profile image for student copied into student record.")
-
 
         # Send welcome message to parents.
         # We know we'll have an email for the first.
         # Also send to the second if we have it.
 
-        recipients = [app.par1_email,]
+        recipients = [app.par1_email, ]
         if app.par2_email:
             recipients.append(app.par2_email)
 
@@ -296,8 +295,9 @@ def intake(request,app_id):
         # Display app intake warning page to admins
         return render_to_response('apply/intake.html',
             locals(),
-            context_instance = RequestContext(request),
+            context_instance=RequestContext(request),
         )
+
 
 @user_passes_test(can_edit_apps)
 def show_addrs(request):
@@ -313,12 +313,10 @@ def show_addrs(request):
         if a.par2_email:
             emails.append(a.par2_email)
 
-
     return render_to_response('apply/show_addrs.html',
         locals(),
-        context_instance = RequestContext(request),
+        context_instance=RequestContext(request),
     )
-
 
 
 @user_passes_test(can_edit_apps)
@@ -340,7 +338,7 @@ def send_offer(request, app_id):
         # Send email to parents of applicant.
         # We know we'll have an email for the first.
         # Also send to the second if we have it.
-        recipients = [app.par1_email,]
+        recipients = [app.par1_email, ]
         if app.par2_email:
             recipients.append(app.par2_email)
 
@@ -358,23 +356,22 @@ def send_offer(request, app_id):
 
         return HttpResponseRedirect(reverse('process_apps'))
 
-
     else:
         # Show letter template for review/editing
 
         return render_to_response('apply/send_offer_letter.html',
             locals(),
-            context_instance = RequestContext(request),
+            context_instance=RequestContext(request),
         )
 
 
 @user_passes_test(can_edit_apps)
 def send_eval_letter(request, app_id):
-    """All kindergarten teacher to send evaluation results emails to parents."""
+    """Allow kindergarten teacher to send evaluation results emails to parents."""
 
     # Need test here - does app qualify for an offer letter? Paid, etc.?
 
-    app = get_object_or_404(Application,pk=app_id)
+    app = get_object_or_404(Application, pk=app_id)
     enrollment_chairs = BoardPosition.objects.get(title='Enrollment').profile_set.all()
 
     if request.POST:
@@ -382,7 +379,7 @@ def send_eval_letter(request, app_id):
         # Send email to parents of applicant.
         # We know we'll have an email for the first.
         # Also send to the second if we have it.
-        recipients = [app.par1_email,]
+        recipients = [app.par1_email, ]
         if app.par2_email:
             recipients.append(app.par2_email)
 
@@ -403,11 +400,10 @@ def send_eval_letter(request, app_id):
 
         return HttpResponseRedirect(reverse('process_apps'))
 
-
     else:
         # Show letter template for review/editing
 
         return render_to_response('apply/send_eval_letter.html',
             locals(),
-            context_instance = RequestContext(request),
+            context_instance=RequestContext(request),
         )

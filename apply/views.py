@@ -372,7 +372,7 @@ def send_eval_letter(request, app_id):
     # Need test here - does app qualify for an offer letter? Paid, etc.?
 
     app = get_object_or_404(Application, pk=app_id)
-    enrollment_chairs = BoardPosition.objects.get(title='Enrollment').profile_set.all()
+    enrollment_chairs = BoardPosition.objects.get(title='Admissions').profile_set.all()
 
     if request.POST:
 

@@ -8,7 +8,7 @@ def app_submitted(sender, instance, signal, created, **kwargs):
     """When an app is submitted, alert admissions people as well as submittor (with separate messages). """
 
     # We'll need this in the email template
-    enrollment_chairs = BoardPosition.objects.get(title='Enrollment').profile_set.all()
+    enrollment_chairs = BoardPosition.objects.get(title='Admissions').profile_set.all()
 
     # Ensure we don't re-send email every time app is updated.
     if created:

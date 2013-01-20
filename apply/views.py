@@ -388,7 +388,7 @@ def send_eval_letter(request, app_id):
         msg = EmailMessage(email_subject, email_body_txt, "Crestmont Admissions <admissions@crestmontschool.org>", recipients)
 
         # Only send emergency form if this is a non-K application
-        if app.grade != 'K':
+        if app.grade != 'kind':
             msg.attach_file(settings.ATTACHMENTS_PATH + '/Visitor_Emergency_Form.pdf')
 
         if msg.send(fail_silently=False):

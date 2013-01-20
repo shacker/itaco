@@ -52,24 +52,24 @@ evaluation invite to parents of {{app}}
 
 Dear {{app.par1_fname}}{% if app.par2_fname %} and {{app.par2_fname}}{% endif %},
 {% if app.grade == 'kind' %}
-Your child, {{app.child_first}} is scheduled to attend a kindergarten evaluation at Crestmont School on [day, month, date], from [time] am. It is helpful to arrive 10 to 15 minutes early so your child will be comfortable at school before the session begins.
+Your child, {{app.child_first}}, is scheduled to attend a kindergarten evaluation at Crestmont School on [Date], from [Time].  It is helpful to arrive 10 to 15 minutes early so your child will be comfortable at school before the session begins.
 
-The children will meet with Robin Hart-Poindexter and Dianne Driscoll in the kindergarten room. The teachers will help the children say goodbye to their parents, who will wait in the main building. Refreshments will be available and Crestmont board members will be present to answer questions about the school. During the session, the children will have free play, a short circle time, a story, a snack and an activity.
+The children will meet with Robin Hart-Poindexter and Monica Schuster in the kindergarten room. The teachers will help the children say goodbye to their parents, who will wait in the main building.  Refreshments will be available and Crestmont board members will be present to answer any questions about the school. During the session, the children will have free play, a short circle time, a story, a snack and an activity.
 
-If you have any questions, or need to reschedule the visit, please call the enrollment line at 221-6760 or email us at admissions@crestmontschool.org. Please let us know if your child has any food allergies. We look forward to seeing you and your child.
+If you have any questions, or need to reschedule the visit, please call the admissions line at (510) 221-6760 or email me at admissions@crestmontschool.org. Also, please let me know if your child has any food allergies. I look forward to seeing you and your child.
 {% else %} {# This is the 1-5 eval letter  #}
 Thank you for applying to Crestmont School. We look forward to hosting {{app.child_first}} for a day visit from 8:45 am - 12:00 pm on [Day], [Date]. If you are unable to keep this appointment, please reply to this message or call (510) 221-6760 as soon as possible.
 
 Arrival and pick-up will be at the [Grade #] grade classroom, [specify location here]. Plan to arrive 5-10 minutes early so that your child can easily transition. This visit will be one without parents present, so please prepare your child if you feel it is necessary. Also, please send a drink and a morning snack/lunch with your child. During your child’s visit he/she will spend time with the teacher of his/her current grade and the teacher of the grade you are applying for.
 
-The attached emergency form must be completed and submitted to the evaluating teacher on the morning of your child's visit.
+*** The attached emergency form must be completed and submitted to the evaluating teacher on the morning of your child’s visit. ***
 
-Thank you again for your interest in Crestmont.  We look forward to seeing you soon!
+Thank you again for your interest in Crestmont.  I look forward to seeing you soon!
 {% endif %}
 
 Sincerely,
 {% for c in enrollment_chairs %}{{c.user.first_name}} {{c.user.last_name}}{% if not forloop.last %} and {% endif %}{% endfor %}
-Crestmont Enrollment
+Crestmont Admissions
 
 	</textarea>
 

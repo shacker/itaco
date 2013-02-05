@@ -1,10 +1,9 @@
-from itaco.models import Family, Profile, Student, SchoolYear, CommitteeJob, BoardPosition
+from itaco.models import Family, Profile, Student, SchoolYear, BoardPosition
 from apply.models import Application, STATUS_CHOICES
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from django.http import HttpResponse
 from apply.forms import ApplicationForm, AppEditForm, TeacherAppEditForm
-from django import forms
+# from django import forms
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from datetime import datetime
@@ -12,10 +11,10 @@ from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.defaultfilters import slugify
-import sys, zipfile, os, os.path, shutil
+import os, os.path, shutil
 from django.contrib.auth.models import User
-# from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import user_passes_test
+
 
 # Only superusers and teachers and special users can access the app system.
 # Some additional controls are put on teachers in the app_detail template.
@@ -32,7 +31,7 @@ def apply(request):
 
     # Submit a new application
     if request.POST:
-        form = ApplicationForm(request.POST,files=request.FILES)
+        form = ApplicationForm(request.POST, files=request.FILES)
 
         if form.is_valid():
             # Don't commit the save until we've added in the fields we need to set
@@ -47,16 +46,15 @@ def apply(request):
             app.save()
 
             # Upon successful submit, redirect to the app fee view for this applicant.
-            return HttpResponseRedirect(reverse('app_fee',args=[app.id]))
+            return HttpResponseRedirect(reverse('app_fee', args=[app.id]))
         else:
             # print form.errors
             pass
     else:
         form = ApplicationForm()
 
-
     return render_to_response('apply/apply.html', locals(),
-        context_instance = RequestContext(request),
+        context_instance=RequestContext(request),
     )
 
 
@@ -65,13 +63,12 @@ def app_fee(request, app_id):
     Allow a parent to pay the application fee with PayPal.
     '''
 
-    app = get_object_or_404(Application,pk=app_id)
+    app = get_object_or_404(Application, pk=app_id)
 
     return render_to_response('apply/app_fee.html',
         locals(),
-        context_instance = RequestContext(request),
+        context_instance=RequestContext(request),
     )
-
 
 
 def app_fee_thanks(request, app_id):
@@ -79,13 +76,12 @@ def app_fee_thanks(request, app_id):
     On return from payment gateway, set paid=True
     '''
 
-    app = get_object_or_404(Application,pk=app_id)
+    app = get_object_or_404(Application, pk=app_id)
 
     return render_to_response('apply/app_fee_thanks.html',
         locals(),
-        context_instance = RequestContext(request),
+        context_instance=RequestContext(request),
     )
-
 
 
 @user_passes_test(can_edit_apps)
@@ -99,25 +95,25 @@ def process_apps(request):
 
     return render_to_response('apply/process_apps.html',
         locals(),
-        context_instance = RequestContext(request),
+        context_instance=RequestContext(request),
     )
 
 
 @user_passes_test(can_edit_apps)
-def app_detail(request,app_id=None):
+def app_detail(request, app_id=None):
     '''
     View all fields of an individual application
     '''
 
-    app = get_object_or_404(Application,pk=app_id)
+    app = get_object_or_404(Application, pk=app_id)
     status_choices = STATUS_CHOICES
 
     # Edit application details
     if request.POST:
         if request.user.is_superuser:
-            form = AppEditForm(request.POST,instance=app,files=request.FILES)
+            form = AppEditForm(request.POST,instance=app, files=request.FILES)
         else:
-            form = TeacherAppEditForm(request.POST,instance=app,files=request.FILES)
+            form = TeacherAppEditForm(request.POST, instance=app, files=request.FILES)
 
         if form.is_valid():
             app = form.save(commit=False)
@@ -145,7 +141,7 @@ def intake(request,app_id):
     for new student, family and parents. Also sends welcome message.
     """
 
-    app = get_object_or_404(Application,pk=app_id)
+    app = get_object_or_404(Application, pk=app_id)
 
     # Get current school year and Membership chairs for use in welcome email
     cur_year = SchoolYear.objects.get(current=True)

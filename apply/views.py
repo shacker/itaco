@@ -11,7 +11,9 @@ from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.defaultfilters import slugify
-import os, os.path, shutil
+import os
+import os.path
+import shutil
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test
 
@@ -301,7 +303,7 @@ def show_addrs(request):
     View all email addresses of current applicants
     '''
 
-    apps = Application.objects.all()
+    apps = Application.objects.filter(archived=False)
     emails = []
     for a in apps:
         if a.par1_email:

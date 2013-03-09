@@ -14,6 +14,7 @@ STATUS_CHOICES = (
     ('2','Rejected'),
     ('3','Pending'),
     ('4','Waitlist'),
+    ('5','TooYoung'),
 )
 
 CLASS_CHOICES = (
@@ -145,7 +146,6 @@ class Application(models.Model):
     eval_date = models.DateTimeField('Eval date/time',blank=True,null=True,help_text='Attended / will attend evaluation on this date.')
     intake_complete = models.BooleanField(default=False,help_text="This field set automatically after Intake process is run, and is used to prevent duplicate intakes.")
     declined = models.BooleanField(default=False,help_text="This family declined our invitation to join the school. DO NOT INTAKE.")
-    too_young = models.BooleanField(default=False,help_text="Too young to be considered this year.")
     archived = models.BooleanField(default=False,help_text="When set, this app will not show up on main applications list (already processed).")
 
     def __unicode__(self):

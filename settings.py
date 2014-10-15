@@ -62,7 +62,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
-    'middleware.login_req.LoginRequiredMiddleware',
+    'taco.middleware.login_req.LoginRequiredMiddleware',
 
 )
 

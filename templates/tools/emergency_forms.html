@@ -14,7 +14,7 @@
 </style>
 <h2>Student Emergency Forms</h2>
 
-<p><a href="{% url emergency_forms_all %}">Print all emergency forms</a></p>
+<p><a href="{% url 'emergency_forms_all' %}">Print all emergency forms</a></p>
 
 
 <table>
@@ -45,7 +45,7 @@
 	<tr class="{% cycle 'row1' 'row2' %}">
 		<td>
 			{% if s.studentemergency %}
-				<a href="{% url emergency_form_detail_print s.id %}">{{s}}</a>
+				<a href="{% url 'emergency_form_detail_print' s.id %}">{{s}}</a>
 			{% else %}
 				{{s}}
 			{% endif %}
@@ -78,7 +78,7 @@
 
 		<td>
 			{% if s.studentemergency %}
-				<a href="{% url admin:itaco_studentemergency_change s.studentemergency.id %}">(e)</a>
+				<a href="{% url 'admin:itaco_studentemergency_change' s.studentemergency.id %}">(e)</a>
 			{% endif %}
 		</td>
 	</tr>

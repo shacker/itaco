@@ -42,13 +42,13 @@
 
   {# Not everyone has a family in the system! (e.g. teachers). Don't crash if no family. #}
   {% if myfam_id %}
-  <li><a href="{% url family_detail myfam_id %}" title="iTaco">iTaco</a>
+  <li><a href="{% url 'family_detail' myfam_id %}" title="iTaco">iTaco</a>
   {% endif %}
 
-  <li><a href="{% url roster_parents_faces %}" title="Roster">Rosters</a>
+  <li><a href="{% url 'roster_parents_faces' %}" title="Roster">Rosters</a>
       <ul>
-        <li><a href="{% url roster_parents_list %}" title="Search">All Rosters</a></li>
-        <li><a href="{% url roster_search %}" title="Search">Search Rosters</a></li>
+        <li><a href="{% url 'roster_parents_list' %}" title="Search">All Rosters</a></li>
+        <li><a href="{% url 'roster_search' %}" title="Search">Search Rosters</a></li>
       </ul>
   </li>
   <li><a href="#" title="Documents">Documents</a>
@@ -75,10 +75,10 @@
           <li><a href="/docs/email-archive/" title="E-Mail Archive">E-Mail Archive</a></li>
         </ul>
 
-    <li><a href="{% url listgen %}" title="Mailing Lists">Lists</a></li>
-    <li><a href="{% url profiles_profile_detail user %}" title="Profile">My Profile</a></li>
+    <li><a href="{% url 'listgen' %}" title="Mailing Lists">Lists</a></li>
+    <li><a href="" title="Profile">My Profile</a></li>
     {% if myfam_id %}
-    <li><a href="{% url family_contact user.get_profile.family.id %}">My Family</a></li>
+    <li><a href="{% url 'family_contact' user.get_profile.family.id %}">My Family</a></li>
     {% endif %}
 
   	<li><a href="http://crestmontschool.org/" title="Public">Public Site</a>
@@ -91,10 +91,10 @@
     <li><a href="#" title="iTaco Tools">iTaco Tools</a>
         <ul>
 
-        <li><a href="{% url batch_daycare_charges %}" title="Batch Daycare Charges">Batch Daycare Charges</a></li>
-        <li><a href="{% url batch_meal_charges %}" title="Batch Meal Charges">Batch Meal Charges</a></li>
-        <li><a href="{% url batch_participation_credits %}" title="Batch Participation Credits">Batch Participation Credits</a></li>
-        <li><a href="{% url batch_obl %}" title="Batch Obligation Hours">Batch Obligation Hours</a></li>
+        <li><a href="{% url 'batch_daycare_charges' %}" title="Batch Daycare Charges">Batch Daycare Charges</a></li>
+        <li><a href="{% url 'batch_meal_charges' %}" title="Batch Meal Charges">Batch Meal Charges</a></li>
+        <li><a href="{% url 'batch_participation_credits' %}" title="Batch Participation Credits">Batch Participation Credits</a></li>
+        <li><a href="{% url 'batch_obl' %}" title="Batch Obligation Hours">Batch Obligation Hours</a></li>
         <li><a href="/admin/itaco/charge/add/" title="Other Charges">Add Other Charges</a></li>
         <li><a href="/admin/itaco/credit/add/" title="Other Credits">Add Other Credits</a></li>
         <li><a href="/admin/itaco/obligation/add/" title="Add Obligations">Add Other Obligations</a></li>
@@ -102,16 +102,16 @@
 		{# teachers submenu #}
 		{% if perms.apply and not user.is_superuser %}
 		<li><a href="#">SUPERUSERS ONLY: &crarr;</a></li>
-        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>
+        <li><a href="{% url 'process_apps' %}" title="Process applications">Process applications</a></li>
 		{% endif %}
 
         {% if user.is_superuser %}
         <li><a href="#">SUPERUSERS ONLY: &crarr;</a></li>
-        <li><a href="{% url batch_board_credit %}" title="Batch-Add Board Credits">Batch Board Credits</a></li>
-        <li><a href="{% url process_apps %}" title="Process applications">Process applications</a></li>
-        <li><a href="{% url obligation_summary cur_year.id %}">Obligations summary</a></li> {# Get current school year from context processor #}
-        <li><a href="{% url summary_charges_credits %}" title="Accountant Summary">Accountant Summary</a></li>
-        <li><a href="{% url emergency_forms %}" title="Emergency Forms">Emergency Forms</a></li>
+        <li><a href="{% url 'batch_board_credit' %}" title="Batch-Add Board Credits">Batch Board Credits</a></li>
+        <li><a href="{% url 'process_apps' %}" title="Process applications">Process applications</a></li>
+        <li><a href="{% url 'obligation_summary' cur_year.id %}">Obligations summary</a></li> {# Get current school year from context processor #}
+        <li><a href="{% url 'summary_charges_credits' %}" title="Accountant Summary">Accountant Summary</a></li>
+        <li><a href="{% url 'emergency_forms' %}" title="Emergency Forms">Emergency Forms</a></li>
         <li><a href="/admin/" title="Admin">Admin</a></li>
         {% endif %}
 
@@ -119,7 +119,7 @@
     </li>
 
   {% endif %}
-  <li><a href="/accounts/logout/" title="Log out">Log out</a></li>
+  <li><a href="" title="Log out">Log out</a></li>
 
     {% endif %}
   </ul>

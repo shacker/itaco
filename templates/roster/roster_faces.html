@@ -8,8 +8,8 @@
 {% include "roster/roster_subnav.html" %}
 
 
-<h3>Parents {{ cur_year }}</h3> 
-<div id="navswitch">View as <a href="{% url roster_parents_list %}">list</a></div>
+<h3>Parents {{ cur_year }}</h3>
+<div id="navswitch">View as <a href="{% url 'roster_parents_list' %}">list</a></div>
 
 
 
@@ -28,11 +28,11 @@
 
         <td>
 	    {% if person.avatar %}
-	
-				<a href="{% url profiles_profile_detail person.user %}" title="{{ person }}"><img src="{% thumbnail person.avatar 75x75%}" alt="{{person}}'s avatar image" /> <br />{{person}}</a>
-	
+
+				<a href="" title="{{ person }}"><img src="{% thumbnail person.avatar 75x75%}" alt="{{person}}'s avatar image" /> <br />{{person}}</a>
+
 	    {% else %}
-			<a href="{% url profiles_profile_detail person.user %}"><img src="{{STATIC_URL}}images/user_default.jpg" width="75" height="75" alt="{{person}}'s avatar image" /> <br />{{person}}</a><br />
+			<a href=""><img src="{{STATIC_URL}}images/user_default.jpg" width="75" height="75" alt="{{person}}'s avatar image" /> <br />{{person}}</a><br />
 	    {% endif %}
 
         </td>

@@ -41,7 +41,7 @@
 	{% for f in fam_oblist %}
 	<tr class="{% cycle 'row1' 'row2' %}">
 		<td>
-			<a href="{% url family_detail f.fam.id %}">{{f.fam}}</a>
+			<a href="{% url 'family_detail' f.fam.id %}">{{f.fam}}</a>
 		</td>
 
 		<td>

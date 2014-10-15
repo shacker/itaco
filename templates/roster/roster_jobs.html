@@ -9,7 +9,7 @@
 <h3>{{ title }}</h3>
 
 <p>In some cases, committee jobs are split between more than one person. <br />
-See the <a href="{% url roster_board %}">Board Roster</a> to see who currently occupies the "Reports To" positions.</p>
+See the <a href="{% url 'roster_board' %}">Board Roster</a> to see who currently occupies the "Reports To" positions.</p>
 
 <table border="1">
     <tr class="row3">
@@ -20,12 +20,12 @@ See the <a href="{% url roster_board %}">Board Roster</a> to see who currently o
 
 {% for pos in roster %}
     <tr class="{% cycle 'row1' 'row2' %}">
-    <td><strong><a href="{% url roster_jobs_detail pos.id %}">{{ pos }}</a></strong></td>
+    <td><strong><a href="{% url 'roster_jobs_detail' pos.id %}">{{ pos }}</a></strong></td>
 
     <td>
     {% for parent in pos.profile_set.all %}
 
-        <a href="{% url profiles_profile_detail parent.user %}">{{ parent.user.first_name }} {{ parent.user.last_name }}</a><br />
+        <a href="">{{ parent.user.first_name }} {{ parent.user.last_name }}</a><br />
 
     {% empty %}
         Not assigned
@@ -38,7 +38,7 @@ See the <a href="{% url roster_board %}">Board Roster</a> to see who currently o
 {% endfor %}
 </table>
 
-<p>This table only shows currently occupied jobs. See also the <a href="{% url roster_jobs_all %}">Complete Jobs Listing</a>.
+<p>This table only shows currently occupied jobs. See also the <a href="{% url 'roster_jobs_all' %}">Complete Jobs Listing</a>.
 </p>
 {% endblock content %}
 

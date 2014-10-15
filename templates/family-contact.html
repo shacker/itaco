@@ -53,7 +53,7 @@ $(function() {
   <ul id="messagelist">
   {% for student in family.student_set.all  %}
   	{% if not student.studentemergency.authorized %}
-  		<li class="info">iTaco does not have an emergency contact form on file for {{student}}. <a href="{% url edit_student_emergency student.id %}">Create one!</a></li>
+  		<li class="info">iTaco does not have an emergency contact form on file for {{student}}. <a href="{% url 'edit_student_emergency' student.id %}">Create one!</a></li>
   	{% endif %}
   {% endfor %}
   </ul>
@@ -70,15 +70,15 @@ $(function() {
 						<td>
 
 					        {% if parent.avatar %}
-								<a href="{% url profiles_profile_detail parent.user %}" ><img src="{{MEDIA_URL}}{% thumbnail parent.avatar 160x160 %}" alt="{{parent}}'s avatar image" /></a>
+								<a href="" ><img src="{{MEDIA_URL}}{% thumbnail parent.avatar 160x160 %}" alt="{{parent}}'s avatar image" /></a>
 					        {% else %}
-					          <a href="{% url profiles_profile_detail parent.user %}"><img src="{{STATIC_URL}}images/user_default.jpg" width=160 alt="{{profile}}'s avatar image" /></a><br />
+					          <a href=""><img src="{{STATIC_URL}}images/user_default.jpg" width=160 alt="{{profile}}'s avatar image" /></a><br />
 					        {% endif %}
 
 						</td>
 
 						<td>
-				               <strong><a href="{% url profiles_profile_detail parent.user %}">{{ parent.user.first_name }} {{ parent.user.last_name }}</a>
+				               <strong><a href="">{{ parent.user.first_name }} {{ parent.user.last_name }}</a>
 				                 {% ifequal parent.primary_contact 1 %}
 				                 <strong>&#x238B;</strong>
 				                 {% endifequal %}
@@ -127,11 +127,11 @@ $(function() {
 				               {% endif %}
 
 				        {% ifequal parent.user.id user.id  %}
-				        	<a href="{% url profiles_edit_profile %}">Edit contact info</a><br />
+				        	<a href="">Edit contact info</a><br />
 				        {% endifequal %}
 
 						<a href="mailto:{{ parent.user.email }}"><img src="{{STATIC_URL}}images/email.jpg" width="30" height="30" alt="Email" style="margin-right:10px;"></a>
-				        <a href="{% url vcard_single parent.user.username %}"><img src="{{STATIC_URL}}images/vcard.png" width="30" height="30" alt="Vcard"></a>
+				        <a href="{% url 'vcard_single' parent.user.username %}"><img src="{{STATIC_URL}}images/vcard.png" width="30" height="30" alt="Vcard"></a>
 
 					</td>
 				</tr>
@@ -172,8 +172,8 @@ $(function() {
 
 			      {# Only staff or parents of this student can edit the student details #}
 			      {% if user.get_profile.family == student.family %}
-			      <a href="{% url edit_student student.id %}">Edit student</a><br />
-			      <a href="{% url edit_student_emergency student.id %}">Emergency contact</a><br />
+			      <a href="{% url 'edit_student' student.id %}">Edit student</a><br />
+			      <a href="{% url 'edit_student_emergency' student.id %}">Emergency contact</a><br />
 			      {% endif %}
 				</td>
 	           </tr>
@@ -210,7 +210,7 @@ $(function() {
 
 			      {# Only staff or parents of this sibling can edit the sibling details #}
 			      {% if user.get_profile.family == sibling.family or user.is_staff %}
-			      <a href="{% url edit_student sibling.id %}">Edit sibling</a><br />
+			      <a href="{% url 'edit_student' sibling.id %}">Edit sibling</a><br />
 			      {% endif %}
 
 	           		</td>
@@ -228,7 +228,7 @@ $(function() {
 </p>
 
 {% ifequal canview_charges 1 %}
-<p><a href="{% url family_detail family.id %}">View charges and credits</a></p>
+<p><a href="{% url 'family_detail' family.id %}">View charges and credits</a></p>
 {% endifequal %}
 
 {% endblock content %}

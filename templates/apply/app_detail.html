@@ -67,7 +67,7 @@
 
 <h2>Application for {{app}}</h2>
 
-<p><a href="#summary">Jump to Summary</a> | <a href="{% url process_apps %}">Return to Applications</a></p>
+<p><a href="#summary">Jump to Summary</a> | <a href="{% url 'process_apps' %}">Return to Applications</a></p>
 
 <h3>Photo</h3>
 
@@ -85,9 +85,9 @@
 	<legend>Process</legend>
 
 <p>
-	<a href="{% url app_send_eval app.id %}" class="button {% if app.sent_eval_letter %}grey{% else%}blue{% endif %} small" >Send Evaluation Letter</a>
-	<a href="{% url app_send_offer app.id %}" class="button {% if app.ready_for_offer %}blue{% else%}grey{% endif %} small">Send Offer Letter</a>
-	<a href="{% url app_intake app.id %}" class="button {% if app.ready_for_intake %}blue{% else%}grey{% endif %} small">Intake</a>
+	<a href="{% url 'app_send_eval' app.id %}" class="button {% if app.sent_eval_letter %}grey{% else%}blue{% endif %} small" >Send Evaluation Letter</a>
+	<a href="{% url 'app_send_offer' app.id %}" class="button {% if app.ready_for_offer %}blue{% else%}grey{% endif %} small">Send Offer Letter</a>
+	<a href="{% url 'app_intake' app.id %}" class="button {% if app.ready_for_intake %}blue{% else%}grey{% endif %} small">Intake</a>
 </p>
 </fieldset>
 {% endif %}

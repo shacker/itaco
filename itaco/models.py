@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import Group, User
-from django.contrib.localflavor.us.models import *
+from localflavor.us.models import *
 import datetime, time
 from django.db.models import signals
 from signals import update_profile
@@ -175,7 +175,7 @@ class Profile(models.Model):
     twitter = models.CharField(blank=True, max_length=100, help_text='Your username on Twitter, e.g. &quot;joebob&quot;.')
     facebook = models.CharField(blank=True, max_length=100, help_text='Your username on FaceBook, e.g. &quot;janedoe&quot;. <br />Get a FaceBook username <a href=http://www.facebook.com/username/>here</a>.')
     url_title = models.CharField('URL Title',blank=True, max_length=120, help_text='Title of your business or personal URL.')
-    url = models.URLField('URL',blank=True, verify_exists=True,help_text='Business or personal URL.')
+    url = models.URLField('URL',blank=True, help_text='Business or personal URL.')
     primary_contact = models.BooleanField('Primary contact for this family?')
     board_pos = models.ManyToManyField(BoardPosition,help_text="Select the BOARD position(s) this person currently holds.",verbose_name='Board Position',blank=True)
     comm_job = models.ManyToManyField(CommitteeJob,help_text="Select the COMMITTEE JOB(s) (family job) this person currently holds.",verbose_name='Committee Job',blank=True)

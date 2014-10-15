@@ -1,11 +1,8 @@
-Django
+Django==1.5.10
 docutils
-django-profiles
 django-extensions
 vobject
 easy_thumbnails
-django-registration
 PIL
 MySQL-python
-
-#-e hg+http://bitbucket.org/ubernostrum/django-registration/#egg=registration
+django-localflavor

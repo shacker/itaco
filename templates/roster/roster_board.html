@@ -13,13 +13,13 @@
 <p>See also: <a href="/docs/board/">Board Documents</a></p>
 
 <table border="1">
-{% for pos in roster %}   
+{% for pos in roster %}
     <tr class="{% cycle 'row1' 'row2' %}">
     <td><strong>{{ pos }}</strong></td>
     <td>
     {% for parent in pos.profile_set.all %}
         {% if parent.user.is_active %}
-            <a href="{% url profiles_profile_detail parent.user %}">{{ parent.user.first_name }} {{ parent.user.last_name }}</a><br />            
+            <a href="">{{ parent.user.first_name }} {{ parent.user.last_name }}</a><br />
         {% endif %}
     {% empty %}
         Not assigned

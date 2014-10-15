@@ -9,3 +9,11 @@ It also feeds complex mailing list requirements based on queries - if you're the
 iTaco also handles applications to the school, batch entry of charges and obligations, personal profiles for everyone, support for non-traditional family structures, document management, web-based and printable rosters of families, staff, family jobs, and students broken down by class. Accountant summaries are auto-generated from internal business rules and the data collection done for each family.
 
 Because iTaco was built to meet the needs of a single school, it is probably not generic enough to suit the needs of any arbitray school without extensive modification. At this point, I do not have immediate plans to make iTaco generic enough to work for any school, but feel free to use it as a starting point for your own school's needs. If you do, let me know - hopefully we can work together to make iTaco even better.
+
+## Features
+
+* Emergency forms
+* Application submission, review, acceptance
+* Rosters of: Parents, Families, Students, Board Members, Family Jobs, Faculty
+* Summary view of charges, credits and obligations for each family, per month
+* ...

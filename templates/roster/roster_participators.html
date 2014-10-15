@@ -9,9 +9,9 @@
 <h3>Participating Parents</h3>
 
 <table border="1">
-{% for parent in roster %}   
+{% for parent in roster %}
     <tr class="{% cycle 'row1' 'row2' %}">
-    <td><strong><a href="{% url profiles_profile_detail parent.user %}">{{ parent }}</a></strong></td>
+    <td><strong><a href="">{{ parent }}</a></strong></td>
     <td>
     <a href="mailto:{{ parent.user.email }}">{{ parent.user.email }}</a>
     </td>

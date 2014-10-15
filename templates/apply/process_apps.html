@@ -42,7 +42,7 @@
 
     {% for app in apps  %}
     <tr class="{% cycle 'row1' 'row2' %}">
-        <td {% if app.declined %}class="strike" {% endif %}><a href="{% url app_detail app.id %}">{{app.child_last}}, {{app.child_first}}</a></td>
+        <td {% if app.declined %}class="strike" {% endif %}><a href="{% url 'app_detail' app.id %}">{{app.child_last}}, {{app.child_first}}</a></td>
         <td>{{app.grade}}</td>
         <td>{{app.ethnicity}}</td>
         <td>{{app.appdate|date:"M d"}}</td>
@@ -75,6 +75,6 @@
 	Rejected: <img src="{{STATIC_URL}}images/icon_error.gif" width="16" height="16" alt="Icon Error">
 </p>
 
-<p><a href="{% url show_addrs %}" class="button blue small">Retrieve applicant emails and addresses</a></p>
+<p><a href="{% url 'show_addrs' %}" class="button blue small">Retrieve applicant emails and addresses</a></p>
 
 {% endblock content %}

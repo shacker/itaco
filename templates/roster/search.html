@@ -23,18 +23,18 @@
  <h2>{{found_profiles.count}} search results for term: "{{ query_string }}"</h2>
 
 	   {% for f in found_profiles %}
-	   <p><strong><a href="{% url profiles_profile_detail f.user %}">{{f}}</a></strong><br />
+	   <p><strong><a href="">{{f}}</a></strong><br />
 	       <span class="minor">
 			{% if f.about %}
-				{{f.about|truncatewords:50}}				
+				{{f.about|truncatewords:50}}
 			{% else %}
 				Profile information not available.
 			{% endif %}
 
-	       </span>        
+	       </span>
 	   </p>
 	   {% endfor %}
- 
+
 {% endif %}
 
 

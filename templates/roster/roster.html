@@ -12,7 +12,7 @@
 
 {% ifequal type "parents" %}
 <h3>Parent Roster {{ cur_year }}</h3>
-<div id="navswitch">View as <a href="{% url roster_parents_faces %}">faces</a></div>
+<div id="navswitch">View as <a href="{% url 'roster_parents_faces' %}">faces</a></div>
 {% endifequal %}
 
 {% ifequal type "students" %}
@@ -52,41 +52,41 @@
 {% for item in roster %}
     <tr class="{% cycle 'row1' 'row2' %}">
         <td>
-        {% ifequal type "parents" %}    
-        <a href="{% url profiles_profile_detail item.user %}" title="{{ item }}">{{ item }}</a>
+        {% ifequal type "parents" %}
+        <a href="" title="{{ item }}">{{ item }}</a>
         {% endifequal %}
 
-        {% ifequal type "families" %}    
-        <a href="{% url family_contact item.id %}" title="{{ item }}">{{ item }}</a>
+        {% ifequal type "families" %}
+        <a href="{% url 'family_contact' item.id %}" title="{{ item }}">{{ item }}</a>
         {% endifequal %}
-        
-        {% ifequal type "students" %}    
-        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
-        {% endifequal %}        
-        
-        {% ifequal type "kinder" %}    
-        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
-        {% endifequal %}
-                
-        {% ifequal type "1st" %}    
-        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
-        {% endifequal %}
-        
-        {% ifequal type "2nd" %}    
-        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
-        {% endifequal %}
-        
-        {% ifequal type "3rd" %}    
-        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
-        {% endifequal %}                        
 
-        {% ifequal type "4th" %}    
-        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
-        {% endifequal %}                        
+        {% ifequal type "students" %}
+        <a href="{% url 'family_contact' item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
 
-        {% ifequal type "5th" %}    
-        <a href="{% url family_contact item.family.id %}" title="{{ item }}">{{ item }}</a>
-        {% endifequal %}                        
+        {% ifequal type "kinder" %}
+        <a href="{% url 'family_contact' item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
+
+        {% ifequal type "1st" %}
+        <a href="{% url 'family_contact' item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
+
+        {% ifequal type "2nd" %}
+        <a href="{% url 'family_contact' item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
+
+        {% ifequal type "3rd" %}
+        <a href="{% url 'family_contact' item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
+
+        {% ifequal type "4th" %}
+        <a href="{% url 'family_contact' item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
+
+        {% ifequal type "5th" %}
+        <a href="{% url 'family_contact' item.family.id %}" title="{{ item }}">{{ item }}</a>
+        {% endifequal %}
 
         </td>
     </tr>

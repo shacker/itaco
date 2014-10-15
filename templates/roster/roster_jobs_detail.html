@@ -8,9 +8,9 @@
 
 <h3>{{ job }}</h3>
 
-<p><strong>Currently held by:</strong> 
+<p><strong>Currently held by:</strong>
 {% for p in job.profile_set.all  %}
-    <a href="{% url profiles_profile_detail p.user.username %}">{{p}}</a>{% if not forloop.last %};{% endif %}
+    <a href="">{{p}}</a>{% if not forloop.last %};{% endif %}
 {% endfor %}
 </p>
 
@@ -24,7 +24,7 @@
 {% endif %}
 
 {% if request.user.is_superuser %}
-	You have permission to <a href="{% url admin:itaco_committeejob_change job.id %}">edit this description</a>.
+	You have permission to <a href="{% url 'admin:itaco_committeejob_change' job.id %}">edit this description</a>.
 {% endif %}
 
 {% endblock content %}

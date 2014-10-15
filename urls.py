@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 
 from itaco.models import *
 from itaco.forms import ProfileForm
@@ -11,11 +12,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
-    # Admin, databrowse, filebrowser
+    # Admin, filebrowser
     (r'^admin/', include(admin.site.urls)),
-
-    # For django-registration (password resets, etc)
-    (r'^accounts/', include('registration.backends.default.urls')),
 
     # Rosters - family and student listings
     (r'^roster/', include('roster.urls')),
@@ -27,11 +25,11 @@ urlpatterns = patterns('',
     # Profile editing
     # First match /profiles/edit before django-profiles gets it and loads the defaults, so we can pass in our custom form object.
     # Also we want to support hyphens in URLs to override that one as well.
-    (r'^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
-    url(r'^profiles/(?P<username>[-\w]+)/$', 'profiles.views.profile_detail', name='profiles_profile_detail'),
-    (r'^profiles/', include('profiles.urls')),
+    # (r'^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
+    # url(r'^profiles/(?P<username>[-\w]+)/$', 'profiles.views.profile_detail', name='profiles_profile_detail'),
+    # (r'^profiles/', include('profiles.urls')),
 
-    (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/images/flower.gif'}),
+    (r'^favicon\.ico$', RedirectView.as_view(url='/static/images/flower.gif')),
 )
 
 

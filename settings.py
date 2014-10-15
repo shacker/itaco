@@ -85,15 +85,14 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.flatpages',
-    'django.contrib.databrowse',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'itaco',
     'roster',
     'apply',
     'easy_thumbnails',
-    'profiles',
     'django_extensions',
+    'localflavor',
 )
 
 
@@ -105,8 +104,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     'django.contrib.messages.context_processors.messages',
 )
-
-
 
 
 # THUMBNAIL_PREFIX = '/cache/'

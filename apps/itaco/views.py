@@ -821,7 +821,7 @@ def edit_student(request,student_id=None):
     if not student.birthdate:
         student.birthdate = datetime.datetime.today
 
-    if request.user.get_profile().family == student.family or request.user.is_staff:
+    if request.user.profile.family == student.family or request.user.is_staff:
 
         if request.POST:
             form = StudentForm(request.POST, files=request.FILES, instance=student)
@@ -950,7 +950,7 @@ def edit_student_emergency(request,student_id=None):
     # two vars on left side https://docs.djangoproject.com/en/dev/ref/models/querysets/#get-or-create
     studentemergency, created = StudentEmergency.objects.get_or_create(student=student)
 
-    if request.user.get_profile().family == student.family or request.user.is_staff:
+    if request.user.profile.family == student.family or request.user.is_staff:
 
         if request.POST:
             form = StudentEmergencyForm(request.POST, instance=studentemergency)

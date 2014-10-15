@@ -63,8 +63,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
     'taco.middleware.login_req.LoginRequiredMiddleware',
-
 )
+
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 LOGIN_URL = '/accounts/login/'
 

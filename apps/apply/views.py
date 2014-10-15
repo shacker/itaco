@@ -43,7 +43,7 @@ def apply(request):
             # If user is logged in, they are already a Crestmont family and this
             # app should be associated with that family
             if request.user.is_authenticated():
-                app.family = request.user.get_profile().family
+                app.family = request.user.profile.family
 
             app.save()
 

@@ -1,4 +1,4 @@
-Django==1.6.7
+Django==1.7
 docutils
 django-extensions
 vobject

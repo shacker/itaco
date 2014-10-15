@@ -103,7 +103,7 @@ class FamilyManager(models.Manager):
     Used in several places, such as the Families roster and the lists of families
     that appear in the picklists in the batch tools.
     """
-    def get_query_set(self):
+    def get_queryset(self):
         return super(FamilyManager, self).get_query_set().filter(student__enrolled=True).distinct()
 
 
@@ -141,7 +141,7 @@ class ProfileManager(models.Manager):
         Profile.has_students.all()
     thus excluding parents in the system that do not have enrolled students.
     """
-    def get_query_set(self):
+    def get_queryset(self):
         return super(ProfileManager, self).get_query_set().filter(family__student__enrolled=True).order_by('user__last_name').distinct()
 
 
@@ -150,7 +150,7 @@ class Profile(models.Model):
     """
     A Profile object is a foreignkey to User - you must create a user before creating a Profile.
     """
-    user = models.ForeignKey(User,related_name="profileuser")
+    user = models.OneToOneField(User)
     family = models.ForeignKey(Family,blank=True,null=True)
     avatar = ThumbnailerImageField('Personal Photo / Headshot',
         upload_to=get_avatar_path, blank=True,null=True,
@@ -176,7 +176,7 @@ class Profile(models.Model):
     facebook = models.CharField(blank=True, max_length=100, help_text='Your username on FaceBook, e.g. &quot;janedoe&quot;. <br />Get a FaceBook username <a href=http://www.facebook.com/username/>here</a>.')
     url_title = models.CharField('URL Title',blank=True, max_length=120, help_text='Title of your business or personal URL.')
     url = models.URLField('URL',blank=True, help_text='Business or personal URL.')
-    primary_contact = models.BooleanField('Primary contact for this family?')
+    primary_contact = models.BooleanField('Primary contact for this family?', default=False)
     board_pos = models.ManyToManyField(BoardPosition,help_text="Select the BOARD position(s) this person currently holds.",verbose_name='Board Position',blank=True)
     comm_job = models.ManyToManyField(CommitteeJob,help_text="Select the COMMITTEE JOB(s) (family job) this person currently holds.",verbose_name='Committee Job',blank=True)
     has_timesheet = models.BooleanField(default=False,help_text="Enable for staff/faculty who use hourly timesheets (Treasurer will upload via FTP; will become available from members Profile page.)")
@@ -266,7 +266,7 @@ class StudentEmergency(models.Model):
     auth_epipen = models.BooleanField('EpiPen (epinephrine)',default=False)
     auth_other = models.TextField('Describe other',blank=True,null=True,help_text='If you selected Other above, please describe.')
     media_release = models.BooleanField(default=True,help_text='I authorize the terms of Media Release as described.')
-    authorized = models.BooleanField(help_text='This emergency form is not valid until this box is checked and the form is saved.')
+    authorized = models.BooleanField(default=False, help_text='This emergency form is not valid until this box is checked and the form is saved.')
     auth_date = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -285,7 +285,7 @@ class BillingPeriodManager(models.Manager):
         BillingPeriod.current.get()
     """
 
-    def get_query_set(self):
+    def get_queryset(self):
         the_date = datetime.date.today
         return super(BillingPeriodManager, self).get_query_set().filter(start__lte=the_date,end__gte=the_date,)
 

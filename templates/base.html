@@ -78,7 +78,7 @@
     <li><a href="{% url 'listgen' %}" title="Mailing Lists">Lists</a></li>
     <li><a href="" title="Profile">My Profile</a></li>
     {% if myfam_id %}
-    <li><a href="{% url 'family_contact' user.get_profile.family.id %}">My Family</a></li>
+    <li><a href="{% url 'family_contact' user.profile.family.id %}">My Family</a></li>
     {% endif %}
 
   	<li><a href="http://crestmontschool.org/" title="Public">Public Site</a>

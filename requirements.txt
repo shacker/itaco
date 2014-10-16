@@ -2,7 +2,7 @@ Django==1.7
 docutils
 django-extensions
 vobject
-easy_thumbnails
+easy-thumbnails
 PIL
 MySQL-python
 django-localflavor

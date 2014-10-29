@@ -1,4 +1,5 @@
-from itaco.models import Family, Profile, Student, SchoolYear, BoardPosition
+from itaco.models import Family, Student, SchoolYear, BoardPosition
+from accounts.models import Profile
 from apply.models import Application, STATUS_CHOICES
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext

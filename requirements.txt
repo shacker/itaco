@@ -3,6 +3,7 @@ docutils
 django-extensions
 vobject
 easy-thumbnails
+git+https://github.com/bread-and-pepper/django-userena.git
 PIL
 MySQL-python
 django-localflavor

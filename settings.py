@@ -12,6 +12,8 @@ ADMINS = (
 MANAGERS = ADMINS
 PROJECT_DIR = os.path.realpath(os.path.dirname(__file__))
 
+
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -50,9 +52,9 @@ SECRET_KEY = 'e4tal2awmr310ezp09df!=yy(klri$uh$&xg$#5m7jjxr(waz5'
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
-    # 'django.template.loaders.app_directories.load_template_source',
     'django.template.loaders.app_directories.Loader',
 )
+
 
 
 MIDDLEWARE_CLASSES = (
@@ -65,9 +67,18 @@ MIDDLEWARE_CLASSES = (
     'taco.middleware.login_req.LoginRequiredMiddleware',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
-LOGIN_URL = '/accounts/login/'
+# Recommended by Userena
+USERENA_SIGNIN_REDIRECT_URL = '/accounts/%(username)s/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
 
 LOGIN_EXEMPT_URLS = (
     r'^accounts/password/reset/', # Users with forgotten passwords must be able to access password reset form.
@@ -94,6 +105,8 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'django_extensions',
     'localflavor',
+    'accounts',
+
 )
 
 
@@ -110,8 +123,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # THUMBNAIL_PREFIX = '/cache/'
 # THUMBNAIL_CACHE_TIMEOUT = 3600 * 24 * 365
 
+# Required by django-guardian, which is required by django-userena
+ANONYMOUS_USER_ID = -1
+
 # Our custom Django profiles are held in the Profile model, which inherits from User
-AUTH_PROFILE_MODULE = 'itaco.Profile'
+AUTH_PROFILE_MODULE = 'accounts.Profile'
 
 
 # Annual obligations (in units per family) as specified in Crestmont Contract

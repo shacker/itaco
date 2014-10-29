@@ -2,6 +2,7 @@ from itaco.models import *
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import messages
+from accounts.admin import ProfileInline
 
 # Admin Action to batch-set students to alumni
 def make_alumni(modeladmin, request, queryset):
@@ -25,17 +26,6 @@ class StudentInline(admin.TabularInline):
     model = Student
     extra = 1
 
-class ProfileAdmin(admin.ModelAdmin):
-    search_fields = ['user__last_name','user__first_name']
-    raw_id_fields = ('user', )
-    list_display = ('profile_name','title','participating_parent','no_lists',)
-    list_editable = ('participating_parent',)
-    filter_horizontal = ('list_extras','comm_job','board_pos')
-
-
-class ProfileInline(admin.TabularInline):
-    model = Profile
-    extra = 0
 
 class FamilyAdmin(admin.ModelAdmin):
     list_display = ('famname','fa_factor',)
@@ -84,7 +74,6 @@ class CommitteeJobAdmin(admin.ModelAdmin):
 admin.site.register(CommitteeJob, CommitteeJobAdmin)
 admin.site.register(ListExtra,ListExtraAdmin)
 admin.site.register(Family,FamilyAdmin)
-admin.site.register(Profile,ProfileAdmin)
 admin.site.register(Student,StudentAdmin)
 admin.site.register(StudentEmergency,StudentEmergencyAdmin)
 admin.site.register(Credit,CreditAdmin)

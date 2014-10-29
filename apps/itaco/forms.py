@@ -2,6 +2,7 @@ from django.db import models
 from django.forms import ModelForm
 from django import forms
 from itaco.models import *
+from accounts.models import Profile
 
 
 class ChargeForm(ModelForm):
@@ -37,6 +38,7 @@ class PartCredForm(ModelForm):
 class CreditForm(ModelForm):
     class Meta:
         model = Credit
+        exclude = ()
 
 class StudentForm(ModelForm):
 

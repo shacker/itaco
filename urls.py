@@ -28,6 +28,8 @@ urlpatterns = patterns('',
     # (r'^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
     # url(r'^profiles/(?P<username>[-\w]+)/$', 'profiles.views.profile_detail', name='profiles_profile_detail'),
     # (r'^profiles/', include('profiles.urls')),
+    (r'^accounts/', include('userena.urls')),
+
 
     (r'^favicon\.ico$', RedirectView.as_view(url='/static/images/flower.gif')),
 )
